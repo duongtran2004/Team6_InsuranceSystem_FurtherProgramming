@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<GridPane maxHeight="900.0" maxWidth="1600.0" minHeight="450.0" minWidth="800.0" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+    <columnConstraints>
+        <ColumnConstraints hgrow="ALWAYS" maxWidth="300.0" minWidth="0.0" prefWidth="0.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="Infinity" minWidth="800.0" prefWidth="800" />
+        <ColumnConstraints hgrow="ALWAYS" maxWidth="300.0" minWidth="0.0" prefWidth="0.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints maxHeight="100.0" minHeight="0.0" prefHeight="0.0" vgrow="ALWAYS" />
+        <RowConstraints maxHeight="Infinity" minHeight="450.0" prefHeight="450.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="100.0" minHeight="0.0" prefHeight="0.0" vgrow="ALWAYS" />
+    </rowConstraints>
+    <children>
+        <GridPane maxHeight="900.0" maxWidth="1600.0" minHeight="450.0" minWidth="800.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <columnConstraints>
+                <ColumnConstraints hgrow="NEVER" maxWidth="0.0" minWidth="0.0" prefWidth="0.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints maxHeight="130.0" minHeight="65.0" prefHeight="65.0" vgrow="ALWAYS" />
+                <RowConstraints maxHeight="750.0" minHeight="375.0" prefHeight="375.0" vgrow="SOMETIMES" />
+
+            </rowConstraints>
+            <children>
+                <Label alignment="CENTER" maxHeight="130.0" maxWidth="1600.0" minHeight="65.0" minWidth="800.0" prefHeight="80.0" prefWidth="800.0" style="-fx-background-color: linear-gradient(to right, rgb(62, 198, 222), rgb(17, 130, 100));" text="Insurance Manager Creation Page" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                    <font>
+                        <Font name="Helvetica Neue Bold" size="37.0" />
+                    </font>
+                </Label>
+                <GridPane maxHeight="770.0" maxWidth="1600.0" minHeight="385.0" minWidth="800.0" prefHeight="385.0" prefWidth="800.0" style="-fx-background-color: rgb(233, 229, 229);" GridPane.columnIndex="1" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="ALWAYS" maxWidth="400.0" minWidth="200.0" prefWidth="265.0" />
+                        <ColumnConstraints hgrow="NEVER" maxWidth="1100.0" minWidth="500.0" prefWidth="500.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints maxHeight="96.25" minHeight="48.125" prefHeight="48.125" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="96.25" minHeight="48.125" prefHeight="48.125" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="96.25" minHeight="48.125" prefHeight="48.125" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="96.25" minHeight="48.125" prefHeight="48.125" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="96.25" minHeight="48.125" prefHeight="48.125" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="96.25" minHeight="48.125" prefHeight="48.125" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="96.25" minHeight="48.125" prefHeight="48.125" vgrow="SOMETIMES" />
+
+                    </rowConstraints>
+                    <children>
+                        <Label alignment="CENTER" maxHeight="110.0" maxWidth="400.0" minHeight="55.0" minWidth="200.0" prefHeight="55.0" prefWidth="200.0" text="Full Name">
+                            <font>
+                                <Font name="Helvetica Neue Bold" size="16.0" />
+                            </font>
+                        </Label>
+                        <Label alignment="CENTER" maxHeight="110.0" maxWidth="400.0" minHeight="55.0" minWidth="200.0" prefHeight="55.0" prefWidth="200.0" text="Address" GridPane.rowIndex="1">
+                            <font>
+                                <Font name="Helvetica Neue Bold" size="16.0" />
+                            </font>
+                        </Label>
+                        <Label alignment="CENTER" maxHeight="110.0" maxWidth="400.0" minHeight="55.0" minWidth="200.0" prefHeight="55.0" prefWidth="200.0" text="Phone Number" GridPane.rowIndex="2">
+                            <font>
+                                <Font name="Helvetica Neue Bold" size="16.0" />
+                            </font>
+                        </Label>
+                        <Label alignment="CENTER" maxHeight="110.0" maxWidth="400.0" minHeight="55.0" minWidth="200.0" prefHeight="55.0" prefWidth="200.0" text="Email" GridPane.rowIndex="3">
+                            <font>
+                                <Font name="Helvetica Neue Bold" size="16.0" />
+                            </font>
+                        </Label>
+                        <Label alignment="CENTER" maxHeight="110.0" maxWidth="400.0" minHeight="55.0" minWidth="200.0" prefHeight="55.0" prefWidth="200.0" text="Password" GridPane.rowIndex="4">
+                            <font>
+                                <Font name="Helvetica Neue Bold" size="16.0" />
+                            </font>
+                        </Label>
+                        <TextField GridPane.columnIndex="1" GridPane.hgrow="NEVER" />
+                        <TextField GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="1" />
+                        <TextField GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="2" />
+                        <TextField GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="3" />
+                        <HBox alignment="CENTER_LEFT" minWidth="500.0" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.vgrow="NEVER">
+                            <children>
+                                <PasswordField alignment="CENTER" />
+                                <Label alignment="CENTER" maxHeight="96.25" maxWidth="400.0" minHeight="48.125" minWidth="200.0" prefHeight="48.125" prefWidth="200.0" text="Re-enter Password">
+                                    <font>
+                                        <Font name="Helvetica Neue Bold" size="16.0" />
+                                    </font>
+                                </Label>
+                                <PasswordField />
+                            </children>
+                        </HBox>
+                        <ButtonBar minWidth="500.0" prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                            <buttons>
+                                <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="276.0" style="-fx-background-color: linear-gradient(to right, rgb(62, 198, 222), rgb(17, 130, 100));" text="Button">
+                                    <font>
+                                        <Font name="Helvetica Neue Bold" size="16.0" />
+                                    </font>
+                                </Button>
+                                <Button mnemonicParsing="false" style="-fx-background-color: linear-gradient(to right, rgb(62, 198, 222), rgb(17, 130, 100));" text="Submit">
+                                    <font>
+                                        <Font name="Helvetica Neue Bold" size="16.0" />
+                                    </font>
+                                </Button>
+                            </buttons>
+                        </ButtonBar>
+                        <Label alignment="CENTER_RIGHT" minWidth="500.0" prefHeight="54.0" prefWidth="500.0" text="* Passwords do not match. Please try again." textFill="#e81111" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                    </children>
+                    <GridPane.margin>
+                        <Insets />
+                    </GridPane.margin>
+                    <padding>
+                        <Insets left="50.0" right="50.0" />
+                    </padding>
+                </GridPane>
+            </children>
+        </GridPane>
+    </children>
+</GridPane>
