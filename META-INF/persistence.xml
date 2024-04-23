@@ -5,13 +5,7 @@
              version="3.0">
   <persistence-unit name="default">
 
-    <class>Entity.Beneficiary</class>
-      <class>Entity.Claims</class>
-      <class>Entity.InsuranceCard</class>
-      <class>Entity.InsuranceManager</class>
-      <class>Entity.InsuranceSurveyor</class>
-      <class>Entity.PolicyOwner</class>
-      <class>Entity.SystemAdmin</class>
+
       <properties>
           <property name="hibernate.connection.url"
                     value="jdbc:postgresql://aws-0-ap-southeast-1.pooler.supabase.com:5432/postgres"/>
