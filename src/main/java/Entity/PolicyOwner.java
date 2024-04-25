@@ -12,7 +12,7 @@ import java.util.Collection;
  */
 @Entity
 @Table(name = "POLICY_OWNER", schema = "public", catalog = "postgres")
-public class PolicyOwner {
+public class PolicyOwner extends User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")

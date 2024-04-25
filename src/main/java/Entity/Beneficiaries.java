@@ -11,7 +11,11 @@ import java.util.Collection;
  * @project InsuranceManagementApplication
  */
 @Entity
-public class Beneficiaries {
+@Table(name = "BENEFICIARIES")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+
+@DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
+public class Beneficiaries extends User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")
@@ -47,6 +51,14 @@ public class Beneficiaries {
     private InsuranceCard insuranceCard;
     @OneToMany(mappedBy = "insuredPerson")
     private Collection<Claim> listOfClaims;
+
+    public Beneficiaries(String id, String name, String password, String email, String phoneNumber, String address) {
+        super(id, name, password, email, phoneNumber, address);
+    }
+
+    public Beneficiaries() {
+        super();
+    }
 
     public String getId() {
         return id;

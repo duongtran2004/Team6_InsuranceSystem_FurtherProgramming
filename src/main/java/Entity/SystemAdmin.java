@@ -10,11 +10,11 @@ import jakarta.persistence.*;
  */
 @Entity
 @Table(name = "SYSTEM_ADMIN", schema = "public", catalog = "postgres")
-public class SystemAdmin {
+public class SystemAdmin extends User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")
-    private long id;
+    private String id;
     @Basic
     @Column(name = "full_name")
     private String fullName;
@@ -31,11 +31,11 @@ public class SystemAdmin {
     @Column(name = "password")
     private String password;
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -98,7 +98,7 @@ public class SystemAdmin {
 
     @Override
     public int hashCode() {
-        int result = (int) (id ^ (id >>> 32));
+        int result = (id != null ? id.hashCode() : 0); // Use id.hashCode() directly for String id
         result = 31 * result + (fullName != null ? fullName.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (address != null ? address.hashCode() : 0);
@@ -106,4 +106,5 @@ public class SystemAdmin {
         result = 31 * result + (password != null ? password.hashCode() : 0);
         return result;
     }
+
 }
