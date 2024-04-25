@@ -6,12 +6,19 @@
   <persistence-unit name="default">
 
 
-      <properties>
-          <property name="hibernate.connection.url"
-                    value="jdbc:postgresql://aws-0-ap-southeast-1.pooler.supabase.com:5432/postgres"/>
-          <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
-          <property name="hibernate.connection.username" value="postgres.oipapkmmfzkqwnfbugtz"/>
-          <property name="hibernate.connection.password" value="Lacussaber12345@@@"/>
-      </properties>
+    <class>Entity.Beneficiaries</class>
+    <class>Entity.Claim</class>
+    <class>Entity.InsuranceCard</class>
+    <class>Entity.InsuranceManager</class>
+    <class>Entity.InsuranceSurveyor</class>
+    <class>Entity.PolicyOwner</class>
+    <class>Entity.SystemAdmin</class>
+    <properties>
+      <property name="hibernate.connection.url"
+                value="jdbc:postgresql://aws-0-ap-southeast-1.pooler.supabase.com:5432/postgres"/>
+      <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
+      <property name="hibernate.connection.username" value="postgres.lfmakwarfqeintgjcseo"/>
+      <property name="hibernate.connection.password" value="DuongTrungTri"/>
+    </properties>
   </persistence-unit>
 </persistence>
