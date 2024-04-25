@@ -4,7 +4,13 @@
              xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
              version="3.0">
   <persistence-unit name="default">
-
+    <class>Entity.Beneficiaries</class>
+    <class>Entity.Claim</class>
+    <class>Entity.InsuranceCard</class>
+    <class>Entity.InsuranceManager</class>
+    <class>Entity.InsuranceSurveyor</class>
+    <class>Entity.PolicyOwner</class>
+    <class>Entity.SystemAdmin</class>
 
 
     <properties>
