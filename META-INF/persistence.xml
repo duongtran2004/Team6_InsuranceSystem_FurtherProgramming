@@ -6,13 +6,7 @@
   <persistence-unit name="default">
 
 
-    <class>Entity.Beneficiaries</class>
-    <class>Entity.Claim</class>
-    <class>Entity.InsuranceCard</class>
-    <class>Entity.InsuranceManager</class>
-    <class>Entity.InsuranceSurveyor</class>
-    <class>Entity.PolicyOwner</class>
-    <class>Entity.SystemAdmin</class>
+
     <properties>
       <property name="hibernate.connection.url"
                 value="jdbc:postgresql://aws-0-ap-southeast-1.pooler.supabase.com:5432/postgres"/>
