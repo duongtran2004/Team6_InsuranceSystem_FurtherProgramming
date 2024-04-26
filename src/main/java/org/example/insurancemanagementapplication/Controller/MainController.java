@@ -1,6 +1,10 @@
 package org.example.insurancemanagementapplication.Controller;
 
 import jakarta.persistence.EntityManager;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 
 /**
  * @author Luong Thanh Trung
@@ -22,4 +26,13 @@ public class MainController {
     public void setEntityManager(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
+
+    private TextField useridField;
+    private TextField emailField;
+    private TextField passwordField;
+    private ChoiceBox<String> roleSelectionBox;
+    private Button loginButton;
+    private Label errorContainer;
+
+
 }

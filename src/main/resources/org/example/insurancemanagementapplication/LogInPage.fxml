@@ -55,7 +55,7 @@
         <RowConstraints maxHeight="125.0" minHeight="0.0" prefHeight="0.0" vgrow="ALWAYS" />
     </rowConstraints>
     <children>
-        <GridPane maxHeight="900.0" maxWidth="1600.0" minHeight="450.0" minWidth="800.0" prefHeight="450.0" prefWidth="800.0" style="-fx-background-color: red;" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
+        <GridPane maxHeight="900.0" maxWidth="1600.0" minHeight="450.0" minWidth="800.0" prefHeight="450.0" prefWidth="800.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
             <columnConstraints>
                 <ColumnConstraints hgrow="ALWAYS" maxWidth="1600" minWidth="800" />
             </columnConstraints>
@@ -65,7 +65,7 @@
                 <RowConstraints maxHeight="50" minHeight="25" vgrow="ALWAYS" />
             </rowConstraints>
          <children>
-            <GridPane id="mainContainer" maxHeight="700.0" maxWidth="1600.0" minHeight="350.0" minWidth="800.0" stylesheets="@CSS/LogInStyleSheet.css" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
+            <GridPane id="mainContainer" maxHeight="700.0" maxWidth="1600.0" minHeight="350.0" minWidth="800.0" style="-fx-background-color: rgb(233, 229, 229);" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
               <columnConstraints>
                 <ColumnConstraints hgrow="ALWAYS" maxWidth="600.0" minWidth="260.0" prefWidth="260.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="800.0" minWidth="340.0" prefWidth="340.0" />
@@ -98,13 +98,13 @@
                         <Font name="Helvetica Neue Bold" size="16.0" />
                      </font>
                   </Label>
-                  <TextField GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" />
-                  <TextField GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
-                  <TextField GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" />
-                  <ChoiceBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField id="userIdField" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" />
+                  <TextField id="emailField" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
+                  <TextField id="passwordField" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" />
+                  <ChoiceBox id="roleSelectionBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                     <buttons>
-                      <Button id="loginButton" mnemonicParsing="false" prefHeight="37.0" prefWidth="155.0" stylesheets="@CSS/LogInStyleSheet.css" text="Log In">
+                      <Button id="loginButton" mnemonicParsing="false" prefHeight="37.0" prefWidth="155.0" style="-fx-background-color: linear-gradient(to right, rgb(62, 198, 222), rgb(17, 130, 100));" text="Log In">
                            <font>
                               <Font name="Helvetica Neue" size="16.0" />
                            </font>
@@ -116,12 +116,12 @@
                   <Insets left="50.0" right="150.0" />
                </padding>
             </GridPane>
-            <Label id="headerContainer" alignment="CENTER" maxHeight="150.0" maxWidth="1600.0" minHeight="75.0" minWidth="800.0" prefHeight="75.0" prefWidth="800.0" stylesheets="@CSS/LogInStyleSheet.css" text="Log In To Your Account" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+            <Label id="headerContainer" alignment="CENTER" maxHeight="150.0" maxWidth="1600.0" minHeight="75.0" minWidth="800.0" prefHeight="75.0" prefWidth="800.0" style="-fx-background-color: linear-gradient(to right, rgb(62, 198, 222), rgb(17, 130, 100));" text="Log In To Your Account" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
                <font>
                   <Font name="Helvetica Neue Bold" size="32.0" />
                </font>
             </Label>
-            <Label id="errorContainer" alignment="CENTER_RIGHT" maxHeight="50.0" maxWidth="1600.0" minHeight="25.0" minWidth="800.0" prefHeight="27.0" prefWidth="800.0" stylesheets="@CSS/LogInStyleSheet.css" text="* UserId not Found. Please Try Again" textFill="#f51d1d" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
+            <Label id="errorContainer" alignment="CENTER_RIGHT" maxHeight="50.0" maxWidth="1600.0" minHeight="25.0" minWidth="800.0" prefHeight="27.0" prefWidth="800.0" style="-fx-background-color: rgb(233, 229, 229);" textFill="#f51d1d" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
                <padding>
                   <Insets right="150.0" />
                </padding>
