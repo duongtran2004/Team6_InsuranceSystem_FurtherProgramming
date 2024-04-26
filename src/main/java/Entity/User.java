@@ -2,6 +2,14 @@ package Entity;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
+/**
+ * @author Luong Thanh Trung
+ * @version ${}
+ * @created 26/04/2024 10:58
+ * @project InsuranceManagementTeamProject
+ */
 @MappedSuperclass
 public class User {
     @Id
@@ -11,14 +19,14 @@ public class User {
     @Column(name = "full_name")
     private String fullName;
     @Basic
-    @Column(name = "email")
-    private String email;
-    @Basic
     @Column(name = "address")
     private String address;
     @Basic
     @Column(name = "phone_number")
     private String phoneNumber;
+    @Basic
+    @Column(name = "email")
+    private String email;
     @Basic
     @Column(name = "password")
     private String password;
@@ -39,14 +47,6 @@ public class User {
         this.fullName = fullName;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getAddress() {
         return address;
     }
@@ -63,6 +63,14 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -75,27 +83,12 @@ public class User {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         User that = (User) o;
-
-        if (id != that.id) return false;
-        if (fullName != null ? !fullName.equals(that.fullName) : that.fullName != null) return false;
-        if (email != null ? !email.equals(that.email) : that.email != null) return false;
-        if (address != null ? !address.equals(that.address) : that.address != null) return false;
-        if (phoneNumber != null ? !phoneNumber.equals(that.phoneNumber) : that.phoneNumber != null) return false;
-        if (password != null ? !password.equals(that.password) : that.password != null) return false;
-
-        return true;
+        return Objects.equals(id, that.id) && Objects.equals(fullName, that.fullName) && Objects.equals(address, that.address) && Objects.equals(phoneNumber, that.phoneNumber) && Objects.equals(email, that.email) && Objects.equals(password, that.password);
     }
 
     @Override
     public int hashCode() {
-        int result = (id != null ? id.hashCode() : 0); // Use id.hashCode() directly for String id
-        result = 31 * result + (fullName != null ? fullName.hashCode() : 0);
-        result = 31 * result + (email != null ? email.hashCode() : 0);
-        result = 31 * result + (address != null ? address.hashCode() : 0);
-        result = 31 * result + (phoneNumber != null ? phoneNumber.hashCode() : 0);
-        result = 31 * result + (password != null ? password.hashCode() : 0);
-        return result;
+        return Objects.hash(id, fullName, address, phoneNumber, email, password);
     }
 }

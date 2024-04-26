@@ -1,14 +1,16 @@
 package Entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 import java.util.Collection;
 
 /**
  * @author
  * @version ${}
- * @created 25/04/2024 14:10
- * @project InsuranceManagementApplication
+ * @created 26/04/2024 10:58
+ * @project InsuranceManagementTeamProject
  */
 @Entity
 @Table(name = "insurance_manager", schema = "public", catalog = "postgres")

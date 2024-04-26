@@ -1,16 +1,16 @@
 package Entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
 /**
  * @author
  * @version ${}
- * @created 25/04/2024 14:10
- * @project InsuranceManagementApplication
+ * @created 26/04/2024 10:58
+ * @project InsuranceManagementTeamProject
  */
 @Entity
 @Table(name = "system_admin", schema = "public", catalog = "postgres")
 public class SystemAdmin extends User {
-
 
 }

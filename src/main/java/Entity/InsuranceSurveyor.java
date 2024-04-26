@@ -7,8 +7,8 @@ import java.util.Collection;
 /**
  * @author
  * @version ${}
- * @created 25/04/2024 14:10
- * @project InsuranceManagementApplication
+ * @created 26/04/2024 10:58
+ * @project InsuranceManagementTeamProject
  */
 @Entity
 @Table(name = "insurance_surveyor", schema = "public", catalog = "postgres")
@@ -19,6 +19,11 @@ public class InsuranceSurveyor extends User {
     @ManyToOne
     @JoinColumn(name = "insurance_manager_id", referencedColumnName = "id", nullable = false)
     private InsuranceManager insuranceManager;
+
+
+
+
+
     public Collection<Claim> getListOfClaims() {
         return listOfClaims;
     }

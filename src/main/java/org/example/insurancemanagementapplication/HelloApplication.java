@@ -29,13 +29,14 @@ public class HelloApplication extends Application {
         try{
             transaction.begin();
             SystemAdmin systemAdmin = new SystemAdmin();
-            systemAdmin.setId("SA12345678");
-            systemAdmin.setFullName("Luong Thanh Trung");
+            systemAdmin.setId("SA1232678");
+            systemAdmin.setFullName("Tran Ba Duong");
             systemAdmin.setPassword("Lacussaber123");
             systemAdmin.setEmail("trungluong0806@gmail.com");
             systemAdmin.setPhoneNumber("0909154614");
             systemAdmin.setAddress("819 Swanston street Carlton 3053 VIC");
             entityManager.persist(systemAdmin);
+
             transaction.commit();
         } finally {
             if (transaction.isActive()){

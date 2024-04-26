@@ -1,18 +1,20 @@
 package Entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 import java.util.Collection;
 
 /**
  * @author
  * @version ${}
- * @created 25/04/2024 14:10
- * @project InsuranceManagementApplication
+ * @created 26/04/2024 10:58
+ * @project InsuranceManagementTeamProject
  */
 @Entity
 @Table(name = "policy_owner", schema = "public", catalog = "postgres")
-public class PolicyOwner extends User {
+public class PolicyOwner extends Customer {
 
     @OneToMany(mappedBy = "policyOwner")
     private Collection<Beneficiaries> listOfBeneficiaries;
@@ -20,6 +22,8 @@ public class PolicyOwner extends User {
     private Collection<Claim> listOfClaims;
     @OneToMany(mappedBy = "policyOwner")
     private Collection<InsuranceCard> listOfInsuranceCards;
+
+
 
     public Collection<Beneficiaries> getListOfBeneficiaries() {
         return listOfBeneficiaries;
