@@ -29,8 +29,8 @@ public class HelloApplication extends Application {
         try{
             transaction.begin();
             SystemAdmin systemAdmin = new SystemAdmin();
-            systemAdmin.setId("SA1232678");
-            systemAdmin.setFullName("Tran Ba Duong");
+            systemAdmin.setId("SA9252678");
+            systemAdmin.setFullName("Tran Ba Dao");
             systemAdmin.setPassword("Lacussaber123");
             systemAdmin.setEmail("trungluong0806@gmail.com");
             systemAdmin.setPhoneNumber("0909154614");

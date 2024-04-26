@@ -73,7 +73,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                org.example.insurancemanagementapplication/org.example.insurancemanagementapplication.HelloApplication
+                                org.example.insurancemanagementapplication.HelloApplication
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
