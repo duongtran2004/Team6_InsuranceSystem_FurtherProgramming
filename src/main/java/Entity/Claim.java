@@ -3,16 +3,16 @@ package Entity;
 import jakarta.persistence.*;
 
 import java.sql.Date;
+import java.util.Objects;
 
 /**
  * @author
  * @version ${}
- * @created 25/04/2024 14:10
- * @project InsuranceManagementApplication
+ * @created 26/04/2024 10:58
+ * @project InsuranceManagementTeamProject
  */
 @Entity
 public class Claim {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "claim_id")
     private String claimId;
@@ -88,27 +88,13 @@ public class Claim {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Claim claim = (Claim) o;
-
-        if (Float.compare(claimAmount, claim.claimAmount) != 0) return false;
-        if (claimId != null ? !claimId.equals(claim.claimId) : claim.claimId != null) return false;
-        if (creationDate != null ? !creationDate.equals(claim.creationDate) : claim.creationDate != null) return false;
-        if (settlementDate != null ? !settlementDate.equals(claim.settlementDate) : claim.settlementDate != null)
-            return false;
-        if (status != null ? !status.equals(claim.status) : claim.status != null) return false;
-
-        return true;
+        return Float.compare(claimAmount, claim.claimAmount) == 0 && Objects.equals(claimId, claim.claimId) && Objects.equals(creationDate, claim.creationDate) && Objects.equals(settlementDate, claim.settlementDate) && Objects.equals(status, claim.status);
     }
 
     @Override
     public int hashCode() {
-        int result = claimId != null ? claimId.hashCode() : 0;
-        result = 31 * result + (creationDate != null ? creationDate.hashCode() : 0);
-        result = 31 * result + (settlementDate != null ? settlementDate.hashCode() : 0);
-        result = 31 * result + (status != null ? status.hashCode() : 0);
-        result = 31 * result + (claimAmount != 0.0f ? Float.floatToIntBits(claimAmount) : 0);
-        return result;
+        return Objects.hash(claimId, creationDate, settlementDate, status, claimAmount);
     }
 
     public Beneficiaries getInsuredPerson() {
