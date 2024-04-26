@@ -11,6 +11,7 @@ import java.sql.Date;
  * @project InsuranceManagementApplication
  */
 @Entity
+@Table(name = "claim")
 public class Claim {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id

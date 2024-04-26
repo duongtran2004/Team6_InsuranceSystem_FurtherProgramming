@@ -12,9 +12,8 @@ import java.util.Collection;
  * @project InsuranceManagementApplication
  */
 @Entity
-@Table(name = "INSURANCE_CARD", schema = "public", catalog = "postgres")
+@Table(name = "insurance_card", schema = "public", catalog = "postgres")
 public class InsuranceCard {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "card_number")
     private String cardNumber;
