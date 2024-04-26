@@ -98,13 +98,13 @@
                         <Font name="Helvetica Neue Bold" size="16.0" />
                      </font>
                   </Label>
-                  <TextField id="userIdField" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" />
-                  <TextField id="emailField" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
-                  <TextField id="passwordField" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" />
-                  <ChoiceBox id="roleSelectionBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField id="userIdField" fx:id="userIdField" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" />
+                  <TextField id="emailField" fx:id="emailField" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
+                  <TextField id="passwordField" fx:id="passwordField" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" />
+                  <ChoiceBox id="roleSelectionBox" fx:id="roleSelectionBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                     <buttons>
-                      <Button id="loginButton" mnemonicParsing="false" prefHeight="37.0" prefWidth="155.0" style="-fx-background-color: linear-gradient(to right, rgb(62, 198, 222), rgb(17, 130, 100));" text="Log In">
+                      <Button id="loginButton" fx:id="logInButton" mnemonicParsing="false" prefHeight="37.0" prefWidth="155.0" style="-fx-background-color: linear-gradient(to right, rgb(62, 198, 222), rgb(17, 130, 100));" text="Log In">
                            <font>
                               <Font name="Helvetica Neue Bold" size="16.0" />
                            </font>
@@ -121,7 +121,7 @@
                   <Font name="Helvetica Neue Bold" size="32.0" />
                </font>
             </Label>
-            <Label id="errorContainer" alignment="CENTER_RIGHT" maxHeight="50.0" maxWidth="1600.0" minHeight="25.0" minWidth="800.0" prefHeight="27.0" prefWidth="800.0" style="-fx-background-color: rgb(233, 229, 229);" textFill="#f51d1d" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
+            <Label id="errorContainer" fx:id="errorContainer" alignment="CENTER_RIGHT" maxHeight="50.0" maxWidth="1600.0" minHeight="25.0" minWidth="800.0" prefHeight="27.0" prefWidth="800.0" style="-fx-background-color: rgb(233, 229, 229);" textFill="#f51d1d" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
                <padding>
                   <Insets right="150.0" />
                </padding>

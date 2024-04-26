@@ -2,6 +2,8 @@ package org.example.insurancemanagementapplication.Controller;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -49,7 +51,36 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        System.out.println("Hello World");
         roleSelectionBox.getItems().addAll(roles);
+        logInButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                String email = emailField.getText();
+                String userId = userIdField.getText();
+                String password = passwordField.getText();
+                String role = roleSelectionBox.getValue();
+                EntityTransaction transaction = entityManager.getTransaction();
+                try{
+                    transaction.begin();
+                    /**
+                     * ông lấy từ database một role mà có password = password và email = email, userId = userID.
+                     * Lấy từ database nào thì tuỳ thuộc vào role
+                     * Nếu query không tìm được một entry thì set Text của errorContainer thành "User Not Found"
+                     * Nếu tìm được thì tuỳ thuộc vào role mà cast. Ví dụ nếu role = "System Admin" thì tạo một variable System Admin.
+                     * Intialize cái controller của cái user type vừa tạo bằng EntityManager và cái variable vừa tạo.
+                     * Nêú là System Admin thì initialize SystemAdminController
+                     * Load dashboard FXML tương ứng
+                     * set Controller cho dashboard đó
+                     * **/
+
+                }finally {
+                    transaction.rollback();
+                }
+
+            }
+        });
+
     }
 
     public void logIn(){
@@ -58,6 +89,8 @@ public class MainController implements Initializable {
         String password = passwordField.getText();
         String role = roleSelectionBox.getValue();
         EntityTransaction transaction = entityManager.getTransaction();
+        System.out.println(email);
+        /**
         try{
             transaction.begin();
         }finally {
@@ -65,5 +98,7 @@ public class MainController implements Initializable {
                 transaction.rollback();
             }
         }
+         **/
     }
+
 }
