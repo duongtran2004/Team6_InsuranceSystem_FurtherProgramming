@@ -106,7 +106,7 @@
                     <buttons>
                       <Button id="loginButton" mnemonicParsing="false" prefHeight="37.0" prefWidth="155.0" style="-fx-background-color: linear-gradient(to right, rgb(62, 198, 222), rgb(17, 130, 100));" text="Log In">
                            <font>
-                              <Font name="Helvetica Neue" size="16.0" />
+                              <Font name="Helvetica Neue Bold" size="16.0" />
                            </font>
                         </Button>
                     </buttons>
