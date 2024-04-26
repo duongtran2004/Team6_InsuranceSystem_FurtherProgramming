@@ -1,6 +1,7 @@
 package org.example.insurancemanagementapplication.Controller;
 
 import Entity.*;
+import jakarta.persistence.EntityManager;
 
 /**
  * @author Luong Thanh Trung
@@ -9,12 +10,14 @@ import Entity.*;
  * @project InsuranceManagementTeamProject
  */
 public class PolicyOwnerController {
+    private final EntityManager entityManager;
     private final PolicyOwner policyOwner;
     private Beneficiaries beneficiary;
     private Claim claim;
 
-    public PolicyOwnerController(PolicyOwner policyOwner) {
+    public PolicyOwnerController(PolicyOwner policyOwner, EntityManager entityManager) {
         this.policyOwner = policyOwner;
+        this.entityManager = entityManager;
     }
 
     public PolicyOwner getPolicyOwner() {
@@ -27,6 +30,7 @@ public class PolicyOwnerController {
 
     public void setBeneficiary(Beneficiaries beneficiary) {
         this.beneficiary = beneficiary;
+
     }
 
     public Claim getClaim() {
@@ -35,5 +39,9 @@ public class PolicyOwnerController {
 
     public void setClaim(Claim claim) {
         this.claim = claim;
+    }
+
+    public EntityManager getEntityManager() {
+        return entityManager;
     }
 }

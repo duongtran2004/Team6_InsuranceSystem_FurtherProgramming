@@ -2,6 +2,7 @@ package org.example.insurancemanagementapplication.Controller;
 
 import Entity.Claim;
 import Entity.Dependant;
+import jakarta.persistence.EntityManager;
 
 /**
  * @author Luong Thanh Trung
@@ -10,11 +11,13 @@ import Entity.Dependant;
  * @project InsuranceManagementTeamProject
  */
 public class DependantController {
+    private final EntityManager entityManager;
     private final Dependant dependant;
     private Claim claim;
 
-    public DependantController(Dependant dependant) {
+    public DependantController(Dependant dependant, EntityManager entityManager) {
         this.dependant = dependant;
+        this.entityManager = entityManager;
     }
 
     public Dependant getDependant() {
@@ -27,5 +30,9 @@ public class DependantController {
 
     public void setClaim(Claim claim) {
         this.claim = claim;
+    }
+
+    public EntityManager getEntityManager() {
+        return entityManager;
     }
 }

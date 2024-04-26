@@ -3,6 +3,7 @@ package org.example.insurancemanagementapplication.Controller;
 import Entity.Claim;
 import Entity.Dependant;
 import Entity.PolicyHolder;
+import jakarta.persistence.EntityManager;
 
 /**
  * @author Luong Thanh Trung
@@ -11,12 +12,14 @@ import Entity.PolicyHolder;
  * @project InsuranceManagementTeamProject
  */
 public class PolicyHolderController {
+    private final EntityManager entityManager;
     private final PolicyHolder policyHolder;
     private Dependant dependant;
     private Claim claim;
 
-    public PolicyHolderController(PolicyHolder policyHolder) {
+    public PolicyHolderController(PolicyHolder policyHolder, EntityManager entityManager) {
         this.policyHolder = policyHolder;
+        this.entityManager = entityManager;
     }
 
     public PolicyHolder getPolicyHolder() {
@@ -37,5 +40,9 @@ public class PolicyHolderController {
 
     public void setClaim(Claim claim) {
         this.claim = claim;
+    }
+
+    public EntityManager getEntityManager() {
+        return entityManager;
     }
 }

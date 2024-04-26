@@ -4,6 +4,7 @@ import Entity.Claim;
 import Entity.Customer;
 import Entity.InsuranceManager;
 import Entity.InsuranceSurveyor;
+import jakarta.persistence.EntityManager;
 
 /**
  * @author Luong Thanh Trung
@@ -12,13 +13,15 @@ import Entity.InsuranceSurveyor;
  * @project InsuranceManagementTeamProject
  */
 public class InsuranceManagerController {
+    private final EntityManager entityManager;
     private final InsuranceManager insuranceManager;
     private InsuranceSurveyor insuranceSurveyor;
     private Customer customer;
     private Claim claim;
 
-    public InsuranceManagerController(InsuranceManager insuranceManager) {
+    public InsuranceManagerController(InsuranceManager insuranceManager, EntityManager entityManager) {
         this.insuranceManager = insuranceManager;
+        this.entityManager = entityManager;
     }
 
     public InsuranceManager getInsuranceManager() {
@@ -47,5 +50,9 @@ public class InsuranceManagerController {
 
     public void setClaim(Claim claim) {
         this.claim = claim;
+    }
+
+    public EntityManager getEntityManager() {
+        return entityManager;
     }
 }
