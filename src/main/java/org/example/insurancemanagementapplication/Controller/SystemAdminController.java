@@ -8,14 +8,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import org.example.insurancemanagementapplication.Interfaces.CustomerCreateRemove;
 import org.example.insurancemanagementapplication.Interfaces.EmployeeAnalytics;
 import org.example.insurancemanagementapplication.Interfaces.EmployeeCreateRemove;
 
 import java.net.URL;
-import java.util.List;
-import java.util.ListIterator;
 import java.util.ResourceBundle;
 
 /**
@@ -72,23 +69,7 @@ public class SystemAdminController implements EmployeeCreateRemove, CustomerCrea
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        List<InsuranceManager> insuranceManagers = EmployeeAnalytics.getAllInsuranceManager(entityManager);
-        ListIterator<InsuranceManager> listIterator = insuranceManagers.listIterator();
-        while (listIterator.hasNext()){
-            InsuranceManager insuranceManager = listIterator.next();
-            insuranceManager.setPhoneNumberTextField(new TextField(insuranceManager.getPhoneNumber()));
-            insuranceManager.setAddressTextField(new TextField(insuranceManager.getAddress()));
-            insuranceManager.setEmailTextField(new TextField(insuranceManager.getEmail()));
-            insuranceManager.setPasswordTextField(new TextField(insuranceManager.getPassword()));
-        }
-        managerId.setCellValueFactory(new PropertyValueFactory<InsuranceManager, String>("id"));
-        managerFullName.setCellValueFactory(new PropertyValueFactory<InsuranceManager, String>("fullName"));
-        managerEmail.setCellValueFactory(new PropertyValueFactory<InsuranceManager, TextField>("emailTextField"));
-        managerAddress.setCellValueFactory(new PropertyValueFactory<InsuranceManager, TextField>("addressTextField"));
-        managerPhoneNumber.setCellValueFactory(new PropertyValueFactory<InsuranceManager, TextField>("phoneNumberTextField"));
-        managerPassword.setCellValueFactory(new PropertyValueFactory<InsuranceManager, TextField>("passwordTextField"));
 
-        managerTable.getItems().setAll(insuranceManagers);
     }
 
 
