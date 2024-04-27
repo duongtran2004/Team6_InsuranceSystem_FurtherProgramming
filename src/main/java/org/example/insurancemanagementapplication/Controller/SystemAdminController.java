@@ -2,6 +2,7 @@ package org.example.insurancemanagementapplication.Controller;
 
 import Entity.*;
 import jakarta.persistence.EntityManager;
+import org.example.insurancemanagementapplication.Interfaces.EmployeeCreateRemove;
 
 /**
  * @author Luong Thanh Trung
@@ -9,7 +10,7 @@ import jakarta.persistence.EntityManager;
  * @created 27/04/2024 04:55
  * @project InsuranceManagementTeamProject
  */
-public class SystemAdminController {
+public class SystemAdminController implements EmployeeCreateRemove {
     private final EntityManager entityManager;
     private final SystemAdmin systemAdmin;
     private InsuranceSurveyor insuranceSurveyor;

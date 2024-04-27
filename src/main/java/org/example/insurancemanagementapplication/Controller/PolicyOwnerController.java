@@ -2,6 +2,7 @@ package org.example.insurancemanagementapplication.Controller;
 
 import Entity.*;
 import jakarta.persistence.EntityManager;
+import org.example.insurancemanagementapplication.Interfaces.CustomerCreateRemove;
 
 /**
  * @author Luong Thanh Trung
@@ -9,7 +10,7 @@ import jakarta.persistence.EntityManager;
  * @created 27/04/2024 04:54
  * @project InsuranceManagementTeamProject
  */
-public class PolicyOwnerController {
+public class PolicyOwnerController implements CustomerCreateRemove {
     private final EntityManager entityManager;
     private final PolicyOwner policyOwner;
     private Beneficiaries beneficiary;

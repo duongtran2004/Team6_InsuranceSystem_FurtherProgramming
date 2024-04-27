@@ -81,36 +81,31 @@
                                 <Font name="Helvetica Neue Bold" size="16.0" />
                             </font>
                         </Label>
-                        <TextField GridPane.columnIndex="1" GridPane.hgrow="NEVER" />
-                        <TextField GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="1" />
-                        <TextField GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="2" />
-                        <TextField GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="3" />
+                        <TextField fx:id="fullNameField" GridPane.columnIndex="1" GridPane.hgrow="NEVER" />
+                        <TextField fx:id="addressField" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="1" />
+                        <TextField fx:id="phoneNumberField" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="2" />
+                        <TextField fx:id="emailField" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="3" />
                         <HBox alignment="CENTER_LEFT" minWidth="500.0" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.vgrow="NEVER">
                             <children>
-                                <PasswordField alignment="CENTER" />
+                                <PasswordField fx:id="passwordField" alignment="CENTER" />
                                 <Label alignment="CENTER" maxHeight="96.25" maxWidth="400.0" minHeight="48.125" minWidth="200.0" prefHeight="48.125" prefWidth="200.0" text="Re-enter Password">
                                     <font>
                                         <Font name="Helvetica Neue Bold" size="16.0" />
                                     </font>
                                 </Label>
-                                <PasswordField />
+                                <PasswordField fx:id="passwordValidationField" />
                             </children>
                         </HBox>
                         <ButtonBar minWidth="500.0" prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                             <buttons>
-                                <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="276.0" style="-fx-background-color: linear-gradient(to right, rgb(62, 198, 222), rgb(17, 130, 100));" text="Button">
-                                    <font>
-                                        <Font name="Helvetica Neue Bold" size="16.0" />
-                                    </font>
-                                </Button>
-                                <Button mnemonicParsing="false" style="-fx-background-color: linear-gradient(to right, rgb(62, 198, 222), rgb(17, 130, 100));" text="Submit">
+                                <Button fx:id="submitButton" mnemonicParsing="false" prefHeight="31.0" prefWidth="174.0" style="-fx-background-color: linear-gradient(to right, rgb(62, 198, 222), rgb(17, 130, 100));" text="Submit">
                                     <font>
                                         <Font name="Helvetica Neue Bold" size="16.0" />
                                     </font>
                                 </Button>
                             </buttons>
                         </ButtonBar>
-                        <Label alignment="CENTER_RIGHT" minWidth="500.0" prefHeight="54.0" prefWidth="500.0" text="* Passwords do not match. Please try again." textFill="#e81111" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <Label fx:id="errorContainer" alignment="CENTER_RIGHT" minWidth="500.0" prefHeight="54.0" prefWidth="500.0" textFill="#e81111" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                     </children>
                     <GridPane.margin>
                         <Insets />
