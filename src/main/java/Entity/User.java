@@ -1,6 +1,7 @@
 package Entity;
 
 import jakarta.persistence.*;
+import javafx.scene.control.TextField;
 
 import java.util.Objects;
 
@@ -12,6 +13,7 @@ import java.util.Objects;
  */
 @MappedSuperclass
 public class User {
+
     @Id
     @Column(name = "id")
     private String id;
@@ -30,6 +32,16 @@ public class User {
     @Basic
     @Column(name = "password")
     private String password;
+
+    @Transient
+    private TextField addressTextField;
+    @Transient
+    private TextField phoneNumberTextField;
+    @Transient
+    private TextField emailTextField;
+    @Transient
+    private TextField passwordTextField;
+
 
     public String getId() {
         return id;
@@ -77,6 +89,38 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public TextField getAddressTextField() {
+        return addressTextField;
+    }
+
+    public void setAddressTextField(TextField addressTextField) {
+        this.addressTextField = addressTextField;
+    }
+
+    public TextField getPhoneNumberTextField() {
+        return phoneNumberTextField;
+    }
+
+    public void setPhoneNumberTextField(TextField phoneNumberTextField) {
+        this.phoneNumberTextField = phoneNumberTextField;
+    }
+
+    public TextField getEmailTextField() {
+        return emailTextField;
+    }
+
+    public void setEmailTextField(TextField emailTextField) {
+        this.emailTextField = emailTextField;
+    }
+
+    public TextField getPasswordTextField() {
+        return passwordTextField;
+    }
+
+    public void setPasswordTextField(TextField passwordTextField) {
+        this.passwordTextField = passwordTextField;
     }
 
     @Override

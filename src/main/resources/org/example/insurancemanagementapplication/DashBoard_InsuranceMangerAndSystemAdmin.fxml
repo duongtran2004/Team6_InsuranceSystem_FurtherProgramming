@@ -49,6 +49,7 @@
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
                                 <Label alignment="CENTER" prefHeight="47.0" prefWidth="425.0" text="User ID">
@@ -81,14 +82,14 @@
                                         <Font name="Helvetica Neue Bold" size="16.0" />
                                     </font>
                                 </Label>
-                                <TextField GridPane.columnIndex="1" />
-                                <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                <TextField fx:id="userIdField" GridPane.columnIndex="1" />
+                                <TextField fx:id="fullNameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                <TextField fx:id="addressField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                <TextField fx:id="phoneNumberField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                <TextField fx:id="emailField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                                     <children>
-                                        <PasswordField minWidth="200.0" />
+                                        <PasswordField fx:id="passwordField" minWidth="200.0" />
                                         <Label text="Re-Enter Password">
                                             <font>
                                                 <Font name="Helvetica Neue Bold" size="16.0" />
@@ -97,18 +98,29 @@
                                                 <Insets left="10.0" right="10.0" />
                                             </HBox.margin>
                                         </Label>
-                                        <PasswordField minWidth="200.0" />
+                                        <PasswordField fx:id="passwordValidationField" minWidth="200.0" />
                                     </children>
                                 </HBox>
                                 <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
                                     <buttons>
-                                        <Button mnemonicParsing="false" text="Update Info">
+                                        <Button fx:id="addManager" mnemonicParsing="false" style="-fx-background-color: linear-gradient(to right, rgb(62, 198, 222), rgb(17, 130, 100));" text="Add Manager">
                                             <font>
                                                 <Font name="Helvetica Neue Bold" size="16.0" />
                                             </font>
                                         </Button>
+                              <Button fx:id="addSurveyor" mnemonicParsing="false" prefHeight="27.0" prefWidth="125.0" style="-fx-background-color: linear-gradient(to right, rgb(62, 198, 222), rgb(17, 130, 100));" text="Add Surveyor">
+                                 <font>
+                                    <Font name="Helvetica Neue Bold" size="16.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="updateInfo" mnemonicParsing="false" style="-fx-background-color: linear-gradient(to right, rgb(62, 198, 222), rgb(17, 130, 100));" text="Update Info">
+                                 <font>
+                                    <Font name="Helvetica Neue Bold" size="16.0" />
+                                 </font>
+                              </Button>
                                     </buttons>
                                 </ButtonBar>
+                        <Label fx:id="errorContainer" alignment="CENTER_RIGHT" prefHeight="43.0" prefWidth="571.0" textFill="#c91919" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                             </children>
                             <padding>
                                 <Insets right="75.0" top="10.0" />
@@ -130,10 +142,14 @@
                                 <Insets right="25.0" />
                             </HBox.margin>
                             <content>
-                                <TableView maxHeight="Infinity" maxWidth="Infinity" minHeight="275.0" minWidth="850.0" prefHeight="275.0" prefWidth="850.0">
+                                <TableView fx:id="managerTable" maxHeight="Infinity" maxWidth="Infinity" minHeight="275.0" minWidth="850.0" prefHeight="275.0" prefWidth="850.0">
                                     <columns>
-                                        <TableColumn prefWidth="75.0" text="C1" />
-                                        <TableColumn prefWidth="75.0" text="C2" />
+                                        <TableColumn fx:id="managerId" prefWidth="146.0" text="Manager ID" />
+                                        <TableColumn fx:id="managerFullName" prefWidth="213.0" text="Full Name" />
+                              <TableColumn fx:id="managerAddress" prefWidth="366.0" text="Address" />
+                              <TableColumn fx:id="managerPhoneNumber" prefWidth="171.0" text="Phone Number" />
+                              <TableColumn fx:id="managerEmail" prefWidth="196.0" text="Email" />
+                              <TableColumn fx:id="managerPassword" prefWidth="155.0" text="Password" />
                                     </columns>
                                 </TableView>
                             </content>
