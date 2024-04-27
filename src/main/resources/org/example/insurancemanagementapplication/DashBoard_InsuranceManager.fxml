@@ -122,7 +122,7 @@
                         <Insets bottom="12.5" />
                     </GridPane.margin>
                 </HBox>
-                <GridPane alignment="BOTTOM_CENTER" maxHeight="400.0" maxWidth="Infinity" minHeight="400.0" minWidth="1150.0" GridPane.rowIndex="1">
+                <GridPane alignment="BOTTOM_CENTER" maxHeight="400.0" maxWidth="Infinity" minHeight="400.0" minWidth="1150.0" GridPane.rowIndex="2">
                     <columnConstraints>
                         <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
@@ -163,7 +163,7 @@
                         </Label>
                     </children>
                 </GridPane>
-                <GridPane maxHeight="400.0" maxWidth="Infinity" minHeight="400.0" minWidth="1150.0" GridPane.rowIndex="2">
+                <GridPane maxHeight="400.0" maxWidth="Infinity" minHeight="400.0" minWidth="1150.0" GridPane.rowIndex="3">
                     <columnConstraints>
                         <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
@@ -204,7 +204,7 @@
                         </Label>
                     </children>
                 </GridPane>
-                <GridPane maxHeight="400.0" maxWidth="Infinity" minHeight="400.0" minWidth="1150.0" GridPane.rowIndex="3">
+                <GridPane maxHeight="400.0" maxWidth="Infinity" minHeight="400.0" minWidth="1150.0" GridPane.rowIndex="4">
                     <columnConstraints>
                         <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
@@ -245,7 +245,7 @@
                         </Label>
                     </children>
                 </GridPane>
-                <GridPane maxHeight="400.0" maxWidth="Infinity" minHeight="400.0" minWidth="1150.0" GridPane.rowIndex="4">
+                <GridPane maxHeight="400.0" maxWidth="Infinity" minHeight="400.0" minWidth="1150.0" GridPane.rowIndex="5">
                     <columnConstraints>
                         <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
@@ -286,7 +286,7 @@
                         </Label>
                     </children>
                 </GridPane>
-                <GridPane maxHeight="400.0" maxWidth="Infinity" minHeight="400.0" minWidth="1150.0" GridPane.rowIndex="5">
+                <GridPane maxHeight="400.0" maxWidth="Infinity" minHeight="400.0" minWidth="1150.0" GridPane.rowIndex="6">
                     <columnConstraints>
                         <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
@@ -325,50 +325,51 @@
                             </font>
                         </Label>
                     </children>
-                    <GridPane maxHeight="400.0" maxWidth="Infinity" minHeight="400.0" minWidth="1150.0" GridPane.rowIndex="3">
-                        <columnConstraints>
-                            <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-                        </columnConstraints>
-                        <rowConstraints>
-                            <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="325.0" minHeight="325.0" prefHeight="325.0" vgrow="SOMETIMES" />
-                        </rowConstraints>
-                        <children>
-                            <ScrollPane fitToWidth="true" maxHeight="325" prefHeight="200.0" prefWidth="200.0" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
-                                <content>
-                                    <TableView maxHeight="Infinity" maxWidth="1600.0" minHeight="325.0" minWidth="1150.0" prefHeight="325.0" prefWidth="1600.0">
-                                        <columns>
-                                            <TableColumn maxWidth="170.0" minWidth="120.0" prefWidth="120.0" text="Claim ID" />
-                                            <TableColumn maxWidth="170.0" minWidth="120.0" prefWidth="120.0" text="Creation Date" />
-                                            <TableColumn maxWidth="170.0" minWidth="120.0" prefWidth="120.0" text="Insured Person ID" />
-                                            <TableColumn maxWidth="170.0" minWidth="120.0" prefWidth="120.0" text="Card Number" />
-                                            <TableColumn maxWidth="170.0" minWidth="120.0" prefWidth="120.0" text="Policy Owner ID" />
-                                            <TableColumn maxWidth="170.0" minWidth="120.0" prefWidth="120.0" text="Claim Amount" />
-                                            <TableColumn maxWidth="170.0" minWidth="120.0" prefWidth="120.0" text="Settlement Date" />
-                                            <TableColumn maxWidth="170.0" minWidth="120.0" prefWidth="120.0" text="Status" />
-                                 <TableColumn maxWidth="240.0" minWidth="190.0" prefWidth="190.0" text="Update Info" />
-                                        </columns>
-                                    </TableView>
-                                </content>
-                            </ScrollPane>
-                            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
-                                <children>
-                                    <Label prefHeight="20.0" prefWidth="148.0" text="Search Box" HBox.hgrow="NEVER">
-                                        <font>
-                                            <Font name="Helvetica Neue Bold" size="16.0" />
-                                        </font>
-                                    </Label>
-                                    <TextField prefHeight="25.0" prefWidth="1474.0" HBox.hgrow="ALWAYS" />
-                                </children>
-                            </HBox>
-                            <Label alignment="CENTER" prefHeight="31.0" prefWidth="1536.0" text="Claims List">
-                                <font>
-                                    <Font name="Helvetica Neue Bold" size="16.0" />
-                                </font>
-                            </Label>
-                        </children>
-                    </GridPane>
+
+                </GridPane>
+                <GridPane maxHeight="400.0" maxWidth="Infinity" minHeight="400.0" minWidth="1150.0" GridPane.rowIndex="1">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="325.0" minHeight="325.0" prefHeight="325.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <ScrollPane fitToWidth="true" maxHeight="325" prefHeight="200.0" prefWidth="200.0" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
+                            <content>
+                                <TableView maxHeight="Infinity" maxWidth="1600.0" minHeight="325.0" minWidth="1150.0" prefHeight="325.0" prefWidth="1600.0">
+                                    <columns>
+                                        <TableColumn maxWidth="170.0" minWidth="120.0" prefWidth="120.0" text="Claim ID" />
+                                        <TableColumn maxWidth="170.0" minWidth="120.0" prefWidth="120.0" text="Creation Date" />
+                                        <TableColumn maxWidth="170.0" minWidth="120.0" prefWidth="120.0" text="Insured Person ID" />
+                                        <TableColumn maxWidth="170.0" minWidth="120.0" prefWidth="120.0" text="Card Number" />
+                                        <TableColumn maxWidth="170.0" minWidth="120.0" prefWidth="120.0" text="Policy Owner ID" />
+                                        <TableColumn maxWidth="170.0" minWidth="120.0" prefWidth="120.0" text="Claim Amount" />
+                                        <TableColumn maxWidth="170.0" minWidth="120.0" prefWidth="120.0" text="Settlement Date" />
+                                        <TableColumn maxWidth="170.0" minWidth="120.0" prefWidth="120.0" text="Status" />
+                                        <TableColumn maxWidth="240.0" minWidth="190.0" prefWidth="190.0" text="Update Info" />
+                                    </columns>
+                                </TableView>
+                            </content>
+                        </ScrollPane>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
+                            <children>
+                                <Label prefHeight="20.0" prefWidth="148.0" text="Search Box" HBox.hgrow="NEVER">
+                                    <font>
+                                        <Font name="Helvetica Neue Bold" size="16.0" />
+                                    </font>
+                                </Label>
+                                <TextField prefHeight="25.0" prefWidth="1474.0" HBox.hgrow="ALWAYS" />
+                            </children>
+                        </HBox>
+                        <Label alignment="CENTER" prefHeight="31.0" prefWidth="1536.0" text="Claims List">
+                            <font>
+                                <Font name="Helvetica Neue Bold" size="16.0" />
+                            </font>
+                        </Label>
+                    </children>
                 </GridPane>
 
             </children>
