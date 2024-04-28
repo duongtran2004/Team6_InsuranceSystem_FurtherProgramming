@@ -1,6 +1,7 @@
 package org.example.insurancemanagementapplication.Interfaces;
 
 import Entity.InsuranceManager;
+import Entity.InsuranceSurveyor;
 import jakarta.persistence.EntityManager;
 
 import java.util.List;
@@ -14,7 +15,12 @@ import java.util.List;
 public interface EmployeeAnalytics {
     public static List<InsuranceManager> getAllInsuranceManager(EntityManager entityManager){
         return entityManager.createQuery(
-                "SELECT m FROM InsuranceManager m").getResultList();
+                "SELECT e FROM InsuranceManager e").getResultList();
+
+    }
+    public static List<InsuranceSurveyor> getAllInsuranceSurveyor(EntityManager entityManager){
+        return entityManager.createQuery(
+                "SELECT e FROM InsuranceSurveyor e").getResultList();
 
     }
 }

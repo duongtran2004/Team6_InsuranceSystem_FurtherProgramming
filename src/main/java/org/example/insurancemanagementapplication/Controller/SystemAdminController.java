@@ -2,15 +2,19 @@ package org.example.insurancemanagementapplication.Controller;
 
 import Entity.*;
 import jakarta.persistence.EntityManager;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import org.example.insurancemanagementapplication.Interfaces.CustomerAnalytics;
 import org.example.insurancemanagementapplication.Interfaces.CustomerCreateRemove;
 import org.example.insurancemanagementapplication.Interfaces.EmployeeAnalytics;
 import org.example.insurancemanagementapplication.Interfaces.EmployeeCreateRemove;
+import org.example.insurancemanagementapplication.Utility.IteratorUtility;
 
 import java.net.URL;
 import java.sql.Date;
@@ -67,6 +71,10 @@ public class SystemAdminController implements EmployeeCreateRemove, CustomerCrea
     private TableColumn<InsuranceManager, String> managerEmail;
     @FXML
     private TableColumn<InsuranceManager, String> managerPassword;
+    @FXML
+    private TableColumn<InsuranceManager, Button> managerUpdateInfoButton;
+    @FXML
+    private TableColumn<InsuranceManager, Button> managerAddSurveyorButton;
 
     //Insurance Surveyor Table
     @FXML
@@ -85,6 +93,8 @@ public class SystemAdminController implements EmployeeCreateRemove, CustomerCrea
     private TableColumn<InsuranceSurveyor, String> surveyorPassword;
     @FXML
     private TableColumn<InsuranceSurveyor, String> manager;
+    @FXML
+    private  TableColumn<InsuranceSurveyor, Button> surveyorUpdateInfoButton;
 
     //PolicyHolder Table
     @FXML
@@ -105,6 +115,11 @@ public class SystemAdminController implements EmployeeCreateRemove, CustomerCrea
     private TableColumn<PolicyHolder, String> policyOwnerHolderTable;
     @FXML
     private TableColumn<PolicyHolder, String> cardNumberHolderTable;
+    @FXML
+    private TableColumn<PolicyHolder, Button> policyHolderUpdateInfoButton;
+    @FXML
+    private TableColumn<PolicyHolder, Button> policyHolderAddDependantButton;
+
 
     //Dependant Table
     @FXML
@@ -125,6 +140,8 @@ public class SystemAdminController implements EmployeeCreateRemove, CustomerCrea
     private TableColumn<Dependant, String> policyOwnerDependantTable;
     @FXML
     private TableColumn<Dependant, String> cardNumberDependantTable;
+    @FXML
+    private TableColumn<Dependant, Button> dependantUpdateInfoButton;
 
     //PolicyOwner Table
     @FXML
@@ -141,6 +158,10 @@ public class SystemAdminController implements EmployeeCreateRemove, CustomerCrea
     private TableColumn<PolicyOwner, String> policyOwnerEmail;
     @FXML
     private TableColumn<PolicyOwner, String> policyOwnerPassword;
+    @FXML
+    private TableColumn<PolicyOwner, Button> policyOwnerUpdateInfoButton;
+    @FXML
+    private TableColumn<PolicyOwner, Button> policyOwnerAddPolicyButton;
 
     //Insurance Card Table
     @FXML
@@ -150,10 +171,31 @@ public class SystemAdminController implements EmployeeCreateRemove, CustomerCrea
     @FXML
     private TableColumn<InsuranceCard, String> cardHolder;
     @FXML
-    private TableColumn<InsuranceCard, String> policyOwner;
+    private TableColumn<InsuranceCard, String> policyOwnerInsuranceCardTable;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        ObservableList<InsuranceManager> insuranceManagers = FXCollections.observableArrayList();
+        IteratorUtility.addToObservableList(EmployeeAnalytics.getAllInsuranceManager(entityManager), insuranceManagers);
+
+        ObservableList<InsuranceSurveyor> insuranceSurveyors = FXCollections.observableArrayList();
+        IteratorUtility.addToObservableList(EmployeeAnalytics.getAllInsuranceSurveyor(entityManager), insuranceSurveyors);
+
+        ObservableList<PolicyOwner> policyOwners = FXCollections.observableArrayList();
+        IteratorUtility.addToObservableList(CustomerAnalytics.getAllPolicyOwner(entityManager), policyOwners);
+
+        ObservableList<PolicyHolder> policyHolders = FXCollections.observableArrayList();
+        IteratorUtility.addToObservableList(CustomerAnalytics.getAllPolicyHolder(entityManager), policyHolders);
+
+        ObservableList<Dependant> dependants = FXCollections.observableArrayList();
+        IteratorUtility.addToObservableList(CustomerAnalytics.getAllDependant(entityManager), dependants);
+
+        ObservableList<InsuranceCard> insuranceCards = FXCollections.observableArrayList();
+        IteratorUtility.addToObservableList(CustomerAnalytics.getAllInsuranceCard(entityManager), insuranceCards);
+        
+        ObservableList<Claim> claims = FXCollections.observableArrayList();
+
 
     }
 
@@ -168,41 +210,7 @@ public class SystemAdminController implements EmployeeCreateRemove, CustomerCrea
         return entityManager;
     }
 
-    public SystemAdmin getSystemAdmin() {
-        return systemAdmin;
-    }
 
-    public InsuranceSurveyor getInsuranceSurveyor() {
-        return insuranceSurveyor;
-    }
-
-    public void setInsuranceSurveyor(InsuranceSurveyor insuranceSurveyor) {
-        this.insuranceSurveyor = insuranceSurveyor;
-    }
-
-    public InsuranceManager getInsuranceManager() {
-        return insuranceManager;
-    }
-
-    public void setInsuranceManager(InsuranceManager insuranceManager) {
-        this.insuranceManager = insuranceManager;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
-    public Claim getClaim() {
-        return claim;
-    }
-
-    public void setClaim(Claim claim) {
-        this.claim = claim;
-    }
 
 
 }

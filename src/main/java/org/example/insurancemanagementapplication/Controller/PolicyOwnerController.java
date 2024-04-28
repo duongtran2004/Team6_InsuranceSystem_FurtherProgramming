@@ -3,6 +3,7 @@ package org.example.insurancemanagementapplication.Controller;
 import Entity.*;
 import jakarta.persistence.EntityManager;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import org.example.insurancemanagementapplication.Interfaces.CustomerCreateRemove;
@@ -21,7 +22,6 @@ public class PolicyOwnerController implements CustomerCreateRemove {
     private Beneficiaries beneficiary;
     private Claim claim;
 
-    //PolicyHolder Table
     @FXML
     private TableView<PolicyHolder> policyHolderTable;
     @FXML
@@ -40,6 +40,11 @@ public class PolicyOwnerController implements CustomerCreateRemove {
     private TableColumn<PolicyHolder, String> policyOwnerHolderTable;
     @FXML
     private TableColumn<PolicyHolder, String> cardNumberHolderTable;
+    @FXML
+    private TableColumn<PolicyHolder, Button> policyHolderUpdateInfoButton;
+    @FXML
+    private TableColumn<PolicyHolder, Button> policyHolderAddDependantButton;
+
 
     //Dependant Table
     @FXML
@@ -60,8 +65,8 @@ public class PolicyOwnerController implements CustomerCreateRemove {
     private TableColumn<Dependant, String> policyOwnerDependantTable;
     @FXML
     private TableColumn<Dependant, String> cardNumberDependantTable;
-
-
+    @FXML
+    private TableColumn<Dependant, Button> dependantUpdateInfoButton;
 
     //Insurance Card Table
     @FXML

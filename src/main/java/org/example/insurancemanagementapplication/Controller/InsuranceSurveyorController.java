@@ -3,6 +3,7 @@ package org.example.insurancemanagementapplication.Controller;
 import Entity.*;
 import jakarta.persistence.EntityManager;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
@@ -20,21 +21,6 @@ public class InsuranceSurveyorController {
     private Customer customer;
     private Claim claim;
     //PolicyOwner Table
-    @FXML
-    private TableView<PolicyOwner> policyOwnerTable;
-    @FXML
-    private TableColumn<PolicyOwner, String> policyOwnerId;
-    @FXML
-    private TableColumn<PolicyOwner, String> policyOwnerFullName;
-    @FXML
-    private TableColumn<PolicyOwner, String> policyOwnerAddress;
-    @FXML
-    private TableColumn<PolicyOwner, String> policyOwnerPhoneNumber;
-    @FXML
-    private TableColumn<PolicyOwner, String> policyOwnerEmail;
-    @FXML
-    private TableColumn<PolicyOwner, String> policyOwnerPassword;
-
     //PolicyHolder Table
     @FXML
     private TableView<PolicyHolder> policyHolderTable;
@@ -54,6 +40,11 @@ public class InsuranceSurveyorController {
     private TableColumn<PolicyHolder, String> policyOwnerHolderTable;
     @FXML
     private TableColumn<PolicyHolder, String> cardNumberHolderTable;
+    @FXML
+    private TableColumn<PolicyHolder, Button> policyHolderUpdateInfoButton;
+    @FXML
+    private TableColumn<PolicyHolder, Button> policyHolderAddDependantButton;
+
 
     //Dependant Table
     @FXML
@@ -74,8 +65,28 @@ public class InsuranceSurveyorController {
     private TableColumn<Dependant, String> policyOwnerDependantTable;
     @FXML
     private TableColumn<Dependant, String> cardNumberDependantTable;
+    @FXML
+    private TableColumn<Dependant, Button> dependantUpdateInfoButton;
 
-
+    //PolicyOwner Table
+    @FXML
+    private TableView<PolicyOwner> policyOwnerTable;
+    @FXML
+    private TableColumn<PolicyOwner, String> policyOwnerId;
+    @FXML
+    private TableColumn<PolicyOwner, String> policyOwnerFullName;
+    @FXML
+    private TableColumn<PolicyOwner, String> policyOwnerAddress;
+    @FXML
+    private TableColumn<PolicyOwner, String> policyOwnerPhoneNumber;
+    @FXML
+    private TableColumn<PolicyOwner, String> policyOwnerEmail;
+    @FXML
+    private TableColumn<PolicyOwner, String> policyOwnerPassword;
+    @FXML
+    private TableColumn<PolicyOwner, Button> policyOwnerUpdateInfoButton;
+    @FXML
+    private TableColumn<PolicyOwner, Button> policyOwnerAddPolicyButton;
 
     //Insurance Card Table
     @FXML
@@ -84,7 +95,6 @@ public class InsuranceSurveyorController {
     private TableColumn<InsuranceCard, Date> expiryDate;
     @FXML
     private TableColumn<InsuranceCard, String> cardHolder;
-
     @FXML
     private TableColumn<InsuranceCard, String> policyOwnerInsuranceCardTable;
 

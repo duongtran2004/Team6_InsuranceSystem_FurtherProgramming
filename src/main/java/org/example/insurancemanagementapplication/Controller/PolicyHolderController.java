@@ -5,6 +5,7 @@ import Entity.Dependant;
 import Entity.PolicyHolder;
 import jakarta.persistence.EntityManager;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
@@ -39,6 +40,8 @@ public class PolicyHolderController {
     private TableColumn<Dependant, String> policyOwnerDependantTable;
     @FXML
     private TableColumn<Dependant, String> cardNumberDependantTable;
+    @FXML
+    private TableColumn<Dependant, Button> dependantUpdateInfoButton;
 
     public PolicyHolderController(PolicyHolder policyHolder, EntityManager entityManager) {
         this.policyHolder = policyHolder;

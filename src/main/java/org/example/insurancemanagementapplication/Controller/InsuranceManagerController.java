@@ -3,6 +3,7 @@ package org.example.insurancemanagementapplication.Controller;
 import Entity.*;
 import jakarta.persistence.EntityManager;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
@@ -21,6 +22,7 @@ public class InsuranceManagerController {
     private Customer customer;
     private Claim claim;
 
+    //Insurance Surveyor Table
     @FXML
     private TableView<InsuranceSurveyor> surveyorTable;
     @FXML
@@ -37,6 +39,8 @@ public class InsuranceManagerController {
     private TableColumn<InsuranceSurveyor, String> surveyorPassword;
     @FXML
     private TableColumn<InsuranceSurveyor, String> manager;
+    @FXML
+    private  TableColumn<InsuranceSurveyor, Button> surveyorUpdateInfoButton;
 
     //PolicyHolder Table
     @FXML
@@ -57,6 +61,11 @@ public class InsuranceManagerController {
     private TableColumn<PolicyHolder, String> policyOwnerHolderTable;
     @FXML
     private TableColumn<PolicyHolder, String> cardNumberHolderTable;
+    @FXML
+    private TableColumn<PolicyHolder, Button> policyHolderUpdateInfoButton;
+    @FXML
+    private TableColumn<PolicyHolder, Button> policyHolderAddDependantButton;
+
 
     //Dependant Table
     @FXML
@@ -77,6 +86,8 @@ public class InsuranceManagerController {
     private TableColumn<Dependant, String> policyOwnerDependantTable;
     @FXML
     private TableColumn<Dependant, String> cardNumberDependantTable;
+    @FXML
+    private TableColumn<Dependant, Button> dependantUpdateInfoButton;
 
     //PolicyOwner Table
     @FXML
@@ -93,6 +104,10 @@ public class InsuranceManagerController {
     private TableColumn<PolicyOwner, String> policyOwnerEmail;
     @FXML
     private TableColumn<PolicyOwner, String> policyOwnerPassword;
+    @FXML
+    private TableColumn<PolicyOwner, Button> policyOwnerUpdateInfoButton;
+    @FXML
+    private TableColumn<PolicyOwner, Button> policyOwnerAddPolicyButton;
 
     //Insurance Card Table
     @FXML
