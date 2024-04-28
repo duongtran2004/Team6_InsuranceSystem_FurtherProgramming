@@ -3,6 +3,8 @@ package Entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
+import javafx.scene.control.Button;
 
 import java.util.Collection;
 
@@ -16,6 +18,10 @@ import java.util.Collection;
 @Table(name = "policy_owner", schema = "public", catalog = "postgres")
 public class PolicyOwner extends Customer {
 
+    @Transient
+    private Button updateInfoButton;
+    @Transient
+    private Button addDependantButton;
     @OneToMany(mappedBy = "policyOwner")
     private Collection<Beneficiaries> listOfBeneficiaries;
     @OneToMany(mappedBy = "policyOwner")
