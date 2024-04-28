@@ -14,6 +14,10 @@ import java.util.Collection;
 @Table(name = "insurance_surveyor", schema = "public", catalog = "postgres")
 public class InsuranceSurveyor extends User {
 
+    @Basic
+    @Column(name = "insurance_manager_id")
+    private String insuranceManagerId;
+
     @OneToMany(mappedBy = "insuranceSurveyor")
     private Collection<Claim> listOfClaims;
     @ManyToOne
@@ -21,8 +25,13 @@ public class InsuranceSurveyor extends User {
     private InsuranceManager insuranceManager;
 
 
+    public String getInsuranceManagerId() {
+        return insuranceManagerId;
+    }
 
-
+    public void setInsuranceManagerId(String insuranceManagerId) {
+        this.insuranceManagerId = insuranceManagerId;
+    }
 
     public Collection<Claim> getListOfClaims() {
         return listOfClaims;

@@ -1,7 +1,7 @@
 package Entity;
 
 import jakarta.persistence.*;
-import javafx.scene.control.TextField;
+import javafx.scene.control.Button;
 
 import java.util.Objects;
 
@@ -34,13 +34,7 @@ public class User {
     private String password;
 
     @Transient
-    private TextField addressTextField;
-    @Transient
-    private TextField phoneNumberTextField;
-    @Transient
-    private TextField emailTextField;
-    @Transient
-    private TextField passwordTextField;
+    private Button updateInfo;
 
 
     public String getId() {
@@ -91,36 +85,12 @@ public class User {
         this.password = password;
     }
 
-    public TextField getAddressTextField() {
-        return addressTextField;
+    public Button getUpdateInfo() {
+        return updateInfo;
     }
 
-    public void setAddressTextField(TextField addressTextField) {
-        this.addressTextField = addressTextField;
-    }
-
-    public TextField getPhoneNumberTextField() {
-        return phoneNumberTextField;
-    }
-
-    public void setPhoneNumberTextField(TextField phoneNumberTextField) {
-        this.phoneNumberTextField = phoneNumberTextField;
-    }
-
-    public TextField getEmailTextField() {
-        return emailTextField;
-    }
-
-    public void setEmailTextField(TextField emailTextField) {
-        this.emailTextField = emailTextField;
-    }
-
-    public TextField getPasswordTextField() {
-        return passwordTextField;
-    }
-
-    public void setPasswordTextField(TextField passwordTextField) {
-        this.passwordTextField = passwordTextField;
+    public void setUpdateInfo(Button updateInfo) {
+        this.updateInfo = updateInfo;
     }
 
     @Override

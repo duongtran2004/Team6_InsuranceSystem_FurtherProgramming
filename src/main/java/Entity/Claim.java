@@ -28,6 +28,66 @@ public class Claim {
     @Basic
     @Column(name = "claim_amount")
     private float claimAmount;
+
+    @Basic
+    @Column(name = "insured_person_id")
+    private String insuredPersonId;
+
+    @Basic
+    @Column(name = "policy_owner_id")
+    private String policyOwnerId;
+
+    @Basic
+    @Column(name = "card_number")
+    private String cardNumber;
+
+    @Basic
+    @Column(name = "insurance_manager_id")
+    private String insuranceManagerId;
+    @Basic
+    @Column(name = "insurance_surveyor_id")
+    private String insuranceSurveyorId;
+
+    public String getInsuredPersonId() {
+        return insuredPersonId;
+    }
+
+    public void setInsuredPersonId(String insuredPersonId) {
+        this.insuredPersonId = insuredPersonId;
+    }
+
+    public String getPolicyOwnerId() {
+        return policyOwnerId;
+    }
+
+    public void setPolicyOwnerId(String policyOwnerId) {
+        this.policyOwnerId = policyOwnerId;
+    }
+
+    public String getCardNumber() {
+        return cardNumber;
+    }
+
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
+    }
+
+    public String getInsuranceManagerId() {
+        return insuranceManagerId;
+    }
+
+    public void setInsuranceManagerId(String insuranceManagerId) {
+        this.insuranceManagerId = insuranceManagerId;
+    }
+
+    public String getInsuranceSurveyorId() {
+        return insuranceSurveyorId;
+    }
+
+    public void setInsuranceSurveyorId(String insuranceSurveyorId) {
+        this.insuranceSurveyorId = insuranceSurveyorId;
+    }
+
     @ManyToOne
     @JoinColumn(name = "insured_person_id", referencedColumnName = "id", nullable = false)
     private Beneficiaries insuredPerson;

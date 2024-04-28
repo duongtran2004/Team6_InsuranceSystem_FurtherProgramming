@@ -21,6 +21,15 @@ public class InsuranceCard {
     @Basic
     @Column(name = "expiration_date")
     private Date expirationDate;
+
+    @Basic
+    @Column(name = "card_holder_id")
+    private String cardHolderId;
+
+    @Basic
+    @Column(name = "policy_owner_id")
+    private String policyOwnerId;
+
     @OneToMany(mappedBy = "insuranceCard")
     private Collection<Beneficiaries> listOfBeneficiaries;
     @OneToMany(mappedBy = "insuranceCard")

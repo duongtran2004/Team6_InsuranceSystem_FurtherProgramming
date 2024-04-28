@@ -16,6 +16,18 @@ import java.util.Collection;
 public class Beneficiaries extends Customer {
 
     @Basic
+    @Column(name = "policy_owner_id")
+    private String policyOwnerId;
+
+    @Basic
+    @Column(name = "policy_holder_id")
+    private String policyHolderId;
+
+    @Basic
+    @Column(name = "card_number")
+    private String cardNumber;
+
+    @Basic
     @Column(name = "type", insertable = false, updatable = false)
     private String type;
     @ManyToOne
@@ -31,7 +43,29 @@ public class Beneficiaries extends Customer {
     @OneToMany(mappedBy = "insuredPerson")
     private Collection<Claim> listOfClaims;
 
+    public String getPolicyOwnerId() {
+        return policyOwnerId;
+    }
 
+    public void setPolicyOwnerId(String policyOwnerId) {
+        this.policyOwnerId = policyOwnerId;
+    }
+
+    public String getPolicyHolderId() {
+        return policyHolderId;
+    }
+
+    public void setPolicyHolderId(String policyHolderId) {
+        this.policyHolderId = policyHolderId;
+    }
+
+    public String getCardNumber() {
+        return cardNumber;
+    }
+
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
+    }
 
     public String getType() {
         return type;

@@ -19,9 +19,7 @@ import java.util.Collection;
 public class PolicyOwner extends Customer {
 
     @Transient
-    private Button updateInfoButton;
-    @Transient
-    private Button addDependantButton;
+    private Button addPolicyButton;
     @OneToMany(mappedBy = "policyOwner")
     private Collection<Beneficiaries> listOfBeneficiaries;
     @OneToMany(mappedBy = "policyOwner")
