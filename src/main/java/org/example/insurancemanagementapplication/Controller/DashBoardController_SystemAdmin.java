@@ -183,6 +183,10 @@ public class DashBoardController_SystemAdmin implements EmployeeCreateRemove, Cu
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        /**
+         * Filling the insurance manager table with data
+         * Add methods to Buttons
+         */
         ObservableList<InsuranceManager> insuranceManagersObservableList = FXCollections.observableArrayList();
         List<InsuranceManager> insuranceManagers = EmployeeAnalytics.getAllInsuranceManager(entityManager);
         ListIterator<InsuranceManager> listIteratorInsuranceManager = insuranceManagers.listIterator();
@@ -237,9 +241,10 @@ public class DashBoardController_SystemAdmin implements EmployeeCreateRemove, Cu
         }
 
 
-
-
-
+        /**
+         * Filling the surveyors table with data
+         * Add method to Buttons
+         */
         ObservableList<InsuranceSurveyor> insuranceSurveyorsObservableList = FXCollections.observableArrayList();
         List<InsuranceSurveyor> insuranceSurveyors = EmployeeAnalytics.getAllInsuranceSurveyor(entityManager);
         ListIterator<InsuranceSurveyor> listIteratorInsuranceSurveyor = insuranceSurveyors.listIterator();
@@ -274,7 +279,10 @@ public class DashBoardController_SystemAdmin implements EmployeeCreateRemove, Cu
         surveyorUpdateInfoButton.setCellValueFactory(new PropertyValueFactory<InsuranceSurveyor, Button>("updateInfoButton"));
         surveyorTable.getItems().setAll(insuranceSurveyorsObservableList);
 
-
+        /**
+         * Filling the Policy Owners table with data
+         * Add Methods to Buttons
+         */
         ObservableList<PolicyOwner> policyOwnersObservableList = FXCollections.observableArrayList();
         List<PolicyOwner> policyOwners = CustomerAnalytics.getAllPolicyOwner(entityManager);
         ListIterator<PolicyOwner> policyOwnerListIterator = policyOwners.listIterator();
@@ -327,7 +335,10 @@ public class DashBoardController_SystemAdmin implements EmployeeCreateRemove, Cu
         policyOwnerAddPolicyButton.setCellValueFactory(new PropertyValueFactory<PolicyOwner, Button>("addPolicyButton"));
         policyOwnerTable.getItems().setAll(policyOwnersObservableList);
 
-
+        /**
+         * Filling the Policy Holder table with data
+         * Add event handler to buttons
+         */
         ObservableList<PolicyHolder> policyHoldersObservableList = FXCollections.observableArrayList();
         List<PolicyHolder> policyHolders = CustomerAnalytics.getAllPolicyHolder(entityManager);
         ListIterator<PolicyHolder> policyHolderListIterator = policyHolders.listIterator();
@@ -384,7 +395,10 @@ public class DashBoardController_SystemAdmin implements EmployeeCreateRemove, Cu
         policyHolderTable.getItems().setAll(policyHoldersObservableList);
 
 
-
+        /**
+         * Fill Dependant table with data
+         * Add methods to buttons
+         */
 
         ObservableList<Dependant> dependantObservableList = FXCollections.observableArrayList();
         List<Dependant> dependants = CustomerAnalytics.getAllDependant(entityManager);
