@@ -64,7 +64,7 @@ public class CreationPageController_PolicyHolder implements CustomerCreateRemove
         }
         else {
             submitButton.setOnAction(event -> {
-
+                CustomerCreateRemove.createPolicyHolder(entityManager, errorContainer, lengthOfContractField.getText(), fullNameField.getText(), addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText(), passwordValidationField.getText(), policyOwner);
             });
         }
 
@@ -77,7 +77,7 @@ public class CreationPageController_PolicyHolder implements CustomerCreateRemove
         this.policyOwner = policyOwner;
     }
 
-    public CreationPageController_PolicyHolder(EntityManager entityManager, User user, PolicyOwner policyOwner, PolicyHolder policyHolder) {
+    public CreationPageController_PolicyHolder(EntityManager entityManager, User user, PolicyHolder policyHolder) {
         this.entityManager = entityManager;
         this.user = user;
         this.policyOwner = policyOwner;

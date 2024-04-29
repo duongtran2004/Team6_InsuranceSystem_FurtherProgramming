@@ -282,11 +282,38 @@ public class DashBoardController_SystemAdmin implements EmployeeCreateRemove, Cu
             PolicyOwner policyOwner = policyOwnerListIterator.next();
             Button buttonUpdateInfo = new Button("Update Info");
             buttonUpdateInfo.setOnAction(event -> {
+                CreationPageController_PolicyOwner creationPageControllerPolicyOwner = new CreationPageController_PolicyOwner(entityManager, user, policyOwner);
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(HelloApplication.class.getResource("PolicyOwnerCreationPage.fxml"));
+                fxmlLoader.setController(creationPageControllerPolicyOwner);
+                try {
+                    Scene scene = new Scene(fxmlLoader.load());
+                    Stage stage = (Stage) buttonUpdateInfo.getScene().getWindow();
+                    stage.setScene(scene);
+                    stage.show();
 
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             });
             buttonUpdateInfo.setUserData(policyOwner);
             policyOwner.setUpdateInfoButton(buttonUpdateInfo);
             Button buttonAddPolicy = new Button("Add Policy");
+            buttonAddPolicy.setOnAction(event -> {
+                CreationPageController_PolicyHolder creationPageControllerPolicyHolder = new CreationPageController_PolicyHolder(entityManager, user, policyOwner);
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(HelloApplication.class.getResource("PolicyHolderCreationPage.fxml"));
+                fxmlLoader.setController(creationPageControllerPolicyHolder);
+                try {
+                    Scene scene = new Scene(fxmlLoader.load());
+                    Stage stage = (Stage) buttonAddPolicy.getScene().getWindow();
+                    stage.setScene(scene);
+                    stage.show();
+
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
             policyOwner.setAddPolicyButton(buttonAddPolicy);
             buttonAddPolicy.setUserData(policyOwner);
             policyOwnersObservableList.add(policyOwner);
@@ -307,9 +334,40 @@ public class DashBoardController_SystemAdmin implements EmployeeCreateRemove, Cu
         while (policyHolderListIterator.hasNext()){
             PolicyHolder policyHolder = policyHolderListIterator.next();
             Button buttonUpdateInfo = new Button("Update Info");
+            buttonUpdateInfo.setOnAction(event -> {
+                CreationPageController_PolicyHolder creationPageControllerPolicyHolder = new CreationPageController_PolicyHolder(entityManager, user, policyHolder);
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(HelloApplication.class.getResource("PolicyHolderCreationPage.fxml"));
+                fxmlLoader.setController(creationPageControllerPolicyHolder);
+                try {
+                    Scene scene = new Scene(fxmlLoader.load());
+                    Stage stage = (Stage) buttonUpdateInfo.getScene().getWindow();
+                    stage.setScene(scene);
+                    stage.show();
+
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
             buttonUpdateInfo.setUserData(policyHolder);
             policyHolder.setUpdateInfoButton(buttonUpdateInfo);
             Button buttonAddDependant = new Button("Add Dependant");
+            buttonAddDependant.setOnAction(event -> {
+                CreationPageController_Dependant creationPageControllerDependant = new CreationPageController_Dependant(entityManager, user, policyHolder);
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(HelloApplication.class.getResource("DependantCreationPage.fxml"));
+                fxmlLoader.setController(creationPageControllerDependant);
+                try {
+                    Scene scene = new Scene(fxmlLoader.load());
+                    Stage stage = (Stage) buttonAddDependant.getScene().getWindow();
+                    stage.setScene(scene);
+                    stage.show();
+
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
+            });
             policyHolder.setAddDependantButton(buttonAddDependant);
             buttonAddDependant.setUserData(policyHolder);
             policyHoldersObservableList.add(policyHolder);
@@ -334,6 +392,21 @@ public class DashBoardController_SystemAdmin implements EmployeeCreateRemove, Cu
         while (dependantListIterator.hasNext()){
             Dependant dependant = dependantListIterator.next();
             Button buttonUpdateInfo = new Button("Update Info");
+            buttonUpdateInfo.setOnAction(event -> {
+                CreationPageController_Dependant creationPageControllerDependant = new CreationPageController_Dependant(entityManager, user, dependant);
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(HelloApplication.class.getResource("DependantCreationPage.fxml"));
+                fxmlLoader.setController(creationPageControllerDependant);
+                try {
+                    Scene scene = new Scene(fxmlLoader.load());
+                    Stage stage = (Stage) buttonUpdateInfo.getScene().getWindow();
+                    stage.setScene(scene);
+                    stage.show();
+
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
             buttonUpdateInfo.setUserData(dependant);
             dependant.setUpdateInfoButton(buttonUpdateInfo);
             dependantObservableList.add(dependant);

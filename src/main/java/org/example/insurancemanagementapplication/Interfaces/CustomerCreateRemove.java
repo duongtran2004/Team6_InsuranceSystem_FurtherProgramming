@@ -8,6 +8,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import javafx.scene.control.Label;
 
+import java.util.Date;
 import java.util.Random;
 
 /**
@@ -70,12 +71,16 @@ public interface CustomerCreateRemove {
             for (int i = 0; i < 8; i++){
                 id = id + random.nextInt(0, 10);
             }
+
             policyHolder.setId(id);
             policyHolder.setPolicyOwner(policyOwner);
+            Date utilDate = new Date();
+            Date expiryUtilDate = new Date(utilDate.getYear() + Integer.parseInt(lengthOfContract) - 1, utilDate.getMonth(), utilDate.getDay());
             InsuranceCard insuranceCard = new InsuranceCard();
             entityManager.persist(insuranceCard);
             insuranceCard.setCardHolder(policyHolder);
             insuranceCard.setPolicyOwner(policyOwner);
+            insuranceCard.setExpirationDate(new java.sql.Date(expiryUtilDate.getTime()));
             entityManager.persist(policyHolder);
             transaction.commit();
         }
