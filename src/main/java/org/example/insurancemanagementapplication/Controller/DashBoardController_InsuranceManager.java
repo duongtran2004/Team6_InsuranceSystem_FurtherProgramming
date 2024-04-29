@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.stage.Stage;
 
 import java.sql.Date;
 
@@ -15,12 +16,34 @@ import java.sql.Date;
  * @created 27/04/2024 04:54
  * @project InsuranceManagementTeamProject
  */
-public class InsuranceSurveyorDashBoardController {
+public class DashBoardController_InsuranceManager {
     private final EntityManager entityManager;
-    private final InsuranceSurveyor insuranceSurveyor;
+    private final InsuranceManager insuranceManager;
+    private InsuranceSurveyor insuranceSurveyor;
     private Customer customer;
     private Claim claim;
-    //PolicyOwner Table
+
+
+    //Insurance Surveyor Table
+    @FXML
+    private TableView<InsuranceSurveyor> surveyorTable;
+    @FXML
+    private TableColumn<InsuranceSurveyor, String> surveyorId;
+    @FXML
+    private TableColumn<InsuranceSurveyor, String> surveyorFullName;
+    @FXML
+    private TableColumn<InsuranceSurveyor, String> surveyorAddress;
+    @FXML
+    private TableColumn<InsuranceSurveyor, String> surveyorPhoneNumber;
+    @FXML
+    private TableColumn<InsuranceSurveyor, String> surveyorEmail;
+    @FXML
+    private TableColumn<InsuranceSurveyor, String> surveyorPassword;
+    @FXML
+    private TableColumn<InsuranceSurveyor, String> manager;
+    @FXML
+    private  TableColumn<InsuranceSurveyor, Button> surveyorUpdateInfoButton;
+
     //PolicyHolder Table
     @FXML
     private TableView<PolicyHolder> policyHolderTable;
@@ -98,14 +121,21 @@ public class InsuranceSurveyorDashBoardController {
     @FXML
     private TableColumn<InsuranceCard, String> policyOwnerInsuranceCardTable;
 
-    public InsuranceSurveyorDashBoardController(InsuranceSurveyor insuranceSurveyor, EntityManager entityManager) {
-        this.insuranceSurveyor = insuranceSurveyor;
+    public DashBoardController_InsuranceManager(Stage stage, InsuranceManager insuranceManager, EntityManager entityManager) {
+        this.insuranceManager = insuranceManager;
         this.entityManager = entityManager;
+    }
 
+    public InsuranceManager getInsuranceManager() {
+        return insuranceManager;
     }
 
     public InsuranceSurveyor getInsuranceSurveyor() {
         return insuranceSurveyor;
+    }
+
+    public void setInsuranceSurveyor(InsuranceSurveyor insuranceSurveyor) {
+        this.insuranceSurveyor = insuranceSurveyor;
     }
 
     public Customer getCustomer() {

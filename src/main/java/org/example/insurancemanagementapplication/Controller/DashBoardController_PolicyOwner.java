@@ -17,7 +17,7 @@ import java.sql.Date;
  * @created 27/04/2024 04:54
  * @project InsuranceManagementTeamProject
  */
-public class PolicyOwnerDashBoardController implements CustomerCreateRemove {
+public class DashBoardController_PolicyOwner implements CustomerCreateRemove {
     private final EntityManager entityManager;
     private final PolicyOwner policyOwner;
     private Beneficiaries beneficiary;
@@ -80,7 +80,7 @@ public class PolicyOwnerDashBoardController implements CustomerCreateRemove {
     @FXML
     private TableColumn<InsuranceCard, String> policyOwnerInsuranceCardTable;
 
-    public PolicyOwnerDashBoardController(Stage stage, PolicyOwner policyOwner, EntityManager entityManager) {
+    public DashBoardController_PolicyOwner(Stage stage, PolicyOwner policyOwner, EntityManager entityManager) {
         this.policyOwner = policyOwner;
         this.entityManager = entityManager;
     }

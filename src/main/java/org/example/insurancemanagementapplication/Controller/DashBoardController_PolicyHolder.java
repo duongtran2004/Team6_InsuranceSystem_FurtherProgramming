@@ -15,7 +15,7 @@ import javafx.scene.control.TableView;
  * @created 27/04/2024 04:54
  * @project InsuranceManagementTeamProject
  */
-public class PolicyHolderDashBoardController {
+public class DashBoardController_PolicyHolder {
     private final EntityManager entityManager;
     private final PolicyHolder policyHolder;
     private Dependant dependant;
@@ -44,7 +44,7 @@ public class PolicyHolderDashBoardController {
     @FXML
     private TableColumn<Dependant, Button> dependantUpdateInfoButton;
 
-    public PolicyHolderDashBoardController(PolicyHolder policyHolder, EntityManager entityManager) {
+    public DashBoardController_PolicyHolder(PolicyHolder policyHolder, EntityManager entityManager) {
         this.policyHolder = policyHolder;
         this.entityManager = entityManager;
     }

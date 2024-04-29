@@ -57,7 +57,7 @@
 
                     </rowConstraints>
                     <children>
-                        <Label alignment="CENTER" maxHeight="96.25" maxWidth="400.0" minHeight="48.125" minWidth="200.0" prefHeight="48.125" prefWidth="200.0" text="Manager's Name" GridPane.hgrow="SOMETIMES" GridPane.vgrow="SOMETIMES">
+                        <Label fx:id="managerId" alignment="CENTER" maxHeight="96.25" maxWidth="400.0" minHeight="48.125" minWidth="200.0" prefHeight="48.125" prefWidth="200.0" text="Manager" GridPane.hgrow="SOMETIMES" GridPane.vgrow="SOMETIMES">
 
                             <font>
                                 <Font name="Helvetica Neue Bold" size="16.0" />
@@ -94,7 +94,7 @@
                         <TextField GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="4" />
                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
                      <children>
-                        <TextField prefHeight="26.0" prefWidth="478.0" />
+                        <TextField fx:id="managerId" prefHeight="26.0" prefWidth="478.0" />
                      </children>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5" GridPane.vgrow="NEVER">
@@ -115,7 +115,7 @@
                                         <Font name="Helvetica Neue Bold" size="16.0" />
                                     </font>
                                 </Button>
-                                <Button mnemonicParsing="false" style="-fx-background-color: linear-gradient(to right, rgb(62, 198, 222), rgb(17, 130, 100));" text="Submit">
+                                <Button fx:id="submitButton" mnemonicParsing="false" style="-fx-background-color: linear-gradient(to right, rgb(62, 198, 222), rgb(17, 130, 100));" text="Submit">
                                     <font>
                                         <Font name="Helvetica Neue Bold" size="16.0" />
                                     </font>

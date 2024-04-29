@@ -20,7 +20,7 @@ import java.util.ResourceBundle;
  * @created 29/04/2024 08:53
  * @project InsuranceManagementTeamProject
  */
-public class InsuranceManagerCreationPageController implements EmployeeCreateRemove, EmployeeUpdate, Initializable {
+public class CreationPageController_InsuranceManager implements EmployeeCreateRemove, EmployeeUpdate, Initializable {
     private User user;
     private InsuranceManager insuranceManager;
     private EntityManager entityManager;
@@ -44,12 +44,12 @@ public class InsuranceManagerCreationPageController implements EmployeeCreateRem
     @FXML
     private Button submitButton;
 
-    public InsuranceManagerCreationPageController(EntityManager entityManager, User user) {
+    public CreationPageController_InsuranceManager(EntityManager entityManager, User user) {
         this.entityManager = entityManager;
         this.user = user;
     }
 
-    public InsuranceManagerCreationPageController(EntityManager entityManager, User user, InsuranceManager insuranceManager) {
+    public CreationPageController_InsuranceManager(EntityManager entityManager, User user, InsuranceManager insuranceManager) {
         this.entityManager = entityManager;
         this.insuranceManager = insuranceManager;
     }

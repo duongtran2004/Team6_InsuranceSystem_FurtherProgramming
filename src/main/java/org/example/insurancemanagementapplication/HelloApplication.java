@@ -8,7 +8,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.example.insurancemanagementapplication.Controller.SystemAdminDashBoardController;
+import org.example.insurancemanagementapplication.Controller.DashBoardController_SystemAdmin;
 
 import java.io.IOException;
 
@@ -20,7 +20,7 @@ public class HelloApplication extends Application {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         SystemAdmin systemAdmin = entityManager.find(SystemAdmin.class, "SA90987611");
         System.out.println(systemAdmin);
-        SystemAdminDashBoardController systemAdminController = new SystemAdminDashBoardController(entityManager, systemAdmin);
+        DashBoardController_SystemAdmin systemAdminController = new DashBoardController_SystemAdmin(entityManager, systemAdmin);
         fxmlLoader.setController(systemAdminController);
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Hello!");

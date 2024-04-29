@@ -33,7 +33,7 @@ import java.util.ResourceBundle;
  * @created 27/04/2024 04:55
  * @project InsuranceManagementTeamProject
  */
-public class SystemAdminDashBoardController implements EmployeeCreateRemove, CustomerCreateRemove, Initializable, EmployeeAnalytics {
+public class DashBoardController_SystemAdmin implements EmployeeCreateRemove, CustomerCreateRemove, Initializable, EmployeeAnalytics {
     private final EntityManager entityManager;
     private final SystemAdmin user;
 
@@ -192,7 +192,7 @@ public class SystemAdminDashBoardController implements EmployeeCreateRemove, Cus
             insuranceManager.setUpdateInfoButton(buttonUpdateInfo);
             buttonUpdateInfo.setUserData(insuranceManager);
             buttonUpdateInfo.setOnAction(event -> {
-                InsuranceManagerCreationPageController insuranceManagerCreationPageController = new InsuranceManagerCreationPageController(entityManager, user, (InsuranceManager) buttonUpdateInfo.getUserData());
+                CreationPageController_InsuranceManager insuranceManagerCreationPageController = new CreationPageController_InsuranceManager(entityManager, user, (InsuranceManager) buttonUpdateInfo.getUserData());
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(HelloApplication.class.getResource("InsuranceManagerCreationPage.fxml"));
                 fxmlLoader.setController(insuranceManagerCreationPageController);
@@ -283,7 +283,7 @@ public class SystemAdminDashBoardController implements EmployeeCreateRemove, Cus
 
 
 
-    public SystemAdminDashBoardController(EntityManager entityManager, SystemAdmin systemAdmin) {
+    public DashBoardController_SystemAdmin(EntityManager entityManager, SystemAdmin systemAdmin) {
         this.entityManager = entityManager;
         this.user = systemAdmin;
     }
