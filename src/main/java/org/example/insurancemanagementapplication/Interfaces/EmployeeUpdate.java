@@ -1,6 +1,7 @@
 package org.example.insurancemanagementapplication.Interfaces;
 
 import Entity.InsuranceManager;
+import Entity.InsuranceSurveyor;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import javafx.scene.control.Label;
@@ -12,22 +13,19 @@ import javafx.scene.control.Label;
  * @project InsuranceManagementTeamProject
  */
 public interface EmployeeUpdate {
-    static boolean updateInsuranceManager(EntityManager entityManager, InsuranceManager insuranceManager, Label errorContainer, String address, String phoneNumber, String email, String password, String passwordValidation){
+    static boolean updateInsuranceManager(EntityManager entityManager, InsuranceManager insuranceManager, Label errorContainer, String address, String phoneNumber, String email, String password, String passwordValidator){
         EntityTransaction transaction = entityManager.getTransaction();
         try{
             transaction.begin();
+            if (!password.equals(passwordValidator)){
+                errorContainer.setText("Passwords Do Not Match. Please Try Again");
+                transaction.rollback();
+                return false;
+            }
             entityManager.persist(insuranceManager);
             insuranceManager.setAddress(address);
             insuranceManager.setPhoneNumber(phoneNumber);
             insuranceManager.setEmail(email);
-            if (password.equals(passwordValidation)){
-                insuranceManager.setPassword(password);
-            }
-            else {
-                errorContainer.setText("Passwords Do not Match. Please Try Again");
-                transaction.rollback();
-                return false;
-            }
             transaction.commit();
 
 
@@ -37,5 +35,36 @@ public interface EmployeeUpdate {
             }
         }
         return true;
+    }
+
+    static boolean updateInsuranceSurveyor(boolean reassign, EntityManager entityManager, Label errorContainer, InsuranceSurveyor insuranceSurveyor, String managerId, String address, String phoneNumber, String email, String password, String passwordValidator){
+        EntityTransaction transaction = entityManager.getTransaction();
+        try{
+            transaction.begin();
+            if (!password.equals(passwordValidator)){
+                errorContainer.setText("Passwords Do Not Match. Please Try Again");
+                transaction.rollback();
+                return false;
+            }
+            entityManager.persist(insuranceSurveyor);
+            if (reassign){
+                //Test Case: What happens if not insurance manager is found?
+                InsuranceManager insuranceManager = entityManager.find(InsuranceManager.class, managerId);
+                insuranceSurveyor.setInsuranceManager(insuranceManager);
+
+            }
+            insuranceSurveyor.setAddress(address);
+            insuranceSurveyor.setPhoneNumber(phoneNumber);
+            insuranceSurveyor.setEmail(email);
+            insuranceSurveyor.setPassword(password);
+            transaction.commit();
+
+        } finally {
+            if (transaction.isActive()){
+                transaction.rollback();
+            }
+        }
+        return true;
+
     }
 }

@@ -198,7 +198,7 @@ public class DashBoardController_SystemAdmin implements EmployeeCreateRemove, Cu
                 fxmlLoader.setController(insuranceManagerCreationPageController);
                 try {
                     Scene scene = new Scene(fxmlLoader.load());
-                    Stage stage = new Stage();
+                    Stage stage = (Stage) buttonUpdateInfo.getScene().getWindow();
                     stage.setScene(scene);
                     stage.show();
 
@@ -209,6 +209,21 @@ public class DashBoardController_SystemAdmin implements EmployeeCreateRemove, Cu
             Button buttonAddSurveyor = new Button("Add Surveyor");
             insuranceManager.setAddSurveyorButton(buttonAddSurveyor);
             buttonAddSurveyor.setUserData(insuranceManager);
+            buttonAddSurveyor.setOnAction(event ->{
+                CreationPageController_InsuranceSurveyor creationPageControllerInsuranceSurveyor = new CreationPageController_InsuranceSurveyor(entityManager, user, (InsuranceManager) buttonAddSurveyor.getUserData());
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(HelloApplication.class.getResource("InsuranceSurveyorCreationPage.fxml"));
+                fxmlLoader.setController(creationPageControllerInsuranceSurveyor);
+                try {
+                    Scene scene = new Scene(fxmlLoader.load());
+                    Stage stage = (Stage) buttonAddSurveyor.getScene().getWindow();
+                    stage.setScene(scene);
+                    stage.show();
+
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
             insuranceManagersObservableList.add(insuranceManager);
 
             managerId.setCellValueFactory(new PropertyValueFactory<InsuranceManager, String>("id"));

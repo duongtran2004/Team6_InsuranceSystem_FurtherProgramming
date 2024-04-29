@@ -88,10 +88,11 @@ public class CreationPageController_InsuranceSurveyor implements Initializable, 
         });
 
         submitButton.setOnAction(e ->{
-            if (managerReassign){
-
+            if (manager != null){
+                EmployeeUpdate.updateInsuranceSurveyor(managerReassign, entityManager, errorContainer, insuranceSurveyor, managerIdField.getText(), addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText(), passwordValidationField.getText());
             }
             else {
+                EmployeeCreateRemove.createInsuranceSurveyor(entityManager, errorContainer, fullNameField.getText(), addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText(), manager, passwordValidationField.getText());
 
             }
         });
