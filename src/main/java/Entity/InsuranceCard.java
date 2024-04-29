@@ -23,11 +23,11 @@ public class InsuranceCard {
     private Date expirationDate;
 
     @Basic
-    @Column(name = "card_holder_id")
+    @Column(name = "card_holder_id", updatable = false, insertable = false)
     private String cardHolderId;
 
     @Basic
-    @Column(name = "policy_owner_id")
+    @Column(name = "policy_owner_id", updatable = false, insertable = false)
     private String policyOwnerId;
 
     @OneToMany(mappedBy = "insuranceCard")

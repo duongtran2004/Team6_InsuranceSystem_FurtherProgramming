@@ -12,23 +12,23 @@ import java.util.Collection;
  */
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
+@DiscriminatorColumn(name = "user_type", discriminatorType = DiscriminatorType.STRING)
 public class Beneficiaries extends Customer {
 
     @Basic
-    @Column(name = "policy_owner_id")
+    @Column(name = "policy_owner_id", insertable = false, updatable = false)
     private String policyOwnerId;
 
     @Basic
-    @Column(name = "policy_holder_id")
+    @Column(name = "policy_holder_id", insertable = false, updatable = false)
     private String policyHolderId;
 
     @Basic
-    @Column(name = "card_number")
+    @Column(name = "card_number", insertable = false, updatable = false)
     private String cardNumber;
 
     @Basic
-    @Column(name = "type", insertable = false, updatable = false)
+    @Column(name = "user_type", insertable = false, updatable = false)
     private String type;
     @ManyToOne
     @JoinColumn(name = "policy_holder_id", referencedColumnName = "id")

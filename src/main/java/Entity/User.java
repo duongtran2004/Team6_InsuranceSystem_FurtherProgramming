@@ -34,7 +34,7 @@ public class User {
     private String password;
 
     @Transient
-    private Button updateInfo;
+    private Button updateInfoButton;
 
 
     public String getId() {
@@ -85,12 +85,12 @@ public class User {
         this.password = password;
     }
 
-    public Button getUpdateInfo() {
-        return updateInfo;
+    public Button getUpdateInfoButton() {
+        return updateInfoButton;
     }
 
-    public void setUpdateInfo(Button updateInfo) {
-        this.updateInfo = updateInfo;
+    public void setUpdateInfoButton(Button updateInfo) {
+        this.updateInfoButton = updateInfo;
     }
 
     @Override

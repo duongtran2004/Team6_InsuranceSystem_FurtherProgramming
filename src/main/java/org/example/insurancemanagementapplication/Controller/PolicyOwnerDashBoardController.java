@@ -6,6 +6,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.stage.Stage;
+import org.example.insurancemanagementapplication.Interfaces.CustomerCreateRemove;
 
 import java.sql.Date;
 
@@ -15,34 +17,13 @@ import java.sql.Date;
  * @created 27/04/2024 04:54
  * @project InsuranceManagementTeamProject
  */
-public class InsuranceManagerController {
+public class PolicyOwnerDashBoardController implements CustomerCreateRemove {
     private final EntityManager entityManager;
-    private final InsuranceManager insuranceManager;
-    private InsuranceSurveyor insuranceSurveyor;
-    private Customer customer;
+    private final PolicyOwner policyOwner;
+    private Beneficiaries beneficiary;
     private Claim claim;
 
-    //Insurance Surveyor Table
-    @FXML
-    private TableView<InsuranceSurveyor> surveyorTable;
-    @FXML
-    private TableColumn<InsuranceSurveyor, String> surveyorId;
-    @FXML
-    private TableColumn<InsuranceSurveyor, String> surveyorFullName;
-    @FXML
-    private TableColumn<InsuranceSurveyor, String> surveyorAddress;
-    @FXML
-    private TableColumn<InsuranceSurveyor, String> surveyorPhoneNumber;
-    @FXML
-    private TableColumn<InsuranceSurveyor, String> surveyorEmail;
-    @FXML
-    private TableColumn<InsuranceSurveyor, String> surveyorPassword;
-    @FXML
-    private TableColumn<InsuranceSurveyor, String> manager;
-    @FXML
-    private  TableColumn<InsuranceSurveyor, Button> surveyorUpdateInfoButton;
 
-    //PolicyHolder Table
     @FXML
     private TableView<PolicyHolder> policyHolderTable;
     @FXML
@@ -89,26 +70,6 @@ public class InsuranceManagerController {
     @FXML
     private TableColumn<Dependant, Button> dependantUpdateInfoButton;
 
-    //PolicyOwner Table
-    @FXML
-    private TableView<PolicyOwner> policyOwnerTable;
-    @FXML
-    private TableColumn<PolicyOwner, String> policyOwnerId;
-    @FXML
-    private TableColumn<PolicyOwner, String> policyOwnerFullName;
-    @FXML
-    private TableColumn<PolicyOwner, String> policyOwnerAddress;
-    @FXML
-    private TableColumn<PolicyOwner, String> policyOwnerPhoneNumber;
-    @FXML
-    private TableColumn<PolicyOwner, String> policyOwnerEmail;
-    @FXML
-    private TableColumn<PolicyOwner, String> policyOwnerPassword;
-    @FXML
-    private TableColumn<PolicyOwner, Button> policyOwnerUpdateInfoButton;
-    @FXML
-    private TableColumn<PolicyOwner, Button> policyOwnerAddPolicyButton;
-
     //Insurance Card Table
     @FXML
     private TableColumn<InsuranceCard, String> cardNumber;
@@ -119,29 +80,22 @@ public class InsuranceManagerController {
     @FXML
     private TableColumn<InsuranceCard, String> policyOwnerInsuranceCardTable;
 
-    public InsuranceManagerController(InsuranceManager insuranceManager, EntityManager entityManager) {
-        this.insuranceManager = insuranceManager;
+    public PolicyOwnerDashBoardController(Stage stage, PolicyOwner policyOwner, EntityManager entityManager) {
+        this.policyOwner = policyOwner;
         this.entityManager = entityManager;
     }
 
-    public InsuranceManager getInsuranceManager() {
-        return insuranceManager;
+    public PolicyOwner getPolicyOwner() {
+        return policyOwner;
     }
 
-    public InsuranceSurveyor getInsuranceSurveyor() {
-        return insuranceSurveyor;
+    public Beneficiaries getBeneficiary() {
+        return beneficiary;
     }
 
-    public void setInsuranceSurveyor(InsuranceSurveyor insuranceSurveyor) {
-        this.insuranceSurveyor = insuranceSurveyor;
-    }
+    public void setBeneficiary(Beneficiaries beneficiary) {
+        this.beneficiary = beneficiary;
 
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
     }
 
     public Claim getClaim() {

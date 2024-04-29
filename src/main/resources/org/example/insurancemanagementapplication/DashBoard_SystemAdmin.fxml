@@ -135,16 +135,16 @@
                <children>
                   <ScrollPane fitToWidth="true" maxHeight="325" prefHeight="200.0" prefWidth="200.0" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
                      <content>
-                        <TableView maxHeight="Infinity" maxWidth="1600.0" minHeight="325.0" minWidth="1150.0" prefHeight="325.0" prefWidth="1600.0">
+                        <TableView fx:id="managerTable" maxHeight="Infinity" maxWidth="1600.0" minHeight="325.0" minWidth="1150.0" prefHeight="325.0" prefWidth="1600.0">
                           <columns>
-                            <TableColumn maxWidth="150.0" minWidth="150.0" prefWidth="150.0" text="Manager ID" />
-                            <TableColumn minWidth="170.0" prefWidth="170.0" text="Full Name" />
-                              <TableColumn maxWidth="1600.0" minWidth="200.0" prefWidth="570.0" text="Address" />
-                              <TableColumn maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Phone Number" />
-                              <TableColumn maxWidth="200.0" minWidth="200.0" prefWidth="200.0" text="Email" />
-                              <TableColumn maxWidth="150.0" minWidth="130.0" prefWidth="130.0" text="Password" />
-                              <TableColumn maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Add Surveyor" />
-                              <TableColumn maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Update Info" />
+                            <TableColumn fx:id="managerId" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" text="Manager ID" />
+                            <TableColumn fx:id="managerFullName" minWidth="170.0" prefWidth="170.0" text="Full Name" />
+                              <TableColumn fx:id="managerAddress" maxWidth="1600.0" minWidth="200.0" prefWidth="570.0" text="Address" />
+                              <TableColumn fx:id="managerPhoneNumber" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Phone Number" />
+                              <TableColumn fx:id="managerEmail" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" text="Email" />
+                              <TableColumn fx:id="managerPassword" maxWidth="150.0" minWidth="130.0" prefWidth="130.0" text="Password" />
+                              <TableColumn fx:id="managerUpdateInfoButton" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="UpdateInfo" />
+                              <TableColumn fx:id="managerAddSurveyorButton" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Add Surveyor" />
                           </columns>
                         </TableView>
                      </content>
@@ -178,15 +178,16 @@
                     <children>
                         <ScrollPane fitToWidth="true" maxHeight="325" prefHeight="200.0" prefWidth="200.0" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
                             <content>
-                                <TableView maxHeight="Infinity" maxWidth="1600.0" minHeight="325.0" minWidth="1150.0" prefHeight="325.0" prefWidth="1600.0">
+                                <TableView fx:id="surveyorTable" maxHeight="Infinity" maxWidth="1600.0" minHeight="325.0" minWidth="1150.0" prefHeight="325.0" prefWidth="1600.0">
                                     <columns>
-                                        <TableColumn maxWidth="150.0" minWidth="150.0" prefWidth="150.0" text="Surveyor ID" />
-                                        <TableColumn minWidth="170.0" prefWidth="170.0" text="Full Name" />
-                                        <TableColumn maxWidth="1600.0" minWidth="200.0" prefWidth="570.0" text="Address" />
-                                        <TableColumn maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Phone Number" />
-                                        <TableColumn maxWidth="200.0" minWidth="200.0" prefWidth="200.0" text="Email" />
-                                        <TableColumn maxWidth="150.0" minWidth="130.0" prefWidth="130.0" text="Password" />
-                                        <TableColumn maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Update Info" />
+                                        <TableColumn fx:id="surveyorI" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" text="Surveyor ID" />
+                                        <TableColumn fx:id="surveyorFullName" minWidth="170.0" prefWidth="170.0" text="Full Name" />
+                                        <TableColumn fx:id="surveyorAddress" maxWidth="1600.0" minWidth="200.0" prefWidth="570.0" text="Address" />
+                                        <TableColumn fx:id="surveyorPhoneNumber" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Phone Number" />
+                                        <TableColumn fx:id="surveyorEmail" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" text="Email" />
+                                        <TableColumn fx:id="surveyorPassword" maxWidth="150.0" minWidth="130.0" prefWidth="130.0" text="Password" />
+                                        <TableColumn fx:id="manager" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Manager" />
+                              <TableColumn fx:id="surveyorUpdateInfoButton" maxWidth="150.0" minWidth="130.0" prefWidth="130.0" text="Update Info" />
                                     </columns>
                                 </TableView>
                             </content>
@@ -220,16 +221,16 @@
                       <children>
                           <ScrollPane fitToWidth="true" maxHeight="325" prefHeight="200.0" prefWidth="200.0" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
                               <content>
-                                  <TableView maxHeight="Infinity" maxWidth="1600.0" minHeight="325.0" minWidth="1150.0" prefHeight="325.0" prefWidth="1600.0">
+                                  <TableView fx:id="policyOwnerTable" maxHeight="Infinity" maxWidth="1600.0" minHeight="325.0" minWidth="1150.0" prefHeight="325.0" prefWidth="1600.0">
                                       <columns>
-                                          <TableColumn maxWidth="150.0" minWidth="150.0" prefWidth="150.0" text="Manager ID" />
-                                          <TableColumn minWidth="170.0" prefWidth="170.0" text="Full Name" />
-                                          <TableColumn maxWidth="1600.0" minWidth="200.0" prefWidth="570.0" text="Address" />
-                                          <TableColumn maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Phone Number" />
-                                          <TableColumn maxWidth="200.0" minWidth="200.0" prefWidth="200.0" text="Email" />
-                                          <TableColumn maxWidth="150.0" minWidth="130.0" prefWidth="130.0" text="Password" />
-                                          <TableColumn maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Add Policy" />
-                                          <TableColumn maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Update Info" />
+                                          <TableColumn fx:id="policyOwnerId" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" text="Policy Owner Id" />
+                                          <TableColumn fx:id="policyOwnerFullName" minWidth="170.0" prefWidth="170.0" text="Full Name" />
+                                          <TableColumn fx:id="policyOwnerAddress" maxWidth="1600.0" minWidth="200.0" prefWidth="570.0" text="Address" />
+                                          <TableColumn fx:id="policyOwnerPhoneNumber" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Phone Number" />
+                                          <TableColumn fx:id="policyOwnerEmail" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" text="Email" />
+                                          <TableColumn fx:id="policyOwnerPassword" maxWidth="150.0" minWidth="130.0" prefWidth="130.0" text="Password" />
+                                          <TableColumn fx:id="policyOwnerAddPolicyButton" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Add Policy" />
+                                          <TableColumn fx:id="policyOwnerUpdateInfoButton" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Update Info" />
                                       </columns>
                                   </TableView>
                               </content>
@@ -263,16 +264,18 @@
                     <children>
                         <ScrollPane fitToWidth="true" maxHeight="325" prefHeight="200.0" prefWidth="200.0" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
                             <content>
-                                <TableView maxHeight="Infinity" maxWidth="1600.0" minHeight="325.0" minWidth="1150.0" prefHeight="325.0" prefWidth="1600.0">
+                                <TableView fx:id="policyHolderTable" maxHeight="Infinity" maxWidth="1600.0" minHeight="325.0" minWidth="1150.0" prefHeight="325.0" prefWidth="1600.0">
                                     <columns>
-                                        <TableColumn maxWidth="150.0" minWidth="150.0" prefWidth="150.0" text="Manager ID" />
-                                        <TableColumn minWidth="170.0" prefWidth="170.0" text="Full Name" />
-                                        <TableColumn maxWidth="1600.0" minWidth="200.0" prefWidth="570.0" text="Address" />
-                                        <TableColumn maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Phone Number" />
-                                        <TableColumn maxWidth="200.0" minWidth="200.0" prefWidth="200.0" text="Email" />
-                                        <TableColumn maxWidth="150.0" minWidth="130.0" prefWidth="130.0" text="Password" />
-                                        <TableColumn maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Add Dependant" />
-                                        <TableColumn maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Update Info" />
+                                        <TableColumn fx:id="policyHolderId" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" text="Policy Holder ID" />
+                                        <TableColumn fx:id="policyHolderFullName" minWidth="170.0" prefWidth="170.0" text="Full Name" />
+                                        <TableColumn fx:id="policyHolderAddress" maxWidth="1600.0" minWidth="200.0" prefWidth="211.0" text="Address" />
+                                        <TableColumn fx:id="policyHolderPhoneNumber" maxWidth="353.0" minWidth="100.0" prefWidth="166.0" text="Phone Number" />
+                                        <TableColumn fx:id="policyHolderEmail" maxWidth="413.0" minWidth="129.0" prefWidth="129.0" text="Email" />
+                                        <TableColumn fx:id="policyHolderPassword" maxWidth="379.0" minWidth="115.0" prefWidth="139.0" text="Password" />
+                                        <TableColumn maxWidth="364.0" minWidth="65.0" prefWidth="102.0" text="Policy Owner" />
+                                        <TableColumn maxWidth="354.0" minWidth="81.0" prefWidth="202.0" text="Card Number" />
+                              <TableColumn fx:id="policyHolderPassword1" maxWidth="401.0" minWidth="0.0" prefWidth="121.0" text="Update Info" />
+                              <TableColumn fx:id="policyHolderPassword11" maxWidth="401.0" minWidth="130.0" prefWidth="180.0" text="Add Dependant" />
                                     </columns>
                                 </TableView>
                             </content>
@@ -308,13 +311,16 @@
                             <content>
                                 <TableView maxHeight="Infinity" maxWidth="1600.0" minHeight="325.0" minWidth="1150.0" prefHeight="325.0" prefWidth="1600.0">
                                     <columns>
-                                        <TableColumn maxWidth="150.0" minWidth="150.0" prefWidth="150.0" text="Manager ID" />
-                                        <TableColumn minWidth="170.0" prefWidth="170.0" text="Full Name" />
-                                        <TableColumn maxWidth="1600.0" minWidth="200.0" prefWidth="570.0" text="Address" />
-                                        <TableColumn maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Phone Number" />
-                                        <TableColumn maxWidth="200.0" minWidth="200.0" prefWidth="200.0" text="Email" />
-                                        <TableColumn maxWidth="150.0" minWidth="130.0" prefWidth="130.0" text="Password" />
-                                        <TableColumn maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Update Info" />
+                                        <TableColumn fx:id="dependantId" maxWidth="150.0" minWidth="82.0" prefWidth="88.0" text="Dependant ID" />
+                                        <TableColumn fx:id="dependantFullName" minWidth="147.0" prefWidth="154.0" text="Full Name" />
+                                        <TableColumn fx:id="dependantAddress" maxWidth="1600.0" minWidth="200.0" prefWidth="237.0" text="Address" />
+                                        <TableColumn fx:id="dependantPhoneNumber" maxWidth="371.0" minWidth="100.0" prefWidth="161.0" text="Phone Number" />
+                                        <TableColumn fx:id="dependantEmail" maxWidth="424.0" minWidth="97.0" prefWidth="104.0" text="Email" />
+                                        <TableColumn fx:id="dependantPassword" maxWidth="457.0" minWidth="107.0" prefWidth="130.0" text="Password" />
+                                        <TableColumn fx:id="policyHolderDependantTable" maxWidth="410.0" minWidth="96.0" prefWidth="126.0" text="Policy Holder" />
+                              <TableColumn fx:id="policyOwnerDependantTable" maxWidth="313.0" minWidth="0.0" prefWidth="123.0" text="Policy Owner" />
+                              <TableColumn fx:id="cardNumberDependantTable" maxWidth="718.0" minWidth="100.0" prefWidth="137.0" text="Card Number" />
+                              <TableColumn maxWidth="718.0" minWidth="100.0" prefWidth="100.0" text="Update Info" />
                                     </columns>
                                 </TableView>
                             </content>

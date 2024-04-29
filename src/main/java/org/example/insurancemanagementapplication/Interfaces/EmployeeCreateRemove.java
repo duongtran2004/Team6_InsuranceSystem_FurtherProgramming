@@ -4,6 +4,7 @@ import Entity.InsuranceManager;
 import Entity.InsuranceSurveyor;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import javafx.scene.control.Label;
 
 import java.util.Random;
 
@@ -14,7 +15,7 @@ import java.util.Random;
  * @project InsuranceManagementTeamProject
  */
 public interface EmployeeCreateRemove {
-    public static boolean createInsuranceManager(EntityManager entityManager, String fullName, String address, String phoneNumber, String email, String password){
+    public static boolean createInsuranceManager(EntityManager entityManager, Label errorContainer, String fullName, String address, String phoneNumber, String email, String password, String passwordValidation){
         EntityTransaction transaction = entityManager.getTransaction();
         try{
             transaction.begin();
@@ -23,15 +24,23 @@ public interface EmployeeCreateRemove {
             insuranceManager.setPhoneNumber(phoneNumber);
             insuranceManager.setAddress(address);
             insuranceManager.setEmail(email);
-            insuranceManager.setPassword(password);
-            String id = "IM";
-            Random random = new Random();
-            for (int i = 0; i < 8; i++){
-                id = id + random.nextInt(0, 10);
+            if (password.equals(passwordValidation)){
+                insuranceManager.setPassword(password);
+                String id = "IM";
+                Random random = new Random();
+                for (int i = 0; i < 8; i++){
+                    id = id + random.nextInt(0, 10);
+                }
+                insuranceManager.setId(id);
+                entityManager.persist(insuranceManager);
+                transaction.commit();
             }
-            insuranceManager.setId(id);
-            entityManager.persist(insuranceManager);
-            transaction.commit();
+            else {
+                transaction.rollback();
+                errorContainer.setText("Passwords Do not Match Please Try Again");
+                return false;
+            }
+
         }
         finally {
             if (transaction.isActive()){
@@ -42,7 +51,7 @@ public interface EmployeeCreateRemove {
         return true;
     }
 
-    public static boolean createInsuranceSurveyor(EntityManager entityManager, String fullName, String address, String phoneNumber, String email, String password, InsuranceManager insuranceManager){
+    public static boolean createInsuranceSurveyor(EntityManager entityManager, Label errorContainer, String fullName, String address, String phoneNumber, String email, String password, InsuranceManager insuranceManager, String passwordValidation){
         EntityTransaction transaction = entityManager.getTransaction();
         try{
             transaction.begin();
@@ -51,16 +60,23 @@ public interface EmployeeCreateRemove {
             insuranceSurveyor.setPhoneNumber(phoneNumber);
             insuranceSurveyor.setAddress(address);
             insuranceSurveyor.setEmail(email);
-            insuranceSurveyor.setPassword(password);
-            String id = "IS";
-            Random random = new Random();
-            for (int i = 0; i < 8; i++){
-                id = id + random.nextInt(0, 10);
+            if (password.equals(passwordValidation)){
+                insuranceSurveyor.setPassword(password);
+                String id = "IM";
+                Random random = new Random();
+                for (int i = 0; i < 8; i++){
+                    id = id + random.nextInt(0, 10);
+                }
+                insuranceSurveyor.setId(id);
+                entityManager.persist(insuranceSurveyor);
+                transaction.commit();
             }
-            insuranceSurveyor.setId(id);
-            insuranceSurveyor.setInsuranceManager(insuranceManager);
-            entityManager.persist(insuranceSurveyor);
-            transaction.commit();
+            else {
+                transaction.rollback();
+                errorContainer.setText("Passwords Do not Match. Please Try Again");
+                return false;
+            }
+
         }
         finally {
             if (transaction.isActive()){
