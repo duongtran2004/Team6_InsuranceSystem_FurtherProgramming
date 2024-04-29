@@ -1,6 +1,7 @@
 package org.example.insurancemanagementapplication.Interfaces;
 
 import Entity.Dependant;
+import Entity.InsuranceCard;
 import Entity.PolicyHolder;
 import Entity.PolicyOwner;
 import jakarta.persistence.EntityManager;
@@ -49,7 +50,7 @@ public interface CustomerCreateRemove {
         }
         return true;
     }
-    public static boolean createPolicyHolder(EntityManager entityManager, Label errorContainer, String fullName, String address, String phoneNumber, String email, String password, String passwordValidator, PolicyOwner policyOwner){
+    public static boolean createPolicyHolder(EntityManager entityManager, Label errorContainer, String lengthOfContract, String fullName, String address, String phoneNumber, String email, String password, String passwordValidator, PolicyOwner policyOwner){
         EntityTransaction transaction = entityManager.getTransaction();
         try{
             transaction.begin();
@@ -71,6 +72,10 @@ public interface CustomerCreateRemove {
             }
             policyHolder.setId(id);
             policyHolder.setPolicyOwner(policyOwner);
+            InsuranceCard insuranceCard = new InsuranceCard();
+            entityManager.persist(insuranceCard);
+            insuranceCard.setCardHolder(policyHolder);
+            insuranceCard.setPolicyOwner(policyOwner);
             entityManager.persist(policyHolder);
             transaction.commit();
         }
@@ -105,6 +110,7 @@ public interface CustomerCreateRemove {
             dependant.setId(id);
             dependant.setPolicyHolder(policyHolder);
             dependant.setPolicyOwner(policyHolder.getPolicyOwner());
+            dependant.setInsuranceCard(policyHolder.getInsuranceCard());
             entityManager.persist(dependant);
             transaction.commit();
         }

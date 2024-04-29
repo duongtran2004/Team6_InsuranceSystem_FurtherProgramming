@@ -65,4 +65,15 @@ public class CreationPageController_PolicyOwner implements CustomerCreateRemove,
 
 
     }
+
+    public CreationPageController_PolicyOwner(EntityManager entityManager, User user) {
+        this.entityManager = entityManager;
+        this.user = user;
+    }
+
+    public CreationPageController_PolicyOwner(EntityManager entityManager, User user, PolicyOwner policyOwner) {
+        this.entityManager = entityManager;
+        this.user = user;
+        this.policyOwner = policyOwner;
+    }
 }
