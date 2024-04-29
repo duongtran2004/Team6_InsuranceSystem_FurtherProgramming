@@ -94,7 +94,7 @@
                         <TextField GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="4" />
                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
                      <children>
-                        <TextField fx:id="managerId" prefHeight="26.0" prefWidth="478.0" />
+                        <TextField fx:id="managerIdField" prefHeight="26.0" prefWidth="478.0" />
                      </children>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5" GridPane.vgrow="NEVER">
@@ -110,16 +110,21 @@
                         </HBox>
                         <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
                             <buttons>
-                                <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="276.0" style="-fx-background-color: linear-gradient(to right, rgb(62, 198, 222), rgb(17, 130, 100));" text="Return">
+                                <Button fx:id="returnButton" mnemonicParsing="false" prefHeight="26.0" prefWidth="276.0" style="-fx-background-color: linear-gradient(to right, rgb(62, 198, 222), rgb(17, 130, 100));" text="Return">
                                     <font>
                                         <Font name="Helvetica Neue Bold" size="16.0" />
                                     </font>
                                 </Button>
-                                <Button fx:id="submitButton" mnemonicParsing="false" style="-fx-background-color: linear-gradient(to right, rgb(62, 198, 222), rgb(17, 130, 100));" text="Submit">
+                                <Button fx:id="managerReassignButton" mnemonicParsing="false" style="-fx-background-color: linear-gradient(to right, rgb(62, 198, 222), rgb(17, 130, 100));" text="Reassign">
                                     <font>
                                         <Font name="Helvetica Neue Bold" size="16.0" />
                                     </font>
                                 </Button>
+                        <Button fx:id="submitButton" mnemonicParsing="false" style="-fx-background-color: linear-gradient(to right, rgb(62, 198, 222), rgb(17, 130, 100));" text="Submit">
+                           <font>
+                              <Font name="Helvetica Bold" size="16.0" />
+                           </font>
+                        </Button>
                             </buttons>
                         </ButtonBar>
                         <Label alignment="CENTER_RIGHT" prefHeight="54.0" prefWidth="468.0" text="* Passwords do not match. Please try again." textFill="#e81111" GridPane.columnIndex="1" GridPane.rowIndex="7" />
