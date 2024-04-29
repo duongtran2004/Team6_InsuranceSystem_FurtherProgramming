@@ -225,7 +225,6 @@ public class DashBoardController_SystemAdmin implements EmployeeCreateRemove, Cu
                 }
             });
             insuranceManagersObservableList.add(insuranceManager);
-
             managerId.setCellValueFactory(new PropertyValueFactory<InsuranceManager, String>("id"));
             managerFullName.setCellValueFactory(new PropertyValueFactory<InsuranceManager, String>("fullName"));
             managerAddress.setCellValueFactory(new PropertyValueFactory<InsuranceManager, String>("address"));
@@ -247,10 +246,33 @@ public class DashBoardController_SystemAdmin implements EmployeeCreateRemove, Cu
         while (listIteratorInsuranceSurveyor.hasNext()){
             InsuranceSurveyor insuranceSurveyor = listIteratorInsuranceSurveyor.next();
             Button buttonUpdateInfo = new Button("Update Info");
+            buttonUpdateInfo.setOnAction(event -> {
+                CreationPageController_InsuranceSurveyor creationPageControllerInsuranceSurveyor = new CreationPageController_InsuranceSurveyor(entityManager, user, insuranceSurveyor);
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(HelloApplication.class.getResource("InsuranceSurveyorCreationPage.fxml"));
+                fxmlLoader.setController(creationPageControllerInsuranceSurveyor);
+                try {
+                    Scene scene = new Scene(fxmlLoader.load());
+                    Stage stage = (Stage) buttonUpdateInfo.getScene().getWindow();
+                    stage.setScene(scene);
+                    stage.show();
+
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
+            });
             insuranceSurveyor.setUpdateInfoButton(buttonUpdateInfo);
-            buttonUpdateInfo.setUserData(insuranceSurveyor);
             insuranceSurveyorsObservableList.add(insuranceSurveyor);
         }
+        surveyorId.setCellValueFactory(new PropertyValueFactory<InsuranceSurveyor, String>("id"));
+        surveyorFullName.setCellValueFactory(new PropertyValueFactory<InsuranceSurveyor, String>("fullName"));
+        surveyorAddress.setCellValueFactory(new PropertyValueFactory<InsuranceSurveyor, String>("address"));
+        surveyorEmail.setCellValueFactory(new PropertyValueFactory<InsuranceSurveyor, String>("email"));
+        surveyorPassword.setCellValueFactory(new PropertyValueFactory<InsuranceSurveyor, String>("password"));
+        manager.setCellValueFactory(new PropertyValueFactory<InsuranceSurveyor, String>("insuranceManagerId"));
+        surveyorUpdateInfoButton.setCellValueFactory(new PropertyValueFactory<InsuranceSurveyor, Button>("updateInfoButton"));
+        surveyorTable.getItems().setAll(insuranceSurveyorsObservableList);
 
 
         ObservableList<PolicyOwner> policyOwnersObservableList = FXCollections.observableArrayList();
@@ -259,6 +281,9 @@ public class DashBoardController_SystemAdmin implements EmployeeCreateRemove, Cu
         while (policyOwnerListIterator.hasNext()){
             PolicyOwner policyOwner = policyOwnerListIterator.next();
             Button buttonUpdateInfo = new Button("Update Info");
+            buttonUpdateInfo.setOnAction(event -> {
+
+            });
             buttonUpdateInfo.setUserData(policyOwner);
             policyOwner.setUpdateInfoButton(buttonUpdateInfo);
             Button buttonAddPolicy = new Button("Add Policy");
@@ -266,6 +291,15 @@ public class DashBoardController_SystemAdmin implements EmployeeCreateRemove, Cu
             buttonAddPolicy.setUserData(policyOwner);
             policyOwnersObservableList.add(policyOwner);
         }
+        policyOwnerId.setCellValueFactory(new PropertyValueFactory<PolicyOwner, String>("id"));
+        policyOwnerFullName.setCellValueFactory(new PropertyValueFactory<PolicyOwner, String>("fullName"));
+        policyOwnerAddress.setCellValueFactory(new PropertyValueFactory<PolicyOwner, String>("address"));
+        policyOwnerEmail.setCellValueFactory(new PropertyValueFactory<PolicyOwner, String>("email"));
+        policyOwnerPassword.setCellValueFactory(new PropertyValueFactory<PolicyOwner, String>("password"));
+        policyOwnerUpdateInfoButton.setCellValueFactory(new PropertyValueFactory<PolicyOwner, Button>("updateInfoButton"));
+        policyOwnerAddPolicyButton.setCellValueFactory(new PropertyValueFactory<PolicyOwner, Button>("addPolicyButton"));
+        policyOwnerTable.getItems().setAll(policyOwnersObservableList);
+
 
         ObservableList<PolicyHolder> policyHoldersObservableList = FXCollections.observableArrayList();
         List<PolicyHolder> policyHolders = CustomerAnalytics.getAllPolicyHolder(entityManager);
@@ -280,10 +314,21 @@ public class DashBoardController_SystemAdmin implements EmployeeCreateRemove, Cu
             buttonAddDependant.setUserData(policyHolder);
             policyHoldersObservableList.add(policyHolder);
         }
+        policyHolderId.setCellValueFactory(new PropertyValueFactory<PolicyHolder, String>("id"));
+        policyHolderFullName.setCellValueFactory(new PropertyValueFactory<PolicyHolder, String>("fullName"));
+        policyHolderAddress.setCellValueFactory(new PropertyValueFactory<PolicyHolder, String>("address"));
+        policyHolderEmail.setCellValueFactory(new PropertyValueFactory<PolicyHolder, String>("email"));
+        policyOwnerHolderTable.setCellValueFactory(new PropertyValueFactory<PolicyHolder, String>("policyOwnerId"));
+        cardNumberHolderTable.setCellValueFactory(new PropertyValueFactory<PolicyHolder, String>("cardNumber"));
+        policyHolderPassword.setCellValueFactory(new PropertyValueFactory<PolicyHolder, String>("password"));
+        policyHolderUpdateInfoButton.setCellValueFactory(new PropertyValueFactory<PolicyHolder, Button>("updateInfoButton"));
+        policyHolderAddDependantButton.setCellValueFactory(new PropertyValueFactory<PolicyHolder, Button>("addDependantButton"));
+        policyHolderTable.getItems().setAll(policyHoldersObservableList);
 
 
 
-       ObservableList<Dependant> dependantObservableList = FXCollections.observableArrayList();
+
+        ObservableList<Dependant> dependantObservableList = FXCollections.observableArrayList();
         List<Dependant> dependants = CustomerAnalytics.getAllDependant(entityManager);
         ListIterator<Dependant> dependantListIterator = dependants.listIterator();
         while (dependantListIterator.hasNext()){
@@ -293,6 +338,16 @@ public class DashBoardController_SystemAdmin implements EmployeeCreateRemove, Cu
             dependant.setUpdateInfoButton(buttonUpdateInfo);
             dependantObservableList.add(dependant);
         }
+        dependantId.setCellValueFactory(new PropertyValueFactory<Dependant, String>("id"));
+        dependantFullName.setCellValueFactory(new PropertyValueFactory<Dependant, String>("fullName"));
+        dependantAddress.setCellValueFactory(new PropertyValueFactory<Dependant, String>("address"));
+        dependantEmail.setCellValueFactory(new PropertyValueFactory<Dependant, String>("email"));
+        dependantPassword.setCellValueFactory(new PropertyValueFactory<Dependant, String>("password"));
+        policyOwnerDependantTable.setCellValueFactory(new PropertyValueFactory<Dependant, String>("policyOwnerId"));
+        cardNumberDependantTable.setCellValueFactory(new PropertyValueFactory<Dependant, String>("cardNumber"));
+        policyHolderDependantTable.setCellValueFactory(new PropertyValueFactory<Dependant, String>("policyHolderId"));
+        dependantUpdateInfoButton.setCellValueFactory(new PropertyValueFactory<Dependant, Button>("updateInfoButton"));
+        dependantTable.getItems().setAll(dependantObservableList);
 
     }
 
