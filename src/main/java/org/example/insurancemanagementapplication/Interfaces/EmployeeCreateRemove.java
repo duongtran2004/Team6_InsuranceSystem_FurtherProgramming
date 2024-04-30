@@ -84,4 +84,32 @@ public interface EmployeeCreateRemove {
         }
         return true;
     }
+
+    public static boolean removeInsuranceManager(EntityManager entityManager, InsuranceManager insuranceManager){
+        EntityTransaction transaction = entityManager.getTransaction();
+        try{
+            transaction.begin();
+            entityManager.remove(insuranceManager);
+            transaction.commit();
+        } finally {
+            if (transaction.isActive()){
+                transaction.rollback();
+            }
+        }
+        return true;
+    }
+
+    public static boolean removeInsuranceSurveyor(EntityManager entityManager, InsuranceSurveyor insuranceSurveyor){
+        EntityTransaction transaction = entityManager.getTransaction();
+        try{
+            transaction.begin();
+            entityManager.remove(insuranceSurveyor);
+            transaction.commit();
+        } finally {
+            if (transaction.isActive()){
+                transaction.rollback();
+            }
+        }
+        return true;
+    }
 }
