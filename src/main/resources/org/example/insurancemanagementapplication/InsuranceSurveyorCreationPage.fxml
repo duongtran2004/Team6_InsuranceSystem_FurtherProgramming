@@ -88,10 +88,10 @@
                                 <Font name="Helvetica Neue Bold" size="16.0" />
                             </font>
                         </Label>
-                        <TextField GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="1" />
-                        <TextField GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="2" />
-                        <TextField GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="3" />
-                        <TextField GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="4" />
+                        <TextField fx:id="fullNameField" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="1" />
+                        <TextField fx:id="addressField" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="2" />
+                        <TextField fx:id="phoneNumberField" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="3" />
+                        <TextField fx:id="emailField" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="4" />
                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
                      <children>
                         <TextField fx:id="managerIdField" prefHeight="26.0" prefWidth="478.0" />
@@ -99,13 +99,13 @@
                         </HBox>
                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5" GridPane.vgrow="NEVER">
                             <children>
-                                <PasswordField alignment="CENTER" />
+                                <PasswordField fx:id="passwordField" alignment="CENTER" />
                                 <Label alignment="CENTER" maxHeight="96.25" maxWidth="400.0" minHeight="48.125" minWidth="200.0" prefHeight="48.125" prefWidth="200.0" text="Re-enter Password">
                                     <font>
                                         <Font name="Helvetica Neue Bold" size="16.0" />
                                     </font>
                                 </Label>
-                                <PasswordField />
+                                <PasswordField fx:id="passwordValidationField" />
                             </children>
                         </HBox>
                         <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6">

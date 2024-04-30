@@ -77,11 +77,16 @@ public interface CustomerCreateRemove {
             Date utilDate = new Date();
             Date expiryUtilDate = new Date(utilDate.getYear() + Integer.parseInt(lengthOfContract) - 1, utilDate.getMonth(), utilDate.getDay());
             InsuranceCard insuranceCard = new InsuranceCard();
-            entityManager.persist(insuranceCard);
+            String cardNumber = "";
+            for (int i = 0; i < 10; i++){
+                cardNumber = cardNumber + random.nextInt(0, 10);
+            }
+            insuranceCard.setCardNumber(cardNumber);
             insuranceCard.setCardHolder(policyHolder);
             insuranceCard.setPolicyOwner(policyOwner);
             insuranceCard.setExpirationDate(new java.sql.Date(expiryUtilDate.getTime()));
             entityManager.persist(policyHolder);
+            entityManager.persist(insuranceCard);
             transaction.commit();
         }
         finally {

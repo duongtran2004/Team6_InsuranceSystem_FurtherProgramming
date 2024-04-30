@@ -17,18 +17,18 @@ import java.util.List;
 public interface CustomerAnalytics {
     public static List<PolicyOwner> getAllPolicyOwner(EntityManager entityManager){
         return entityManager.createQuery(
-                "SELECT o FROM PolicyHolder o").getResultList();
+                "SELECT o FROM PolicyOwner o").getResultList();
 
     }
     public static List<PolicyHolder> getAllPolicyHolder(EntityManager entityManager){
         return entityManager.createQuery(
-                "SELECT e FROM PolicyHolder e").getResultList();
+                "SELECT e FROM PolicyHolder e WHERE e.type LIKE ?1").setParameter(1, "PH").getResultList();
 
     }
 
     public static List<Dependant> getAllDependant(EntityManager entityManager){
         return entityManager.createQuery(
-                "SELECT d FROM Dependant d").getResultList();
+                "SELECT d FROM Beneficiaries d WHERE d.type LIKE ?1").setParameter(1, "DE").getResultList();
 
     }
 

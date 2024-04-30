@@ -35,6 +35,8 @@ public class User {
 
     @Transient
     private Button updateInfoButton;
+    @Transient
+    private Button removeButton;
 
 
     public String getId() {
