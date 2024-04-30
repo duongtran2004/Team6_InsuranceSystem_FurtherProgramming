@@ -228,6 +228,11 @@ public class DashBoardController_SystemAdmin implements EmployeeCreateRemove, Cu
                     throw new RuntimeException(e);
                 }
             });
+            Button buttonRemove = new Button("Remove");
+            insuranceManager.setRemoveButton(buttonRemove);
+            buttonRemove.setOnAction(event -> {
+
+            });
 
 
 
