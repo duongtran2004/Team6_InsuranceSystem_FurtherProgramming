@@ -2,6 +2,7 @@ package org.example.insurancemanagementapplication.Interfaces;
 
 import Entity.*;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 
 import java.util.List;
 
@@ -52,4 +53,56 @@ public interface CustomerAnalytics {
         }
 
     }
+
+    //For input validation
+
+    public static PolicyOwner getPolicyOwnerByCredential(EntityManager entityManager, String fullName, String email, String password, String phoneNumber, String address) {
+        try {
+            PolicyOwner policyOwner = (PolicyOwner) entityManager.createQuery(
+                            "SELECT c FROM PolicyOwner c WHERE c.email = :email AND c.password = :password AND c.fullName = :fullName AND c.phoneNumber = :phoneNumber AND c.address = :address")
+                    .setParameter("email", email)
+                    .setParameter("password", password)
+                    .setParameter("fullName", fullName)
+                    .setParameter("phoneNumber", phoneNumber)
+                    .setParameter("address", address)
+                    .getSingleResult();
+            return policyOwner;
+        } catch (NoResultException e) {
+            return null; // Handle case where no matching policy owner is found
+        }
+    }
+
+    public static Dependant getDependantByCredential(EntityManager entityManager, String fullName, String email, String password, String phoneNumber, String address) {
+        try {
+            Dependant dependant = (Dependant) entityManager.createQuery(
+                            "SELECT c FROM Dependant c WHERE c.email = :email AND c.password = :password AND c.fullName = :fullName AND c.phoneNumber = :phoneNumber AND c.address = :address")
+                    .setParameter("email", email)
+                    .setParameter("password", password)
+                    .setParameter("fullName", fullName)
+                    .setParameter("phoneNumber", phoneNumber)
+                    .setParameter("address", address)
+                    .getSingleResult();
+            return dependant;
+        } catch (NoResultException e) {
+            return null; // Handle case where no matching policy owner is found
+        }
+    }
+    public static PolicyHolder getPolicyHolderByCredential(EntityManager entityManager, String fullName, String email, String password, String phoneNumber, String address) {
+        try {
+            PolicyHolder policyHolder = (PolicyHolder) entityManager.createQuery(
+                            "SELECT c FROM PolicyHolder c WHERE c.email = :email AND c.password = :password AND c.fullName = :fullName AND c.phoneNumber = :phoneNumber AND c.address = :address")
+                    .setParameter("email", email)
+                    .setParameter("password", password)
+                    .setParameter("fullName", fullName)
+                    .setParameter("phoneNumber", phoneNumber)
+                    .setParameter("address", address)
+                    .getSingleResult();
+            return policyHolder;
+        } catch (NoResultException e) {
+            return null; // Handle case where no matching policy owner is found
+        }
+    }
+
+
+
 }

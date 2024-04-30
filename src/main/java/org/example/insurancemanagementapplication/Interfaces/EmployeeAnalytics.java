@@ -4,6 +4,7 @@ import Entity.InsuranceManager;
 import Entity.InsuranceSurveyor;
 import Entity.SystemAdmin;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 
 import java.util.List;
 
@@ -36,5 +37,52 @@ public interface EmployeeAnalytics {
     public static InsuranceSurveyor getInsuranceSurveyorWithCredential(EntityManager entityManager, String id, String email, String password){
         InsuranceSurveyor employee = (InsuranceSurveyor) entityManager.createQuery("SELECT c FROM InsuranceSurveyor c WHERE c.id LIKE ?1 AND c.password LIKE ?2 AND c.email LIKE ?3").setParameter(1, id).setParameter(2, password).setParameter(3, email).getSingleResult();
         return employee;
+    }
+    public static InsuranceManager getInsuranceManagerByCredential(EntityManager entityManager, String fullName, String email, String password, String phoneNumber, String address) {
+        try {
+            InsuranceManager insuranceManager = (InsuranceManager) entityManager.createQuery(
+                            "SELECT c FROM InsuranceManager c WHERE c.email = :email AND c.password = :password AND c.fullName = :fullName AND c.phoneNumber = :phoneNumber AND c.address = :address")
+                    .setParameter("email", email)
+                    .setParameter("password", password)
+                    .setParameter("fullName", fullName)
+                    .setParameter("phoneNumber", phoneNumber)
+                    .setParameter("address", address)
+                    .getSingleResult();
+            return insuranceManager;
+        } catch (NoResultException e) {
+            return null; // Handle case where no matching policy owner is found
+        }
+    }
+
+    public static InsuranceSurveyor getInsuranceSurveyorByCredential(EntityManager entityManager, String fullName, String email, String password, String phoneNumber, String address) {
+        try {
+            InsuranceSurveyor insuranceSurveyor = (InsuranceSurveyor) entityManager.createQuery(
+                            "SELECT c FROM InsuranceSurveyor c WHERE c.email = :email AND c.password = :password AND c.fullName = :fullName AND c.phoneNumber = :phoneNumber AND c.address = :address")
+                    .setParameter("email", email)
+                    .setParameter("password", password)
+                    .setParameter("fullName", fullName)
+                    .setParameter("phoneNumber", phoneNumber)
+                    .setParameter("address", address)
+                    .getSingleResult();
+            return insuranceSurveyor;
+        } catch (NoResultException e) {
+            return null; // Handle case where no matching policy owner is found
+        }
+    }
+
+    public static SystemAdmin getSystemAdminByCredential(EntityManager entityManager, String fullName, String email, String password, String phoneNumber, String address) {
+        try {
+            SystemAdmin systemAdmin = (SystemAdmin) entityManager.createQuery(
+                            "SELECT c FROM SystemAdmin c WHERE c.email = :email AND c.password = :password AND c.fullName = :fullName AND c.phoneNumber = :phoneNumber AND c.address = :address")
+                    .setParameter("email", email)
+                    .setParameter("password", password)
+                    .setParameter("fullName", fullName)
+                    .setParameter("phoneNumber", phoneNumber)
+                    .setParameter("address", address)
+                    .getSingleResult();
+            return systemAdmin;
+        } catch (NoResultException e) {
+            return null; // Handle case where no matching policy owner is found
+        }
     }
 }
