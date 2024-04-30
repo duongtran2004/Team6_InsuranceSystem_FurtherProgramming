@@ -11,7 +11,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import org.example.insurancemanagementapplication.HelloApplication;
+import org.example.insurancemanagementapplication.MainEntryPoint;
 import org.example.insurancemanagementapplication.Interfaces.CustomerAnalytics;
 import org.example.insurancemanagementapplication.Interfaces.EmployeeAnalytics;
 
@@ -25,10 +25,10 @@ import java.util.ResourceBundle;
  * @created 27/04/2024 04:50
  * @project InsuranceManagementTeamProject
  */
-public class MainController implements Initializable, CustomerAnalytics, EmployeeAnalytics {
+public class LogInPageController implements Initializable, CustomerAnalytics, EmployeeAnalytics {
     EntityManager entityManager;
 
-    public MainController(EntityManager entityManager) {
+    public LogInPageController(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
@@ -66,7 +66,7 @@ public class MainController implements Initializable, CustomerAnalytics, Employe
             if (role.equals("System Admin")){
                 SystemAdmin systemAdmin = EmployeeAnalytics.getSystemAdminWithCredential(entityManager, userId, email, password);
                 if (systemAdmin != null){
-                    FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("DashBoard_SystemAdmin.fxml"));
+                    FXMLLoader fxmlLoader = new FXMLLoader(MainEntryPoint.class.getResource("DashBoard_SystemAdmin.fxml"));
                     DashBoardController_SystemAdmin dashBoardControllerSystemAdmin = new DashBoardController_SystemAdmin(entityManager, systemAdmin);
                     fxmlLoader.setController(dashBoardControllerSystemAdmin);
                     try {
@@ -85,7 +85,7 @@ public class MainController implements Initializable, CustomerAnalytics, Employe
             else if (role.equals("Insurance Manager")){
                 InsuranceManager insuranceManager = EmployeeAnalytics.getInsuranceManagerWithCredential(entityManager, userId, email, password);
                 if (insuranceManager != null){
-                    FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("DashBoard_InsuranceManager.fxml"));
+                    FXMLLoader fxmlLoader = new FXMLLoader(MainEntryPoint.class.getResource("DashBoard_InsuranceManager.fxml"));
                     DashBoardController_InsuranceManager dashBoardControllerInsuranceManager = new DashBoardController_InsuranceManager(insuranceManager, entityManager);
                     fxmlLoader.setController(dashBoardControllerInsuranceManager);
                     try {
@@ -104,7 +104,7 @@ public class MainController implements Initializable, CustomerAnalytics, Employe
             else if (role.equals("Insurance Surveyor")){
                 InsuranceSurveyor insuranceSurveyor = EmployeeAnalytics.getInsuranceSurveyorWithCredential(entityManager, userId, email, password);
                 if (insuranceSurveyor != null){
-                    FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("DashBoard_InsuranceSurveyor.fxml"));
+                    FXMLLoader fxmlLoader = new FXMLLoader(MainEntryPoint.class.getResource("DashBoard_InsuranceSurveyor.fxml"));
                     DashBoardController_InsuranceSurveyor dashBoardControllerInsuranceSurveyor = new DashBoardController_InsuranceSurveyor(insuranceSurveyor, entityManager);
                     fxmlLoader.setController(dashBoardControllerInsuranceSurveyor);
                     try {
@@ -123,7 +123,7 @@ public class MainController implements Initializable, CustomerAnalytics, Employe
             else if (role.equals("Policy Owner")){
                 PolicyOwner policyOwner = (PolicyOwner) CustomerAnalytics.getCustomerWithCredentials(entityManager, userId, email, password, "Policy Owner");
                 if (policyOwner != null){
-                    FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("DashBoard_PolicyOwner.fxml"));
+                    FXMLLoader fxmlLoader = new FXMLLoader(MainEntryPoint.class.getResource("DashBoard_PolicyOwner.fxml"));
                    DashBoardController_PolicyOwner dashBoardController_policyOwner = new DashBoardController_PolicyOwner(policyOwner, entityManager);
                     fxmlLoader.setController(dashBoardController_policyOwner);
                     try {
@@ -142,7 +142,7 @@ public class MainController implements Initializable, CustomerAnalytics, Employe
             else if (role.equals("Policy Holder")){
                 PolicyHolder policyHolder = (PolicyHolder) CustomerAnalytics.getCustomerWithCredentials(entityManager, userId, email, password, "Policy Holder");
                 if (policyHolder != null){
-                    FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("DashBoard_PolicyHolder.fxml"));
+                    FXMLLoader fxmlLoader = new FXMLLoader(MainEntryPoint.class.getResource("DashBoard_PolicyHolder.fxml"));
                     DashBoardController_PolicyHolder dashBoardController_policyHolder = new DashBoardController_PolicyHolder(policyHolder, entityManager);
                     fxmlLoader.setController(dashBoardController_policyHolder);
                     try {
@@ -161,7 +161,7 @@ public class MainController implements Initializable, CustomerAnalytics, Employe
             else if (role.equals("Dependant")){
                 Dependant dependant = (Dependant) CustomerAnalytics.getCustomerWithCredentials(entityManager, userId, email, password, "Policy Dependant");
                 if (dependant != null){
-                    FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("DashBoard_Dependant.fxml"));
+                    FXMLLoader fxmlLoader = new FXMLLoader(MainEntryPoint.class.getResource("DashBoard_Dependant.fxml"));
                     DashBoardController_Dependant dashBoardController_dependant = new DashBoardController_Dependant(dependant, entityManager);
                     fxmlLoader.setController(dashBoardController_dependant);
                     try {

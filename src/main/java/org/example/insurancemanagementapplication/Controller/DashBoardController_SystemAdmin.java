@@ -14,7 +14,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import org.example.insurancemanagementapplication.HelloApplication;
+import org.example.insurancemanagementapplication.MainEntryPoint;
 import org.example.insurancemanagementapplication.Interfaces.CustomerAnalytics;
 import org.example.insurancemanagementapplication.Interfaces.CustomerCreateRemove;
 import org.example.insurancemanagementapplication.Interfaces.EmployeeAnalytics;
@@ -198,7 +198,7 @@ public class DashBoardController_SystemAdmin implements EmployeeCreateRemove, Cu
             buttonUpdateInfo.setOnAction(event -> {
                 CreationPageController_InsuranceManager insuranceManagerCreationPageController = new CreationPageController_InsuranceManager(entityManager, user, (InsuranceManager) buttonUpdateInfo.getUserData());
                 FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(HelloApplication.class.getResource("InsuranceManagerCreationPage.fxml"));
+                fxmlLoader.setLocation(MainEntryPoint.class.getResource("InsuranceManagerCreationPage.fxml"));
                 fxmlLoader.setController(insuranceManagerCreationPageController);
                 try {
                     Scene scene = new Scene(fxmlLoader.load());
@@ -216,7 +216,7 @@ public class DashBoardController_SystemAdmin implements EmployeeCreateRemove, Cu
             buttonAddSurveyor.setOnAction(event ->{
                 CreationPageController_InsuranceSurveyor creationPageControllerInsuranceSurveyor = new CreationPageController_InsuranceSurveyor(entityManager, user, (InsuranceManager) buttonAddSurveyor.getUserData());
                 FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(HelloApplication.class.getResource("InsuranceSurveyorCreationPage.fxml"));
+                fxmlLoader.setLocation(MainEntryPoint.class.getResource("InsuranceSurveyorCreationPage.fxml"));
                 fxmlLoader.setController(creationPageControllerInsuranceSurveyor);
                 try {
                     Scene scene = new Scene(fxmlLoader.load());
@@ -228,6 +228,7 @@ public class DashBoardController_SystemAdmin implements EmployeeCreateRemove, Cu
                     throw new RuntimeException(e);
                 }
             });
+
 
 
             insuranceManagersObservableList.add(insuranceManager);
@@ -258,7 +259,7 @@ public class DashBoardController_SystemAdmin implements EmployeeCreateRemove, Cu
             buttonUpdateInfo.setOnAction(event -> {
                 CreationPageController_InsuranceSurveyor creationPageControllerInsuranceSurveyor = new CreationPageController_InsuranceSurveyor(entityManager, user, insuranceSurveyor);
                 FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(HelloApplication.class.getResource("InsuranceSurveyorCreationPage.fxml"));
+                fxmlLoader.setLocation(MainEntryPoint.class.getResource("InsuranceSurveyorCreationPage.fxml"));
                 fxmlLoader.setController(creationPageControllerInsuranceSurveyor);
                 try {
                     Scene scene = new Scene(fxmlLoader.load());
@@ -296,7 +297,7 @@ public class DashBoardController_SystemAdmin implements EmployeeCreateRemove, Cu
             buttonUpdateInfo.setOnAction(event -> {
                 CreationPageController_PolicyOwner creationPageControllerPolicyOwner = new CreationPageController_PolicyOwner(entityManager, user, policyOwner);
                 FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(HelloApplication.class.getResource("PolicyOwnerCreationPage.fxml"));
+                fxmlLoader.setLocation(MainEntryPoint.class.getResource("PolicyOwnerCreationPage.fxml"));
                 fxmlLoader.setController(creationPageControllerPolicyOwner);
                 try {
                     Scene scene = new Scene(fxmlLoader.load());
@@ -314,7 +315,7 @@ public class DashBoardController_SystemAdmin implements EmployeeCreateRemove, Cu
             buttonAddPolicy.setOnAction(event -> {
                 CreationPageController_PolicyHolder creationPageControllerPolicyHolder = new CreationPageController_PolicyHolder(entityManager, user, policyOwner);
                 FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(HelloApplication.class.getResource("PolicyHolderCreationPage.fxml"));
+                fxmlLoader.setLocation(MainEntryPoint.class.getResource("PolicyHolderCreationPage.fxml"));
                 fxmlLoader.setController(creationPageControllerPolicyHolder);
                 try {
                     Scene scene = new Scene(fxmlLoader.load());
@@ -352,7 +353,7 @@ public class DashBoardController_SystemAdmin implements EmployeeCreateRemove, Cu
             buttonUpdateInfo.setOnAction(event -> {
                 CreationPageController_PolicyHolder creationPageControllerPolicyHolder = new CreationPageController_PolicyHolder(entityManager, user, policyHolder);
                 FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(HelloApplication.class.getResource("PolicyHolderCreationPage.fxml"));
+                fxmlLoader.setLocation(MainEntryPoint.class.getResource("PolicyHolderCreationPage.fxml"));
                 fxmlLoader.setController(creationPageControllerPolicyHolder);
                 try {
                     Scene scene = new Scene(fxmlLoader.load());
@@ -370,7 +371,7 @@ public class DashBoardController_SystemAdmin implements EmployeeCreateRemove, Cu
             buttonAddDependant.setOnAction(event -> {
                 CreationPageController_Dependant creationPageControllerDependant = new CreationPageController_Dependant(entityManager, user, policyHolder);
                 FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(HelloApplication.class.getResource("DependantCreationPage.fxml"));
+                fxmlLoader.setLocation(MainEntryPoint.class.getResource("DependantCreationPage.fxml"));
                 fxmlLoader.setController(creationPageControllerDependant);
                 try {
                     Scene scene = new Scene(fxmlLoader.load());
@@ -413,7 +414,7 @@ public class DashBoardController_SystemAdmin implements EmployeeCreateRemove, Cu
             buttonUpdateInfo.setOnAction(event -> {
                 CreationPageController_Dependant creationPageControllerDependant = new CreationPageController_Dependant(entityManager, user, dependant);
                 FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(HelloApplication.class.getResource("DependantCreationPage.fxml"));
+                fxmlLoader.setLocation(MainEntryPoint.class.getResource("DependantCreationPage.fxml"));
                 fxmlLoader.setController(creationPageControllerDependant);
                 try {
                     Scene scene = new Scene(fxmlLoader.load());
