@@ -103,6 +103,11 @@
                                         <Font name="Helvetica Neue Bold" size="16.0" />
                                     </font>
                                 </Button>
+                        <Button fx:id="returnButton" mnemonicParsing="false" style="-fx-background-color: linear-gradient(to right, rgb(62, 198, 222), rgb(17, 130, 100));" text="Return">
+                           <font>
+                              <Font name="Helvetica Neue Bold" size="16.0" />
+                           </font>
+                        </Button>
                             </buttons>
                         </ButtonBar>
                         <Label fx:id="errorContainer" alignment="CENTER_RIGHT" minWidth="500.0" prefHeight="54.0" prefWidth="500.0" textFill="#e81111" GridPane.columnIndex="1" GridPane.rowIndex="6" />

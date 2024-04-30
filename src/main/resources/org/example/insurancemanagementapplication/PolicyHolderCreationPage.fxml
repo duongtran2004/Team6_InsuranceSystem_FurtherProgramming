@@ -114,7 +114,7 @@
                   </HBox>
                   <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
                     <buttons>
-                      <Button fx:id="returnField" mnemonicParsing="false" prefHeight="26.0" prefWidth="276.0" style="-fx-background-color: linear-gradient(to right, rgb(62, 198, 222), rgb(17, 130, 100));" text="Button">
+                      <Button fx:id="returnButton" mnemonicParsing="false" prefHeight="26.0" prefWidth="276.0" style="-fx-background-color: linear-gradient(to right, rgb(62, 198, 222), rgb(17, 130, 100));" text="Return">
                            <font>
                               <Font name="Helvetica Neue Bold" size="16.0" />
                            </font>
