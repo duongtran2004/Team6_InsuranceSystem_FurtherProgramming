@@ -80,7 +80,7 @@ public class DashBoardController_PolicyOwner implements CustomerCreateRemove {
     @FXML
     private TableColumn<InsuranceCard, String> policyOwnerInsuranceCardTable;
 
-    public DashBoardController_PolicyOwner(Stage stage, PolicyOwner policyOwner, EntityManager entityManager) {
+    public DashBoardController_PolicyOwner(PolicyOwner policyOwner, EntityManager entityManager) {
         this.policyOwner = policyOwner;
         this.entityManager = entityManager;
     }

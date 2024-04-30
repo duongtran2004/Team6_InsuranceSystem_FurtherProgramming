@@ -2,6 +2,7 @@ package Entity;
 
 import jakarta.persistence.*;
 
+import java.awt.*;
 import java.util.Collection;
 
 /**
@@ -14,7 +15,8 @@ import java.util.Collection;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "user_type", discriminatorType = DiscriminatorType.STRING)
 public class Beneficiaries extends Customer {
-
+    @Transient
+    private Button addClaim;
     @Basic
     @Column(name = "policy_owner_id", insertable = false, updatable = false)
     private String policyOwnerId;

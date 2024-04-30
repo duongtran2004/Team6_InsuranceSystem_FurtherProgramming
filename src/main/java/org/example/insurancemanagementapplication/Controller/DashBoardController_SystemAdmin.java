@@ -228,17 +228,21 @@ public class DashBoardController_SystemAdmin implements EmployeeCreateRemove, Cu
                     throw new RuntimeException(e);
                 }
             });
+
+
             insuranceManagersObservableList.add(insuranceManager);
-            managerId.setCellValueFactory(new PropertyValueFactory<InsuranceManager, String>("id"));
-            managerFullName.setCellValueFactory(new PropertyValueFactory<InsuranceManager, String>("fullName"));
-            managerAddress.setCellValueFactory(new PropertyValueFactory<InsuranceManager, String>("address"));
-            managerEmail.setCellValueFactory(new PropertyValueFactory<InsuranceManager, String>("email"));
-            managerPassword.setCellValueFactory(new PropertyValueFactory<InsuranceManager, String>("password"));
-            managerUpdateInfoButton.setCellValueFactory(new PropertyValueFactory<InsuranceManager, Button>("updateInfoButton"));
-            managerAddSurveyorButton.setCellValueFactory(new PropertyValueFactory<InsuranceManager, Button>("addSurveyorButton"));
-            managerTable.getItems().setAll(insuranceManagersObservableList);
+
+
 
         }
+        managerId.setCellValueFactory(new PropertyValueFactory<InsuranceManager, String>("id"));
+        managerFullName.setCellValueFactory(new PropertyValueFactory<InsuranceManager, String>("fullName"));
+        managerAddress.setCellValueFactory(new PropertyValueFactory<InsuranceManager, String>("address"));
+        managerEmail.setCellValueFactory(new PropertyValueFactory<InsuranceManager, String>("email"));
+        managerPassword.setCellValueFactory(new PropertyValueFactory<InsuranceManager, String>("password"));
+        managerUpdateInfoButton.setCellValueFactory(new PropertyValueFactory<InsuranceManager, Button>("updateInfoButton"));
+        managerAddSurveyorButton.setCellValueFactory(new PropertyValueFactory<InsuranceManager, Button>("addSurveyorButton"));
+        managerTable.getItems().setAll(insuranceManagersObservableList);
 
 
         /**

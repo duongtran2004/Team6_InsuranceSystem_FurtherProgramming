@@ -95,6 +95,14 @@ public class User {
         this.updateInfoButton = updateInfo;
     }
 
+    public Button getRemoveButton() {
+        return removeButton;
+    }
+
+    public void setRemoveButton(Button removeButton) {
+        this.removeButton = removeButton;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

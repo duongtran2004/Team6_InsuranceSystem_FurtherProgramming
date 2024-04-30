@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.stage.Stage;
 
 import java.sql.Date;
 
@@ -121,7 +120,7 @@ public class DashBoardController_InsuranceManager {
     @FXML
     private TableColumn<InsuranceCard, String> policyOwnerInsuranceCardTable;
 
-    public DashBoardController_InsuranceManager(Stage stage, InsuranceManager insuranceManager, EntityManager entityManager) {
+    public DashBoardController_InsuranceManager(InsuranceManager insuranceManager, EntityManager entityManager) {
         this.insuranceManager = insuranceManager;
         this.entityManager = entityManager;
     }
