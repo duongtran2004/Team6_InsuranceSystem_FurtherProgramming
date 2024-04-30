@@ -12,6 +12,7 @@ import org.example.insurancemanagementapplication.Controller.LogInPageController
 import java.io.IOException;
 
 public class MainEntryPoint extends Application {
+    //Singleton
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainEntryPoint.class.getResource("LogInPage.fxml"));
