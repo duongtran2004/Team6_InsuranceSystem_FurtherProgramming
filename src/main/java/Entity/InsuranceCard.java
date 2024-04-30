@@ -1,6 +1,7 @@
 package Entity;
 
 import jakarta.persistence.*;
+import javafx.scene.control.Button;
 
 import java.sql.Date;
 import java.util.Collection;
@@ -21,6 +22,9 @@ public class InsuranceCard {
     @Basic
     @Column(name = "expiration_date")
     private Date expirationDate;
+
+    @Transient
+    private javafx.scene.control.Button removeButton;
 
     @Basic
     @Column(name = "card_holder_id", updatable = false, insertable = false)
@@ -55,6 +59,30 @@ public class InsuranceCard {
 
     public void setExpirationDate(Date expirationDate) {
         this.expirationDate = expirationDate;
+    }
+
+    public javafx.scene.control.Button getRemoveButton() {
+        return removeButton;
+    }
+
+    public void setRemoveButton(Button removeButton) {
+        this.removeButton = removeButton;
+    }
+
+    public String getCardHolderId() {
+        return cardHolderId;
+    }
+
+    public void setCardHolderId(String cardHolderId) {
+        this.cardHolderId = cardHolderId;
+    }
+
+    public String getPolicyOwnerId() {
+        return policyOwnerId;
+    }
+
+    public void setPolicyOwnerId(String policyOwnerId) {
+        this.policyOwnerId = policyOwnerId;
     }
 
     @Override

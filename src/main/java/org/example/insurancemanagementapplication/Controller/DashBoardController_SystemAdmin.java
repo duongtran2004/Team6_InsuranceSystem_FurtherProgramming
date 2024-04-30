@@ -4,21 +4,19 @@ import Entity.*;
 import jakarta.persistence.EntityManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import org.example.insurancemanagementapplication.MainEntryPoint;
 import org.example.insurancemanagementapplication.Interfaces.CustomerAnalytics;
 import org.example.insurancemanagementapplication.Interfaces.CustomerCreateRemove;
 import org.example.insurancemanagementapplication.Interfaces.EmployeeAnalytics;
 import org.example.insurancemanagementapplication.Interfaces.EmployeeCreateRemove;
+import org.example.insurancemanagementapplication.MainEntryPoint;
 
 import java.io.IOException;
 import java.net.URL;
@@ -59,6 +57,8 @@ public class DashBoardController_SystemAdmin implements EmployeeCreateRemove, Cu
     private Button addSurveyor;
     @FXML
     private Button addManager;
+    @FXML
+    private Label errorContainer;
 
 
     //Insurance Manager Table
@@ -80,6 +80,8 @@ public class DashBoardController_SystemAdmin implements EmployeeCreateRemove, Cu
     private TableColumn<InsuranceManager, Button> managerUpdateInfoButton;
     @FXML
     private TableColumn<InsuranceManager, Button> managerAddSurveyorButton;
+    @FXML
+    private TextField insuranceManagerSearchField;
 
     //Insurance Surveyor Table
     @FXML
@@ -100,6 +102,8 @@ public class DashBoardController_SystemAdmin implements EmployeeCreateRemove, Cu
     private TableColumn<InsuranceSurveyor, String> manager;
     @FXML
     private  TableColumn<InsuranceSurveyor, Button> surveyorUpdateInfoButton;
+    @FXML
+    private TextField insuranceSurveyorSearchField;
 
     //PolicyHolder Table
     @FXML
@@ -124,6 +128,8 @@ public class DashBoardController_SystemAdmin implements EmployeeCreateRemove, Cu
     private TableColumn<PolicyHolder, Button> policyHolderUpdateInfoButton;
     @FXML
     private TableColumn<PolicyHolder, Button> policyHolderAddDependantButton;
+    @FXML
+    private TextField policyHolderSearchField;
 
 
     //Dependant Table
@@ -149,6 +155,8 @@ public class DashBoardController_SystemAdmin implements EmployeeCreateRemove, Cu
     private TableColumn<Dependant, Button> dependantUpdateInfoButton;
     @FXML
     private TableColumn<Dependant, String> policyHolderDependantTable;
+    @FXML
+    private TextField dependantSearchField;
 
     //PolicyOwner Table
     @FXML
@@ -169,16 +177,46 @@ public class DashBoardController_SystemAdmin implements EmployeeCreateRemove, Cu
     private TableColumn<PolicyOwner, Button> policyOwnerUpdateInfoButton;
     @FXML
     private TableColumn<PolicyOwner, Button> policyOwnerAddPolicyButton;
+    @FXML
+    private TextField policyOwnerSearchField;
 
     //Insurance Card Table
+    @FXML
+    private TableView<InsuranceCard> insuranceCardTable;
     @FXML
     private TableColumn<InsuranceCard, String> cardNumber;
     @FXML
     private TableColumn<InsuranceCard, Date> expiryDate;
     @FXML
-    private TableColumn<InsuranceCard, String> cardHolder;
+    private TableColumn<InsuranceCard, String> cardHolderId;
     @FXML
     private TableColumn<InsuranceCard, String> policyOwnerInsuranceCardTable;
+    @FXML TableColumn<InsuranceCard, Button> insuranceCardRemoveButton;
+    @FXML
+    private TextField insuranceCardSearchField;
+
+    @FXML
+    private TableView<Claim> claimTable;
+    @FXML
+    private TableColumn<Claim, String> claimId;
+    @FXML
+    private TableColumn<Claim, Date> creationDate;
+    @FXML
+    private TableColumn<Claim, String> insuredPersonId;
+    @FXML
+    private TableColumn<Claim, String> cardNumberClaimTable;
+    @FXML
+    private TableColumn<Claim, String> policyOwnerClaimTable;
+    @FXML
+    private TableColumn<Claim, String> claimAmount;
+    @FXML
+    private TableColumn<Claim, Date> settlementDate;
+    @FXML
+    private TableColumn<Claim, String> status;
+    @FXML
+    private TableColumn<Claim, Button> viewInfoButton;
+
+
 
 
     @Override
@@ -237,10 +275,35 @@ public class DashBoardController_SystemAdmin implements EmployeeCreateRemove, Cu
 
 
             insuranceManagersObservableList.add(insuranceManager);
-
-
-
         }
+        FilteredList<InsuranceManager> filteredManagerList = new FilteredList<>(insuranceManagersObservableList, b -> true);
+        insuranceManagerSearchField.textProperty().addListener((observable, oldValue, newValue)->{
+            filteredManagerList.setPredicate(insuranceManager -> {
+                if (newValue.isEmpty() || newValue == null || newValue.isBlank()){
+                    return true;
+                }
+                String searchValue = newValue.toLowerCase();
+                if (insuranceManager.getId().equals(searchValue)){
+                    return true;
+                }
+                else if (insuranceManager.getFullName().equals(searchValue)){
+                    return true;
+                }
+                else if (insuranceManager.getEmail().equals(searchValue)){
+                    return true;
+                }
+                else if (insuranceManager.getAddress().equals(searchValue)){
+                    return true;
+                }
+                else if (insuranceManager.getPhoneNumber().equals(searchValue)){
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            });
+
+        });
         managerId.setCellValueFactory(new PropertyValueFactory<InsuranceManager, String>("id"));
         managerFullName.setCellValueFactory(new PropertyValueFactory<InsuranceManager, String>("fullName"));
         managerAddress.setCellValueFactory(new PropertyValueFactory<InsuranceManager, String>("address"));
@@ -248,7 +311,7 @@ public class DashBoardController_SystemAdmin implements EmployeeCreateRemove, Cu
         managerPassword.setCellValueFactory(new PropertyValueFactory<InsuranceManager, String>("password"));
         managerUpdateInfoButton.setCellValueFactory(new PropertyValueFactory<InsuranceManager, Button>("updateInfoButton"));
         managerAddSurveyorButton.setCellValueFactory(new PropertyValueFactory<InsuranceManager, Button>("addSurveyorButton"));
-        managerTable.getItems().setAll(insuranceManagersObservableList);
+        managerTable.getItems().setAll(filteredManagerList);
 
 
         /**
@@ -285,6 +348,40 @@ public class DashBoardController_SystemAdmin implements EmployeeCreateRemove, Cu
             });
             insuranceSurveyorsObservableList.add(insuranceSurveyor);
         }
+        FilteredList<InsuranceSurveyor> filteredSurveyorList = new FilteredList<>(insuranceSurveyorsObservableList, b -> true);
+        insuranceSurveyorSearchField.textProperty().addListener((observable, oldValue, newValue)->{
+            filteredSurveyorList.setPredicate(insuranceSurveyor -> {
+                if (newValue.isEmpty() || newValue == null || newValue.isBlank()){
+                    return true;
+                }
+                String searchValue = newValue.toLowerCase();
+                if (insuranceSurveyor.getId().equals(searchValue)){
+                    return true;
+                }
+                else if (insuranceSurveyor.getFullName().equals(searchValue)){
+                    return true;
+                }
+                else if (insuranceSurveyor.getEmail().equals(searchValue)){
+                    return true;
+                }
+                else if (insuranceSurveyor.getAddress().equals(searchValue)){
+                    return true;
+                }
+                else if (insuranceSurveyor.getPhoneNumber().equals(searchValue)){
+                    return true;
+                }
+                else if (insuranceSurveyor.getInsuranceManagerId().equals(searchValue)){
+                    return true;
+                }
+                else if (insuranceSurveyor.getInsuranceManager().getFullName().equals(searchValue)){
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            });
+
+        });
         surveyorId.setCellValueFactory(new PropertyValueFactory<InsuranceSurveyor, String>("id"));
         surveyorFullName.setCellValueFactory(new PropertyValueFactory<InsuranceSurveyor, String>("fullName"));
         surveyorAddress.setCellValueFactory(new PropertyValueFactory<InsuranceSurveyor, String>("address"));
@@ -292,7 +389,7 @@ public class DashBoardController_SystemAdmin implements EmployeeCreateRemove, Cu
         surveyorPassword.setCellValueFactory(new PropertyValueFactory<InsuranceSurveyor, String>("password"));
         manager.setCellValueFactory(new PropertyValueFactory<InsuranceSurveyor, String>("insuranceManagerId"));
         surveyorUpdateInfoButton.setCellValueFactory(new PropertyValueFactory<InsuranceSurveyor, Button>("updateInfoButton"));
-        surveyorTable.getItems().setAll(insuranceSurveyorsObservableList);
+        surveyorTable.getItems().setAll(filteredSurveyorList);
 
         /**
          * Filling the Policy Owners table with data
@@ -345,6 +442,34 @@ public class DashBoardController_SystemAdmin implements EmployeeCreateRemove, Cu
             policyOwner.setAddPolicyButton(buttonAddPolicy);
             policyOwnersObservableList.add(policyOwner);
         }
+        FilteredList<PolicyOwner> filteredPolicyOwnerList = new FilteredList<>(policyOwnersObservableList, b -> true);
+        policyOwnerSearchField.textProperty().addListener((observable, oldValue, newValue)->{
+            filteredPolicyOwnerList.setPredicate(policyOwner -> {
+                if (newValue.isEmpty() || newValue == null || newValue.isBlank()){
+                    return true;
+                }
+                String searchValue = newValue.toLowerCase();
+                if (policyOwner.getId().equals(searchValue)){
+                    return true;
+                }
+                else if (policyOwner.getFullName().equals(searchValue)){
+                    return true;
+                }
+                else if (policyOwner.getEmail().equals(searchValue)){
+                    return true;
+                }
+                else if (policyOwner.getAddress().equals(searchValue)){
+                    return true;
+                }
+                else if (policyOwner.getPhoneNumber().equals(searchValue)){
+                    return true;
+                }
+
+                else {
+                    return false;
+                }
+            });
+        });
         policyOwnerId.setCellValueFactory(new PropertyValueFactory<PolicyOwner, String>("id"));
         policyOwnerFullName.setCellValueFactory(new PropertyValueFactory<PolicyOwner, String>("fullName"));
         policyOwnerAddress.setCellValueFactory(new PropertyValueFactory<PolicyOwner, String>("address"));
@@ -352,7 +477,7 @@ public class DashBoardController_SystemAdmin implements EmployeeCreateRemove, Cu
         policyOwnerPassword.setCellValueFactory(new PropertyValueFactory<PolicyOwner, String>("password"));
         policyOwnerUpdateInfoButton.setCellValueFactory(new PropertyValueFactory<PolicyOwner, Button>("updateInfoButton"));
         policyOwnerAddPolicyButton.setCellValueFactory(new PropertyValueFactory<PolicyOwner, Button>("addPolicyButton"));
-        policyOwnerTable.getItems().setAll(policyOwnersObservableList);
+        policyOwnerTable.getItems().setAll(filteredPolicyOwnerList);
 
         /**
          * Filling the Policy Holder table with data
@@ -407,6 +532,41 @@ public class DashBoardController_SystemAdmin implements EmployeeCreateRemove, Cu
             buttonAddDependant.setUserData(policyHolder);
             policyHoldersObservableList.add(policyHolder);
         }
+        FilteredList<PolicyHolder> filteredPolicyHolderList = new FilteredList<>(policyHoldersObservableList, b -> true);
+        policyHolderSearchField.textProperty().addListener((observable, oldValue, newValue)->{
+            filteredPolicyHolderList.setPredicate(policyHolder -> {
+                if (newValue.isEmpty() || newValue == null || newValue.isBlank()){
+                    return true;
+                }
+                String searchValue = newValue.toLowerCase();
+                if (policyHolder.getId().equals(searchValue)){
+                    return true;
+                }
+                else if (policyHolder.getFullName().equals(searchValue)){
+                    return true;
+                }
+                else if (policyHolder.getEmail().equals(searchValue)){
+                    return true;
+                }
+                else if (policyHolder.getAddress().equals(searchValue)){
+                    return true;
+                }
+                else if (policyHolder.getPhoneNumber().equals(searchValue)){
+                    return true;
+                }
+                else if (policyHolder.getPolicyOwnerId().equals(searchValue)){
+                    return true;
+                }
+                else if( policyHolder.getPolicyOwner().getFullName().equals(searchValue)) {
+                    return true;
+                }
+
+                else {
+                    return false;
+                }
+            });
+        });
+
         policyHolderId.setCellValueFactory(new PropertyValueFactory<PolicyHolder, String>("id"));
         policyHolderFullName.setCellValueFactory(new PropertyValueFactory<PolicyHolder, String>("fullName"));
         policyHolderAddress.setCellValueFactory(new PropertyValueFactory<PolicyHolder, String>("address"));
@@ -416,7 +576,7 @@ public class DashBoardController_SystemAdmin implements EmployeeCreateRemove, Cu
         policyHolderPassword.setCellValueFactory(new PropertyValueFactory<PolicyHolder, String>("password"));
         policyHolderUpdateInfoButton.setCellValueFactory(new PropertyValueFactory<PolicyHolder, Button>("updateInfoButton"));
         policyHolderAddDependantButton.setCellValueFactory(new PropertyValueFactory<PolicyHolder, Button>("addDependantButton"));
-        policyHolderTable.getItems().setAll(policyHoldersObservableList);
+        policyHolderTable.getItems().setAll(filteredPolicyHolderList);
 
 
         /**
@@ -454,6 +614,45 @@ public class DashBoardController_SystemAdmin implements EmployeeCreateRemove, Cu
             dependant.setUpdateInfoButton(buttonUpdateInfo);
             dependantObservableList.add(dependant);
         }
+        FilteredList<Dependant> filteredDependantList = new FilteredList<>(dependantObservableList, b -> true);
+        dependantSearchField.textProperty().addListener((observable, oldValue, newValue)->{
+            filteredDependantList.setPredicate(dependant -> {
+                if (newValue.isEmpty() || newValue == null || newValue.isBlank()){
+                    return true;
+                }
+                String searchValue = newValue.toLowerCase();
+                if (dependant.getId().equals(searchValue)){
+                    return true;
+                }
+                else if (dependant.getFullName().equals(searchValue)){
+                    return true;
+                }
+                else if (dependant.getAddress().equals(searchValue)){
+                    return true;
+                }
+                else if (dependant.getEmail().equals(searchValue)){
+                    return true;
+                }
+                else if (dependant.getPhoneNumber().equals(searchValue)){
+                    return true;
+                }
+                else if (dependant.getPolicyOwnerId().equals(searchValue)){
+                    return true;
+                }
+                else if(dependant.getPolicyOwner().getFullName().equals(searchValue)) {
+                    return true;
+                }
+                else if (dependant.getPolicyHolderId().equals(searchValue)){
+                    return true;
+                }
+                else if(dependant.getPolicyHolder().getFullName().equals(searchValue)) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            });
+        });
         dependantId.setCellValueFactory(new PropertyValueFactory<Dependant, String>("id"));
         dependantFullName.setCellValueFactory(new PropertyValueFactory<Dependant, String>("fullName"));
         dependantAddress.setCellValueFactory(new PropertyValueFactory<Dependant, String>("address"));
@@ -464,6 +663,52 @@ public class DashBoardController_SystemAdmin implements EmployeeCreateRemove, Cu
         policyHolderDependantTable.setCellValueFactory(new PropertyValueFactory<Dependant, String>("policyHolderId"));
         dependantUpdateInfoButton.setCellValueFactory(new PropertyValueFactory<Dependant, Button>("updateInfoButton"));
         dependantTable.getItems().setAll(dependantObservableList);
+
+        ObservableList<InsuranceCard> insuranceCardObservableList = FXCollections.observableArrayList();
+        List<InsuranceCard> insuranceCards = CustomerAnalytics.getAllInsuranceCard(entityManager);
+        ListIterator<InsuranceCard> insuranceCardListIterator = insuranceCards.listIterator();
+        while (insuranceCardListIterator.hasNext()){
+            InsuranceCard insuranceCard = new InsuranceCard();
+            Button buttonRemove = new Button("Remove");
+            buttonRemove.setOnAction(event -> {
+
+            });
+            insuranceCard.setRemoveButton(buttonRemove);
+            insuranceCardObservableList.add(insuranceCard);
+        }
+        FilteredList<InsuranceCard> filteredInsuranceCardList = new FilteredList<>(insuranceCardObservableList, b -> true);
+        insuranceCardSearchField.textProperty().addListener((observable, oldValue, newValue) ->{
+            filteredInsuranceCardList.setPredicate(insuranceCard -> {
+                if (newValue.isBlank() || newValue.isEmpty() || newValue == null){
+                    return true;
+                }
+                String searchValue = newValue.toLowerCase();
+                if (insuranceCard.getCardNumber().equals(searchValue)){
+                    return true;
+                }
+                else if (insuranceCard.getCardHolderId().equals(searchValue)){
+                    return true;
+                }
+                else if (insuranceCard.getPolicyOwnerId().equals(searchValue)){
+                    return true;
+                }
+                else if (insuranceCard.getCardHolder().getFullName().equals(searchValue)){
+                    return true;
+                }
+                else if (insuranceCard.getPolicyOwner().getFullName().equals(searchValue)){
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            });
+        });
+        cardNumber.setCellValueFactory(new PropertyValueFactory<InsuranceCard, String>("cardNumber"));
+        cardHolderId.setCellValueFactory(new PropertyValueFactory<InsuranceCard, String>("cardHolder"));
+        policyOwnerInsuranceCardTable.setCellValueFactory(new PropertyValueFactory<InsuranceCard, String>("policyOwner"));
+        expiryDate.setCellValueFactory(new PropertyValueFactory<InsuranceCard, Date>("expirationDate"));
+        insuranceCardRemoveButton.setCellValueFactory(new PropertyValueFactory<InsuranceCard, Button>("removeButton"));
+        insuranceCardTable.getItems().addAll(filteredInsuranceCardList);
 
     }
 
