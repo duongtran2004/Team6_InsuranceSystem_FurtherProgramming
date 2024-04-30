@@ -15,6 +15,7 @@ public class MainEntryPoint extends Application {
     public static EntityManager entityManager;
     @Override
     public void start(Stage stage) throws IOException {
+        System.out.println("Hello Word");
         FXMLLoader fxmlLoader = new FXMLLoader(MainEntryPoint.class.getResource("LogInPage.fxml"));
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
