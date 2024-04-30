@@ -158,7 +158,7 @@
                                 <TextField fx:id="policyOwnerSearchField" prefHeight="25.0" prefWidth="1474.0" HBox.hgrow="ALWAYS" />
                             </children>
                         </HBox>
-                        <Label alignment="CENTER" prefHeight="31.0" prefWidth="1536.0" text="Policy Owner List" GridPane.vgrow="ALWAYS">
+                        <Label maxWidth="Infinity" alignment="CENTER" prefHeight="31.0" prefWidth="1536.0" text="Policy Owner List" GridPane.vgrow="ALWAYS">
                             <font>
                                 <Font name="Helvetica Neue Bold" size="16.0" />
                             </font>
@@ -204,7 +204,7 @@
                                 <TextField fx:id="policyHolderSearchField" prefHeight="25.0" prefWidth="1474.0" HBox.hgrow="ALWAYS" />
                             </children>
                         </HBox>
-                        <Label alignment="CENTER" prefHeight="31.0" prefWidth="1536.0" text="Policy Holder List" GridPane.vgrow="ALWAYS">
+                        <Label maxWidth="Infinity" alignment="CENTER" prefHeight="31.0" prefWidth="1536.0" text="Policy Holder List" GridPane.vgrow="ALWAYS">
                             <font>
                                 <Font name="Helvetica Neue Bold" size="16.0" />
                             </font>
@@ -251,7 +251,7 @@
                                 <TextField fx:id="dependantSearchField" prefHeight="25.0" prefWidth="1474.0" HBox.hgrow="ALWAYS" />
                             </children>
                         </HBox>
-                        <Label alignment="CENTER" prefHeight="31.0" prefWidth="1536.0" text="Dependant List" GridPane.hgrow="ALWAYS">
+                        <Label maxWidth="Infinity" alignment="CENTER" prefHeight="31.0" prefWidth="1536.0" text="Dependant List" GridPane.hgrow="ALWAYS">
                             <font>
                                 <Font name="Helvetica Neue Bold" size="16.0" />
                             </font>
@@ -294,7 +294,7 @@
                                 <TextField fx:id="insuranceCardSearchField" prefHeight="25.0" prefWidth="1474.0" HBox.hgrow="ALWAYS" />
                             </children>
                         </HBox>
-                        <Label alignment="CENTER" prefHeight="31.0" prefWidth="1536.0" text="Insurance Cards List" GridPane.hgrow="ALWAYS" GridPane.vgrow="NEVER">
+                        <Label maxWidth="Infinity" alignment="CENTER" prefHeight="31.0" prefWidth="1536.0" text="Insurance Cards List" GridPane.hgrow="ALWAYS" GridPane.vgrow="NEVER">
                             <font>
                                 <Font name="Helvetica Neue Bold" size="16.0" />
                             </font>
@@ -342,7 +342,7 @@
                                 <TextField fx:id="claimListSearchField" prefHeight="25.0" prefWidth="1474.0" HBox.hgrow="ALWAYS" />
                             </children>
                         </HBox>
-                        <Label alignment="CENTER" prefHeight="31.0" prefWidth="1536.0" text="Claims List" GridPane.vgrow="ALWAYS">
+                        <Label maxWidth="Infinity" alignment="CENTER" prefHeight="31.0" prefWidth="1536.0" text="Claims List" GridPane.vgrow="ALWAYS">
                             <font>
                                 <Font name="Helvetica Neue Bold" size="16.0" />
                             </font>
