@@ -15,7 +15,7 @@ import java.util.Collection;
 public class InsuranceSurveyor extends User {
 
     @Basic
-    @Column(name = "insurance_manager_id")
+    @Column(name = "insurance_manager_id", updatable = false, insertable = false)
     private String insuranceManagerId;
 
     @OneToMany(mappedBy = "insuranceSurveyor")

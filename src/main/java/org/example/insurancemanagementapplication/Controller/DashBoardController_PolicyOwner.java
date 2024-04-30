@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.stage.Stage;
 import org.example.insurancemanagementapplication.Interfaces.CustomerCreateRemove;
 
 import java.sql.Date;
@@ -16,11 +17,12 @@ import java.sql.Date;
  * @created 27/04/2024 04:54
  * @project InsuranceManagementTeamProject
  */
-public class PolicyOwnerController implements CustomerCreateRemove {
+public class DashBoardController_PolicyOwner implements CustomerCreateRemove {
     private final EntityManager entityManager;
     private final PolicyOwner policyOwner;
     private Beneficiaries beneficiary;
     private Claim claim;
+
 
     @FXML
     private TableView<PolicyHolder> policyHolderTable;
@@ -78,7 +80,7 @@ public class PolicyOwnerController implements CustomerCreateRemove {
     @FXML
     private TableColumn<InsuranceCard, String> policyOwnerInsuranceCardTable;
 
-    public PolicyOwnerController(PolicyOwner policyOwner, EntityManager entityManager) {
+    public DashBoardController_PolicyOwner(PolicyOwner policyOwner, EntityManager entityManager) {
         this.policyOwner = policyOwner;
         this.entityManager = entityManager;
     }

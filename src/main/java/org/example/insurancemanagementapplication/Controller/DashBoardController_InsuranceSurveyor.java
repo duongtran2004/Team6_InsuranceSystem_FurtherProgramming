@@ -15,7 +15,7 @@ import java.sql.Date;
  * @created 27/04/2024 04:54
  * @project InsuranceManagementTeamProject
  */
-public class InsuranceSurveyorController {
+public class DashBoardController_InsuranceSurveyor {
     private final EntityManager entityManager;
     private final InsuranceSurveyor insuranceSurveyor;
     private Customer customer;
@@ -98,9 +98,10 @@ public class InsuranceSurveyorController {
     @FXML
     private TableColumn<InsuranceCard, String> policyOwnerInsuranceCardTable;
 
-    public InsuranceSurveyorController(InsuranceSurveyor insuranceSurveyor, EntityManager entityManager) {
+    public DashBoardController_InsuranceSurveyor(InsuranceSurveyor insuranceSurveyor, EntityManager entityManager) {
         this.insuranceSurveyor = insuranceSurveyor;
         this.entityManager = entityManager;
+
     }
 
     public InsuranceSurveyor getInsuranceSurveyor() {

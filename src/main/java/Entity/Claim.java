@@ -30,22 +30,22 @@ public class Claim {
     private float claimAmount;
 
     @Basic
-    @Column(name = "insured_person_id")
+    @Column(name = "insured_person_id", updatable = false, insertable = false)
     private String insuredPersonId;
 
     @Basic
-    @Column(name = "policy_owner_id")
+    @Column(name = "policy_owner_id", insertable = false, updatable = false)
     private String policyOwnerId;
 
     @Basic
-    @Column(name = "card_number")
+    @Column(name = "card_number", insertable = false, updatable = false)
     private String cardNumber;
 
     @Basic
-    @Column(name = "insurance_manager_id")
+    @Column(name = "insurance_manager_id", insertable = false, updatable = false)
     private String insuranceManagerId;
     @Basic
-    @Column(name = "insurance_surveyor_id")
+    @Column(name = "insurance_surveyor_id", insertable = false, updatable = false)
     private String insuranceSurveyorId;
 
     public String getInsuredPersonId() {

@@ -27,7 +27,13 @@ public class PolicyOwner extends Customer {
     @OneToMany(mappedBy = "policyOwner")
     private Collection<InsuranceCard> listOfInsuranceCards;
 
+    public Button getAddPolicyButton() {
+        return addPolicyButton;
+    }
 
+    public void setAddPolicyButton(Button addPolicyButton) {
+        this.addPolicyButton = addPolicyButton;
+    }
 
     public Collection<Beneficiaries> getListOfBeneficiaries() {
         return listOfBeneficiaries;

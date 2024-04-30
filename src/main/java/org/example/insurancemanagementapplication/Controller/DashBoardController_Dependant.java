@@ -10,12 +10,13 @@ import jakarta.persistence.EntityManager;
  * @created 27/04/2024 04:53
  * @project InsuranceManagementTeamProject
  */
-public class DependantController {
+public class DashBoardController_Dependant {
     private final EntityManager entityManager;
     private final Dependant dependant;
     private Claim claim;
 
-    public DependantController(Dependant dependant, EntityManager entityManager) {
+
+    public DashBoardController_Dependant(Dependant dependant, EntityManager entityManager) {
         this.dependant = dependant;
         this.entityManager = entityManager;
     }

@@ -15,12 +15,13 @@ import java.sql.Date;
  * @created 27/04/2024 04:54
  * @project InsuranceManagementTeamProject
  */
-public class InsuranceManagerController {
+public class DashBoardController_InsuranceManager {
     private final EntityManager entityManager;
     private final InsuranceManager insuranceManager;
     private InsuranceSurveyor insuranceSurveyor;
     private Customer customer;
     private Claim claim;
+
 
     //Insurance Surveyor Table
     @FXML
@@ -119,7 +120,7 @@ public class InsuranceManagerController {
     @FXML
     private TableColumn<InsuranceCard, String> policyOwnerInsuranceCardTable;
 
-    public InsuranceManagerController(InsuranceManager insuranceManager, EntityManager entityManager) {
+    public DashBoardController_InsuranceManager(InsuranceManager insuranceManager, EntityManager entityManager) {
         this.insuranceManager = insuranceManager;
         this.entityManager = entityManager;
     }
