@@ -15,11 +15,12 @@ import java.io.IOException;
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("DashBoard_SystemAdmin.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("LogInPage.fxml"));
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
+
         SystemAdmin systemAdmin = entityManager.find(SystemAdmin.class, "SA90987611");
-        System.out.println(systemAdmin);
+
         DashBoardController_SystemAdmin systemAdminController = new DashBoardController_SystemAdmin(entityManager, systemAdmin);
         fxmlLoader.setController(systemAdminController);
         Scene scene = new Scene(fxmlLoader.load());

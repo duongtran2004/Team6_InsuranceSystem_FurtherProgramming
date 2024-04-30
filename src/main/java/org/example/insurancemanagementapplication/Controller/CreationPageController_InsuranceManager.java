@@ -71,6 +71,7 @@ public class CreationPageController_InsuranceManager implements EmployeeCreateRe
                     EmployeeUpdate.updateInsuranceManager(entityManager, insuranceManager, errorContainer, addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText(), passwordValidationField.getText());
                 }
                 else {
+                    //Validate Input
                     EmployeeCreateRemove.createInsuranceManager(entityManager, errorContainer, fullNameField.getText(), addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText(), passwordValidationField.getText());
                 }
             }
