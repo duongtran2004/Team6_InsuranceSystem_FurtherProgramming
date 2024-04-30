@@ -231,7 +231,7 @@ public class DashBoardController_SystemAdmin implements EmployeeCreateRemove, Cu
             Button buttonRemove = new Button("Remove");
             insuranceManager.setRemoveButton(buttonRemove);
             buttonRemove.setOnAction(event -> {
-
+                EmployeeCreateRemove.removeInsuranceManager(entityManager, insuranceManager);
             });
 
 
@@ -278,6 +278,11 @@ public class DashBoardController_SystemAdmin implements EmployeeCreateRemove, Cu
 
             });
             insuranceSurveyor.setUpdateInfoButton(buttonUpdateInfo);
+            Button buttonRemove = new Button("Remove");
+            insuranceSurveyor.setRemoveButton(buttonRemove);
+            buttonRemove.setOnAction(event -> {
+                EmployeeCreateRemove.removeInsuranceSurveyor(entityManager, insuranceSurveyor);
+            });
             insuranceSurveyorsObservableList.add(insuranceSurveyor);
         }
         surveyorId.setCellValueFactory(new PropertyValueFactory<InsuranceSurveyor, String>("id"));
@@ -314,7 +319,7 @@ public class DashBoardController_SystemAdmin implements EmployeeCreateRemove, Cu
                     throw new RuntimeException(e);
                 }
             });
-            buttonUpdateInfo.setUserData(policyOwner);
+
             policyOwner.setUpdateInfoButton(buttonUpdateInfo);
             Button buttonAddPolicy = new Button("Add Policy");
             buttonAddPolicy.setOnAction(event -> {
@@ -332,8 +337,12 @@ public class DashBoardController_SystemAdmin implements EmployeeCreateRemove, Cu
                     throw new RuntimeException(e);
                 }
             });
+            Button buttonRemove = new Button("Remove");
+            policyOwner.setRemoveButton(buttonRemove);
+            buttonRemove.setOnAction(event -> {
+                CustomerCreateRemove.removePolicyOwner(entityManager, policyOwner );
+            });
             policyOwner.setAddPolicyButton(buttonAddPolicy);
-            buttonAddPolicy.setUserData(policyOwner);
             policyOwnersObservableList.add(policyOwner);
         }
         policyOwnerId.setCellValueFactory(new PropertyValueFactory<PolicyOwner, String>("id"));
@@ -389,6 +398,11 @@ public class DashBoardController_SystemAdmin implements EmployeeCreateRemove, Cu
                 }
 
             });
+            Button buttonRemove = new Button("Remove");
+            policyHolder.setRemoveButton(buttonRemove);
+            buttonRemove.setOnAction(event -> {
+                CustomerCreateRemove.removePolicyHolder(entityManager, policyHolder );
+            });
             policyHolder.setAddDependantButton(buttonAddDependant);
             buttonAddDependant.setUserData(policyHolder);
             policyHoldersObservableList.add(policyHolder);
@@ -430,6 +444,11 @@ public class DashBoardController_SystemAdmin implements EmployeeCreateRemove, Cu
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
+            });
+            Button buttonRemove = new Button("Remove");
+            dependant.setRemoveButton(buttonRemove);
+            buttonRemove.setOnAction(event -> {
+                CustomerCreateRemove.removeDependant(entityManager, dependant );
             });
             buttonUpdateInfo.setUserData(dependant);
             dependant.setUpdateInfoButton(buttonUpdateInfo);

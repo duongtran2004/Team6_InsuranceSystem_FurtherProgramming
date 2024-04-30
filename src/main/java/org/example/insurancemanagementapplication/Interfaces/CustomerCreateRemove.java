@@ -131,4 +131,45 @@ public interface CustomerCreateRemove {
         }
         return true;
     }
+
+    public static boolean removePolicyOwner(EntityManager entityManager, PolicyOwner policyOwner){
+        EntityTransaction transaction = entityManager.getTransaction();
+        try{
+            transaction.begin();
+            entityManager.remove(policyOwner);
+            transaction.commit();
+        } finally {
+            if (transaction.isActive()){
+                transaction.rollback();
+            }
+        }
+        return true;
+    }
+    public static boolean removePolicyHolder(EntityManager entityManager, PolicyHolder policyHolder){
+        EntityTransaction transaction = entityManager.getTransaction();
+        try{
+            transaction.begin();
+            entityManager.remove(policyHolder);
+            transaction.commit();
+        } finally {
+            if (transaction.isActive()){
+                transaction.rollback();
+            }
+        }
+        return true;
+    }
+
+    public static boolean removeDependant(EntityManager entityManager, Dependant dependant){
+        EntityTransaction transaction = entityManager.getTransaction();
+        try{
+            transaction.begin();
+            entityManager.remove(dependant);
+            transaction.commit();
+        } finally {
+            if (transaction.isActive()){
+                transaction.rollback();
+            }
+        }
+        return true;
+    }
 }
