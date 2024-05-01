@@ -51,13 +51,6 @@ public class DashBoardController_SystemAdmin extends InsuranceManagerTableFillin
 
 
 
-
-
-
-
-
-
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
        InsuranceManagerTableFilling.fillingInsuranceManagerTable(entityManager, user, EmployeeAnalytics.getAllInsuranceManager(entityManager));
@@ -69,14 +62,7 @@ public class DashBoardController_SystemAdmin extends InsuranceManagerTableFillin
        ClaimTableFilling.fillingClaimTable(entityManager, user, ClaimAnalytics.getAllClaims(entityManager));
 
 
-
-
-
-
-
     }
-
-
 
     public DashBoardController_SystemAdmin(EntityManager entityManager, SystemAdmin systemAdmin) {
         this.entityManager = entityManager;
@@ -86,10 +72,6 @@ public class DashBoardController_SystemAdmin extends InsuranceManagerTableFillin
     public EntityManager getEntityManager() {
         return entityManager;
     }
-
-
-
-
 
 
 }

@@ -1,4 +1,4 @@
-package org.example.insurancemanagementapplication.Controller;
+package org.example.insurancemanagementapplication.Utility;
 
 import jakarta.persistence.EntityManager;
 import org.example.insurancemanagementapplication.Interfaces.CustomerAnalytics;
