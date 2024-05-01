@@ -5,6 +5,7 @@ import jakarta.persistence.EntityManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -18,6 +19,7 @@ import org.example.insurancemanagementapplication.MainEntryPoint;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
+import java.util.Comparator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.ResourceBundle;
@@ -884,6 +886,68 @@ public class DashBoardController_SystemAdmin implements ClaimAnalytics, Employee
             });
         });
 
+        class ClaimCreationDateComparator implements Comparator<Claim>{
+            @Override
+            public int compare(Claim firstClaim, Claim secondClaim) {
+               long firstClaimTime = firstClaim.getCreationDate().getTime();
+               long secondClaimTime = secondClaim.getCreationDate().getTime();
+               return Long.compare(firstClaimTime, secondClaimTime);
+            }
+
+        }
+
+        class ClaimSettlementDateComparator implements Comparator<Claim>{
+
+            @Override
+            public int compare(Claim firstClaim, Claim secondClaim) {
+                long firstClaimTime = firstClaim.getSettlementDate().getTime();
+                long secondClaimTime = secondClaim.getSettlementDate().getTime();
+                return Long.compare(firstClaimTime, secondClaimTime);
+            }
+
+        }
+
+        class ClaimAmountComparator implements Comparator<Claim>{
+
+            @Override
+            public int compare(Claim firstClaim, Claim secondClaim) {
+                return Float.compare(firstClaim.getClaimAmount(), secondClaim.getClaimAmount());
+            }
+        }
+
+        SortedList<Claim> sortedClaimList = new SortedList<>(filteredClaimList);
+        sortList.valueProperty().addListener((observable, oldVal, newVal)->{
+            if (newVal.equals("Sort By Creation Date In Ascending Order")){
+                ClaimCreationDateComparator claimCreationDateComparator = new ClaimCreationDateComparator();
+                sortedClaimList.sort(claimCreationDateComparator);
+            }
+            else if (newVal.equals("Sort By Creation Date In Ascending Order")){
+                ClaimCreationDateComparator claimCreationDateComparator = new ClaimCreationDateComparator();
+                sortedClaimList.sort(claimCreationDateComparator);
+                sortedClaimList.reversed();
+            }
+            else if (newVal.equals("Sort By Settlement Date In Ascending Order")){
+                ClaimSettlementDateComparator claimSettlementDateComparator = new ClaimSettlementDateComparator();
+                sortedClaimList.sort(claimSettlementDateComparator);
+            }
+            else if (newVal.equals("Sort By Settlement Date In Descending Order")){
+                ClaimSettlementDateComparator claimSettlementDateComparator = new ClaimSettlementDateComparator();
+                sortedClaimList.sort(claimSettlementDateComparator);
+                sortedClaimList.reversed();
+            }
+
+            else if (newVal.equals("Sort by Claim Amount In Ascending Order")){
+                ClaimAmountComparator claimAmountComparator = new ClaimAmountComparator();
+                sortedClaimList.sort(claimAmountComparator);
+            }
+            else if (newVal.equals("Sort by Claim Amount In Descending Order")){
+                ClaimAmountComparator claimAmountComparator = new ClaimAmountComparator();
+                sortedClaimList.sort(claimAmountComparator);
+                sortedClaimList.reversed();
+            }
+
+        });
+
 
 
 
@@ -896,7 +960,7 @@ public class DashBoardController_SystemAdmin implements ClaimAnalytics, Employee
         settlementDate.setCellValueFactory(new PropertyValueFactory<Claim, Date>("settlementDate"));
         status.setCellValueFactory(new PropertyValueFactory<Claim, String>("status"));
         claimButton.setCellValueFactory(new PropertyValueFactory<Claim, Button>("claimButton"));
-        claimTable.getItems().setAll(filteredClaimList);
+        claimTable.getItems().setAll(sortedClaimList);
 
 
 
