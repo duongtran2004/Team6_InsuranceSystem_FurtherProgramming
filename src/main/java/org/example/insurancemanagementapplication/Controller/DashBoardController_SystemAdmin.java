@@ -227,9 +227,9 @@ public class DashBoardController_SystemAdmin implements ClaimAnalytics, Employee
     @FXML
     private DatePicker settlementDateTo;
     @FXML
-    private DatePicker claimAmountFrom;
+    private TextField claimAmountFrom;
     @FXML
-    private DatePicker claimAmountTo;
+    private TextField claimAmountTo;
 
 
 
@@ -769,6 +769,123 @@ public class DashBoardController_SystemAdmin implements ClaimAnalytics, Employee
 
             });
         });
+
+        creationDateFrom.valueProperty().addListener((observable, oldDate, newDate)->{
+            filteredClaimList.setPredicate(claim -> {
+                if (newDate == null){
+                    return true;
+                }
+                else if (!claim.getCreationDate().toLocalDate().isBefore(newDate)){
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            });
+        });
+
+        creationDateTo.valueProperty().addListener((observable, oldDate, newDate)->{
+            filteredClaimList.setPredicate(claim -> {
+                if (newDate == null){
+                    return true;
+                }
+                else if (!claim.getCreationDate().toLocalDate().isAfter(newDate)){
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            });
+        });
+
+        settlementDateFrom.valueProperty().addListener((observable, oldDate, newDate)->{
+            filteredClaimList.setPredicate(claim -> {
+                if (newDate == null){
+                    return true;
+                }
+                else if (!claim.getSettlementDate().toLocalDate().isBefore(newDate)){
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            });
+        });
+
+
+        settlementDateTo.valueProperty().addListener((observable, oldDate, newDate)->{
+            filteredClaimList.setPredicate(claim -> {
+                if (newDate == null){
+                    return true;
+                }
+                else if (!claim.getSettlementDate().toLocalDate().isAfter(newDate)){
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            });
+        });
+
+        claimAmountFrom.textProperty().addListener((observable, oldValue, newValue)->{
+            filteredClaimList.setPredicate(claim -> {
+                if (newValue == null || newValue.isBlank() || newValue.isEmpty()){
+                    return true;
+                }
+                else {
+                    try{
+                        if (Float.parseFloat(newValue) <= claim.getClaimAmount()){
+                            return true;
+                        }
+                        else {
+                            return false;
+                        }
+                    } catch (NumberFormatException e){
+                        return false;
+                    }
+                }
+
+            });
+        });
+
+        claimAmountTo.textProperty().addListener((observable, oldValue, newValue)->{
+            filteredClaimList.setPredicate(claim -> {
+                if (newValue == null || newValue.isBlank() || newValue.isEmpty()){
+                    return true;
+                }
+                else {
+                    try{
+                        if (Float.parseFloat(newValue) >= claim.getClaimAmount()){
+                            return true;
+                        }
+                        else {
+                            return false;
+                        }
+                    } catch (NumberFormatException e){
+                        return false;
+                    }
+                }
+
+            });
+        });
+
+        statusList.valueProperty().addListener((observable, oldVal, newVal)->{
+            filteredClaimList.setPredicate(claim -> {
+                if (newVal == null){
+                    return true;
+                }
+                else if (claim.getStatus().equals(newVal)){
+                    return true;
+                }
+                else {
+                    return false;
+                }
+
+            });
+        });
+
+
+
 
         claimId.setCellValueFactory(new PropertyValueFactory<Claim, String>("claimId"));
         creationDate.setCellValueFactory(new PropertyValueFactory<Claim, Date>("creationDate"));
