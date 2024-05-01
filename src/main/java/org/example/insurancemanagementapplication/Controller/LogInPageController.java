@@ -11,6 +11,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.example.insurancemanagementapplication.Controller.DashBoardController.*;
 import org.example.insurancemanagementapplication.MainEntryPoint;
 import org.example.insurancemanagementapplication.Interfaces.CustomerAnalytics;
 import org.example.insurancemanagementapplication.Interfaces.EmployeeAnalytics;

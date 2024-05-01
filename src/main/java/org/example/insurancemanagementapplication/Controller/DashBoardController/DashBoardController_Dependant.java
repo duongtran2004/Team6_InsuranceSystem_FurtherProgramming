@@ -1,4 +1,4 @@
-package org.example.insurancemanagementapplication.Controller;
+package org.example.insurancemanagementapplication.Controller.DashBoardController;
 
 import Entity.Claim;
 import Entity.Dependant;

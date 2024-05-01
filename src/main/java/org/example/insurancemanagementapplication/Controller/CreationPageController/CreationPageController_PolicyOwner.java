@@ -1,4 +1,4 @@
-package org.example.insurancemanagementapplication.Controller;
+package org.example.insurancemanagementapplication.Controller.CreationPageController;
 
 import Entity.*;
 import jakarta.persistence.EntityManager;
@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.example.insurancemanagementapplication.Controller.DashBoardController.*;
 import org.example.insurancemanagementapplication.MainEntryPoint;
 import org.example.insurancemanagementapplication.Interfaces.CustomerCreateRemove;
 import org.example.insurancemanagementapplication.Interfaces.CustomerUpdate;
@@ -21,17 +22,14 @@ import java.util.ResourceBundle;
 /**
  * @author
  * @version ${}
- * @created 29/04/2024 11:50
+ * @created 29/04/2024 11:49
  * @project InsuranceManagementTeamProject
  */
-public class CreationPageController_PolicyHolder implements CustomerCreateRemove, CustomerUpdate, Initializable {
+public class CreationPageController_PolicyOwner implements CustomerCreateRemove, CustomerUpdate, Initializable {
     private EntityManager entityManager;
     private User user;
     private PolicyOwner policyOwner;
-    private PolicyHolder policyHolder;
 
-    @FXML
-    private TextField lengthOfContractField;
     @FXML
     private TextField fullNameField;
     @FXML
@@ -54,22 +52,21 @@ public class CreationPageController_PolicyHolder implements CustomerCreateRemove
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        if (policyHolder != null){
-            fullNameField.setText(policyHolder.getFullName());
+        if (policyOwner != null){
+            fullNameField.setText(policyOwner.getFullName());
             fullNameField.setDisable(true);
-            lengthOfContractField.setDisable(true);
-            addressField.setText(policyHolder.getAddress());
-            phoneNumberField.setText(policyHolder.getPhoneNumber());
-            emailField.setText(policyHolder.getEmail());
-            passwordField.setText(policyHolder.getPassword());
-            passwordValidationField.setText(policyHolder.getPassword());
+            addressField.setText(policyOwner.getAddress());
+            phoneNumberField.setText(policyOwner.getPhoneNumber());
+            emailField.setText(policyOwner.getEmail());
+            passwordField.setText(policyOwner.getPassword());
+            passwordValidationField.setText(policyOwner.getPassword());
             submitButton.setOnAction(event -> {
-                CustomerUpdate.updatePolicyHolder(entityManager, policyHolder, errorContainer, addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText(), passwordValidationField.getText());
+                CustomerUpdate.updatePolicyOwner(entityManager, policyOwner, errorContainer, addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText(), passwordValidationField.getText());
             });
         }
         else {
             submitButton.setOnAction(event -> {
-                CustomerCreateRemove.createPolicyHolder(entityManager, errorContainer, lengthOfContractField.getText(), fullNameField.getText(), addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText(), passwordValidationField.getText(), policyOwner);
+                CustomerCreateRemove.createPolicyOwner(entityManager, errorContainer, fullNameField.getText(), addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText(), passwordValidationField.getText());
             });
         }
         returnButton.setOnAction(event -> {
@@ -145,16 +142,14 @@ public class CreationPageController_PolicyHolder implements CustomerCreateRemove
 
     }
 
-    public CreationPageController_PolicyHolder(EntityManager entityManager, User user, PolicyOwner policyOwner) {
+    public CreationPageController_PolicyOwner(EntityManager entityManager, User user) {
         this.entityManager = entityManager;
         this.user = user;
-        this.policyOwner = policyOwner;
     }
 
-    public CreationPageController_PolicyHolder(EntityManager entityManager, User user, PolicyHolder policyHolder) {
+    public CreationPageController_PolicyOwner(EntityManager entityManager, User user, PolicyOwner policyOwner) {
         this.entityManager = entityManager;
         this.user = user;
         this.policyOwner = policyOwner;
-        this.policyHolder = policyHolder;
     }
 }

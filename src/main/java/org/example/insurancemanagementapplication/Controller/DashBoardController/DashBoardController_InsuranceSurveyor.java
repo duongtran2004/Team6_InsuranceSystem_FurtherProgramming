@@ -1,4 +1,4 @@
-package org.example.insurancemanagementapplication.Controller;
+package org.example.insurancemanagementapplication.Controller.DashBoardController;
 
 import Entity.*;
 import jakarta.persistence.EntityManager;
@@ -6,8 +6,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.stage.Stage;
-import org.example.insurancemanagementapplication.Interfaces.CustomerCreateRemove;
 
 import java.sql.Date;
 
@@ -17,13 +15,13 @@ import java.sql.Date;
  * @created 27/04/2024 04:54
  * @project InsuranceManagementTeamProject
  */
-public class DashBoardController_PolicyOwner implements CustomerCreateRemove {
+public class DashBoardController_InsuranceSurveyor {
     private final EntityManager entityManager;
-    private final PolicyOwner policyOwner;
-    private Beneficiaries beneficiary;
+    private final InsuranceSurveyor insuranceSurveyor;
+    private Customer customer;
     private Claim claim;
-
-
+    //PolicyOwner Table
+    //PolicyHolder Table
     @FXML
     private TableView<PolicyHolder> policyHolderTable;
     @FXML
@@ -70,6 +68,26 @@ public class DashBoardController_PolicyOwner implements CustomerCreateRemove {
     @FXML
     private TableColumn<Dependant, Button> dependantUpdateInfoButton;
 
+    //PolicyOwner Table
+    @FXML
+    private TableView<PolicyOwner> policyOwnerTable;
+    @FXML
+    private TableColumn<PolicyOwner, String> policyOwnerId;
+    @FXML
+    private TableColumn<PolicyOwner, String> policyOwnerFullName;
+    @FXML
+    private TableColumn<PolicyOwner, String> policyOwnerAddress;
+    @FXML
+    private TableColumn<PolicyOwner, String> policyOwnerPhoneNumber;
+    @FXML
+    private TableColumn<PolicyOwner, String> policyOwnerEmail;
+    @FXML
+    private TableColumn<PolicyOwner, String> policyOwnerPassword;
+    @FXML
+    private TableColumn<PolicyOwner, Button> policyOwnerUpdateInfoButton;
+    @FXML
+    private TableColumn<PolicyOwner, Button> policyOwnerAddPolicyButton;
+
     //Insurance Card Table
     @FXML
     private TableColumn<InsuranceCard, String> cardNumber;
@@ -80,22 +98,22 @@ public class DashBoardController_PolicyOwner implements CustomerCreateRemove {
     @FXML
     private TableColumn<InsuranceCard, String> policyOwnerInsuranceCardTable;
 
-    public DashBoardController_PolicyOwner(PolicyOwner policyOwner, EntityManager entityManager) {
-        this.policyOwner = policyOwner;
+    public DashBoardController_InsuranceSurveyor(InsuranceSurveyor insuranceSurveyor, EntityManager entityManager) {
+        this.insuranceSurveyor = insuranceSurveyor;
         this.entityManager = entityManager;
+
     }
 
-    public PolicyOwner getPolicyOwner() {
-        return policyOwner;
+    public InsuranceSurveyor getInsuranceSurveyor() {
+        return insuranceSurveyor;
     }
 
-    public Beneficiaries getBeneficiary() {
-        return beneficiary;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setBeneficiary(Beneficiaries beneficiary) {
-        this.beneficiary = beneficiary;
-
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     public Claim getClaim() {

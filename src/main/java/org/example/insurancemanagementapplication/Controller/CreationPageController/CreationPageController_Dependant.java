@@ -1,4 +1,4 @@
-package org.example.insurancemanagementapplication.Controller;
+package org.example.insurancemanagementapplication.Controller.CreationPageController;
 
 import Entity.*;
 import jakarta.persistence.EntityManager;
@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.example.insurancemanagementapplication.Controller.DashBoardController.*;
 import org.example.insurancemanagementapplication.MainEntryPoint;
 import org.example.insurancemanagementapplication.Interfaces.CustomerCreateRemove;
 import org.example.insurancemanagementapplication.Interfaces.CustomerUpdate;

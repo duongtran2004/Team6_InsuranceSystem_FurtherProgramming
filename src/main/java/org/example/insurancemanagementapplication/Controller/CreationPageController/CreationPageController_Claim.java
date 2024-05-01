@@ -1,4 +1,4 @@
-package org.example.insurancemanagementapplication.Controller;
+package org.example.insurancemanagementapplication.Controller.CreationPageController;
 
 import Entity.Beneficiaries;
 import Entity.Claim;

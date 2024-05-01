@@ -1,8 +1,8 @@
 package Entity;
 
 import jakarta.persistence.*;
+import javafx.scene.control.Button;
 
-import java.awt.*;
 import java.util.Collection;
 
 /**
@@ -16,7 +16,7 @@ import java.util.Collection;
 @DiscriminatorColumn(name = "user_type", discriminatorType = DiscriminatorType.STRING)
 public class Beneficiaries extends Customer {
     @Transient
-    private Button addClaim;
+    private javafx.scene.control.Button addClaimButton;
     @Basic
     @Column(name = "policy_owner_id", insertable = false, updatable = false)
     private String policyOwnerId;
@@ -110,5 +110,13 @@ public class Beneficiaries extends Customer {
 
     public void setListOfClaims(Collection<Claim> listOfClaims) {
         this.listOfClaims = listOfClaims;
+    }
+
+    public Button getAddClaimButton() {
+        return addClaimButton;
+    }
+
+    public void setAddClaimButton(Button addClaim) {
+        this.addClaimButton = addClaim;
     }
 }
