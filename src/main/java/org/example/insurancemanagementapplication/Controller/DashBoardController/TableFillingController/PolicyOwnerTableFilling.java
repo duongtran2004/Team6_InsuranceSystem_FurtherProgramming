@@ -4,7 +4,6 @@ import Entity.PolicyOwner;
 import Entity.SystemAdmin;
 import Entity.User;
 import jakarta.persistence.EntityManager;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
@@ -55,8 +54,7 @@ public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
     @FXML
     protected static TextField policyOwnerSearchField;
 
-    protected static void fillingPolicyOwnerTable(EntityManager entityManager, User user, List<PolicyOwner> policyOwners){
-        ObservableList<PolicyOwner> policyOwnersObservableList = FXCollections.observableArrayList();
+    protected static void fillingPolicyOwnerTable(EntityManager entityManager, User user, List<PolicyOwner> policyOwners, ObservableList<PolicyOwner> policyOwnersObservableList){
         ListIterator<PolicyOwner> policyOwnerListIterator = policyOwners.listIterator();
         while (policyOwnerListIterator.hasNext()){
             PolicyOwner policyOwner = policyOwnerListIterator.next();

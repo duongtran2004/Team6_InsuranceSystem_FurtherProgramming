@@ -5,7 +5,6 @@ import Entity.Dependant;
 import Entity.SystemAdmin;
 import Entity.User;
 import jakarta.persistence.EntityManager;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
@@ -65,8 +64,7 @@ public class ClaimTableFilling {
     @FXML
     protected static TextField claimAmountTo;
 
-    protected static void fillingClaimTable(EntityManager entityManager, User user, List<Claim> claims){
-        ObservableList<Claim> claimObservableList = FXCollections.observableArrayList();
+    protected static void fillingClaimTable(EntityManager entityManager, User user, List<Claim> claims, ObservableList<Claim> claimObservableList){
         ListIterator<Claim> claimListIterator = claims.listIterator();
         while (claimListIterator.hasNext()){
             Claim claim = claimListIterator.next();

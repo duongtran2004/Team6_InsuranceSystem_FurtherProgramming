@@ -1,7 +1,9 @@
 package org.example.insurancemanagementapplication.Controller.DashBoardController;
 
-import Entity.SystemAdmin;
+import Entity.*;
 import jakarta.persistence.EntityManager;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -22,6 +24,14 @@ import java.util.ResourceBundle;
 public class DashBoardController_SystemAdmin extends InsuranceManagerTableFilling implements ClaimAnalytics, EmployeeCreateRemove, CustomerCreateRemove, Initializable, EmployeeAnalytics {
     private final EntityManager entityManager;
     private final SystemAdmin user;
+
+    private ObservableList<InsuranceManager> insuranceManagersObservableList = FXCollections.observableArrayList();
+    private ObservableList<InsuranceSurveyor> insuranceSurveyorsObservableList = FXCollections.observableArrayList();
+    private ObservableList<PolicyOwner> policyOwnersObservableList = FXCollections.observableArrayList();
+    private ObservableList<PolicyHolder> policyHoldersObservableList = FXCollections.observableArrayList();
+    private ObservableList<Dependant> dependantsObservableList = FXCollections.observableArrayList();
+    private ObservableList<InsuranceCard> insuranceCardsObservableList = FXCollections.observableArrayList();
+    private ObservableList<Claim> claimObservableList = FXCollections.observableArrayList();
 
 
 
@@ -53,13 +63,13 @@ public class DashBoardController_SystemAdmin extends InsuranceManagerTableFillin
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-       InsuranceManagerTableFilling.fillingInsuranceManagerTable(entityManager, user, EmployeeAnalytics.getAllInsuranceManager(entityManager));
-       InsuranceSurveyorTableFilling.fillingInsuranceSurveyorTable(entityManager, user, EmployeeAnalytics.getAllInsuranceSurveyor(entityManager));
-       PolicyOwnerTableFilling.fillingPolicyOwnerTable(entityManager, user, CustomerAnalytics.getAllPolicyOwner(entityManager));
-       PolicyHolderTableFilling.fillingPolicyHolderTable(entityManager, user, CustomerAnalytics.getAllPolicyHolder(entityManager));
-       DependantTableFilling.fillingDependantTable(entityManager, user, CustomerAnalytics.getAllDependant(entityManager));
-       InsuranceSurveyorTableFilling.fillingDependantTable(entityManager, user, CustomerAnalytics.getAllDependant(entityManager));
-       ClaimTableFilling.fillingClaimTable(entityManager, user, ClaimAnalytics.getAllClaims(entityManager));
+       InsuranceManagerTableFilling.fillingInsuranceManagerTable(entityManager, user, EmployeeAnalytics.getAllInsuranceManager(entityManager), insuranceManagersObservableList);
+       InsuranceSurveyorTableFilling.fillingInsuranceSurveyorTable(entityManager, user, EmployeeAnalytics.getAllInsuranceSurveyor(entityManager), insuranceSurveyorsObservableList);
+       PolicyOwnerTableFilling.fillingPolicyOwnerTable(entityManager, user, CustomerAnalytics.getAllPolicyOwner(entityManager), policyOwnersObservableList);
+       PolicyHolderTableFilling.fillingPolicyHolderTable(entityManager, user, CustomerAnalytics.getAllPolicyHolder(entityManager), policyHoldersObservableList);
+       DependantTableFilling.fillingDependantTable(entityManager, user, CustomerAnalytics.getAllDependant(entityManager), dependantsObservableList);
+       InsuranceSurveyorTableFilling.fillingInsuranceCardTable(entityManager, user, CustomerAnalytics.getAllInsuranceCard(entityManager), insuranceCardsObservableList);
+       ClaimTableFilling.fillingClaimTable(entityManager, user, ClaimAnalytics.getAllClaims(entityManager), claimObservableList);
 
 
     }

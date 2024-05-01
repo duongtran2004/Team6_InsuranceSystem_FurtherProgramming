@@ -5,7 +5,6 @@ import Entity.PolicyOwner;
 import Entity.SystemAdmin;
 import Entity.User;
 import jakarta.persistence.EntityManager;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
@@ -42,9 +41,7 @@ public class InsuranceCardFillingTable extends DependantTableFilling {
     @FXML
     protected static TextField insuranceCardSearchField;
 
-    protected static void fillingInsuranceCardTable(EntityManager entityManager, User user, List<InsuranceCard> insuranceCards){
-
-        ObservableList<InsuranceCard> insuranceCardObservableList = FXCollections.observableArrayList();
+    protected static void fillingInsuranceCardTable(EntityManager entityManager, User user, List<InsuranceCard> insuranceCards, ObservableList<InsuranceCard> insuranceCardObservableList){
         ListIterator<InsuranceCard> insuranceCardListIterator = insuranceCards.listIterator();
         while (insuranceCardListIterator.hasNext()){
             InsuranceCard insuranceCard = new InsuranceCard();

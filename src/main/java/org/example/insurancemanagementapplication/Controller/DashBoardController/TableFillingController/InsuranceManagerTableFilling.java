@@ -3,7 +3,6 @@ package org.example.insurancemanagementapplication.Controller.DashBoardControlle
 import Entity.InsuranceManager;
 import Entity.User;
 import jakarta.persistence.EntityManager;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
@@ -54,8 +53,7 @@ public class InsuranceManagerTableFilling extends InsuranceSurveyorTableFilling 
     @FXML
     protected static TextField insuranceManagerSearchField;
 
-    protected static void fillingInsuranceManagerTable(EntityManager entityManager, User user, List<InsuranceManager> insuranceManagers){
-        ObservableList<InsuranceManager> insuranceManagersObservableList = FXCollections.observableArrayList();
+    protected static void fillingInsuranceManagerTable(EntityManager entityManager, User user, List<InsuranceManager> insuranceManagers, ObservableList<InsuranceManager> insuranceManagersObservableList){
         ListIterator<InsuranceManager> listIteratorInsuranceManager = insuranceManagers.listIterator();
         while (listIteratorInsuranceManager.hasNext()){
             InsuranceManager insuranceManager = listIteratorInsuranceManager.next();

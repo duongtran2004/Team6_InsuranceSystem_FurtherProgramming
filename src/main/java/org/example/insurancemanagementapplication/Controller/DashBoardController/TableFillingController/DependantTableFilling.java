@@ -5,7 +5,6 @@ import Entity.Dependant;
 import Entity.SystemAdmin;
 import Entity.User;
 import jakarta.persistence.EntityManager;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
@@ -62,8 +61,7 @@ public abstract class DependantTableFilling extends ClaimTableFilling {
     @FXML
     protected static TextField dependantSearchField;
 
-    protected static void fillingDependantTable(EntityManager entityManager, User user, List<Dependant> dependants){
-        ObservableList<Dependant> dependantObservableList = FXCollections.observableArrayList();
+    protected static void fillingDependantTable(EntityManager entityManager, User user, List<Dependant> dependants, ObservableList<Dependant> dependantObservableList){
         ListIterator<Dependant> dependantListIterator = dependants.listIterator();
         while (dependantListIterator.hasNext()){
             Dependant dependant = dependantListIterator.next();
