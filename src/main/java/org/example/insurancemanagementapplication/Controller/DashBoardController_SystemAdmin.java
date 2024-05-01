@@ -211,9 +211,26 @@ public class DashBoardController_SystemAdmin implements ClaimAnalytics, Employee
     @FXML
     private TableColumn<Claim, String> status;
     @FXML
-    private TableColumn<Claim, Button> viewInfoButton;
+    private TableColumn<Claim, Button> claimButton;
     @FXML
     private TextField claimListSearchField;
+    @FXML
+    private ChoiceBox<String> sortList;
+    @FXML
+    private ChoiceBox<String> statusList;
+    @FXML
+    private DatePicker creationDateFrom;
+    @FXML
+    private DatePicker creationDateTo;
+    @FXML
+    private DatePicker settlementDateFrom;
+    @FXML
+    private DatePicker settlementDateTo;
+    @FXML
+    private DatePicker claimAmountFrom;
+    @FXML
+    private DatePicker claimAmountTo;
+
 
 
 
@@ -702,6 +719,8 @@ public class DashBoardController_SystemAdmin implements ClaimAnalytics, Employee
                 }
             });
         });
+
+
         cardNumber.setCellValueFactory(new PropertyValueFactory<InsuranceCard, String>("cardNumber"));
         cardHolderId.setCellValueFactory(new PropertyValueFactory<InsuranceCard, String>("cardHolder"));
         policyOwnerInsuranceCardTable.setCellValueFactory(new PropertyValueFactory<InsuranceCard, String>("policyOwner"));
@@ -759,7 +778,7 @@ public class DashBoardController_SystemAdmin implements ClaimAnalytics, Employee
         claimAmount.setCellValueFactory(new PropertyValueFactory<Claim, Float>("claimAmount"));
         settlementDate.setCellValueFactory(new PropertyValueFactory<Claim, Date>("settlementDate"));
         status.setCellValueFactory(new PropertyValueFactory<Claim, String>("status"));
-        viewInfoButton.setCellValueFactory(new PropertyValueFactory<Claim, Button>("claimButton"));
+        claimButton.setCellValueFactory(new PropertyValueFactory<Claim, Button>("claimButton"));
         claimTable.getItems().setAll(filteredClaimList);
 
 

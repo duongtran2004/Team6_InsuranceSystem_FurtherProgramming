@@ -507,8 +507,8 @@
                         <Font name="Helvetica Neue Bold" size="14.0" />
                      </font>
                   </Label>
-                  <ChoiceBox prefHeight="25.0" prefWidth="195.0" GridPane.columnIndex="1" />
-                  <ChoiceBox prefHeight="25.0" prefWidth="195.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <ChoiceBox fx:id="sortList" prefHeight="25.0" prefWidth="195.0" GridPane.columnIndex="1" />
+                  <ChoiceBox fx:id="statusList" prefHeight="25.0" prefWidth="195.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <children>
                         <Label text="From">
@@ -519,7 +519,7 @@
                               <Insets right="20.0" />
                            </HBox.margin>
                         </Label>
-                        <DatePicker>
+                        <DatePicker fx:id="creationDateFrom">
                            <HBox.margin>
                               <Insets right="20.0" />
                            </HBox.margin>
@@ -532,7 +532,7 @@
                               <Insets right="20.0" />
                            </HBox.margin>
                         </Label>
-                        <DatePicker />
+                        <DatePicker fx:id="creationDateTo" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
@@ -545,7 +545,7 @@
                               <Insets right="20.0" />
                            </HBox.margin>
                         </Label>
-                        <DatePicker>
+                        <DatePicker fx:id="settlementDateFrom">
                            <HBox.margin>
                               <Insets right="20.0" />
                            </HBox.margin>
@@ -558,7 +558,7 @@
                               <Insets right="20.0" />
                            </HBox.margin>
                         </Label>
-                        <DatePicker />
+                        <DatePicker fx:id="settlementDateTo" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
@@ -571,7 +571,7 @@
                               <Insets right="20.0" />
                            </HBox.margin>
                         </Label>
-                        <TextField prefHeight="25.0" prefWidth="190.0">
+                        <TextField fx:id="claimAmountFrom" prefHeight="25.0" prefWidth="190.0">
                            <HBox.margin>
                               <Insets right="20.0" />
                            </HBox.margin>
@@ -584,7 +584,7 @@
                               <Insets right="20.0" />
                            </HBox.margin>
                         </Label>
-                        <TextField prefHeight="25.0" prefWidth="185.0" />
+                        <TextField fx:id="claimAmountTo" prefHeight="25.0" prefWidth="185.0" />
                      </children>
                   </HBox>
                </children>
