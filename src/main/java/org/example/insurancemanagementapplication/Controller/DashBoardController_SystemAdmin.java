@@ -12,10 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import org.example.insurancemanagementapplication.Interfaces.CustomerAnalytics;
-import org.example.insurancemanagementapplication.Interfaces.CustomerCreateRemove;
-import org.example.insurancemanagementapplication.Interfaces.EmployeeAnalytics;
-import org.example.insurancemanagementapplication.Interfaces.EmployeeCreateRemove;
+import org.example.insurancemanagementapplication.Interfaces.*;
 import org.example.insurancemanagementapplication.MainEntryPoint;
 
 import java.io.IOException;
@@ -31,7 +28,7 @@ import java.util.ResourceBundle;
  * @created 27/04/2024 04:55
  * @project InsuranceManagementTeamProject
  */
-public class DashBoardController_SystemAdmin implements EmployeeCreateRemove, CustomerCreateRemove, Initializable, EmployeeAnalytics {
+public class DashBoardController_SystemAdmin implements ClaimAnalytics, EmployeeCreateRemove, CustomerCreateRemove, Initializable, EmployeeAnalytics {
     private final EntityManager entityManager;
     private final SystemAdmin user;
 
@@ -208,13 +205,15 @@ public class DashBoardController_SystemAdmin implements EmployeeCreateRemove, Cu
     @FXML
     private TableColumn<Claim, String> policyOwnerClaimTable;
     @FXML
-    private TableColumn<Claim, String> claimAmount;
+    private TableColumn<Claim, Float> claimAmount;
     @FXML
     private TableColumn<Claim, Date> settlementDate;
     @FXML
     private TableColumn<Claim, String> status;
     @FXML
     private TableColumn<Claim, Button> viewInfoButton;
+    @FXML
+    private TextField claimListSearchField;
 
 
 
@@ -709,6 +708,62 @@ public class DashBoardController_SystemAdmin implements EmployeeCreateRemove, Cu
         expiryDate.setCellValueFactory(new PropertyValueFactory<InsuranceCard, Date>("expirationDate"));
         insuranceCardRemoveButton.setCellValueFactory(new PropertyValueFactory<InsuranceCard, Button>("removeButton"));
         insuranceCardTable.getItems().addAll(filteredInsuranceCardList);
+
+        ObservableList<Claim> claimObservableList = FXCollections.observableArrayList();
+        List<Claim> claims = ClaimAnalytics.getAllClaims(entityManager);
+        ListIterator<Claim> claimListIterator = claims.listIterator();
+        while (claimListIterator.hasNext()){
+            Claim claim = claimListIterator.next();
+            Button viewClaimButton = new Button("View Claim");
+            viewClaimButton.setOnAction(event -> {
+               CreationPageController_Claim creationPageControllerClaim = new CreationPageController_Claim(entityManager, user, claim);
+            });
+            claim.setClaimButton(viewClaimButton);
+            claimObservableList.add(claim);
+
+        }
+
+        FilteredList<Claim> filteredClaimList = new FilteredList<>(claimObservableList, b -> true);
+        claimListSearchField.textProperty().addListener((observable, oldValue, newValue)->{
+            filteredClaimList.setPredicate(claim -> {
+                String searchValue = newValue.toLowerCase();
+                if (newValue.isEmpty() || newValue.isBlank() || newValue == null){
+                    return true;
+                }
+                else if (claim.getClaimId().equals(searchValue)){
+                    return true;
+                }
+                else if (claim.getInsuredPersonId().equals(searchValue)){
+                    return true;
+                } else if (claim.getCardNumber().equals(searchValue)){
+                    return true;
+                } else if (claim.getPolicyOwnerId().equals(searchValue)){
+                    return true;
+                } else if (claim.getStatus().equals(searchValue)){
+                    return true;
+                } else{
+                    return false;
+                }
+
+
+
+
+            });
+        });
+
+        claimId.setCellValueFactory(new PropertyValueFactory<Claim, String>("claimId"));
+        creationDate.setCellValueFactory(new PropertyValueFactory<Claim, Date>("creationDate"));
+        insuredPersonId.setCellValueFactory(new PropertyValueFactory<Claim, String>("insuredPersonId"));
+        cardNumberClaimTable.setCellValueFactory(new PropertyValueFactory<Claim, String>("cardNumber"));
+        policyOwnerClaimTable.setCellValueFactory(new PropertyValueFactory<Claim, String>("policyOwnerId"));
+        claimAmount.setCellValueFactory(new PropertyValueFactory<Claim, Float>("claimAmount"));
+        settlementDate.setCellValueFactory(new PropertyValueFactory<Claim, Date>("settlementDate"));
+        status.setCellValueFactory(new PropertyValueFactory<Claim, String>("status"));
+        viewInfoButton.setCellValueFactory(new PropertyValueFactory<Claim, Button>("claimButton"));
+        claimTable.getItems().setAll(filteredClaimList);
+
+
+
 
     }
 
