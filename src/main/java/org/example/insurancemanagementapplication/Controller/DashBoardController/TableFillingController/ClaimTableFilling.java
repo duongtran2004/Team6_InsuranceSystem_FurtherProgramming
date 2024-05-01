@@ -1,9 +1,6 @@
 package org.example.insurancemanagementapplication.Controller.DashBoardController.TableFillingController;
 
-import Entity.Claim;
-import Entity.Dependant;
-import Entity.SystemAdmin;
-import Entity.User;
+import Entity.*;
 import jakarta.persistence.EntityManager;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -12,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageController_Claim;
+import org.example.insurancemanagementapplication.Interfaces.ClaimCreateRemove;
 
 import java.sql.Date;
 import java.util.Comparator;
@@ -24,53 +22,59 @@ import java.util.ListIterator;
  * @created 01/05/2024 15:21
  * @project InsuranceManagementTeamProject
  */
-public class ClaimTableFilling {
+public class ClaimTableFilling implements ClaimCreateRemove {
     @FXML
-    protected static TableView<Claim> claimTable;
+    private TableView<Claim> claimTable;
     @FXML
-    protected static TableColumn<Claim, String> claimId;
+    private  TableColumn<Claim, String> claimId;
     @FXML
-    protected static TableColumn<Claim, Date> creationDate;
+    private  TableColumn<Claim, Date> creationDate;
     @FXML
-    protected static TableColumn<Claim, String> insuredPersonId;
+    private  TableColumn<Claim, String> insuredPersonId;
     @FXML
-    protected static TableColumn<Claim, String> cardNumberClaimTable;
+    private  TableColumn<Claim, String> cardNumberClaimTable;
     @FXML
-    protected static TableColumn<Claim, String> policyOwnerClaimTable;
+    private  TableColumn<Claim, String> policyOwnerClaimTable;
     @FXML
-    protected static TableColumn<Claim, Float> claimAmount;
+    private  TableColumn<Claim, Float> claimAmount;
     @FXML
-    protected static TableColumn<Claim, Date> settlementDate;
+    private  TableColumn<Claim, Date> settlementDate;
     @FXML
-    protected static TableColumn<Claim, String> status;
+    private  TableColumn<Claim, String> status;
     @FXML
-    protected static TableColumn<Claim, Button> claimButton;
+    private  TableColumn<Claim, Button> claimButton;
     @FXML
-    protected static TextField claimListSearchField;
+    private TableColumn<Claim, Button> removeClaimButton;
     @FXML
-    protected static ChoiceBox<String> sortList;
+    private  TextField claimListSearchField;
     @FXML
-    protected static ChoiceBox<String> statusList;
+    private  ChoiceBox<String> sortList;
     @FXML
-    protected static DatePicker creationDateFrom;
+    private  ChoiceBox<String> statusList;
     @FXML
-    protected static DatePicker creationDateTo;
+    private  DatePicker creationDateFrom;
     @FXML
-    protected static DatePicker settlementDateFrom;
+    private  DatePicker creationDateTo;
     @FXML
-    protected static DatePicker settlementDateTo;
+    private  DatePicker settlementDateFrom;
     @FXML
-    protected static TextField claimAmountFrom;
+    private  DatePicker settlementDateTo;
     @FXML
-    protected static TextField claimAmountTo;
+    private  TextField claimAmountFrom;
+    @FXML
+    private  TextField claimAmountTo;
 
-    protected static void fillingClaimTable(EntityManager entityManager, User user, List<Claim> claims, ObservableList<Claim> claimObservableList){
+    public void fillingClaimTable(EntityManager entityManager, User user, List<Claim> claims, ObservableList<Claim> claimObservableList){
         ListIterator<Claim> claimListIterator = claims.listIterator();
         while (claimListIterator.hasNext()){
             Claim claim = claimListIterator.next();
 
             if (!(user instanceof Dependant)){
                 Button viewClaimButton = new Button();
+                Button buttonRemoveClaim = new Button("Remove");
+                buttonRemoveClaim.setOnAction(event -> {
+                    ClaimCreateRemove.removeClaim(entityManager, claim);
+                });
                 if (user instanceof SystemAdmin){
                     viewClaimButton.setText("View Claim");
                 }
@@ -295,6 +299,172 @@ public class ClaimTableFilling {
         if (!(user instanceof Dependant)){
             claimButton.setCellValueFactory(new PropertyValueFactory<Claim, Button>("claimButton"));
         }
+        if (user instanceof PolicyHolder || user instanceof PolicyOwner){
+            removeClaimButton.setCellValueFactory(new PropertyValueFactory<Claim, Button>("claimRemoveButton"));
+        }
         claimTable.getItems().setAll(sortedClaimList);
+    }
+
+    public ClaimTableFilling() {
+    }
+
+    public TableView<Claim> getClaimTable() {
+        return claimTable;
+    }
+
+    public void setClaimTable(TableView<Claim> claimTable) {
+        this.claimTable = claimTable;
+    }
+
+    public TableColumn<Claim, String> getClaimId() {
+        return claimId;
+    }
+
+    public void setClaimId(TableColumn<Claim, String> claimId) {
+        this.claimId = claimId;
+    }
+
+    public TableColumn<Claim, Date> getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(TableColumn<Claim, Date> creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public TableColumn<Claim, String> getInsuredPersonId() {
+        return insuredPersonId;
+    }
+
+    public void setInsuredPersonId(TableColumn<Claim, String> insuredPersonId) {
+        this.insuredPersonId = insuredPersonId;
+    }
+
+    public TableColumn<Claim, String> getCardNumberClaimTable() {
+        return cardNumberClaimTable;
+    }
+
+    public void setCardNumberClaimTable(TableColumn<Claim, String> cardNumberClaimTable) {
+        this.cardNumberClaimTable = cardNumberClaimTable;
+    }
+
+    public TableColumn<Claim, String> getPolicyOwnerClaimTable() {
+        return policyOwnerClaimTable;
+    }
+
+    public void setPolicyOwnerClaimTable(TableColumn<Claim, String> policyOwnerClaimTable) {
+        this.policyOwnerClaimTable = policyOwnerClaimTable;
+    }
+
+    public TableColumn<Claim, Float> getClaimAmount() {
+        return claimAmount;
+    }
+
+    public void setClaimAmount(TableColumn<Claim, Float> claimAmount) {
+        this.claimAmount = claimAmount;
+    }
+
+    public TableColumn<Claim, Date> getSettlementDate() {
+        return settlementDate;
+    }
+
+    public void setSettlementDate(TableColumn<Claim, Date> settlementDate) {
+        this.settlementDate = settlementDate;
+    }
+
+    public TableColumn<Claim, String> getStatus() {
+        return status;
+    }
+
+    public void setStatus(TableColumn<Claim, String> status) {
+        this.status = status;
+    }
+
+    public TableColumn<Claim, Button> getClaimButton() {
+        return claimButton;
+    }
+
+    public void setClaimButton(TableColumn<Claim, Button> claimButton) {
+        this.claimButton = claimButton;
+    }
+
+    public TableColumn<Claim, Button> getRemoveClaimButton() {
+        return removeClaimButton;
+    }
+
+    public void setRemoveClaimButton(TableColumn<Claim, Button> removeClaimButton) {
+        this.removeClaimButton = removeClaimButton;
+    }
+
+    public TextField getClaimListSearchField() {
+        return claimListSearchField;
+    }
+
+    public void setClaimListSearchField(TextField claimListSearchField) {
+        this.claimListSearchField = claimListSearchField;
+    }
+
+    public ChoiceBox<String> getSortList() {
+        return sortList;
+    }
+
+    public void setSortList(ChoiceBox<String> sortList) {
+        this.sortList = sortList;
+    }
+
+    public ChoiceBox<String> getStatusList() {
+        return statusList;
+    }
+
+    public void setStatusList(ChoiceBox<String> statusList) {
+        this.statusList = statusList;
+    }
+
+    public DatePicker getCreationDateFrom() {
+        return creationDateFrom;
+    }
+
+    public void setCreationDateFrom(DatePicker creationDateFrom) {
+        this.creationDateFrom = creationDateFrom;
+    }
+
+    public DatePicker getCreationDateTo() {
+        return creationDateTo;
+    }
+
+    public void setCreationDateTo(DatePicker creationDateTo) {
+        this.creationDateTo = creationDateTo;
+    }
+
+    public DatePicker getSettlementDateFrom() {
+        return settlementDateFrom;
+    }
+
+    public void setSettlementDateFrom(DatePicker settlementDateFrom) {
+        this.settlementDateFrom = settlementDateFrom;
+    }
+
+    public DatePicker getSettlementDateTo() {
+        return settlementDateTo;
+    }
+
+    public void setSettlementDateTo(DatePicker settlementDateTo) {
+        this.settlementDateTo = settlementDateTo;
+    }
+
+    public TextField getClaimAmountFrom() {
+        return claimAmountFrom;
+    }
+
+    public void setClaimAmountFrom(TextField claimAmountFrom) {
+        this.claimAmountFrom = claimAmountFrom;
+    }
+
+    public TextField getClaimAmountTo() {
+        return claimAmountTo;
+    }
+
+    public void setClaimAmountTo(TextField claimAmountTo) {
+        this.claimAmountTo = claimAmountTo;
     }
 }

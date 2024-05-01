@@ -31,29 +31,29 @@ import java.util.ListIterator;
  */
 public class InsuranceManagerTableFilling extends InsuranceSurveyorTableFilling {
     @FXML
-    protected static TableView<InsuranceManager> managerTable;
+    private TableView<InsuranceManager> managerTable;
     @FXML
-    protected static TableColumn<InsuranceManager, String> managerId;
+    private TableColumn<InsuranceManager, String> managerId;
     @FXML
-    protected static TableColumn<InsuranceManager, String> managerFullName;
+    private TableColumn<InsuranceManager, String> managerFullName;
     @FXML
-    protected static TableColumn<InsuranceManager, String> managerAddress;
+    private TableColumn<InsuranceManager, String> managerAddress;
     @FXML
-    protected static TableColumn<InsuranceManager, String> managerPhoneNumber;
+    private TableColumn<InsuranceManager, String> managerPhoneNumber;
     @FXML
-    protected static TableColumn<InsuranceManager, String> managerEmail;
+    private TableColumn<InsuranceManager, String> managerEmail;
     @FXML
-    protected static TableColumn<InsuranceManager, String> managerPassword;
+    private TableColumn<InsuranceManager, String> managerPassword;
     @FXML
-    protected static TableColumn<InsuranceManager, Button> managerUpdateInfoButton;
+    private TableColumn<InsuranceManager, Button> managerUpdateInfoButton;
     @FXML
-    protected static TableColumn<InsuranceManager, Button> managerAddSurveyorButton;
+    private TableColumn<InsuranceManager, Button> managerAddSurveyorButton;
     @FXML
-    protected static TableColumn<InsuranceManager, Button> managerRemoveButton;
+    private TableColumn<InsuranceManager, Button> managerRemoveButton;
     @FXML
-    protected static TextField insuranceManagerSearchField;
+    private TextField  insuranceManagerSearchField;
 
-    protected static void fillingInsuranceManagerTable(EntityManager entityManager, User user, List<InsuranceManager> insuranceManagers, ObservableList<InsuranceManager> insuranceManagersObservableList){
+    public void fillingInsuranceManagerTable(EntityManager entityManager, User user, List<InsuranceManager> insuranceManagers, ObservableList<InsuranceManager> insuranceManagersObservableList){
         ListIterator<InsuranceManager> listIteratorInsuranceManager = insuranceManagers.listIterator();
         while (listIteratorInsuranceManager.hasNext()){
             InsuranceManager insuranceManager = listIteratorInsuranceManager.next();
@@ -135,6 +135,7 @@ public class InsuranceManagerTableFilling extends InsuranceSurveyorTableFilling 
         managerFullName.setCellValueFactory(new PropertyValueFactory<InsuranceManager, String>("fullName"));
         managerAddress.setCellValueFactory(new PropertyValueFactory<InsuranceManager, String>("address"));
         managerEmail.setCellValueFactory(new PropertyValueFactory<InsuranceManager, String>("email"));
+        managerPhoneNumber.setCellValueFactory(new PropertyValueFactory<InsuranceManager, String>("phoneNumber"));
         managerPassword.setCellValueFactory(new PropertyValueFactory<InsuranceManager, String>("password"));
         managerUpdateInfoButton.setCellValueFactory(new PropertyValueFactory<InsuranceManager, Button>("updateInfoButton"));
         managerAddSurveyorButton.setCellValueFactory(new PropertyValueFactory<InsuranceManager, Button>("addSurveyorButton"));
@@ -142,4 +143,96 @@ public class InsuranceManagerTableFilling extends InsuranceSurveyorTableFilling 
         managerTable.getItems().setAll(filteredManagerList);
     }
 
+    public InsuranceManagerTableFilling(){
+
+    }
+
+
+    public TableView<InsuranceManager> getManagerTable() {
+        return managerTable;
+    }
+
+    public void setManagerTable(TableView<InsuranceManager> managerTable) {
+        this.managerTable = managerTable;
+    }
+
+    public TableColumn<InsuranceManager, String> getManagerId() {
+        return managerId;
+    }
+
+    public void setManagerId(TableColumn<InsuranceManager, String> managerId) {
+        this.managerId = managerId;
+    }
+
+    public TableColumn<InsuranceManager, String> getManagerFullName() {
+        return managerFullName;
+    }
+
+    public void setManagerFullName(TableColumn<InsuranceManager, String> managerFullName) {
+        this.managerFullName = managerFullName;
+    }
+
+    public TableColumn<InsuranceManager, String> getManagerAddress() {
+        return managerAddress;
+    }
+
+    public void setManagerAddress(TableColumn<InsuranceManager, String> managerAddress) {
+        this.managerAddress = managerAddress;
+    }
+
+    public TableColumn<InsuranceManager, String> getManagerPhoneNumber() {
+        return managerPhoneNumber;
+    }
+
+    public void setManagerPhoneNumber(TableColumn<InsuranceManager, String> managerPhoneNumber) {
+        this.managerPhoneNumber = managerPhoneNumber;
+    }
+
+    public TableColumn<InsuranceManager, String> getManagerEmail() {
+        return managerEmail;
+    }
+
+    public void setManagerEmail(TableColumn<InsuranceManager, String> managerEmail) {
+        this.managerEmail = managerEmail;
+    }
+
+    public TableColumn<InsuranceManager, String> getManagerPassword() {
+        return managerPassword;
+    }
+
+    public void setManagerPassword(TableColumn<InsuranceManager, String> managerPassword) {
+        this.managerPassword = managerPassword;
+    }
+
+    public TableColumn<InsuranceManager, Button> getManagerUpdateInfoButton() {
+        return managerUpdateInfoButton;
+    }
+
+    public void setManagerUpdateInfoButton(TableColumn<InsuranceManager, Button> managerUpdateInfoButton) {
+        this.managerUpdateInfoButton = managerUpdateInfoButton;
+    }
+
+    public TableColumn<InsuranceManager, Button> getManagerAddSurveyorButton() {
+        return managerAddSurveyorButton;
+    }
+
+    public void setManagerAddSurveyorButton(TableColumn<InsuranceManager, Button> managerAddSurveyorButton) {
+        this.managerAddSurveyorButton = managerAddSurveyorButton;
+    }
+
+    public TableColumn<InsuranceManager, Button> getManagerRemoveButton() {
+        return managerRemoveButton;
+    }
+
+    public void setManagerRemoveButton(TableColumn<InsuranceManager, Button> managerRemoveButton) {
+        this.managerRemoveButton = managerRemoveButton;
+    }
+
+    public TextField getInsuranceManagerSearchField() {
+        return insuranceManagerSearchField;
+    }
+
+    public void setInsuranceManagerSearchField(TextField insuranceManagerSearchField) {
+        this.insuranceManagerSearchField = insuranceManagerSearchField;
+    }
 }

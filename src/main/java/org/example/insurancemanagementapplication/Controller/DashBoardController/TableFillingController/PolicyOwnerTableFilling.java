@@ -32,29 +32,29 @@ import java.util.ListIterator;
  */
 public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
     @FXML
-    protected static TableView<PolicyOwner> policyOwnerTable;
+    private TableView<PolicyOwner> policyOwnerTable;
     @FXML
-    protected static TableColumn<PolicyOwner, String> policyOwnerId;
+    private TableColumn<PolicyOwner, String> policyOwnerId;
     @FXML
-    protected static TableColumn<PolicyOwner, String> policyOwnerFullName;
+    private TableColumn<PolicyOwner, String> policyOwnerFullName;
     @FXML
-    protected static TableColumn<PolicyOwner, String> policyOwnerAddress;
+    private TableColumn<PolicyOwner, String> policyOwnerAddress;
     @FXML
-    protected static TableColumn<PolicyOwner, String> policyOwnerPhoneNumber;
+    private TableColumn<PolicyOwner, String> policyOwnerPhoneNumber;
     @FXML
-    protected static TableColumn<PolicyOwner, String> policyOwnerEmail;
+    private TableColumn<PolicyOwner, String> policyOwnerEmail;
     @FXML
-    protected static TableColumn<PolicyOwner, String> policyOwnerPassword;
+    private TableColumn<PolicyOwner, String> policyOwnerPassword;
     @FXML
-    protected static TableColumn<PolicyOwner, Button> policyOwnerUpdateInfoButton;
+    private TableColumn<PolicyOwner, Button> policyOwnerUpdateInfoButton;
     @FXML
-    protected static TableColumn<PolicyOwner, Button> policyOwnerAddPolicyButton;
+    private TableColumn<PolicyOwner, Button> policyOwnerAddPolicyButton;
     @FXML
-    protected static TableColumn<PolicyOwner, Button> policyOwnerRemoveButton;
+    private TableColumn<PolicyOwner, Button> policyOwnerRemoveButton;
     @FXML
-    protected static TextField policyOwnerSearchField;
+    private TextField policyOwnerSearchField;
 
-    protected static void fillingPolicyOwnerTable(EntityManager entityManager, User user, List<PolicyOwner> policyOwners, ObservableList<PolicyOwner> policyOwnersObservableList){
+    public void fillingPolicyOwnerTable(EntityManager entityManager, User user, List<PolicyOwner> policyOwners, ObservableList<PolicyOwner> policyOwnersObservableList){
         ListIterator<PolicyOwner> policyOwnerListIterator = policyOwners.listIterator();
         while (policyOwnerListIterator.hasNext()){
             PolicyOwner policyOwner = policyOwnerListIterator.next();
@@ -147,5 +147,97 @@ public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
 
         policyOwnerTable.getItems().setAll(filteredPolicyOwnerList);
 
+    }
+
+    public PolicyOwnerTableFilling(){
+
+    }
+
+    public TableView<PolicyOwner> getPolicyOwnerTable() {
+        return policyOwnerTable;
+    }
+
+    public void setPolicyOwnerTable(TableView<PolicyOwner> policyOwnerTable) {
+        this.policyOwnerTable = policyOwnerTable;
+    }
+
+    public TableColumn<PolicyOwner, String> getPolicyOwnerId() {
+        return policyOwnerId;
+    }
+
+    public void setPolicyOwnerId(TableColumn<PolicyOwner, String> policyOwnerId) {
+        this.policyOwnerId = policyOwnerId;
+    }
+
+    public TableColumn<PolicyOwner, String> getPolicyOwnerFullName() {
+        return policyOwnerFullName;
+    }
+
+    public void setPolicyOwnerFullName(TableColumn<PolicyOwner, String> policyOwnerFullName) {
+        this.policyOwnerFullName = policyOwnerFullName;
+    }
+
+    public TableColumn<PolicyOwner, String> getPolicyOwnerAddress() {
+        return policyOwnerAddress;
+    }
+
+    public void setPolicyOwnerAddress(TableColumn<PolicyOwner, String> policyOwnerAddress) {
+        this.policyOwnerAddress = policyOwnerAddress;
+    }
+
+    public TableColumn<PolicyOwner, String> getPolicyOwnerPhoneNumber() {
+        return policyOwnerPhoneNumber;
+    }
+
+    public void setPolicyOwnerPhoneNumber(TableColumn<PolicyOwner, String> policyOwnerPhoneNumber) {
+        this.policyOwnerPhoneNumber = policyOwnerPhoneNumber;
+    }
+
+    public TableColumn<PolicyOwner, String> getPolicyOwnerEmail() {
+        return policyOwnerEmail;
+    }
+
+    public void setPolicyOwnerEmail(TableColumn<PolicyOwner, String> policyOwnerEmail) {
+        this.policyOwnerEmail = policyOwnerEmail;
+    }
+
+    public TableColumn<PolicyOwner, String> getPolicyOwnerPassword() {
+        return policyOwnerPassword;
+    }
+
+    public void setPolicyOwnerPassword(TableColumn<PolicyOwner, String> policyOwnerPassword) {
+        this.policyOwnerPassword = policyOwnerPassword;
+    }
+
+    public TableColumn<PolicyOwner, Button> getPolicyOwnerUpdateInfoButton() {
+        return policyOwnerUpdateInfoButton;
+    }
+
+    public void setPolicyOwnerUpdateInfoButton(TableColumn<PolicyOwner, Button> policyOwnerUpdateInfoButton) {
+        this.policyOwnerUpdateInfoButton = policyOwnerUpdateInfoButton;
+    }
+
+    public TableColumn<PolicyOwner, Button> getPolicyOwnerAddPolicyButton() {
+        return policyOwnerAddPolicyButton;
+    }
+
+    public void setPolicyOwnerAddPolicyButton(TableColumn<PolicyOwner, Button> policyOwnerAddPolicyButton) {
+        this.policyOwnerAddPolicyButton = policyOwnerAddPolicyButton;
+    }
+
+    public TableColumn<PolicyOwner, Button> getPolicyOwnerRemoveButton() {
+        return policyOwnerRemoveButton;
+    }
+
+    public void setPolicyOwnerRemoveButton(TableColumn<PolicyOwner, Button> policyOwnerRemoveButton) {
+        this.policyOwnerRemoveButton = policyOwnerRemoveButton;
+    }
+
+    public TextField getPolicyOwnerSearchField() {
+        return policyOwnerSearchField;
+    }
+
+    public void setPolicyOwnerSearchField(TextField policyOwnerSearchField) {
+        this.policyOwnerSearchField = policyOwnerSearchField;
     }
 }

@@ -27,21 +27,21 @@ import java.util.ListIterator;
  */
 public class InsuranceCardFillingTable extends DependantTableFilling {
     @FXML
-    protected static TableView<InsuranceCard> insuranceCardTable;
+    private TableView<InsuranceCard> insuranceCardTable;
     @FXML
-    protected static TableColumn<InsuranceCard, String> cardNumber;
+    private TableColumn<InsuranceCard, String> cardNumber;
     @FXML
-    protected static TableColumn<InsuranceCard, Date> expiryDate;
+    private TableColumn<InsuranceCard, Date> expiryDate;
     @FXML
-    protected static TableColumn<InsuranceCard, String> cardHolderId;
+    private TableColumn<InsuranceCard, String> cardHolderId;
     @FXML
-    protected static TableColumn<InsuranceCard, String> policyOwnerInsuranceCardTable;
+    private TableColumn<InsuranceCard, String> policyOwnerInsuranceCardTable;
     @FXML
-    protected static TableColumn<InsuranceCard, Button> insuranceCardRemoveButton;
+    private TableColumn<InsuranceCard, Button> insuranceCardRemoveButton;
     @FXML
-    protected static TextField insuranceCardSearchField;
+    private TextField insuranceCardSearchField;
 
-    protected static void fillingInsuranceCardTable(EntityManager entityManager, User user, List<InsuranceCard> insuranceCards, ObservableList<InsuranceCard> insuranceCardObservableList){
+    public void fillingInsuranceCardTable(EntityManager entityManager, User user, List<InsuranceCard> insuranceCards, ObservableList<InsuranceCard> insuranceCardObservableList){
         ListIterator<InsuranceCard> insuranceCardListIterator = insuranceCards.listIterator();
         while (insuranceCardListIterator.hasNext()){
             InsuranceCard insuranceCard = new InsuranceCard();
@@ -93,5 +93,64 @@ public class InsuranceCardFillingTable extends DependantTableFilling {
 
         insuranceCardTable.getItems().addAll(filteredInsuranceCardList);
 
+    }
+
+    public InsuranceCardFillingTable() {
+    }
+
+    public TableView<InsuranceCard> getInsuranceCardTable() {
+        return insuranceCardTable;
+    }
+
+    public void setInsuranceCardTable(TableView<InsuranceCard> insuranceCardTable) {
+        this.insuranceCardTable = insuranceCardTable;
+    }
+
+    public TableColumn<InsuranceCard, String> getCardNumber() {
+        return cardNumber;
+    }
+
+    public void setCardNumber(TableColumn<InsuranceCard, String> cardNumber) {
+        this.cardNumber = cardNumber;
+    }
+
+    public TableColumn<InsuranceCard, Date> getExpiryDate() {
+        return expiryDate;
+    }
+
+    public void setExpiryDate(TableColumn<InsuranceCard, Date> expiryDate) {
+        this.expiryDate = expiryDate;
+    }
+
+    public TableColumn<InsuranceCard, String> getCardHolderId() {
+        return cardHolderId;
+    }
+
+    public void setCardHolderId(TableColumn<InsuranceCard, String> cardHolderId) {
+        this.cardHolderId = cardHolderId;
+    }
+
+    public TableColumn<InsuranceCard, String> getPolicyOwnerInsuranceCardTable() {
+        return policyOwnerInsuranceCardTable;
+    }
+
+    public void setPolicyOwnerInsuranceCardTable(TableColumn<InsuranceCard, String> policyOwnerInsuranceCardTable) {
+        this.policyOwnerInsuranceCardTable = policyOwnerInsuranceCardTable;
+    }
+
+    public TableColumn<InsuranceCard, Button> getInsuranceCardRemoveButton() {
+        return insuranceCardRemoveButton;
+    }
+
+    public void setInsuranceCardRemoveButton(TableColumn<InsuranceCard, Button> insuranceCardRemoveButton) {
+        this.insuranceCardRemoveButton = insuranceCardRemoveButton;
+    }
+
+    public TextField getInsuranceCardSearchField() {
+        return insuranceCardSearchField;
+    }
+
+    public void setInsuranceCardSearchField(TextField insuranceCardSearchField) {
+        this.insuranceCardSearchField = insuranceCardSearchField;
     }
 }

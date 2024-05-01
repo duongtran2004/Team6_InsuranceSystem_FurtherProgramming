@@ -30,38 +30,38 @@ import java.util.ListIterator;
  * @created 01/05/2024 15:33
  * @project InsuranceManagementTeamProject
  */
-public abstract class DependantTableFilling extends ClaimTableFilling {
+public class DependantTableFilling extends ClaimTableFilling {
     @FXML
-    protected static TableView<Dependant> dependantTable;
+    private TableView<Dependant> dependantTable;
     @FXML
-    protected static TableColumn<Dependant, String> dependantId;
+    private TableColumn<Dependant, String> dependantId;
     @FXML
-    protected static TableColumn<Dependant, String> dependantFullName;
+    private TableColumn<Dependant, String> dependantFullName;
     @FXML
-    protected static TableColumn<Dependant, String> dependantAddress;
+    private TableColumn<Dependant, String> dependantAddress;
     @FXML
-    protected static TableColumn<Dependant, String> dependantPhoneNumber;
+    private TableColumn<Dependant, String> dependantPhoneNumber;
     @FXML
-    protected static TableColumn<Dependant, String> dependantEmail;
+    private TableColumn<Dependant, String> dependantEmail;
     @FXML
-    protected static TableColumn<Dependant, String> dependantPassword;
+    private TableColumn<Dependant, String> dependantPassword;
     @FXML
-    protected static TableColumn<Dependant, String> policyOwnerDependantTable;
+    private TableColumn<Dependant, String> policyOwnerDependantTable;
     @FXML
-    protected static TableColumn<Dependant, String> cardNumberDependantTable;
+    private TableColumn<Dependant, String> cardNumberDependantTable;
     @FXML
-    protected static TableColumn<Dependant, Button> dependantUpdateInfoButton;
+    private TableColumn<Dependant, Button> dependantUpdateInfoButton;
     @FXML
-    protected static TableColumn<Dependant, Button> policyHolderAddClaimButton;
+    private TableColumn<Dependant, Button> dependantAddClaimButton;
 
     @FXML
-    protected static TableColumn<Dependant, Button> policyHolderRemoveButton;
+    private TableColumn<Dependant, Button> dependantRemoveButton;
     @FXML
-    protected static TableColumn<Dependant, String> policyHolderDependantTable;
+    private TableColumn<Dependant, String> policyHolderDependantTable;
     @FXML
-    protected static TextField dependantSearchField;
+    private TextField dependantSearchField;
 
-    protected static void fillingDependantTable(EntityManager entityManager, User user, List<Dependant> dependants, ObservableList<Dependant> dependantObservableList){
+    public void fillingDependantTable(EntityManager entityManager, User user, List<Dependant> dependants, ObservableList<Dependant> dependantObservableList){
         ListIterator<Dependant> dependantListIterator = dependants.listIterator();
         while (dependantListIterator.hasNext()){
             Dependant dependant = dependantListIterator.next();
@@ -156,12 +156,127 @@ public abstract class DependantTableFilling extends ClaimTableFilling {
         policyHolderDependantTable.setCellValueFactory(new PropertyValueFactory<Dependant, String>("policyHolderId"));
         if (user instanceof SystemAdmin || user instanceof Customer){
             dependantUpdateInfoButton.setCellValueFactory(new PropertyValueFactory<Dependant, Button>("updateInfoButton"));
-            policyHolderRemoveButton.setCellValueFactory(new PropertyValueFactory<Dependant, Button>("removeButton"));
+            dependantRemoveButton.setCellValueFactory(new PropertyValueFactory<Dependant, Button>("removeButton"));
             if (!(user instanceof SystemAdmin)){
-                policyHolderAddClaimButton.setCellValueFactory(new PropertyValueFactory<Dependant, Button>("addClaim"));
+                dependantAddClaimButton.setCellValueFactory(new PropertyValueFactory<Dependant, Button>("addClaim"));
             }
         }
 
         dependantTable.getItems().setAll(dependantObservableList);
+    }
+
+    public DependantTableFilling() {
+    }
+
+    public TableView<Dependant> getDependantTable() {
+        return dependantTable;
+    }
+
+    public void setDependantTable(TableView<Dependant> dependantTable) {
+        this.dependantTable = dependantTable;
+    }
+
+    public TableColumn<Dependant, String> getDependantId() {
+        return dependantId;
+    }
+
+    public void setDependantId(TableColumn<Dependant, String> dependantId) {
+        this.dependantId = dependantId;
+    }
+
+    public TableColumn<Dependant, String> getDependantFullName() {
+        return dependantFullName;
+    }
+
+    public void setDependantFullName(TableColumn<Dependant, String> dependantFullName) {
+        this.dependantFullName = dependantFullName;
+    }
+
+    public TableColumn<Dependant, String> getDependantAddress() {
+        return dependantAddress;
+    }
+
+    public void setDependantAddress(TableColumn<Dependant, String> dependantAddress) {
+        this.dependantAddress = dependantAddress;
+    }
+
+    public TableColumn<Dependant, String> getDependantPhoneNumber() {
+        return dependantPhoneNumber;
+    }
+
+    public void setDependantPhoneNumber(TableColumn<Dependant, String> dependantPhoneNumber) {
+        this.dependantPhoneNumber = dependantPhoneNumber;
+    }
+
+    public TableColumn<Dependant, String> getDependantEmail() {
+        return dependantEmail;
+    }
+
+    public void setDependantEmail(TableColumn<Dependant, String> dependantEmail) {
+        this.dependantEmail = dependantEmail;
+    }
+
+    public TableColumn<Dependant, String> getDependantPassword() {
+        return dependantPassword;
+    }
+
+    public void setDependantPassword(TableColumn<Dependant, String> dependantPassword) {
+        this.dependantPassword = dependantPassword;
+    }
+
+    public TableColumn<Dependant, String> getPolicyOwnerDependantTable() {
+        return policyOwnerDependantTable;
+    }
+
+    public void setPolicyOwnerDependantTable(TableColumn<Dependant, String> policyOwnerDependantTable) {
+        this.policyOwnerDependantTable = policyOwnerDependantTable;
+    }
+
+    public TableColumn<Dependant, String> getCardNumberDependantTable() {
+        return cardNumberDependantTable;
+    }
+
+    public void setCardNumberDependantTable(TableColumn<Dependant, String> cardNumberDependantTable) {
+        this.cardNumberDependantTable = cardNumberDependantTable;
+    }
+
+    public TableColumn<Dependant, Button> getDependantUpdateInfoButton() {
+        return dependantUpdateInfoButton;
+    }
+
+    public void setDependantUpdateInfoButton(TableColumn<Dependant, Button> dependantUpdateInfoButton) {
+        this.dependantUpdateInfoButton = dependantUpdateInfoButton;
+    }
+
+    public TableColumn<Dependant, Button> getDependantAddClaimButton() {
+        return dependantAddClaimButton;
+    }
+
+    public void setDependantAddClaimButton(TableColumn<Dependant, Button> dependantAddClaimButton) {
+        this.dependantAddClaimButton = dependantAddClaimButton;
+    }
+
+    public TableColumn<Dependant, Button> getDependantRemoveButton() {
+        return dependantRemoveButton;
+    }
+
+    public void setDependantRemoveButton(TableColumn<Dependant, Button> dependantRemoveButton) {
+        this.dependantRemoveButton = dependantRemoveButton;
+    }
+
+    public TableColumn<Dependant, String> getPolicyHolderDependantTable() {
+        return policyHolderDependantTable;
+    }
+
+    public void setPolicyHolderDependantTable(TableColumn<Dependant, String> policyHolderDependantTable) {
+        this.policyHolderDependantTable = policyHolderDependantTable;
+    }
+
+    public TextField getDependantSearchField() {
+        return dependantSearchField;
+    }
+
+    public void setDependantSearchField(TextField dependantSearchField) {
+        this.dependantSearchField = dependantSearchField;
     }
 }

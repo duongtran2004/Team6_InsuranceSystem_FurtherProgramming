@@ -33,35 +33,35 @@ import java.util.ListIterator;
  */
 public class PolicyHolderTableFilling extends InsuranceCardFillingTable{
     @FXML
-    protected static TableView<PolicyHolder> policyHolderTable;
+    private TableView<PolicyHolder> policyHolderTable;
     @FXML
-    protected static TableColumn<PolicyHolder, String> policyHolderId;
+    private TableColumn<PolicyHolder, String> policyHolderId;
     @FXML
-    protected static TableColumn<PolicyHolder, String> policyHolderFullName;
+    private TableColumn<PolicyHolder, String> policyHolderFullName;
     @FXML
-    protected static TableColumn<PolicyHolder, String> policyHolderAddress;
+    private TableColumn<PolicyHolder, String> policyHolderAddress;
     @FXML
-    protected static TableColumn<PolicyHolder, String> policyHolderPhoneNumber;
+    private TableColumn<PolicyHolder, String> policyHolderPhoneNumber;
     @FXML
-    protected static TableColumn<PolicyHolder, String> policyHolderEmail;
+    private TableColumn<PolicyHolder, String> policyHolderEmail;
     @FXML
-    protected static TableColumn<PolicyHolder, String> policyHolderPassword;
+    private TableColumn<PolicyHolder, String> policyHolderPassword;
     @FXML
-    protected static TableColumn<PolicyHolder, String> policyOwnerHolderTable;
+    private TableColumn<PolicyHolder, String> policyOwnerHolderTable;
     @FXML
-    protected static TableColumn<PolicyHolder, String> cardNumberHolderTable;
+    private TableColumn<PolicyHolder, String> cardNumberHolderTable;
     @FXML
-    protected static TableColumn<PolicyHolder, Button> policyHolderUpdateInfoButton;
+    private TableColumn<PolicyHolder, Button> policyHolderUpdateInfoButton;
     @FXML
-    protected static TableColumn<PolicyHolder, Button> policyHolderAddDependantButton;
+    private TableColumn<PolicyHolder, Button> policyHolderAddDependantButton;
     @FXML
-    protected static TableColumn<PolicyHolder, Button> policyHolderAddClaimButton;
+    private TableColumn<PolicyHolder, Button> policyHolderAddClaimButton;
     @FXML
-    protected static TableColumn<PolicyHolder, Button> policyHolderRemoveButton;
+    private TableColumn<PolicyHolder, Button> policyHolderRemoveButton;
     @FXML
-    protected static TextField policyHolderSearchField;
+    private TextField policyHolderSearchField;
 
-    protected static void fillingPolicyHolderTable(EntityManager entityManager, User user, List<PolicyHolder> policyHolders, ObservableList<PolicyHolder> policyHoldersObservableList){
+    public void fillingPolicyHolderTable(EntityManager entityManager, User user, List<PolicyHolder> policyHolders, ObservableList<PolicyHolder> policyHoldersObservableList){
         ListIterator<PolicyHolder> policyHolderListIterator = policyHolders.listIterator();
         while (policyHolderListIterator.hasNext()){
             PolicyHolder policyHolder = policyHolderListIterator.next();
@@ -69,6 +69,7 @@ public class PolicyHolderTableFilling extends InsuranceCardFillingTable{
             Button buttonAddDependant = new Button("Add Dependant");
             Button buttonRemove = new Button("Remove");
             Button buttonAddClaim = new Button("Add Claim");
+
             if (user instanceof SystemAdmin || user instanceof Customer){
                 buttonUpdateInfo.setOnAction(event -> {
                     CreationPageController_PolicyHolder creationPageControllerPolicyHolder = new CreationPageController_PolicyHolder(entityManager, user, policyHolder);
@@ -170,5 +171,121 @@ public class PolicyHolderTableFilling extends InsuranceCardFillingTable{
         }
 
         policyHolderTable.getItems().setAll(filteredPolicyHolderList);
+    }
+
+    public PolicyHolderTableFilling(){
+
+    }
+
+    public TableView<PolicyHolder> getPolicyHolderTable() {
+        return policyHolderTable;
+    }
+
+    public void setPolicyHolderTable(TableView<PolicyHolder> policyHolderTable) {
+        this.policyHolderTable = policyHolderTable;
+    }
+
+    public TableColumn<PolicyHolder, String> getPolicyHolderId() {
+        return policyHolderId;
+    }
+
+    public void setPolicyHolderId(TableColumn<PolicyHolder, String> policyHolderId) {
+        this.policyHolderId = policyHolderId;
+    }
+
+    public TableColumn<PolicyHolder, String> getPolicyHolderFullName() {
+        return policyHolderFullName;
+    }
+
+    public void setPolicyHolderFullName(TableColumn<PolicyHolder, String> policyHolderFullName) {
+        this.policyHolderFullName = policyHolderFullName;
+    }
+
+    public TableColumn<PolicyHolder, String> getPolicyHolderAddress() {
+        return policyHolderAddress;
+    }
+
+    public void setPolicyHolderAddress(TableColumn<PolicyHolder, String> policyHolderAddress) {
+        this.policyHolderAddress = policyHolderAddress;
+    }
+
+    public TableColumn<PolicyHolder, String> getPolicyHolderPhoneNumber() {
+        return policyHolderPhoneNumber;
+    }
+
+    public void setPolicyHolderPhoneNumber(TableColumn<PolicyHolder, String> policyHolderPhoneNumber) {
+        this.policyHolderPhoneNumber = policyHolderPhoneNumber;
+    }
+
+    public TableColumn<PolicyHolder, String> getPolicyHolderEmail() {
+        return policyHolderEmail;
+    }
+
+    public void setPolicyHolderEmail(TableColumn<PolicyHolder, String> policyHolderEmail) {
+        this.policyHolderEmail = policyHolderEmail;
+    }
+
+    public TableColumn<PolicyHolder, String> getPolicyHolderPassword() {
+        return policyHolderPassword;
+    }
+
+    public void setPolicyHolderPassword(TableColumn<PolicyHolder, String> policyHolderPassword) {
+        this.policyHolderPassword = policyHolderPassword;
+    }
+
+    public TableColumn<PolicyHolder, String> getPolicyOwnerHolderTable() {
+        return policyOwnerHolderTable;
+    }
+
+    public void setPolicyOwnerHolderTable(TableColumn<PolicyHolder, String> policyOwnerHolderTable) {
+        this.policyOwnerHolderTable = policyOwnerHolderTable;
+    }
+
+    public TableColumn<PolicyHolder, String> getCardNumberHolderTable() {
+        return cardNumberHolderTable;
+    }
+
+    public void setCardNumberHolderTable(TableColumn<PolicyHolder, String> cardNumberHolderTable) {
+        this.cardNumberHolderTable = cardNumberHolderTable;
+    }
+
+    public TableColumn<PolicyHolder, Button> getPolicyHolderUpdateInfoButton() {
+        return policyHolderUpdateInfoButton;
+    }
+
+    public void setPolicyHolderUpdateInfoButton(TableColumn<PolicyHolder, Button> policyHolderUpdateInfoButton) {
+        this.policyHolderUpdateInfoButton = policyHolderUpdateInfoButton;
+    }
+
+    public TableColumn<PolicyHolder, Button> getPolicyHolderAddDependantButton() {
+        return policyHolderAddDependantButton;
+    }
+
+    public void setPolicyHolderAddDependantButton(TableColumn<PolicyHolder, Button> policyHolderAddDependantButton) {
+        this.policyHolderAddDependantButton = policyHolderAddDependantButton;
+    }
+
+    public TableColumn<PolicyHolder, Button> getPolicyHolderAddClaimButton() {
+        return policyHolderAddClaimButton;
+    }
+
+    public void setPolicyHolderAddClaimButton(TableColumn<PolicyHolder, Button> policyHolderAddClaimButton) {
+        this.policyHolderAddClaimButton = policyHolderAddClaimButton;
+    }
+
+    public TableColumn<PolicyHolder, Button> getPolicyHolderRemoveButton() {
+        return policyHolderRemoveButton;
+    }
+
+    public void setPolicyHolderRemoveButton(TableColumn<PolicyHolder, Button> policyHolderRemoveButton) {
+        this.policyHolderRemoveButton = policyHolderRemoveButton;
+    }
+
+    public TextField getPolicyHolderSearchField() {
+        return policyHolderSearchField;
+    }
+
+    public void setPolicyHolderSearchField(TextField policyHolderSearchField) {
+        this.policyHolderSearchField = policyHolderSearchField;
     }
 }

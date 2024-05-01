@@ -6,13 +6,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import org.example.insurancemanagementapplication.Controller.DashBoardController.TableFillingController.*;
 import org.example.insurancemanagementapplication.Interfaces.*;
 
 import java.net.URL;
+import java.sql.Date;
 import java.util.ResourceBundle;
 
 /**
@@ -58,18 +57,214 @@ public class DashBoardController_SystemAdmin extends InsuranceManagerTableFillin
     @FXML
     private Label errorContainer;
 
+    @FXML
+    private TableView<InsuranceManager> managerTable;
+    @FXML
+    private TableColumn<InsuranceManager, String> managerId;
+    @FXML
+    private TableColumn<InsuranceManager, String> managerFullName;
+    @FXML
+    private TableColumn<InsuranceManager, String> managerAddress;
+    @FXML
+    private TableColumn<InsuranceManager, String> managerPhoneNumber;
+    @FXML
+    private TableColumn<InsuranceManager, String> managerEmail;
+    @FXML
+    private TableColumn<InsuranceManager, String> managerPassword;
+    @FXML
+    private TableColumn<InsuranceManager, Button> managerUpdateInfoButton;
+    @FXML
+    private TableColumn<InsuranceManager, Button> managerAddSurveyorButton;
+    @FXML
+    private TableColumn<InsuranceManager, Button> managerRemoveButton;
+    @FXML
+    private TextField  insuranceManagerSearchField;
+
+    @FXML
+    private TableView<InsuranceSurveyor> surveyorTable;
+    @FXML
+    private TableColumn<InsuranceSurveyor, String> surveyorId;
+    @FXML
+    private TableColumn<InsuranceSurveyor, String> surveyorFullName;
+    @FXML
+    private TableColumn<InsuranceSurveyor, String> surveyorAddress;
+    @FXML
+    private TableColumn<InsuranceSurveyor, String> surveyorPhoneNumber;
+    @FXML
+    private TableColumn<InsuranceSurveyor, String> surveyorEmail;
+    @FXML
+    private TableColumn<InsuranceSurveyor, String> surveyorPassword;
+    @FXML
+    private TableColumn<InsuranceSurveyor, String> manager;
+    @FXML
+    private  TableColumn<InsuranceSurveyor, Button> surveyorUpdateInfoButton;
+    @FXML
+    private TableColumn<InsuranceSurveyor, Button> surveyorRemoveButton;
+    @FXML
+    private TextField insuranceSurveyorSearchField;
+
+    @FXML
+    private TableView<PolicyOwner> policyOwnerTable;
+    @FXML
+    private TableColumn<PolicyOwner, String> policyOwnerId;
+    @FXML
+    private TableColumn<PolicyOwner, String> policyOwnerFullName;
+    @FXML
+    private TableColumn<PolicyOwner, String> policyOwnerAddress;
+    @FXML
+    private TableColumn<PolicyOwner, String> policyOwnerPhoneNumber;
+    @FXML
+    private TableColumn<PolicyOwner, String> policyOwnerEmail;
+    @FXML
+    private TableColumn<PolicyOwner, String> policyOwnerPassword;
+    @FXML
+    private TableColumn<PolicyOwner, Button> policyOwnerUpdateInfoButton;
+    @FXML
+    private TableColumn<PolicyOwner, Button> policyOwnerAddPolicyButton;
+    @FXML
+    private TableColumn<PolicyOwner, Button> policyOwnerRemoveButton;
+    @FXML
+    private TextField policyOwnerSearchField;
+
+
+
+    @FXML
+    private TableView<PolicyHolder> policyHolderTable;
+    @FXML
+    private TableColumn<PolicyHolder, String> policyHolderId;
+    @FXML
+    private TableColumn<PolicyHolder, String> policyHolderFullName;
+    @FXML
+    private TableColumn<PolicyHolder, String> policyHolderAddress;
+    @FXML
+    private TableColumn<PolicyHolder, String> policyHolderPhoneNumber;
+    @FXML
+    private TableColumn<PolicyHolder, String> policyHolderEmail;
+    @FXML
+    private TableColumn<PolicyHolder, String> policyHolderPassword;
+    @FXML
+    private TableColumn<PolicyHolder, String> policyOwnerHolderTable;
+    @FXML
+    private TableColumn<PolicyHolder, String> cardNumberHolderTable;
+    @FXML
+    private TableColumn<PolicyHolder, Button> policyHolderUpdateInfoButton;
+    @FXML
+    private TableColumn<PolicyHolder, Button> policyHolderAddDependantButton;
+    @FXML
+    private TableColumn<PolicyHolder, Button> policyHolderRemoveButton;
+    @FXML
+    private TextField policyHolderSearchField;
+
+    @FXML
+    private TableView<Dependant> dependantTable;
+    @FXML
+    private TableColumn<Dependant, String> dependantId;
+    @FXML
+    private TableColumn<Dependant, String> dependantFullName;
+    @FXML
+    private TableColumn<Dependant, String> dependantAddress;
+    @FXML
+    private TableColumn<Dependant, String> dependantPhoneNumber;
+    @FXML
+    private TableColumn<Dependant, String> dependantEmail;
+    @FXML
+    private TableColumn<Dependant, String> dependantPassword;
+    @FXML
+    private TableColumn<Dependant, String> policyOwnerDependantTable;
+    @FXML
+    private TableColumn<Dependant, String> cardNumberDependantTable;
+    @FXML
+    private TableColumn<Dependant, Button> dependantUpdateInfoButton;
+    @FXML
+    private TableColumn<Dependant, Button> dependantRemoveButton;
+    @FXML
+    private TableColumn<Dependant, String> policyHolderDependantTable;
+    @FXML
+    private TextField dependantSearchField;
+
+
+    @FXML
+    private TableView<InsuranceCard> insuranceCardTable;
+    @FXML
+    private TableColumn<InsuranceCard, String> cardNumber;
+    @FXML
+    private TableColumn<InsuranceCard, Date> expiryDate;
+    @FXML
+    private TableColumn<InsuranceCard, String> cardHolderId;
+    @FXML
+    private TableColumn<InsuranceCard, String> policyOwnerInsuranceCardTable;
+    @FXML
+    private TableColumn<InsuranceCard, Button> insuranceCardRemoveButton;
+    @FXML
+    private TextField insuranceCardSearchField;
+
+
+    @FXML
+    private TableView<Claim> claimTable;
+    @FXML
+    private  TableColumn<Claim, String> claimId;
+    @FXML
+    private  TableColumn<Claim, Date> creationDate;
+    @FXML
+    private  TableColumn<Claim, String> insuredPersonId;
+    @FXML
+    private  TableColumn<Claim, String> cardNumberClaimTable;
+    @FXML
+    private  TableColumn<Claim, String> policyOwnerClaimTable;
+    @FXML
+    private  TableColumn<Claim, Float> claimAmount;
+    @FXML
+    private  TableColumn<Claim, Date> settlementDate;
+    @FXML
+    private  TableColumn<Claim, String> status;
+    @FXML
+    private  TableColumn<Claim, Button> claimButton;
+    @FXML
+    private  TextField claimListSearchField;
+    @FXML
+    private  ChoiceBox<String> sortList;
+    @FXML
+    private  ChoiceBox<String> statusList;
+    @FXML
+    private  DatePicker creationDateFrom;
+    @FXML
+    private  DatePicker creationDateTo;
+    @FXML
+    private  DatePicker settlementDateFrom;
+    @FXML
+    private  DatePicker settlementDateTo;
+    @FXML
+    private  TextField claimAmountFrom;
+    @FXML
+    private  TextField claimAmountTo;
+
+
+
 
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-       InsuranceManagerTableFilling.fillingInsuranceManagerTable(entityManager, user, EmployeeAnalytics.getAllInsuranceManager(entityManager), insuranceManagersObservableList);
-       InsuranceSurveyorTableFilling.fillingInsuranceSurveyorTable(entityManager, user, EmployeeAnalytics.getAllInsuranceSurveyor(entityManager), insuranceSurveyorsObservableList);
-       PolicyOwnerTableFilling.fillingPolicyOwnerTable(entityManager, user, CustomerAnalytics.getAllPolicyOwner(entityManager), policyOwnersObservableList);
-       PolicyHolderTableFilling.fillingPolicyHolderTable(entityManager, user, CustomerAnalytics.getAllPolicyHolder(entityManager), policyHoldersObservableList);
-       DependantTableFilling.fillingDependantTable(entityManager, user, CustomerAnalytics.getAllDependant(entityManager), dependantsObservableList);
-       InsuranceSurveyorTableFilling.fillingInsuranceCardTable(entityManager, user, CustomerAnalytics.getAllInsuranceCard(entityManager), insuranceCardsObservableList);
-       ClaimTableFilling.fillingClaimTable(entityManager, user, ClaimAnalytics.getAllClaims(entityManager), claimObservableList);
+        InsuranceManagerTableFilling insuranceManagerTableFilling = instantiateInsuranceManagerTableFilling();
+        insuranceManagerTableFilling.fillingInsuranceManagerTable(entityManager, user, EmployeeAnalytics.getAllInsuranceManager(entityManager), insuranceManagersObservableList);
+
+        InsuranceSurveyorTableFilling insuranceSurveyorTableFilling = instantiateInsuranceSurveyorTableFilling();
+        insuranceSurveyorTableFilling.fillingInsuranceSurveyorTable(entityManager, user, EmployeeAnalytics.getAllInsuranceSurveyor(entityManager), insuranceSurveyorsObservableList);
+
+        PolicyOwnerTableFilling policyOwnerTableFilling = instantiatePolicyOwnerTableFilling();
+        policyOwnerTableFilling.fillingPolicyOwnerTable(entityManager, user, CustomerAnalytics.getAllPolicyOwner(entityManager), policyOwnersObservableList);
+
+        PolicyHolderTableFilling policyHolderTableFilling = instantiatePolicyHolderTableFilling();
+        policyHolderTableFilling.fillingPolicyHolderTable(entityManager, user, CustomerAnalytics.getAllPolicyHolder(entityManager), policyHoldersObservableList);
+
+        DependantTableFilling dependantTableFilling = instantiateDependantTableFilling();
+        dependantTableFilling.fillingDependantTable(entityManager, user, CustomerAnalytics.getAllDependant(entityManager), dependantsObservableList);
+
+        InsuranceCardFillingTable insuranceCardFillingTable = instantiateInsuranceCardFillingTable();
+        insuranceCardFillingTable.fillingInsuranceCardTable(entityManager, user, CustomerAnalytics.getAllInsuranceCard(entityManager), insuranceCardsObservableList);
+
+        ClaimTableFilling claimTableFilling = instantiateClaimTableFilling();
+        claimTableFilling.fillingClaimTable(entityManager, user, ClaimAnalytics.getAllClaims(entityManager), claimObservableList);
 
 
     }
@@ -81,6 +276,121 @@ public class DashBoardController_SystemAdmin extends InsuranceManagerTableFillin
 
     public EntityManager getEntityManager() {
         return entityManager;
+    }
+
+    public InsuranceManagerTableFilling instantiateInsuranceManagerTableFilling(){
+        InsuranceManagerTableFilling insuranceManagerTableFilling = new InsuranceManagerTableFilling();
+        insuranceManagerTableFilling.setManagerTable(managerTable);
+        insuranceManagerTableFilling.setManagerId(managerId);
+        insuranceManagerTableFilling.setManagerFullName(managerFullName);
+        insuranceManagerTableFilling.setManagerAddress(managerAddress);
+        insuranceManagerTableFilling.setManagerPhoneNumber(managerPhoneNumber);
+        insuranceManagerTableFilling.setManagerEmail(managerEmail);
+        insuranceManagerTableFilling.setManagerPassword(managerPassword);
+        insuranceManagerTableFilling.setManagerRemoveButton(managerRemoveButton);
+        insuranceManagerTableFilling.setManagerAddSurveyorButton(managerAddSurveyorButton);
+        insuranceManagerTableFilling.setManagerUpdateInfoButton(managerUpdateInfoButton);
+        insuranceManagerTableFilling.setInsuranceManagerSearchField(insuranceManagerSearchField);
+        return insuranceManagerTableFilling;
+    }
+
+    public InsuranceSurveyorTableFilling instantiateInsuranceSurveyorTableFilling(){
+        InsuranceSurveyorTableFilling insuranceSurveyorTableFilling = new InsuranceSurveyorTableFilling();
+        insuranceSurveyorTableFilling.setSurveyorTable(surveyorTable);
+        insuranceSurveyorTableFilling.setSurveyorId(surveyorId);
+        insuranceSurveyorTableFilling.setSurveyorFullName(surveyorFullName);
+        insuranceSurveyorTableFilling.setSurveyorAddress(surveyorAddress);
+        insuranceSurveyorTableFilling.setSurveyorPhoneNumber(surveyorPhoneNumber);
+        insuranceSurveyorTableFilling.setSurveyorEmail(surveyorEmail);
+        insuranceSurveyorTableFilling.setSurveyorPassword(surveyorPassword);
+        insuranceSurveyorTableFilling.setManager(manager);
+        insuranceSurveyorTableFilling.setInsuranceSurveyorSearchField(insuranceSurveyorSearchField);
+        insuranceSurveyorTableFilling.setSurveyorUpdateInfoButton(surveyorUpdateInfoButton);
+        insuranceSurveyorTableFilling.setSurveyorRemoveButton(surveyorRemoveButton);
+        return insuranceSurveyorTableFilling;
+    }
+
+    public PolicyOwnerTableFilling instantiatePolicyOwnerTableFilling(){
+        PolicyOwnerTableFilling policyOwnerTableFilling = new PolicyOwnerTableFilling();
+        policyOwnerTableFilling.setPolicyOwnerTable(policyOwnerTable);
+        policyOwnerTableFilling.setPolicyOwnerId(policyOwnerId);
+        policyOwnerTableFilling.setPolicyOwnerFullName(policyOwnerFullName);
+        policyOwnerTableFilling.setPolicyOwnerAddress(policyOwnerAddress);
+        policyOwnerTableFilling.setPolicyOwnerPhoneNumber(policyOwnerPhoneNumber);
+        policyOwnerTableFilling.setPolicyOwnerEmail(policyOwnerEmail);
+        policyOwnerTableFilling.setPolicyOwnerPassword(policyOwnerPassword);
+        policyOwnerTableFilling.setPolicyOwnerAddPolicyButton(policyOwnerAddPolicyButton);
+        policyOwnerTableFilling.setPolicyOwnerRemoveButton(policyOwnerRemoveButton);
+        policyOwnerTableFilling.setPolicyOwnerUpdateInfoButton(policyOwnerUpdateInfoButton);
+        policyOwnerTableFilling.setPolicyOwnerSearchField(policyOwnerSearchField);
+        return policyOwnerTableFilling;
+    }
+
+    public PolicyHolderTableFilling instantiatePolicyHolderTableFilling(){
+        PolicyHolderTableFilling policyHolderTableFilling = new PolicyHolderTableFilling();
+        policyHolderTableFilling.setPolicyHolderTable(policyHolderTable);
+        policyHolderTableFilling.setPolicyHolderId(policyHolderId);
+        policyHolderTableFilling.setPolicyHolderFullName(policyHolderFullName);
+        policyHolderTableFilling.setPolicyHolderAddress(policyHolderAddress);
+        policyHolderTableFilling.setPolicyHolderPhoneNumber(policyHolderPhoneNumber);
+        policyHolderTableFilling.setPolicyHolderEmail(policyHolderEmail);
+        policyHolderTableFilling.setPolicyHolderPassword(policyHolderPassword);
+        policyHolderTableFilling.setPolicyHolderRemoveButton(policyHolderRemoveButton);
+        policyHolderTableFilling.setPolicyHolderAddDependantButton(policyHolderAddDependantButton);
+        policyHolderTableFilling.setPolicyHolderRemoveButton(policyHolderRemoveButton);
+        policyHolderTableFilling.setPolicyHolderSearchField(policyHolderSearchField);
+        return policyHolderTableFilling;
+    }
+
+    public DependantTableFilling instantiateDependantTableFilling(){
+        DependantTableFilling dependantTableFilling = new DependantTableFilling();
+        dependantTableFilling.setDependantTable(dependantTable);
+        dependantTableFilling.setDependantId(dependantId);
+        dependantTableFilling.setDependantFullName(dependantFullName);
+        dependantTableFilling.setDependantEmail(dependantEmail);
+        dependantTableFilling.setDependantAddress(dependantAddress);
+        dependantTableFilling.setDependantPhoneNumber(dependantPhoneNumber);
+        dependantTableFilling.setDependantPassword(dependantPassword);
+        dependantTableFilling.setDependantRemoveButton(dependantRemoveButton);
+        dependantTableFilling.setDependantUpdateInfoButton(dependantUpdateInfoButton);
+        dependantTableFilling.setDependantSearchField(dependantSearchField);
+        return dependantTableFilling;
+    }
+
+    public InsuranceCardFillingTable instantiateInsuranceCardFillingTable(){
+        InsuranceCardFillingTable insuranceCardFillingTable = new InsuranceCardFillingTable();
+        insuranceCardFillingTable.setInsuranceCardTable(insuranceCardTable);
+        insuranceCardFillingTable.setCardNumber(cardNumber);
+        insuranceCardFillingTable.setCardHolderId(cardHolderId);
+        insuranceCardFillingTable.setPolicyOwnerInsuranceCardTable(policyOwnerInsuranceCardTable);
+        insuranceCardFillingTable.setExpiryDate(expiryDate);
+        insuranceCardFillingTable.setInsuranceCardRemoveButton(insuranceCardRemoveButton);
+        insuranceCardFillingTable.setInsuranceCardSearchField(insuranceCardSearchField);
+        return insuranceCardFillingTable;
+    }
+
+    public ClaimTableFilling instantiateClaimTableFilling(){
+        ClaimTableFilling claimTableFilling = new ClaimTableFilling();
+        claimTableFilling.setClaimTable(claimTable);
+        claimTableFilling.setClaimId(claimId);
+        claimTableFilling.setClaimAmount(claimAmount);
+        claimTableFilling.setInsuredPersonId(insuredPersonId);
+        claimTableFilling.setPolicyOwnerClaimTable(policyOwnerClaimTable);
+        claimTableFilling.setCardNumberClaimTable(cardNumberClaimTable);
+        claimTableFilling.setClaimButton(claimButton);
+        claimTableFilling.setCreationDate(creationDate);
+        claimTableFilling.setSettlementDate(settlementDate);
+        claimTableFilling.setStatus(status);
+        claimTableFilling.setClaimAmountTo(claimAmountTo);
+        claimTableFilling.setClaimAmountFrom(claimAmountFrom);
+        claimTableFilling.setCreationDateFrom(creationDateFrom);
+        claimTableFilling.setCreationDateTo(creationDateTo);
+        claimTableFilling.setSettlementDateFrom(settlementDateFrom);
+        claimTableFilling.setSettlementDateTo(settlementDateTo);
+        claimTableFilling.setClaimListSearchField(claimListSearchField);
+        claimTableFilling.setSortList(sortList);
+        claimTableFilling.setStatusList(statusList);
+        return claimTableFilling;
     }
 
 

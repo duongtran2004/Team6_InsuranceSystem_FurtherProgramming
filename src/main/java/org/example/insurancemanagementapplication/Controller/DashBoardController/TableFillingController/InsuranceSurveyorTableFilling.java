@@ -31,29 +31,29 @@ import java.util.ListIterator;
  */
 public class InsuranceSurveyorTableFilling extends PolicyOwnerTableFilling{
     @FXML
-    protected static TableView<InsuranceSurveyor> surveyorTable;
+    private TableView<InsuranceSurveyor> surveyorTable;
     @FXML
-    protected static TableColumn<InsuranceSurveyor, String> surveyorId;
+    private TableColumn<InsuranceSurveyor, String> surveyorId;
     @FXML
-    protected static TableColumn<InsuranceSurveyor, String> surveyorFullName;
+    private TableColumn<InsuranceSurveyor, String> surveyorFullName;
     @FXML
-    protected static TableColumn<InsuranceSurveyor, String> surveyorAddress;
+    private TableColumn<InsuranceSurveyor, String> surveyorAddress;
     @FXML
-    protected static TableColumn<InsuranceSurveyor, String> surveyorPhoneNumber;
+    private TableColumn<InsuranceSurveyor, String> surveyorPhoneNumber;
     @FXML
-    protected static TableColumn<InsuranceSurveyor, String> surveyorEmail;
+    private TableColumn<InsuranceSurveyor, String> surveyorEmail;
     @FXML
-    protected static TableColumn<InsuranceSurveyor, String> surveyorPassword;
+    private TableColumn<InsuranceSurveyor, String> surveyorPassword;
     @FXML
-    protected static TableColumn<InsuranceSurveyor, String> manager;
+    private TableColumn<InsuranceSurveyor, String> manager;
     @FXML
-    protected static  TableColumn<InsuranceSurveyor, Button> surveyorUpdateInfoButton;
+    private  TableColumn<InsuranceSurveyor, Button> surveyorUpdateInfoButton;
     @FXML
-    protected  static TableColumn<InsuranceSurveyor, Button> surveyorRemoveButton;
+    private TableColumn<InsuranceSurveyor, Button> surveyorRemoveButton;
     @FXML
-    protected static TextField insuranceSurveyorSearchField;
+    private TextField insuranceSurveyorSearchField;
 
-    protected static void fillingInsuranceSurveyorTable(EntityManager entityManager, User user, List<InsuranceSurveyor> insuranceSurveyors, ObservableList<InsuranceSurveyor> insuranceSurveyorsObservableList){
+    public void fillingInsuranceSurveyorTable(EntityManager entityManager, User user, List<InsuranceSurveyor> insuranceSurveyors, ObservableList<InsuranceSurveyor> insuranceSurveyorsObservableList){
         ListIterator<InsuranceSurveyor> listIteratorInsuranceSurveyor = insuranceSurveyors.listIterator();
         while (listIteratorInsuranceSurveyor.hasNext()){
             InsuranceSurveyor insuranceSurveyor = listIteratorInsuranceSurveyor.next();
@@ -131,5 +131,97 @@ public class InsuranceSurveyorTableFilling extends PolicyOwnerTableFilling{
         }
 
         surveyorTable.getItems().setAll(filteredSurveyorList);
+    }
+
+    public InsuranceSurveyorTableFilling(){
+
+    }
+
+    public TableView<InsuranceSurveyor> getSurveyorTable() {
+        return surveyorTable;
+    }
+
+    public void setSurveyorTable(TableView<InsuranceSurveyor> surveyorTable) {
+        this.surveyorTable = surveyorTable;
+    }
+
+    public TableColumn<InsuranceSurveyor, String> getSurveyorId() {
+        return surveyorId;
+    }
+
+    public void setSurveyorId(TableColumn<InsuranceSurveyor, String> surveyorId) {
+        this.surveyorId = surveyorId;
+    }
+
+    public TableColumn<InsuranceSurveyor, String> getSurveyorFullName() {
+        return surveyorFullName;
+    }
+
+    public void setSurveyorFullName(TableColumn<InsuranceSurveyor, String> surveyorFullName) {
+        this.surveyorFullName = surveyorFullName;
+    }
+
+    public TableColumn<InsuranceSurveyor, String> getSurveyorAddress() {
+        return surveyorAddress;
+    }
+
+    public void setSurveyorAddress(TableColumn<InsuranceSurveyor, String> surveyorAddress) {
+        this.surveyorAddress = surveyorAddress;
+    }
+
+    public TableColumn<InsuranceSurveyor, String> getSurveyorPhoneNumber() {
+        return surveyorPhoneNumber;
+    }
+
+    public void setSurveyorPhoneNumber(TableColumn<InsuranceSurveyor, String> surveyorPhoneNumber) {
+        this.surveyorPhoneNumber = surveyorPhoneNumber;
+    }
+
+    public TableColumn<InsuranceSurveyor, String> getSurveyorEmail() {
+        return surveyorEmail;
+    }
+
+    public void setSurveyorEmail(TableColumn<InsuranceSurveyor, String> surveyorEmail) {
+        this.surveyorEmail = surveyorEmail;
+    }
+
+    public TableColumn<InsuranceSurveyor, String> getSurveyorPassword() {
+        return surveyorPassword;
+    }
+
+    public void setSurveyorPassword(TableColumn<InsuranceSurveyor, String> surveyorPassword) {
+        this.surveyorPassword = surveyorPassword;
+    }
+
+    public TableColumn<InsuranceSurveyor, String> getManager() {
+        return manager;
+    }
+
+    public void setManager(TableColumn<InsuranceSurveyor, String> manager) {
+        this.manager = manager;
+    }
+
+    public TableColumn<InsuranceSurveyor, Button> getSurveyorUpdateInfoButton() {
+        return surveyorUpdateInfoButton;
+    }
+
+    public void setSurveyorUpdateInfoButton(TableColumn<InsuranceSurveyor, Button> surveyorUpdateInfoButton) {
+        this.surveyorUpdateInfoButton = surveyorUpdateInfoButton;
+    }
+
+    public TableColumn<InsuranceSurveyor, Button> getSurveyorRemoveButton() {
+        return surveyorRemoveButton;
+    }
+
+    public void setSurveyorRemoveButton(TableColumn<InsuranceSurveyor, Button> surveyorRemoveButton) {
+        this.surveyorRemoveButton = surveyorRemoveButton;
+    }
+
+    public TextField getInsuranceSurveyorSearchField() {
+        return insuranceSurveyorSearchField;
+    }
+
+    public void setInsuranceSurveyorSearchField(TextField insuranceSurveyorSearchField) {
+        this.insuranceSurveyorSearchField = insuranceSurveyorSearchField;
     }
 }
