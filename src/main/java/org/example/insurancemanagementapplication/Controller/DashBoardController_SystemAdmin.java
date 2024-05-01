@@ -947,10 +947,6 @@ public class DashBoardController_SystemAdmin implements ClaimAnalytics, Employee
             }
 
         });
-
-
-
-
         claimId.setCellValueFactory(new PropertyValueFactory<Claim, String>("claimId"));
         creationDate.setCellValueFactory(new PropertyValueFactory<Claim, Date>("creationDate"));
         insuredPersonId.setCellValueFactory(new PropertyValueFactory<Claim, String>("insuredPersonId"));
@@ -961,10 +957,6 @@ public class DashBoardController_SystemAdmin implements ClaimAnalytics, Employee
         status.setCellValueFactory(new PropertyValueFactory<Claim, String>("status"));
         claimButton.setCellValueFactory(new PropertyValueFactory<Claim, Button>("claimButton"));
         claimTable.getItems().setAll(sortedClaimList);
-
-
-
-
     }
 
 
