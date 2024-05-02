@@ -36,7 +36,7 @@ public class ClaimTableFilling implements ClaimCreateRemove {
     @FXML
     private  TableColumn<Claim, String> policyOwnerClaimTable;
     @FXML
-    private  TableColumn<Claim, Float> claimAmount;
+    private  TableColumn<Claim, Integer> claimAmount;
     @FXML
     private  TableColumn<Claim, Date> settlementDate;
     @FXML
@@ -293,7 +293,7 @@ public class ClaimTableFilling implements ClaimCreateRemove {
         insuredPersonId.setCellValueFactory(new PropertyValueFactory<Claim, String>("insuredPersonId"));
         cardNumberClaimTable.setCellValueFactory(new PropertyValueFactory<Claim, String>("cardNumber"));
         policyOwnerClaimTable.setCellValueFactory(new PropertyValueFactory<Claim, String>("policyOwnerId"));
-        claimAmount.setCellValueFactory(new PropertyValueFactory<Claim, Float>("claimAmount"));
+        claimAmount.setCellValueFactory(new PropertyValueFactory<Claim, Integer>("claimAmount"));
         settlementDate.setCellValueFactory(new PropertyValueFactory<Claim, Date>("settlementDate"));
         status.setCellValueFactory(new PropertyValueFactory<Claim, String>("status"));
         if (!(user instanceof Dependant)){
@@ -356,11 +356,11 @@ public class ClaimTableFilling implements ClaimCreateRemove {
         this.policyOwnerClaimTable = policyOwnerClaimTable;
     }
 
-    public TableColumn<Claim, Float> getClaimAmount() {
+    public TableColumn<Claim, Integer> getClaimAmount() {
         return claimAmount;
     }
 
-    public void setClaimAmount(TableColumn<Claim, Float> claimAmount) {
+    public void setClaimAmount(TableColumn<Claim, Integer> claimAmount) {
         this.claimAmount = claimAmount;
     }
 

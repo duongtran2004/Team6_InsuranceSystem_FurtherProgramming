@@ -28,7 +28,7 @@ public class Claim {
     private String status;
     @Basic
     @Column(name = "claim_amount")
-    private float claimAmount;
+    private int claimAmount;
 
     @Basic
     @Column(name = "insured_person_id", updatable = false, insertable = false)
@@ -148,11 +148,11 @@ public class Claim {
         this.status = status;
     }
 
-    public float getClaimAmount() {
+    public int getClaimAmount() {
         return claimAmount;
     }
 
-    public void setClaimAmount(float claimAmount) {
+    public void setClaimAmount(int claimAmount) {
         this.claimAmount = claimAmount;
     }
 

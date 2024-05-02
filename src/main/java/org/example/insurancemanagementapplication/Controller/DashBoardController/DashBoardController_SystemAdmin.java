@@ -212,7 +212,7 @@ public class DashBoardController_SystemAdmin extends InsuranceManagerTableFillin
     @FXML
     private  TableColumn<Claim, String> policyOwnerClaimTable;
     @FXML
-    private  TableColumn<Claim, Float> claimAmount;
+    private  TableColumn<Claim, Integer> claimAmount;
     @FXML
     private  TableColumn<Claim, Date> settlementDate;
     @FXML
@@ -245,26 +245,41 @@ public class DashBoardController_SystemAdmin extends InsuranceManagerTableFillin
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        System.out.println("Hello World");
+
         InsuranceManagerTableFilling insuranceManagerTableFilling = instantiateInsuranceManagerTableFilling();
         insuranceManagerTableFilling.fillingInsuranceManagerTable(entityManager, user, EmployeeAnalytics.getAllInsuranceManager(entityManager), insuranceManagersObservableList);
 
+        System.out.println("Hello Insurance Surveyor");
         InsuranceSurveyorTableFilling insuranceSurveyorTableFilling = instantiateInsuranceSurveyorTableFilling();
         insuranceSurveyorTableFilling.fillingInsuranceSurveyorTable(entityManager, user, EmployeeAnalytics.getAllInsuranceSurveyor(entityManager), insuranceSurveyorsObservableList);
 
+        System.out.println("Hello Policy Owner");
         PolicyOwnerTableFilling policyOwnerTableFilling = instantiatePolicyOwnerTableFilling();
         policyOwnerTableFilling.fillingPolicyOwnerTable(entityManager, user, CustomerAnalytics.getAllPolicyOwner(entityManager), policyOwnersObservableList);
 
+        System.out.println("Holder");
         PolicyHolderTableFilling policyHolderTableFilling = instantiatePolicyHolderTableFilling();
         policyHolderTableFilling.fillingPolicyHolderTable(entityManager, user, CustomerAnalytics.getAllPolicyHolder(entityManager), policyHoldersObservableList);
 
+        System.out.println("Dependant");
         DependantTableFilling dependantTableFilling = instantiateDependantTableFilling();
         dependantTableFilling.fillingDependantTable(entityManager, user, CustomerAnalytics.getAllDependant(entityManager), dependantsObservableList);
 
+
         InsuranceCardFillingTable insuranceCardFillingTable = instantiateInsuranceCardFillingTable();
-        insuranceCardFillingTable.fillingInsuranceCardTable(entityManager, user, CustomerAnalytics.getAllInsuranceCard(entityManager), insuranceCardsObservableList);
+        System.out.println("Hello Card");
+        if (!CustomerAnalytics.getAllInsuranceCard(entityManager).isEmpty()){
+            insuranceCardFillingTable.fillingInsuranceCardTable(entityManager, user, CustomerAnalytics.getAllInsuranceCard(entityManager), insuranceCardsObservableList);
+        }
 
         ClaimTableFilling claimTableFilling = instantiateClaimTableFilling();
-        claimTableFilling.fillingClaimTable(entityManager, user, ClaimAnalytics.getAllClaims(entityManager), claimObservableList);
+        if (!ClaimAnalytics.getAllClaims(entityManager).isEmpty()){
+            claimTableFilling.fillingClaimTable(entityManager, user, ClaimAnalytics.getAllClaims(entityManager), claimObservableList);
+        }
+
+
+
 
 
     }
@@ -338,6 +353,7 @@ public class DashBoardController_SystemAdmin extends InsuranceManagerTableFillin
         policyHolderTableFilling.setPolicyOwnerHolderTable(policyOwnerHolderTable);
         policyHolderTableFilling.setCardNumberHolderTable(cardNumberHolderTable);
         policyHolderTableFilling.setPolicyHolderSearchField(policyHolderSearchField);
+        policyHolderTableFilling.setPolicyHolderUpdateInfoButton(policyHolderUpdateInfoButton);
         policyHolderTableFilling.setPolicyHolderRemoveButton(policyHolderRemoveButton);
         policyHolderTableFilling.setPolicyHolderAddDependantButton(policyHolderAddDependantButton);
         policyHolderTableFilling.setPolicyHolderRemoveButton(policyHolderRemoveButton);

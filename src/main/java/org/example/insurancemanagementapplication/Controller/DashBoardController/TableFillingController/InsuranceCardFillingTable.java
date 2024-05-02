@@ -42,9 +42,11 @@ public class InsuranceCardFillingTable extends DependantTableFilling {
     private TextField insuranceCardSearchField;
 
     public void fillingInsuranceCardTable(EntityManager entityManager, User user, List<InsuranceCard> insuranceCards, ObservableList<InsuranceCard> insuranceCardObservableList){
+        System.out.println("Hello");
         ListIterator<InsuranceCard> insuranceCardListIterator = insuranceCards.listIterator();
         while (insuranceCardListIterator.hasNext()){
-            InsuranceCard insuranceCard = new InsuranceCard();
+            System.out.println("Hello 2");
+            InsuranceCard insuranceCard = insuranceCardListIterator.next();
             Button buttonRemove = new Button("Remove");
             if (user instanceof SystemAdmin || user instanceof PolicyOwner){
                 buttonRemove.setOnAction(event -> {
@@ -54,6 +56,7 @@ public class InsuranceCardFillingTable extends DependantTableFilling {
             }
             insuranceCardObservableList.add(insuranceCard);
         }
+        System.out.println("Hello 3");
         FilteredList<InsuranceCard> filteredInsuranceCardList = new FilteredList<>(insuranceCardObservableList, b -> true);
         insuranceCardSearchField.textProperty().addListener((observable, oldValue, newValue) ->{
             filteredInsuranceCardList.setPredicate(insuranceCard -> {
@@ -81,6 +84,7 @@ public class InsuranceCardFillingTable extends DependantTableFilling {
                 }
             });
         });
+        System.out.println("Hello 4");
 
 
         cardNumber.setCellValueFactory(new PropertyValueFactory<InsuranceCard, String>("cardNumber"));
@@ -90,7 +94,6 @@ public class InsuranceCardFillingTable extends DependantTableFilling {
         if (user instanceof SystemAdmin || user instanceof PolicyOwner){
             insuranceCardRemoveButton.setCellValueFactory(new PropertyValueFactory<InsuranceCard, Button>("removeButton"));
         }
-
         insuranceCardTable.getItems().addAll(filteredInsuranceCardList);
 
     }
