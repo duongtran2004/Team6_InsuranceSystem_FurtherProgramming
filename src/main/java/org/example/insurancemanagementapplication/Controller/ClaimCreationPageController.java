@@ -8,15 +8,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import org.example.insurancemanagementapplication.Interfaces.ClaimCreateRemove;
-import org.example.insurancemanagementapplication.Interfaces.ClaimUpdate;
 import org.example.insurancemanagementapplication.Interfaces.EmployeeAnalytics;
 import org.example.insurancemanagementapplication.Utility.InputValidator;
 
-import java.util.Random;
-import java.io.File;
 import java.net.URL;
 import java.util.List;
+import java.util.Random;
 import java.util.ResourceBundle;
 
 class ClaimCreationPageController implements Initializable {
@@ -42,6 +39,8 @@ class ClaimCreationPageController implements Initializable {
     private TextField insuranceSurveyorIdField;
     @FXML
     private TextField insuranceManagerIdField;
+    @FXML
+    private TextField cardNumberField;
 
 
     @FXML
@@ -74,7 +73,7 @@ class ClaimCreationPageController implements Initializable {
             bankNameField.setText(claim.getBankName());
             claimAmountField.setText(String.valueOf(claim.getClaimAmount()));
 
-            // UPDATE CASE 2: INSURANCE MANAGER
+            // UPDATE CASE 1: INSURANCE SURVEYOR
             //if user is Insurance Surveyor: can only view document and change status
             if (user instanceof InsuranceSurveyor) {
                 //disable necessary fields
@@ -82,12 +81,13 @@ class ClaimCreationPageController implements Initializable {
                 bankAccountNumberField.setDisable(true);
                 bankNameField.setDisable(true);
                 claimAmountField.setDisable(true);
+                cardNumberField.setDisable(true);
                 //set disable for insurance manager and insurance surveyor field
                 insuranceSurveyorIdField.setDisable(true);
                 insuranceManagerIdField.setDisable(true);
 
                 //set Array String for status choice box
-                String[] Status = {"Need Info", "Processing"};
+                String[] Status = {"NEED INF", "PROCESSING"};
                 statusChoiceBox.getItems().addAll(Status);
 
                 //After user click on  Submit Button to Update Claim
@@ -103,6 +103,8 @@ class ClaimCreationPageController implements Initializable {
                 bankAccountNumberField.setDisable(true);
                 bankNameField.setDisable(true);
                 insuranceManagerIdField.setDisable(true);
+                cardNumberField.setDisable(true);
+                insuranceSurveyorIdField.setDisable(true);
                 //set Array String for status choice box
 
                 if (claim.getStatus() == "PROCESSING") {
@@ -139,53 +141,63 @@ class ClaimCreationPageController implements Initializable {
             }
             // UPDATE CASE 3: POLICY HOLDER OR POLICY OWNER
             if (user instanceof PolicyOwner || user instanceof PolicyHolder) {
-                //read text fields => store to variables
-                String bankAccountName = bankAccountNameField.getText();
-                String bankAccountNumber = bankAccountNumberField.getText();
-                String bankName = bankNameField.getText();
-                String stringClaimAmount = claimAmountField.getText();
-                // input validator for Claim's Field
-                errorContainer.setText(InputValidator.ClaimUpdateValidator(entityManager, bankName, bankAccountName, bankAccountNumber));
-                if (errorContainer.getText() == "Success") {
-                    String status = (String) statusChoiceBox.getSelectionModel().getSelectedItem();
-                    //If user is an  InsuranceSurveyor: can only update status
-                    ClaimUpdate.updateClaim(entityManager, claim, status);
-                }
+                //disable necessary fields
+                statusChoiceBox.setDisable(true);
+                claimAmountField.setDisable(true);
+                insuranceManagerIdField.setDisable(true);
+                insuranceSurveyorIdField.setDisable(true);
+                cardNumberField.setDisable(true);
+                //not allowed to update insured person id
+                //After use clicked on submit button
+                submitButton.setOnAction(event -> {
+//read text fields => store to variables
+                    String bankAccountName = bankAccountNameField.getText();
+                    String bankAccountNumber = bankAccountNumberField.getText();
+                    String bankName = bankNameField.getText();
+                    // input validator for Claim's Field
+                    errorContainer.setText(InputValidator.ClaimUpdateValidator(entityManager, bankName, bankAccountName, bankAccountNumber));
+                    if (errorContainer.getText() == "Success") {
+                        claim.setBankAccountNumber(bankAccountNumber);
+                        claim.setBankAccountName(bankAccountName);
+                        claim.setBankName(bankName);
+                    }
+
+
+                });
+
+
             }
         }
 
         //2nd case: Create claim => If claim does NOT exist
 
         if (claim == null) {
+            //no need to set the condition if user is instance of policyHolder or policyOwner (Front-end logic handled that)
+            //disable necessary fields
+            statusChoiceBox.setDisable(true);
+            claimAmountField.setDisable(true);
+            insuranceManagerIdField.setDisable(true);
+            insuranceSurveyorIdField.setDisable(true);
+            cardNumberField.setDisable(true);
+            submitButton.setOnAction(event -> {
+                //read text fields => store to variables
+                String bankAccountName = bankAccountNameField.getText();
+                String bankAccountNumber = bankAccountNumberField.getText();
+                String bankName = bankNameField.getText();
+                // input validator for Claim's Field
+                errorContainer.setText(InputValidator.ClaimUpdateValidator(entityManager, bankName, bankAccountName, bankAccountNumber));
+                if (errorContainer.getText() == "Success") {
+                    claim.setBankAccountName(bankAccountName);
+                    claim.setBankAccountNumber(bankAccountNumber);
+                    claim.setBankName(bankName);
+                    randomlyAssignClaimsToInsuranceManager(entityManager, claim);
+                }
 
-            // Randomly assign claim to Insurance Manager
 
-        }
-
-
-        //If use is a policy holder and policy owner are the ones who can create claims
-
-        if (user instanceof PolicyHolder || user instanceof PolicyOwner) {
-
-            //
-
-            // pass parameter to create Claim
-            ClaimCreateRemove.createClaim();
-
-            statusChoiceBox.getItems().addAll(Status);
-
-
-            updloadDocumentButton.setOnAction(event -> {
-                // Handle button click event to upload document
-                uploadDocument("public/avatar1.png", new File("path/to/your/file.png"));
             });
         }
-
-
     }
 
-    public static void randomlyAssignClaimsToInsuranceManager() {
-    }
 
     public static void randomlyAssignClaimsToInsuranceManager(EntityManager entityManager, Claim claim) {
         List<InsuranceManager> insuranceManagers = EmployeeAnalytics.getAllInsuranceManager(entityManager);
@@ -196,17 +208,15 @@ class ClaimCreationPageController implements Initializable {
     }
 
 
-
-
-public static void initializeUpdateCases() {
-
-
-}
-
-public static void initializeCreateCases() {
-
-
-}
+//        public static void initializeUpdateCases () {
+//
+//
+//        }
+//
+//        public static void initializeCreateCases () {
+//
+//
+//        }
 
 //    private void uploadDocument(String s, File file) {
 //    }
