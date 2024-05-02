@@ -5,7 +5,6 @@ import jakarta.persistence.EntityManager;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
-import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageController_Claim;
@@ -23,45 +22,29 @@ import java.util.ListIterator;
  * @project InsuranceManagementTeamProject
  */
 public class ClaimTableFilling implements ClaimCreateRemove {
-    @FXML
+
+    //The TableView element in the front end listing Claims
     private TableView<Claim> claimTable;
-    @FXML
+    //The table column containing claims' ids
     private  TableColumn<Claim, String> claimId;
-    @FXML
+
     private  TableColumn<Claim, Date> creationDate;
-    @FXML
     private  TableColumn<Claim, String> insuredPersonId;
-    @FXML
     private  TableColumn<Claim, String> cardNumberClaimTable;
-    @FXML
     private  TableColumn<Claim, String> policyOwnerClaimTable;
-    @FXML
     private  TableColumn<Claim, Integer> claimAmount;
-    @FXML
     private  TableColumn<Claim, Date> settlementDate;
-    @FXML
     private  TableColumn<Claim, String> status;
-    @FXML
     private  TableColumn<Claim, Button> claimButton;
-    @FXML
     private TableColumn<Claim, Button> removeClaimButton;
-    @FXML
     private  TextField claimListSearchField;
-    @FXML
     private  ChoiceBox<String> sortList;
-    @FXML
     private  ChoiceBox<String> statusList;
-    @FXML
     private  DatePicker creationDateFrom;
-    @FXML
     private  DatePicker creationDateTo;
-    @FXML
     private  DatePicker settlementDateFrom;
-    @FXML
     private  DatePicker settlementDateTo;
-    @FXML
     private  TextField claimAmountFrom;
-    @FXML
     private  TextField claimAmountTo;
 
     public void sortingClaimTable(SortedList<Claim> sortedClaimList ){
@@ -121,7 +104,9 @@ public class ClaimTableFilling implements ClaimCreateRemove {
         });
     }
 
+    //This method adds handlers to changes in filtering Fields.
     public void filteringClaimTable(FilteredList<Claim> filteredClaimList){
+        //Add a handler to the search field
         claimListSearchField.textProperty().addListener((observable, oldValue, newValue)->{
             filteredClaimList.setPredicate(claim -> {
                 String searchValue = newValue.toLowerCase();
@@ -144,6 +129,7 @@ public class ClaimTableFilling implements ClaimCreateRemove {
                 }
             });
         });
+        //Add a handler to the creationDateFrom field
         creationDateFrom.valueProperty().addListener((observable, oldDate, newDate)->{
             filteredClaimList.setPredicate(claim -> {
                 if (newDate == null){
@@ -157,6 +143,7 @@ public class ClaimTableFilling implements ClaimCreateRemove {
                 }
             });
         });
+        //Add a handler to the creationDateTo field
         creationDateTo.valueProperty().addListener((observable, oldDate, newDate)->{
             filteredClaimList.setPredicate(claim -> {
                 if (newDate == null){
@@ -170,6 +157,7 @@ public class ClaimTableFilling implements ClaimCreateRemove {
                 }
             });
         });
+        //Add a handler to the settlementDateFrom field
         settlementDateFrom.valueProperty().addListener((observable, oldDate, newDate)->{
             filteredClaimList.setPredicate(claim -> {
                 if (newDate == null){
@@ -183,6 +171,7 @@ public class ClaimTableFilling implements ClaimCreateRemove {
                 }
             });
         });
+        //Add a handler to the settlementDateTo field.
         settlementDateTo.valueProperty().addListener((observable, oldDate, newDate)->{
             filteredClaimList.setPredicate(claim -> {
                 if (newDate == null){
@@ -196,6 +185,7 @@ public class ClaimTableFilling implements ClaimCreateRemove {
                 }
             });
         });
+        //Add a handler to the claimAmountFrom field.
         claimAmountFrom.textProperty().addListener((observable, oldValue, newValue)->{
             filteredClaimList.setPredicate(claim -> {
                 if (newValue == null || newValue.isBlank() || newValue.isEmpty()){
@@ -216,6 +206,7 @@ public class ClaimTableFilling implements ClaimCreateRemove {
 
             });
         });
+        //Add a handler to the claimAmountTo field
         claimAmountTo.textProperty().addListener((observable, oldValue, newValue)->{
             filteredClaimList.setPredicate(claim -> {
                 if (newValue == null || newValue.isBlank() || newValue.isEmpty()){
@@ -236,6 +227,7 @@ public class ClaimTableFilling implements ClaimCreateRemove {
 
             });
         });
+        //Add a handler to the statusList choice box
         statusList.valueProperty().addListener((observable, oldVal, newVal)->{
             filteredClaimList.setPredicate(claim -> {
                 if (newVal == null){
@@ -257,32 +249,42 @@ public class ClaimTableFilling implements ClaimCreateRemove {
         while (claimListIterator.hasNext()){
             Claim claim = claimListIterator.next();
 
+            //Only non-dependant users get to perform actions on the claim table
             if (!(user instanceof Dependant)){
-                Button viewClaimButton = new Button();
+                //Creating a button whose functionaility depends on the type of user.
+                Button claimButton = new Button();
+                //Creating a Button to remove a claim
                 Button buttonRemoveClaim = new Button("Remove");
                 buttonRemoveClaim.setOnAction(event -> {
                     ClaimCreateRemove.removeClaim(entityManager, claim);
                 });
+                //If the user is a system admin the button will have "View Claim" text.
                 if (user instanceof SystemAdmin){
-                    viewClaimButton.setText("View Claim");
+                    claimButton.setText("View Claim");
                 }
+                //If the user is other types of users, the button will have the "Update Claim" text
                 else {
-                    viewClaimButton.setText("Update Claim");
+                    claimButton.setText("Update Claim");
                 }
-                viewClaimButton.setOnAction(event -> {
+                //Binding a handler to the onClick event.
+                claimButton.setOnAction(event -> {
+                    //Creating the Controller for Claim Creation Page in update mode by passing the claim into the constructor
                     CreationPageController_Claim creationPageControllerClaim = new CreationPageController_Claim(entityManager, user, claim);
                 });
-                claim.setClaimButton(viewClaimButton);
+                claim.setClaimButton(claimButton);
             }
 
             claimObservableList.add(claim);
 
         }
         FilteredList<Claim> filteredClaimList = new FilteredList<>(claimObservableList, b -> true);
+        //Adding to handlers to changes in filtering fields and Search Box.
         filteringClaimTable(filteredClaimList);
         SortedList<Claim> sortedClaimList = new SortedList<>(filteredClaimList);
+        //Adding handlers to changes in sorting field
         sortingClaimTable(sortedClaimList);
 
+        //Mapping table columns to Entity Attributes
         claimId.setCellValueFactory(new PropertyValueFactory<Claim, String>("claimId"));
         creationDate.setCellValueFactory(new PropertyValueFactory<Claim, Date>("creationDate"));
         insuredPersonId.setCellValueFactory(new PropertyValueFactory<Claim, String>("insuredPersonId"));
@@ -292,9 +294,11 @@ public class ClaimTableFilling implements ClaimCreateRemove {
         settlementDate.setCellValueFactory(new PropertyValueFactory<Claim, Date>("settlementDate"));
         status.setCellValueFactory(new PropertyValueFactory<Claim, String>("status"));
         if (!(user instanceof Dependant)){
+            //Dependants dont have access to the claim buttons. The claimButton attribute of the Claim entity is left out in the mapping if user is a dependant
             claimButton.setCellValueFactory(new PropertyValueFactory<Claim, Button>("claimButton"));
         }
         if (user instanceof PolicyHolder || user instanceof PolicyOwner){
+            //System Admins, Insurance Managers, and Insurance Surveyors are not allowed to remove Claims. So they do not have access to the removeClaim button
             removeClaimButton.setCellValueFactory(new PropertyValueFactory<Claim, Button>("claimRemoveButton"));
         }
         claimTable.getItems().setAll(sortedClaimList);

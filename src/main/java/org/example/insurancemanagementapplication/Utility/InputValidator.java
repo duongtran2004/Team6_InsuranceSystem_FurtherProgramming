@@ -40,6 +40,9 @@ public class InputValidator {
     }
 
     public static boolean validatePhoneFormat(String phoneNumber) {
+        /**
+         * Use Regex instead of Looping through all the characters
+         */
         // Check if the phone number consists of only digits and has a length of 10
         if (phoneNumber.length() != 10) {
             return false; // If the length is not 10, return false
@@ -125,9 +128,11 @@ public class InputValidator {
         if (validateNonEmptyString(bankName) == false) {
             return message = "Invalid Bank Name, must not be empty";
         }
+
         if (validateNonEmptyString(accountName) == false) {
             return message = "Invalid Bank Account Name, must not be empty";
         }
+
         if (validateNonEmptyString(accountNumber) == false) {
             return message = "Invalid Bank Account Number, must not be empty";
         } else {
