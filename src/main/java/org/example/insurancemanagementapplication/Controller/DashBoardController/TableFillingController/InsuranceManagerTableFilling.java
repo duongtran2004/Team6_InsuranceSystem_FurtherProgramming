@@ -146,6 +146,22 @@ public class InsuranceManagerTableFilling extends InsuranceSurveyorTableFilling 
         managerTable.getItems().setAll(filteredManagerList);
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public InsuranceManagerTableFilling(){
 
     }

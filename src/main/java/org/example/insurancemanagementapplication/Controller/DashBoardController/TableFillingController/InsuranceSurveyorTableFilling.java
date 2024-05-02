@@ -137,6 +137,25 @@ public class InsuranceSurveyorTableFilling extends PolicyOwnerTableFilling{
         surveyorTable.getItems().setAll(filteredSurveyorList);
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public InsuranceSurveyorTableFilling(){
 
     }

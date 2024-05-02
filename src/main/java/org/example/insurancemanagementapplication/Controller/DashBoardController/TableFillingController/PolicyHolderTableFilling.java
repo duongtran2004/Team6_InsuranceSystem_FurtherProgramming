@@ -177,6 +177,23 @@ public class PolicyHolderTableFilling extends InsuranceCardFillingTable{
         policyHolderTable.getItems().setAll(filteredPolicyHolderList);
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public PolicyHolderTableFilling(){
 
     }

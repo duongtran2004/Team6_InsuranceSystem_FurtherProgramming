@@ -104,6 +104,20 @@ public class InsuranceCardFillingTable extends DependantTableFilling {
     public InsuranceCardFillingTable() {
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public TableView<InsuranceCard> getInsuranceCardTable() {
         return insuranceCardTable;
     }
