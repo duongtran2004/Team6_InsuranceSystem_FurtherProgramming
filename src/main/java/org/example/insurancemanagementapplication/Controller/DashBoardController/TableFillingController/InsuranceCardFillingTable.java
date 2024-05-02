@@ -41,23 +41,7 @@ public class InsuranceCardFillingTable extends DependantTableFilling {
     @FXML
     private TextField insuranceCardSearchField;
 
-    public void fillingInsuranceCardTable(EntityManager entityManager, User user, List<InsuranceCard> insuranceCards, ObservableList<InsuranceCard> insuranceCardObservableList){
-        System.out.println("Hello");
-        ListIterator<InsuranceCard> insuranceCardListIterator = insuranceCards.listIterator();
-        while (insuranceCardListIterator.hasNext()){
-            System.out.println("Hello 2");
-            InsuranceCard insuranceCard = insuranceCardListIterator.next();
-            Button buttonRemove = new Button("Remove");
-            if (user instanceof SystemAdmin || user instanceof PolicyOwner){
-                buttonRemove.setOnAction(event -> {
-                    CustomerCreateRemove.removeInsuranceCard(entityManager, insuranceCard);
-                });
-                insuranceCard.setRemoveButton(buttonRemove);
-            }
-            insuranceCardObservableList.add(insuranceCard);
-        }
-        System.out.println("Hello 3");
-        FilteredList<InsuranceCard> filteredInsuranceCardList = new FilteredList<>(insuranceCardObservableList, b -> true);
+    public void filteringInsuranceCardTable(FilteredList<InsuranceCard> filteredInsuranceCardList){
         insuranceCardSearchField.textProperty().addListener((observable, oldValue, newValue) ->{
             filteredInsuranceCardList.setPredicate(insuranceCard -> {
                 if (newValue.isBlank() || newValue.isEmpty() || newValue == null){
@@ -84,7 +68,26 @@ public class InsuranceCardFillingTable extends DependantTableFilling {
                 }
             });
         });
-        System.out.println("Hello 4");
+    }
+    public void fillingInsuranceCardTable(EntityManager entityManager, User user, List<InsuranceCard> insuranceCards, ObservableList<InsuranceCard> insuranceCardObservableList){
+
+        ListIterator<InsuranceCard> insuranceCardListIterator = insuranceCards.listIterator();
+        while (insuranceCardListIterator.hasNext()){
+
+            InsuranceCard insuranceCard = insuranceCardListIterator.next();
+            Button buttonRemove = new Button("Remove");
+            if (user instanceof SystemAdmin || user instanceof PolicyOwner){
+                buttonRemove.setOnAction(event -> {
+                    CustomerCreateRemove.removeInsuranceCard(entityManager, insuranceCard);
+                });
+                insuranceCard.setRemoveButton(buttonRemove);
+            }
+            insuranceCardObservableList.add(insuranceCard);
+        }
+
+        FilteredList<InsuranceCard> filteredInsuranceCardList = new FilteredList<>(insuranceCardObservableList, b -> true);
+        filteringInsuranceCardTable(filteredInsuranceCardList);
+
 
 
         cardNumber.setCellValueFactory(new PropertyValueFactory<InsuranceCard, String>("cardNumber"));

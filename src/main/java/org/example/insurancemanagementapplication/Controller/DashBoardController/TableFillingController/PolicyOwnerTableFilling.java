@@ -54,6 +54,36 @@ public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
     @FXML
     private TextField policyOwnerSearchField;
 
+    public void filteringPolicyOwnerTable(FilteredList<PolicyOwner> filteredPolicyOwnerList){
+        policyOwnerSearchField.textProperty().addListener((observable, oldValue, newValue)->{
+            filteredPolicyOwnerList.setPredicate(policyOwner -> {
+                if (newValue.isEmpty() || newValue == null || newValue.isBlank()){
+                    return true;
+                }
+                String searchValue = newValue.toLowerCase();
+                if (policyOwner.getId().equals(searchValue)){
+                    return true;
+                }
+                else if (policyOwner.getFullName().equals(searchValue)){
+                    return true;
+                }
+                else if (policyOwner.getEmail().equals(searchValue)){
+                    return true;
+                }
+                else if (policyOwner.getAddress().equals(searchValue)){
+                    return true;
+                }
+                else if (policyOwner.getPhoneNumber().equals(searchValue)){
+                    return true;
+                }
+
+                else {
+                    return false;
+                }
+            });
+        });
+    }
+
     public void fillingPolicyOwnerTable(EntityManager entityManager, User user, List<PolicyOwner> policyOwners, ObservableList<PolicyOwner> policyOwnersObservableList){
         ListIterator<PolicyOwner> policyOwnerListIterator = policyOwners.listIterator();
         while (policyOwnerListIterator.hasNext()){
@@ -106,34 +136,10 @@ public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
 
             policyOwnersObservableList.add(policyOwner);
         }
-        FilteredList<PolicyOwner> filteredPolicyOwnerList = new FilteredList<>(policyOwnersObservableList, b -> true);
-        policyOwnerSearchField.textProperty().addListener((observable, oldValue, newValue)->{
-            filteredPolicyOwnerList.setPredicate(policyOwner -> {
-                if (newValue.isEmpty() || newValue == null || newValue.isBlank()){
-                    return true;
-                }
-                String searchValue = newValue.toLowerCase();
-                if (policyOwner.getId().equals(searchValue)){
-                    return true;
-                }
-                else if (policyOwner.getFullName().equals(searchValue)){
-                    return true;
-                }
-                else if (policyOwner.getEmail().equals(searchValue)){
-                    return true;
-                }
-                else if (policyOwner.getAddress().equals(searchValue)){
-                    return true;
-                }
-                else if (policyOwner.getPhoneNumber().equals(searchValue)){
-                    return true;
-                }
 
-                else {
-                    return false;
-                }
-            });
-        });
+        FilteredList<PolicyOwner> filteredPolicyOwnerList = new FilteredList<>(policyOwnersObservableList, b -> true);
+        filteringPolicyOwnerTable(filteredPolicyOwnerList);
+
         policyOwnerId.setCellValueFactory(new PropertyValueFactory<PolicyOwner, String>("id"));
         policyOwnerFullName.setCellValueFactory(new PropertyValueFactory<PolicyOwner, String>("fullName"));
         policyOwnerAddress.setCellValueFactory(new PropertyValueFactory<PolicyOwner, String>("address"));

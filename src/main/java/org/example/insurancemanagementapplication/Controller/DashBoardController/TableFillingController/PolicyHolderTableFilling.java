@@ -61,6 +61,42 @@ public class PolicyHolderTableFilling extends InsuranceCardFillingTable{
     @FXML
     private TextField policyHolderSearchField;
 
+    public void filteringPolicyHolderTable(FilteredList<PolicyHolder> filteredPolicyHolderList){
+        policyHolderSearchField.textProperty().addListener((observable, oldValue, newValue)->{
+            filteredPolicyHolderList.setPredicate(policyHolder -> {
+                if (newValue.isEmpty() || newValue == null || newValue.isBlank()){
+                    return true;
+                }
+                String searchValue = newValue.toLowerCase();
+                if (policyHolder.getId().equals(searchValue)){
+                    return true;
+                }
+                else if (policyHolder.getFullName().equals(searchValue)){
+                    return true;
+                }
+                else if (policyHolder.getEmail().equals(searchValue)){
+                    return true;
+                }
+                else if (policyHolder.getAddress().equals(searchValue)){
+                    return true;
+                }
+                else if (policyHolder.getPhoneNumber().equals(searchValue)){
+                    return true;
+                }
+                else if (policyHolder.getPolicyOwnerId().equals(searchValue)){
+                    return true;
+                }
+                else if( policyHolder.getPolicyOwner().getFullName().equals(searchValue)) {
+                    return true;
+                }
+
+                else {
+                    return false;
+                }
+            });
+        });
+    }
+
     public void fillingPolicyHolderTable(EntityManager entityManager, User user, List<PolicyHolder> policyHolders, ObservableList<PolicyHolder> policyHoldersObservableList){
         ListIterator<PolicyHolder> policyHolderListIterator = policyHolders.listIterator();
         while (policyHolderListIterator.hasNext()){
@@ -120,39 +156,7 @@ public class PolicyHolderTableFilling extends InsuranceCardFillingTable{
         }
 
         FilteredList<PolicyHolder> filteredPolicyHolderList = new FilteredList<>(policyHoldersObservableList, b -> true);
-        policyHolderSearchField.textProperty().addListener((observable, oldValue, newValue)->{
-            filteredPolicyHolderList.setPredicate(policyHolder -> {
-                if (newValue.isEmpty() || newValue == null || newValue.isBlank()){
-                    return true;
-                }
-                String searchValue = newValue.toLowerCase();
-                if (policyHolder.getId().equals(searchValue)){
-                    return true;
-                }
-                else if (policyHolder.getFullName().equals(searchValue)){
-                    return true;
-                }
-                else if (policyHolder.getEmail().equals(searchValue)){
-                    return true;
-                }
-                else if (policyHolder.getAddress().equals(searchValue)){
-                    return true;
-                }
-                else if (policyHolder.getPhoneNumber().equals(searchValue)){
-                    return true;
-                }
-                else if (policyHolder.getPolicyOwnerId().equals(searchValue)){
-                    return true;
-                }
-                else if( policyHolder.getPolicyOwner().getFullName().equals(searchValue)) {
-                    return true;
-                }
-
-                else {
-                    return false;
-                }
-            });
-        });
+        filteringPolicyHolderTable(filteredPolicyHolderList);
 
         policyHolderId.setCellValueFactory(new PropertyValueFactory<PolicyHolder, String>("id"));
         policyHolderFullName.setCellValueFactory(new PropertyValueFactory<PolicyHolder, String>("fullName"));

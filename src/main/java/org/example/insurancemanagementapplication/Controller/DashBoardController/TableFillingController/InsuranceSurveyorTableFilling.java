@@ -53,39 +53,7 @@ public class InsuranceSurveyorTableFilling extends PolicyOwnerTableFilling{
     @FXML
     private TextField insuranceSurveyorSearchField;
 
-    public void fillingInsuranceSurveyorTable(EntityManager entityManager, User user, List<InsuranceSurveyor> insuranceSurveyors, ObservableList<InsuranceSurveyor> insuranceSurveyorsObservableList){
-        ListIterator<InsuranceSurveyor> listIteratorInsuranceSurveyor = insuranceSurveyors.listIterator();
-        while (listIteratorInsuranceSurveyor.hasNext()){
-            InsuranceSurveyor insuranceSurveyor = listIteratorInsuranceSurveyor.next();
-            Button buttonUpdateInfo = new Button("Update Info");
-            if (user instanceof SystemAdmin){
-                buttonUpdateInfo.setOnAction(event -> {
-                    CreationPageController_InsuranceSurveyor creationPageControllerInsuranceSurveyor = new CreationPageController_InsuranceSurveyor(entityManager, user, insuranceSurveyor);
-                    FXMLLoader fxmlLoader = new FXMLLoader();
-                    fxmlLoader.setLocation(MainEntryPoint.class.getResource("InsuranceSurveyorCreationPage.fxml"));
-                    fxmlLoader.setController(creationPageControllerInsuranceSurveyor);
-                    try {
-                        Scene scene = new Scene(fxmlLoader.load());
-                        Stage stage = (Stage) buttonUpdateInfo.getScene().getWindow();
-                        stage.setScene(scene);
-                        stage.show();
-
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-
-                });
-                insuranceSurveyor.setUpdateInfoButton(buttonUpdateInfo);
-                Button buttonRemove = new Button("Remove");
-                insuranceSurveyor.setRemoveButton(buttonRemove);
-                buttonRemove.setOnAction(event -> {
-                    EmployeeCreateRemove.removeInsuranceSurveyor(entityManager, insuranceSurveyor);
-                });
-            }
-
-            insuranceSurveyorsObservableList.add(insuranceSurveyor);
-        }
-        FilteredList<InsuranceSurveyor> filteredSurveyorList = new FilteredList<>(insuranceSurveyorsObservableList, b -> true);
+    public void filteringSurveyorTable(FilteredList<InsuranceSurveyor> filteredSurveyorList){
         insuranceSurveyorSearchField.textProperty().addListener((observable, oldValue, newValue)->{
             filteredSurveyorList.setPredicate(insuranceSurveyor -> {
                 if (newValue.isEmpty() || newValue == null || newValue.isBlank()){
@@ -119,6 +87,42 @@ public class InsuranceSurveyorTableFilling extends PolicyOwnerTableFilling{
             });
 
         });
+    }
+
+    public void fillingInsuranceSurveyorTable(EntityManager entityManager, User user, List<InsuranceSurveyor> insuranceSurveyors, ObservableList<InsuranceSurveyor> insuranceSurveyorsObservableList){
+        ListIterator<InsuranceSurveyor> listIteratorInsuranceSurveyor = insuranceSurveyors.listIterator();
+        while (listIteratorInsuranceSurveyor.hasNext()){
+            InsuranceSurveyor insuranceSurveyor = listIteratorInsuranceSurveyor.next();
+            Button buttonUpdateInfo = new Button("Update Info");
+            if (user instanceof SystemAdmin){
+                buttonUpdateInfo.setOnAction(event -> {
+                    CreationPageController_InsuranceSurveyor creationPageControllerInsuranceSurveyor = new CreationPageController_InsuranceSurveyor(entityManager, user, insuranceSurveyor);
+                    FXMLLoader fxmlLoader = new FXMLLoader();
+                    fxmlLoader.setLocation(MainEntryPoint.class.getResource("InsuranceSurveyorCreationPage.fxml"));
+                    fxmlLoader.setController(creationPageControllerInsuranceSurveyor);
+                    try {
+                        Scene scene = new Scene(fxmlLoader.load());
+                        Stage stage = (Stage) buttonUpdateInfo.getScene().getWindow();
+                        stage.setScene(scene);
+                        stage.show();
+
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                });
+                insuranceSurveyor.setUpdateInfoButton(buttonUpdateInfo);
+                Button buttonRemove = new Button("Remove");
+                insuranceSurveyor.setRemoveButton(buttonRemove);
+                buttonRemove.setOnAction(event -> {
+                    EmployeeCreateRemove.removeInsuranceSurveyor(entityManager, insuranceSurveyor);
+                });
+            }
+
+            insuranceSurveyorsObservableList.add(insuranceSurveyor);
+        }
+        FilteredList<InsuranceSurveyor> filteredSurveyorList = new FilteredList<>(insuranceSurveyorsObservableList, b -> true);
+        filteringSurveyorTable(filteredSurveyorList);
         surveyorId.setCellValueFactory(new PropertyValueFactory<InsuranceSurveyor, String>("id"));
         surveyorFullName.setCellValueFactory(new PropertyValueFactory<InsuranceSurveyor, String>("fullName"));
         surveyorAddress.setCellValueFactory(new PropertyValueFactory<InsuranceSurveyor, String>("address"));

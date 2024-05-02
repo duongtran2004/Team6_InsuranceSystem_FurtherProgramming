@@ -60,7 +60,46 @@ public class DependantTableFilling extends ClaimTableFilling {
     private TableColumn<Dependant, String> policyHolderDependantTable;
     @FXML
     private TextField dependantSearchField;
-
+    public void filteringDependantTable(FilteredList<Dependant> filteredDependantList){
+        dependantSearchField.textProperty().addListener((observable, oldValue, newValue)->{
+            filteredDependantList.setPredicate(dependant -> {
+                if (newValue.isEmpty() || newValue == null || newValue.isBlank()){
+                    return true;
+                }
+                String searchValue = newValue.toLowerCase();
+                if (dependant.getId().equals(searchValue)){
+                    return true;
+                }
+                else if (dependant.getFullName().equals(searchValue)){
+                    return true;
+                }
+                else if (dependant.getAddress().equals(searchValue)){
+                    return true;
+                }
+                else if (dependant.getEmail().equals(searchValue)){
+                    return true;
+                }
+                else if (dependant.getPhoneNumber().equals(searchValue)){
+                    return true;
+                }
+                else if (dependant.getPolicyOwnerId().equals(searchValue)){
+                    return true;
+                }
+                else if(dependant.getPolicyOwner().getFullName().equals(searchValue)) {
+                    return true;
+                }
+                else if (dependant.getPolicyHolderId().equals(searchValue)){
+                    return true;
+                }
+                else if(dependant.getPolicyHolder().getFullName().equals(searchValue)) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            });
+        });
+    }
     public void fillingDependantTable(EntityManager entityManager, User user, List<Dependant> dependants, ObservableList<Dependant> dependantObservableList){
         ListIterator<Dependant> dependantListIterator = dependants.listIterator();
         while (dependantListIterator.hasNext()){
@@ -108,44 +147,8 @@ public class DependantTableFilling extends ClaimTableFilling {
 
         }
         FilteredList<Dependant> filteredDependantList = new FilteredList<>(dependantObservableList, b -> true);
-        dependantSearchField.textProperty().addListener((observable, oldValue, newValue)->{
-            filteredDependantList.setPredicate(dependant -> {
-                if (newValue.isEmpty() || newValue == null || newValue.isBlank()){
-                    return true;
-                }
-                String searchValue = newValue.toLowerCase();
-                if (dependant.getId().equals(searchValue)){
-                    return true;
-                }
-                else if (dependant.getFullName().equals(searchValue)){
-                    return true;
-                }
-                else if (dependant.getAddress().equals(searchValue)){
-                    return true;
-                }
-                else if (dependant.getEmail().equals(searchValue)){
-                    return true;
-                }
-                else if (dependant.getPhoneNumber().equals(searchValue)){
-                    return true;
-                }
-                else if (dependant.getPolicyOwnerId().equals(searchValue)){
-                    return true;
-                }
-                else if(dependant.getPolicyOwner().getFullName().equals(searchValue)) {
-                    return true;
-                }
-                else if (dependant.getPolicyHolderId().equals(searchValue)){
-                    return true;
-                }
-                else if(dependant.getPolicyHolder().getFullName().equals(searchValue)) {
-                    return true;
-                }
-                else {
-                    return false;
-                }
-            });
-        });
+        filteringDependantTable(filteredDependantList);
+
         dependantId.setCellValueFactory(new PropertyValueFactory<Dependant, String>("id"));
         dependantFullName.setCellValueFactory(new PropertyValueFactory<Dependant, String>("fullName"));
         dependantAddress.setCellValueFactory(new PropertyValueFactory<Dependant, String>("address"));
@@ -164,6 +167,8 @@ public class DependantTableFilling extends ClaimTableFilling {
 
         dependantTable.getItems().setAll(dependantObservableList);
     }
+
+
 
     public DependantTableFilling() {
     }

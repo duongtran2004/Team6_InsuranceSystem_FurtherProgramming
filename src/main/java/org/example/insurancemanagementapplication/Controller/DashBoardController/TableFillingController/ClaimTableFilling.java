@@ -64,54 +64,6 @@ public class ClaimTableFilling implements ClaimCreateRemove {
     @FXML
     private  TextField claimAmountTo;
 
-    public void fillingClaimTable(EntityManager entityManager, User user, List<Claim> claims, ObservableList<Claim> claimObservableList){
-        ListIterator<Claim> claimListIterator = claims.listIterator();
-        while (claimListIterator.hasNext()){
-            Claim claim = claimListIterator.next();
-
-            if (!(user instanceof Dependant)){
-                Button viewClaimButton = new Button();
-                Button buttonRemoveClaim = new Button("Remove");
-                buttonRemoveClaim.setOnAction(event -> {
-                    ClaimCreateRemove.removeClaim(entityManager, claim);
-                });
-                if (user instanceof SystemAdmin){
-                    viewClaimButton.setText("View Claim");
-                }
-                else {
-                    viewClaimButton.setText("Update Claim");
-                }
-                viewClaimButton.setOnAction(event -> {
-                    CreationPageController_Claim creationPageControllerClaim = new CreationPageController_Claim(entityManager, user, claim);
-                });
-                claim.setClaimButton(viewClaimButton);
-            }
-
-            claimObservableList.add(claim);
-
-        }
-        FilteredList<Claim> filteredClaimList = new FilteredList<>(claimObservableList, b -> true);
-        filteringClaimTable(filteredClaimList);
-        SortedList<Claim> sortedClaimList = new SortedList<>(filteredClaimList);
-        sortingClaimTable(sortedClaimList);
-
-        claimId.setCellValueFactory(new PropertyValueFactory<Claim, String>("claimId"));
-        creationDate.setCellValueFactory(new PropertyValueFactory<Claim, Date>("creationDate"));
-        insuredPersonId.setCellValueFactory(new PropertyValueFactory<Claim, String>("insuredPersonId"));
-        cardNumberClaimTable.setCellValueFactory(new PropertyValueFactory<Claim, String>("cardNumber"));
-        policyOwnerClaimTable.setCellValueFactory(new PropertyValueFactory<Claim, String>("policyOwnerId"));
-        claimAmount.setCellValueFactory(new PropertyValueFactory<Claim, Integer>("claimAmount"));
-        settlementDate.setCellValueFactory(new PropertyValueFactory<Claim, Date>("settlementDate"));
-        status.setCellValueFactory(new PropertyValueFactory<Claim, String>("status"));
-        if (!(user instanceof Dependant)){
-            claimButton.setCellValueFactory(new PropertyValueFactory<Claim, Button>("claimButton"));
-        }
-        if (user instanceof PolicyHolder || user instanceof PolicyOwner){
-            removeClaimButton.setCellValueFactory(new PropertyValueFactory<Claim, Button>("claimRemoveButton"));
-        }
-        claimTable.getItems().setAll(sortedClaimList);
-    }
-
     public void sortingClaimTable(SortedList<Claim> sortedClaimList ){
         class ClaimCreationDateComparator implements Comparator<Claim> {
             @Override
@@ -299,6 +251,56 @@ public class ClaimTableFilling implements ClaimCreateRemove {
             });
         });
     }
+
+    public void fillingClaimTable(EntityManager entityManager, User user, List<Claim> claims, ObservableList<Claim> claimObservableList){
+        ListIterator<Claim> claimListIterator = claims.listIterator();
+        while (claimListIterator.hasNext()){
+            Claim claim = claimListIterator.next();
+
+            if (!(user instanceof Dependant)){
+                Button viewClaimButton = new Button();
+                Button buttonRemoveClaim = new Button("Remove");
+                buttonRemoveClaim.setOnAction(event -> {
+                    ClaimCreateRemove.removeClaim(entityManager, claim);
+                });
+                if (user instanceof SystemAdmin){
+                    viewClaimButton.setText("View Claim");
+                }
+                else {
+                    viewClaimButton.setText("Update Claim");
+                }
+                viewClaimButton.setOnAction(event -> {
+                    CreationPageController_Claim creationPageControllerClaim = new CreationPageController_Claim(entityManager, user, claim);
+                });
+                claim.setClaimButton(viewClaimButton);
+            }
+
+            claimObservableList.add(claim);
+
+        }
+        FilteredList<Claim> filteredClaimList = new FilteredList<>(claimObservableList, b -> true);
+        filteringClaimTable(filteredClaimList);
+        SortedList<Claim> sortedClaimList = new SortedList<>(filteredClaimList);
+        sortingClaimTable(sortedClaimList);
+
+        claimId.setCellValueFactory(new PropertyValueFactory<Claim, String>("claimId"));
+        creationDate.setCellValueFactory(new PropertyValueFactory<Claim, Date>("creationDate"));
+        insuredPersonId.setCellValueFactory(new PropertyValueFactory<Claim, String>("insuredPersonId"));
+        cardNumberClaimTable.setCellValueFactory(new PropertyValueFactory<Claim, String>("cardNumber"));
+        policyOwnerClaimTable.setCellValueFactory(new PropertyValueFactory<Claim, String>("policyOwnerId"));
+        claimAmount.setCellValueFactory(new PropertyValueFactory<Claim, Integer>("claimAmount"));
+        settlementDate.setCellValueFactory(new PropertyValueFactory<Claim, Date>("settlementDate"));
+        status.setCellValueFactory(new PropertyValueFactory<Claim, String>("status"));
+        if (!(user instanceof Dependant)){
+            claimButton.setCellValueFactory(new PropertyValueFactory<Claim, Button>("claimButton"));
+        }
+        if (user instanceof PolicyHolder || user instanceof PolicyOwner){
+            removeClaimButton.setCellValueFactory(new PropertyValueFactory<Claim, Button>("claimRemoveButton"));
+        }
+        claimTable.getItems().setAll(sortedClaimList);
+    }
+
+
 
 
 

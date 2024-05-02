@@ -53,6 +53,36 @@ public class InsuranceManagerTableFilling extends InsuranceSurveyorTableFilling 
     @FXML
     private TextField  insuranceManagerSearchField;
 
+    public void filteringInsuranceManagerTable(FilteredList<InsuranceManager> filteredManagerList){
+        insuranceManagerSearchField.textProperty().addListener((observable, oldValue, newValue)->{
+            filteredManagerList.setPredicate(insuranceManager -> {
+                if (newValue.isEmpty() || newValue == null || newValue.isBlank()){
+                    return true;
+                }
+                String searchValue = newValue.toLowerCase();
+                if (insuranceManager.getId().equals(searchValue)){
+                    return true;
+                }
+                else if (insuranceManager.getFullName().equals(searchValue)){
+                    return true;
+                }
+                else if (insuranceManager.getEmail().equals(searchValue)){
+                    return true;
+                }
+                else if (insuranceManager.getAddress().equals(searchValue)){
+                    return true;
+                }
+                else if (insuranceManager.getPhoneNumber().equals(searchValue)){
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            });
+
+        });
+    }
+
     public void fillingInsuranceManagerTable(EntityManager entityManager, User user, List<InsuranceManager> insuranceManagers, ObservableList<InsuranceManager> insuranceManagersObservableList){
         ListIterator<InsuranceManager> listIteratorInsuranceManager = insuranceManagers.listIterator();
         while (listIteratorInsuranceManager.hasNext()){
@@ -99,38 +129,11 @@ public class InsuranceManagerTableFilling extends InsuranceSurveyorTableFilling 
                 EmployeeCreateRemove.removeInsuranceManager(entityManager, insuranceManager);
             });
 
-
-
             insuranceManagersObservableList.add(insuranceManager);
         }
         FilteredList<InsuranceManager> filteredManagerList = new FilteredList<>(insuranceManagersObservableList, b -> true);
-        insuranceManagerSearchField.textProperty().addListener((observable, oldValue, newValue)->{
-            filteredManagerList.setPredicate(insuranceManager -> {
-                if (newValue.isEmpty() || newValue == null || newValue.isBlank()){
-                    return true;
-                }
-                String searchValue = newValue.toLowerCase();
-                if (insuranceManager.getId().equals(searchValue)){
-                    return true;
-                }
-                else if (insuranceManager.getFullName().equals(searchValue)){
-                    return true;
-                }
-                else if (insuranceManager.getEmail().equals(searchValue)){
-                    return true;
-                }
-                else if (insuranceManager.getAddress().equals(searchValue)){
-                    return true;
-                }
-                else if (insuranceManager.getPhoneNumber().equals(searchValue)){
-                    return true;
-                }
-                else {
-                    return false;
-                }
-            });
+        filteringInsuranceManagerTable(filteredManagerList);
 
-        });
         managerId.setCellValueFactory(new PropertyValueFactory<InsuranceManager, String>("id"));
         managerFullName.setCellValueFactory(new PropertyValueFactory<InsuranceManager, String>("fullName"));
         managerAddress.setCellValueFactory(new PropertyValueFactory<InsuranceManager, String>("address"));
