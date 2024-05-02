@@ -14,7 +14,7 @@ import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ClaimCreationPageController implements Initializable {
+class ClaimCreationPageController implements Initializable {
     private EntityManager entityManager;
     private User user;
     private Beneficiaries beneficiary;
