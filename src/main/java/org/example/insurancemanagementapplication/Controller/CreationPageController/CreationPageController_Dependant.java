@@ -11,9 +11,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.example.insurancemanagementapplication.Controller.DashBoardController.*;
-import org.example.insurancemanagementapplication.MainEntryPoint;
 import org.example.insurancemanagementapplication.Interfaces.CustomerCreateRemove;
 import org.example.insurancemanagementapplication.Interfaces.CustomerUpdate;
+import org.example.insurancemanagementapplication.MainEntryPoint;
+import org.example.insurancemanagementapplication.Utility.InputValidator;
 
 import java.io.IOException;
 import java.net.URL;
@@ -71,7 +72,7 @@ public class CreationPageController_Dependant implements CustomerCreateRemove, C
                 String passwordValidation = passwordValidationField.getText();
 
                 // Perform input validation using InputValidator methods
-                if (!InputValidator.validateNonEmptyString(fullName)) {
+                if (!InputValidator.validateNonEmptyString(fullName)) { //pass for all textField
                     errorContainer.setText("Full name cannot be empty.");
                 } else if (!InputValidator.validateEmailFormat(email)) {
                     errorContainer.setText("Invalid email format.");
