@@ -47,13 +47,14 @@ public interface ClaimUpdate {
     }
 
     //update claim for insurance manager
-    static boolean updateClaim(EntityManager entityManager, Claim claim, int claimAmount, String insuranceSurveyorId) {
+    static boolean updateClaim(EntityManager entityManager, Claim claim, int claimAmount, String insuranceSurveyorId, String status) {
         EntityTransaction transaction = entityManager.getTransaction();
         try {
             transaction.begin();
             entityManager.persist(claim);
             claim.setClaimAmount(claimAmount);
             claim.setInsuranceSurveyorId(insuranceSurveyorId);
+            claim.setStatus(status);
             transaction.commit();
         } finally {
             if (transaction.isActive()) {
@@ -62,4 +63,6 @@ public interface ClaimUpdate {
         }
         return true;
     }
+
+
 }

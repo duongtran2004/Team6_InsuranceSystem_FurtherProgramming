@@ -141,16 +141,13 @@ public class InputValidator {
 
 
     //ClaimUpdateValidator for Insurance Manager
-    public static String ClaimUpdateValidator(EntityManager entityManager, int claimAmount, String bankName, String accountName, String accountNumber, InsuranceManager insuranceManager, String insuranceSurveyorId) {
+    public static String ClaimUpdateValidator(EntityManager entityManager, int claimAmount, InsuranceManager insuranceManager, String insuranceSurveyorId) {
         String message = "";
         if (validateClaimAmount(claimAmount) == false) {
             return message = "Invalid Claim Amount, must be a positive integer";
         }
         if (validateNonEmptyString(String.valueOf(claimAmount)) == false) {
             return message = "Invalid Claim Amount, must not be empty";
-        }
-        if (validateBankingInfo(entityManager, bankName, accountName, accountNumber) == false) {
-            return message = "Invalid Banking Information, no fields should be empty";
         }
 
         if (checkIfAnInsuranceSurveyorBelongsToAnInsuranceManager(entityManager, insuranceManager, insuranceSurveyorId) == true) {

@@ -1,10 +1,10 @@
 package org.example.insurancemanagementapplication.Interfaces;
 
-import Entity.Claim;
+import Entity.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
-import java.util.Date;
+import java.sql.Date;
 
 /**
  * @author Luong Thanh Trung
@@ -14,11 +14,21 @@ import java.util.Date;
  */
 public interface ClaimCreateRemove {
 
-    public static boolean createClaim(EntityManager entityManager, String claimId, Date creationDate, Date settlementDate, String status, int claimAmount, String insuredPersonId, String policyOwnerId, String cardNumber, String insuranceManagerId, String insuranceSurveyorId, String bankName, String accountName, String accountNumber, byte[] documentImage){
+    public static boolean createClaim(EntityManager entityManager, String claimId, Date creationDate, Beneficiaries beneficiaries, PolicyOwner policyOwner, InsuranceCard insuranceCard, InsuranceManager insuranceManager, String bankName, String accountName, String accountNumber){
         EntityTransaction transaction = entityManager.getTransaction();
         try{
             transaction.begin();
             Claim claim = new Claim();
+            claim.setClaimId(claimId);
+            claim.setCreationDate(creationDate);
+            claim.setStatus("NEW");
+            claim.setInsuredPerson(beneficiaries);
+            claim.setPolicyOwner(policyOwner);
+            claim.setInsuranceCard(insuranceCard);
+            claim.setBankName(bankName);
+            claim.setBankAccountName(accountName);
+            claim.setBankAccountNumber(accountNumber);
+            entityManager.persist(claim);
             transaction.commit();
         } finally {
             if (transaction.isActive()){
