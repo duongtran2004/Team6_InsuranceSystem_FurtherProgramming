@@ -57,7 +57,11 @@
             <artifactId>gotrue-kt-jvm</artifactId>
             <version>2.3.1</version>
         </dependency>
-
+<!--        <dependency>-->
+<!--            <groupId>com.harium.supabase</groupId>-->
+<!--            <artifactId>core</artifactId>-->
+<!--            <version>0.0.1</version>-->
+<!--        </dependency>-->
 
     </dependencies>
 

@@ -11,7 +11,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ViewClaimDocument implements Initializable {
+public class ViewClaimDocumentController implements Initializable {
 
     //dummy Button for testing,
     @FXML

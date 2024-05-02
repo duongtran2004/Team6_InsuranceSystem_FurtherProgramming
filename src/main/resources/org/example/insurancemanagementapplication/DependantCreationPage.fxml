@@ -122,7 +122,7 @@
                                 </Button>
                             </buttons>
                         </ButtonBar>
-                        <Label alignment="CENTER_RIGHT" prefHeight="54.0" prefWidth="468.0" text="* Passwords do not match. Please try again." textFill="#e81111" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                        <Label alignment="CENTER_RIGHT" prefHeight="54.0" prefWidth="468.0" textFill="#e81111" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                     </children>
                     <GridPane.margin>
                         <Insets />

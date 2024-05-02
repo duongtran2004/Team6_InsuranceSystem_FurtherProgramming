@@ -1,4 +1,4 @@
-package org.example.insurancemanagementapplication.Controller;
+package org.example.insurancemanagementapplication.Controller.CreationPageController;
 
 import Entity.*;
 import jakarta.persistence.EntityManager;
@@ -10,27 +10,29 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.example.insurancemanagementapplication.Controller.DashBoardController.*;
 import org.example.insurancemanagementapplication.MainEntryPoint;
-import org.example.insurancemanagementapplication.Interfaces.EmployeeCreateRemove;
-import org.example.insurancemanagementapplication.Interfaces.EmployeeUpdate;
+import org.example.insurancemanagementapplication.Interfaces.CustomerCreateRemove;
+import org.example.insurancemanagementapplication.Interfaces.CustomerUpdate;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * @author Luong Thanh Trung
+ * @author
  * @version ${}
- * @created 29/04/2024 08:53
+ * @created 29/04/2024 11:50
  * @project InsuranceManagementTeamProject
  */
-public class CreationPageController_InsuranceManager implements EmployeeCreateRemove, EmployeeUpdate, Initializable {
-    private User user;
-    private InsuranceManager insuranceManager;
+public class CreationPageController_PolicyHolder implements CustomerCreateRemove, CustomerUpdate, Initializable {
     private EntityManager entityManager;
+    private User user;
+    private PolicyOwner policyOwner;
+    private PolicyHolder policyHolder;
 
-
-
+    @FXML
+    private TextField lengthOfContractField;
     @FXML
     private TextField fullNameField;
     @FXML
@@ -50,57 +52,48 @@ public class CreationPageController_InsuranceManager implements EmployeeCreateRe
     @FXML
     private Button returnButton;
 
-    public CreationPageController_InsuranceManager(EntityManager entityManager, User user) {
-        this.entityManager = entityManager;
-        this.user = user;
-    }
-
-    public CreationPageController_InsuranceManager(EntityManager entityManager, User user, InsuranceManager insuranceManager) {
-        this.entityManager = entityManager;
-        this.insuranceManager = insuranceManager;
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        if (insuranceManager != null){
-            fullNameField.setText(insuranceManager.getFullName());
+        if (policyHolder != null){
+            fullNameField.setText(policyHolder.getFullName());
             fullNameField.setDisable(true);
-            addressField.setText(insuranceManager.getAddress());
-            phoneNumberField.setText(insuranceManager.getPhoneNumber());
-            emailField.setText(insuranceManager.getEmail());
-            passwordField.setText(insuranceManager.getPassword());
-            passwordValidationField.setText(insuranceManager.getPassword());
+            lengthOfContractField.setDisable(true);
+            addressField.setText(policyHolder.getAddress());
+            phoneNumberField.setText(policyHolder.getPhoneNumber());
+            emailField.setText(policyHolder.getEmail());
+            passwordField.setText(policyHolder.getPassword());
+            passwordValidationField.setText(policyHolder.getPassword());
+            submitButton.setOnAction(event -> {
+                CustomerUpdate.updatePolicyHolder(entityManager, policyHolder, errorContainer, addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText(), passwordValidationField.getText());
+            });
         }
-        submitButton.setOnAction(e ->{
-            // Validate input fields before creating or updating a InsuranceManager entity
-            String fullName = fullNameField.getText();
-            //String address = addressField.getText();
-            String phoneNumber = phoneNumberField.getText();
-            String email = emailField.getText();
-            String password = passwordField.getText();
-            String passwordValidation = passwordValidationField.getText();
+        else {
+            submitButton.setOnAction(event -> {
+                        // Validate input fields before creating or updating a InsuranceManager entity
+                        String fullName = fullNameField.getText();
+                        //String address = addressField.getText();
+                        String phoneNumber = phoneNumberField.getText();
+                        String email = emailField.getText();
+                        String password = passwordField.getText();
+                        String passwordValidation = passwordValidationField.getText();
 
-            // Perform input validation using InputValidator methods
-            if (!InputValidator.validateNonEmptyString(fullName)) {
-                errorContainer.setText("Full name cannot be empty.");
-            } else if (!InputValidator.validateEmailFormat(email)) {
-                errorContainer.setText("Invalid email format.");
-            } else if (!InputValidator.validatePhoneFormat(phoneNumber)) {
-                errorContainer.setText("Invalid phone number format.");
-            } else if (!InputValidator.validatePasswordFormat(password)) {
-                errorContainer.setText("Invalid password format.");
-            } else if (!password.equals(passwordValidation)) {
-                errorContainer.setText("Passwords do not match.");
-            } else {
-                // If all validations pass, proceed with creating or updating the InsuranceManager entity
-
-            if (insuranceManager != null){
-                if (insuranceManager != null){
-                    EmployeeUpdate.updateInsuranceManager(entityManager, insuranceManager, errorContainer, addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText(), passwordValidationField.getText());
-                }
-
-            }
-        }});
+                        // Perform input validation using InputValidator methods
+                        if (!InputValidator.validateNonEmptyString(fullName)) {
+                            errorContainer.setText("Full name cannot be empty.");
+                        } else if (!InputValidator.validateEmailFormat(email)) {
+                            errorContainer.setText("Invalid email format.");
+                        } else if (!InputValidator.validatePhoneFormat(phoneNumber)) {
+                            errorContainer.setText("Invalid phone number format.");
+                        } else if (!InputValidator.validatePasswordFormat(password)) {
+                            errorContainer.setText("Invalid password format.");
+                        } else if (!password.equals(passwordValidation)) {
+                            errorContainer.setText("Passwords do not match.");
+                        } else {
+                            // If all validations pass, proceed with creating or updating the InsuranceManager entity
+                CustomerCreateRemove.createPolicyHolder(entityManager, errorContainer, lengthOfContractField.getText(), fullNameField.getText(), addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText(), passwordValidationField.getText(), policyOwner);
+            }});
+        }
         returnButton.setOnAction(event -> {
             if (user instanceof SystemAdmin){
                 DashBoardController_SystemAdmin dashBoardControllerSystemAdmin = new DashBoardController_SystemAdmin(entityManager, (SystemAdmin) user);
@@ -170,5 +163,20 @@ public class CreationPageController_InsuranceManager implements EmployeeCreateRe
 
 
         });
+
+
+    }
+
+    public CreationPageController_PolicyHolder(EntityManager entityManager, User user, PolicyOwner policyOwner) {
+        this.entityManager = entityManager;
+        this.user = user;
+        this.policyOwner = policyOwner;
+    }
+
+    public CreationPageController_PolicyHolder(EntityManager entityManager, User user, PolicyHolder policyHolder) {
+        this.entityManager = entityManager;
+        this.user = user;
+        this.policyOwner = policyOwner;
+        this.policyHolder = policyHolder;
     }
 }
