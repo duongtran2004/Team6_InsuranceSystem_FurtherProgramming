@@ -91,142 +91,28 @@ public class ClaimTableFilling implements ClaimCreateRemove {
 
         }
         FilteredList<Claim> filteredClaimList = new FilteredList<>(claimObservableList, b -> true);
-        claimListSearchField.textProperty().addListener((observable, oldValue, newValue)->{
-            filteredClaimList.setPredicate(claim -> {
-                String searchValue = newValue.toLowerCase();
-                if (newValue.isEmpty() || newValue.isBlank() || newValue == null){
-                    return true;
-                }
-                else if (claim.getClaimId().equals(searchValue)){
-                    return true;
-                }
-                else if (claim.getInsuredPersonId().equals(searchValue)){
-                    return true;
-                } else if (claim.getCardNumber().equals(searchValue)){
-                    return true;
-                } else if (claim.getPolicyOwnerId().equals(searchValue)){
-                    return true;
-                } else if (claim.getStatus().equals(searchValue)){
-                    return true;
-                } else{
-                    return false;
-                }
-            });
-        });
+        filteringClaimTable(filteredClaimList);
+        SortedList<Claim> sortedClaimList = new SortedList<>(filteredClaimList);
+        sortingClaimTable(sortedClaimList);
 
-        creationDateFrom.valueProperty().addListener((observable, oldDate, newDate)->{
-            filteredClaimList.setPredicate(claim -> {
-                if (newDate == null){
-                    return true;
-                }
-                else if (!claim.getCreationDate().toLocalDate().isBefore(newDate)){
-                    return true;
-                }
-                else {
-                    return false;
-                }
-            });
-        });
+        claimId.setCellValueFactory(new PropertyValueFactory<Claim, String>("claimId"));
+        creationDate.setCellValueFactory(new PropertyValueFactory<Claim, Date>("creationDate"));
+        insuredPersonId.setCellValueFactory(new PropertyValueFactory<Claim, String>("insuredPersonId"));
+        cardNumberClaimTable.setCellValueFactory(new PropertyValueFactory<Claim, String>("cardNumber"));
+        policyOwnerClaimTable.setCellValueFactory(new PropertyValueFactory<Claim, String>("policyOwnerId"));
+        claimAmount.setCellValueFactory(new PropertyValueFactory<Claim, Integer>("claimAmount"));
+        settlementDate.setCellValueFactory(new PropertyValueFactory<Claim, Date>("settlementDate"));
+        status.setCellValueFactory(new PropertyValueFactory<Claim, String>("status"));
+        if (!(user instanceof Dependant)){
+            claimButton.setCellValueFactory(new PropertyValueFactory<Claim, Button>("claimButton"));
+        }
+        if (user instanceof PolicyHolder || user instanceof PolicyOwner){
+            removeClaimButton.setCellValueFactory(new PropertyValueFactory<Claim, Button>("claimRemoveButton"));
+        }
+        claimTable.getItems().setAll(sortedClaimList);
+    }
 
-        creationDateTo.valueProperty().addListener((observable, oldDate, newDate)->{
-            filteredClaimList.setPredicate(claim -> {
-                if (newDate == null){
-                    return true;
-                }
-                else if (!claim.getCreationDate().toLocalDate().isAfter(newDate)){
-                    return true;
-                }
-                else {
-                    return false;
-                }
-            });
-        });
-
-        settlementDateFrom.valueProperty().addListener((observable, oldDate, newDate)->{
-            filteredClaimList.setPredicate(claim -> {
-                if (newDate == null){
-                    return true;
-                }
-                else if (!claim.getSettlementDate().toLocalDate().isBefore(newDate)){
-                    return true;
-                }
-                else {
-                    return false;
-                }
-            });
-        });
-
-
-        settlementDateTo.valueProperty().addListener((observable, oldDate, newDate)->{
-            filteredClaimList.setPredicate(claim -> {
-                if (newDate == null){
-                    return true;
-                }
-                else if (!claim.getSettlementDate().toLocalDate().isAfter(newDate)){
-                    return true;
-                }
-                else {
-                    return false;
-                }
-            });
-        });
-
-        claimAmountFrom.textProperty().addListener((observable, oldValue, newValue)->{
-            filteredClaimList.setPredicate(claim -> {
-                if (newValue == null || newValue.isBlank() || newValue.isEmpty()){
-                    return true;
-                }
-                else {
-                    try{
-                        if (Float.parseFloat(newValue) <= claim.getClaimAmount()){
-                            return true;
-                        }
-                        else {
-                            return false;
-                        }
-                    } catch (NumberFormatException e){
-                        return false;
-                    }
-                }
-
-            });
-        });
-
-        claimAmountTo.textProperty().addListener((observable, oldValue, newValue)->{
-            filteredClaimList.setPredicate(claim -> {
-                if (newValue == null || newValue.isBlank() || newValue.isEmpty()){
-                    return true;
-                }
-                else {
-                    try{
-                        if (Float.parseFloat(newValue) >= claim.getClaimAmount()){
-                            return true;
-                        }
-                        else {
-                            return false;
-                        }
-                    } catch (NumberFormatException e){
-                        return false;
-                    }
-                }
-
-            });
-        });
-
-        statusList.valueProperty().addListener((observable, oldVal, newVal)->{
-            filteredClaimList.setPredicate(claim -> {
-                if (newVal == null){
-                    return true;
-                }
-                else if (claim.getStatus().equals(newVal)){
-                    return true;
-                }
-                else {
-                    return false;
-                }
-
-            });
-        });
+    public void sortingClaimTable(SortedList<Claim> sortedClaimList ){
         class ClaimCreationDateComparator implements Comparator<Claim> {
             @Override
             public int compare(Claim firstClaim, Claim secondClaim) {
@@ -234,29 +120,22 @@ public class ClaimTableFilling implements ClaimCreateRemove {
                 long secondClaimTime = secondClaim.getCreationDate().getTime();
                 return Long.compare(firstClaimTime, secondClaimTime);
             }
-
         }
-
         class ClaimSettlementDateComparator implements Comparator<Claim>{
-
             @Override
             public int compare(Claim firstClaim, Claim secondClaim) {
                 long firstClaimTime = firstClaim.getSettlementDate().getTime();
                 long secondClaimTime = secondClaim.getSettlementDate().getTime();
                 return Long.compare(firstClaimTime, secondClaimTime);
             }
-
         }
 
         class ClaimAmountComparator implements Comparator<Claim>{
-
             @Override
             public int compare(Claim firstClaim, Claim secondClaim) {
                 return Float.compare(firstClaim.getClaimAmount(), secondClaim.getClaimAmount());
             }
         }
-
-        SortedList<Claim> sortedClaimList = new SortedList<>(filteredClaimList);
         sortList.valueProperty().addListener((observable, oldVal, newVal)->{
             if (newVal.equals("Sort By Creation Date In Ascending Order")){
                 ClaimCreationDateComparator claimCreationDateComparator = new ClaimCreationDateComparator();
@@ -288,22 +167,153 @@ public class ClaimTableFilling implements ClaimCreateRemove {
             }
 
         });
-        claimId.setCellValueFactory(new PropertyValueFactory<Claim, String>("claimId"));
-        creationDate.setCellValueFactory(new PropertyValueFactory<Claim, Date>("creationDate"));
-        insuredPersonId.setCellValueFactory(new PropertyValueFactory<Claim, String>("insuredPersonId"));
-        cardNumberClaimTable.setCellValueFactory(new PropertyValueFactory<Claim, String>("cardNumber"));
-        policyOwnerClaimTable.setCellValueFactory(new PropertyValueFactory<Claim, String>("policyOwnerId"));
-        claimAmount.setCellValueFactory(new PropertyValueFactory<Claim, Integer>("claimAmount"));
-        settlementDate.setCellValueFactory(new PropertyValueFactory<Claim, Date>("settlementDate"));
-        status.setCellValueFactory(new PropertyValueFactory<Claim, String>("status"));
-        if (!(user instanceof Dependant)){
-            claimButton.setCellValueFactory(new PropertyValueFactory<Claim, Button>("claimButton"));
-        }
-        if (user instanceof PolicyHolder || user instanceof PolicyOwner){
-            removeClaimButton.setCellValueFactory(new PropertyValueFactory<Claim, Button>("claimRemoveButton"));
-        }
-        claimTable.getItems().setAll(sortedClaimList);
     }
+
+    public void filteringClaimTable(FilteredList<Claim> filteredClaimList){
+        claimListSearchField.textProperty().addListener((observable, oldValue, newValue)->{
+            filteredClaimList.setPredicate(claim -> {
+                String searchValue = newValue.toLowerCase();
+                if (newValue.isEmpty() || newValue.isBlank() || newValue == null){
+                    return true;
+                }
+                else if (claim.getClaimId().equals(searchValue)){
+                    return true;
+                }
+                else if (claim.getInsuredPersonId().equals(searchValue)){
+                    return true;
+                } else if (claim.getCardNumber().equals(searchValue)){
+                    return true;
+                } else if (claim.getPolicyOwnerId().equals(searchValue)){
+                    return true;
+                } else if (claim.getStatus().equals(searchValue)){
+                    return true;
+                } else{
+                    return false;
+                }
+            });
+        });
+        creationDateFrom.valueProperty().addListener((observable, oldDate, newDate)->{
+            filteredClaimList.setPredicate(claim -> {
+                if (newDate == null){
+                    return true;
+                }
+                else if (!claim.getCreationDate().toLocalDate().isBefore(newDate)){
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            });
+        });
+        creationDateTo.valueProperty().addListener((observable, oldDate, newDate)->{
+            filteredClaimList.setPredicate(claim -> {
+                if (newDate == null){
+                    return true;
+                }
+                else if (!claim.getCreationDate().toLocalDate().isAfter(newDate)){
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            });
+        });
+        settlementDateFrom.valueProperty().addListener((observable, oldDate, newDate)->{
+            filteredClaimList.setPredicate(claim -> {
+                if (newDate == null){
+                    return true;
+                }
+                else if (!claim.getSettlementDate().toLocalDate().isBefore(newDate)){
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            });
+        });
+        settlementDateTo.valueProperty().addListener((observable, oldDate, newDate)->{
+            filteredClaimList.setPredicate(claim -> {
+                if (newDate == null){
+                    return true;
+                }
+                else if (!claim.getSettlementDate().toLocalDate().isAfter(newDate)){
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            });
+        });
+        claimAmountFrom.textProperty().addListener((observable, oldValue, newValue)->{
+            filteredClaimList.setPredicate(claim -> {
+                if (newValue == null || newValue.isBlank() || newValue.isEmpty()){
+                    return true;
+                }
+                else {
+                    try{
+                        if (Float.parseFloat(newValue) <= claim.getClaimAmount()){
+                            return true;
+                        }
+                        else {
+                            return false;
+                        }
+                    } catch (NumberFormatException e){
+                        return false;
+                    }
+                }
+
+            });
+        });
+        claimAmountTo.textProperty().addListener((observable, oldValue, newValue)->{
+            filteredClaimList.setPredicate(claim -> {
+                if (newValue == null || newValue.isBlank() || newValue.isEmpty()){
+                    return true;
+                }
+                else {
+                    try{
+                        if (Float.parseFloat(newValue) >= claim.getClaimAmount()){
+                            return true;
+                        }
+                        else {
+                            return false;
+                        }
+                    } catch (NumberFormatException e){
+                        return false;
+                    }
+                }
+
+            });
+        });
+        statusList.valueProperty().addListener((observable, oldVal, newVal)->{
+            filteredClaimList.setPredicate(claim -> {
+                if (newVal == null){
+                    return true;
+                }
+                else if (claim.getStatus().equals(newVal)){
+                    return true;
+                }
+                else {
+                    return false;
+                }
+
+            });
+        });
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public ClaimTableFilling() {
     }
