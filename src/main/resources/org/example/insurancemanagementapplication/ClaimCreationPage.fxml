@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
-
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.insurancemanagementapplication.Controller.ClaimCreationPageController">
    <children>
@@ -52,13 +52,19 @@
                   <TextField fx:id="insuredPersonIDFIeld" prefHeight="26.0" prefWidth="111.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                   <ChoiceBox fx:id="statusChoiceBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <Label prefHeight="18.0" prefWidth="132.0" text="Insurance Manager ID" GridPane.rowIndex="8" />
-                  <TextField fx:id="insuranceSurveyorField" alignment="CENTER" prefHeight="26.0" prefWidth="111.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                  <TextField fx:id="insuranceManagerField" alignment="CENTER" prefHeight="26.0" prefWidth="111.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                  <TextField fx:id="insuranceSurveyorIdField" alignment="CENTER" prefHeight="26.0" prefWidth="111.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                  <TextField fx:id="insuranceManagerIdField" alignment="CENTER" prefHeight="26.0" prefWidth="111.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                   <Label prefHeight="18.0" prefWidth="132.0" text="Document" GridPane.rowIndex="9" />
-                  <Button fx:id="updloadDocumentButton" mnemonicParsing="false" prefHeight="26.0" prefWidth="98.0" text="Upload" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                  <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="9">
+                     <children>
+                        <Button fx:id="updloadDocumentButton" mnemonicParsing="false" prefHeight="26.0" prefWidth="66.0" text="Upload" />
+                        <Button fx:id="viewDocumentButton" mnemonicParsing="false" prefHeight="26.0" prefWidth="78.0" text="View" />
+                     </children>
+                  </HBox>
                </children>
             </GridPane>
             <Label layoutX="82.0" layoutY="7.0" prefHeight="17.0" prefWidth="322.0" text="CLAIM CREATION PAGE" />
+            <Label fx:id="errorContainer" layoutX="123.0" layoutY="468.0" text="Label" />
          </children>
       </Pane>
    </children>
