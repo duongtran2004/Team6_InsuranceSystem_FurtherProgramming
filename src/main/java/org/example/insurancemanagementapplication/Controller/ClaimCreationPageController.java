@@ -47,6 +47,7 @@ class ClaimCreationPageController implements Initializable {
     private ChoiceBox<String> statusChoiceBox;
     @FXML
     private Button updloadDocumentButton;
+    @FXML Button viewClaimButton;
 
     String[] Status = {"New", "Need Info", "Processing", "Approved", "Rejected"};
     // Initialize Supabase client and storage
@@ -58,6 +59,8 @@ class ClaimCreationPageController implements Initializable {
         //1st case: Update Claim => If claim exist
 
         if (claim != null) {
+
+            //If user is an  InsuranceSurveyor: can only update status
             updateClaim();
         }
 
@@ -66,8 +69,8 @@ class ClaimCreationPageController implements Initializable {
         if (claim == null){}
 
 
-        //policy holder and policy owner are the ones who can create claims
-        // 2nd: InsuranceManager OR InsuranceSurveyor:
+        //If use is a policy holder and policy owner are the ones who can create claims
+
         if (user instanceof PolicyHolder || user instanceof PolicyOwner) {
             //read text fields => pass
             ClaimCreateRemove.createClaim();
@@ -80,6 +83,7 @@ class ClaimCreationPageController implements Initializable {
                 uploadDocument("public/avatar1.png", new File("path/to/your/file.png"));
             });
         }
+
 
 
     }

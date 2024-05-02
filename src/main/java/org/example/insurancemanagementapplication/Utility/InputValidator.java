@@ -4,6 +4,7 @@ import jakarta.persistence.EntityManager;
 import org.example.insurancemanagementapplication.Interfaces.CustomerAnalytics;
 import org.example.insurancemanagementapplication.Interfaces.EmployeeAnalytics;
 
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -55,18 +56,10 @@ public class InputValidator {
         return true; // If the phone number is all digits and has length 10, return true
     }
 
-    public static void validateAddressFormat(String address) {
 
-    }
-
-    public static boolean validateClaimAmount(String claimAmount) {
-        // Check if the claim amount is a positive integer
-        try {
-            double amount = Double.parseDouble(claimAmount);
-            return amount == (int) amount && amount > 0;
-        } catch (NumberFormatException e) {
-            return false; // If parsing fails, it's not a valid number
-        }
+    public static boolean validateClaimAmount(int claimAmount) {
+        // Check if true if the claim amount is a positive integer
+        return claimAmount > 0;
     }
 
     public static boolean validateNonEmptyString(String nonEmptyString) {
@@ -121,5 +114,64 @@ public class InputValidator {
     }
 
 
+    public static boolean validatingClaim(EntityManager entityManager, String claimId, Date creationDate, Date settlementDate, String status, int claimAmount, String insuredPersonId, String policyOwnerId, String cardNumber, String insuranceManagerId, String insuranceSurveyorId, String bankName, String accountName, String accountNumber, byte[] documentImage) {
+        if (validateClaimAmount(claimAmount) == true && validateNonEmptyString(bankName) == true && validateNonEmptyString(accountName) == true && validateNonEmptyString(accountNumber) == true) {
+            return true;
+        }
+        return false;
+    }
 
+    public static boolean validatingUser(String role, EntityManager entityManager, String fullName, String email, String password, String phoneNumber, String address) {
+        boolean allInfoValid = true;
+        boolean userExists = false;
+        boolean inputValidation = false;
+
+        if (!validateNonEmptyString(fullName) ||
+                !validateNonEmptyString(email) ||
+                !validateNonEmptyString(password) ||
+                !validateNonEmptyString(phoneNumber) ||
+                !validateNonEmptyString(address) ||
+                !validatePasswordFormat(password) ||
+                !validateEmailFormat(email) ||
+                !validatePhoneFormat(phoneNumber)
+        ) {
+            allInfoValid = false;
+        }
+
+
+        if (role == "Dependant") {
+            userExists =
+                    checkIfDependantAlreadyExist(entityManager, fullName, email, password, phoneNumber, address);
+        }
+        if (role == "InsuranceManager") {
+            userExists =
+                    checkIfInsuranceManagerAlreadyExist(entityManager, fullName, email, password, phoneNumber, address);
+        }
+        if (role == "InsuranceSurveyor") {
+            userExists =
+                    checkIfInsuranceSurveyorAlreadyExist(entityManager, fullName, email, password, phoneNumber, address);
+        }
+        if (role == "SystemAdmin") {
+            userExists =
+                    checkIfSystemAdminAlreadyExist(entityManager, fullName, email, password, phoneNumber, address);
+        }
+        if (role == "PolicyHolder") {
+            userExists =
+                    checkIfPolicyHolderAlreadyExist(entityManager, fullName, email, password, phoneNumber, address);
+        }
+        if (role == "PolicyOwner") {
+            userExists =
+                    checkIfPolicyOwnerAlreadyExist(entityManager, fullName, email, password, phoneNumber, address);
+        }
+        // user pass input validation if: AllInfoValid AND UserNotExist
+        if (allInfoValid == true && userExists == false
+        ) {
+            inputValidation = true;
+        }
+
+
+        return inputValidation;
+
+
+    }
 }

@@ -14,7 +14,7 @@ import java.util.Date;
  */
 public interface ClaimCreateRemove {
 
-    public static boolean createClaim(EntityManager entityManager, String claimId, Date creationDate, Date settlementDate, String status, float claimAmount, String insuredPersonId, String policyOwnerId, String cardNumber, String insuranceManagerId, String insuranceSurveyorId, String bankName, String accountName, String accountNumber, byte[] documentImage){
+    public static boolean createClaim(EntityManager entityManager, String claimId, Date creationDate, Date settlementDate, String status, int claimAmount, String insuredPersonId, String policyOwnerId, String cardNumber, String insuranceManagerId, String insuranceSurveyorId, String bankName, String accountName, String accountNumber, byte[] documentImage){
         EntityTransaction transaction = entityManager.getTransaction();
         try{
             transaction.begin();
