@@ -289,8 +289,8 @@ public class DashBoardController_SystemAdmin extends InsuranceManagerTableFillin
         insuranceManagerTableFilling.setManagerPassword(managerPassword);
         insuranceManagerTableFilling.setManagerRemoveButton(managerRemoveButton);
         insuranceManagerTableFilling.setManagerAddSurveyorButton(managerAddSurveyorButton);
-        insuranceManagerTableFilling.setManagerUpdateInfoButton(managerUpdateInfoButton);
         insuranceManagerTableFilling.setInsuranceManagerSearchField(insuranceManagerSearchField);
+        insuranceManagerTableFilling.setManagerUpdateInfoButton(managerUpdateInfoButton);
         return insuranceManagerTableFilling;
     }
 
@@ -319,10 +319,10 @@ public class DashBoardController_SystemAdmin extends InsuranceManagerTableFillin
         policyOwnerTableFilling.setPolicyOwnerPhoneNumber(policyOwnerPhoneNumber);
         policyOwnerTableFilling.setPolicyOwnerEmail(policyOwnerEmail);
         policyOwnerTableFilling.setPolicyOwnerPassword(policyOwnerPassword);
+        policyOwnerTableFilling.setPolicyOwnerSearchField(policyOwnerSearchField);
         policyOwnerTableFilling.setPolicyOwnerAddPolicyButton(policyOwnerAddPolicyButton);
         policyOwnerTableFilling.setPolicyOwnerRemoveButton(policyOwnerRemoveButton);
         policyOwnerTableFilling.setPolicyOwnerUpdateInfoButton(policyOwnerUpdateInfoButton);
-        policyOwnerTableFilling.setPolicyOwnerSearchField(policyOwnerSearchField);
         return policyOwnerTableFilling;
     }
 
@@ -335,10 +335,12 @@ public class DashBoardController_SystemAdmin extends InsuranceManagerTableFillin
         policyHolderTableFilling.setPolicyHolderPhoneNumber(policyHolderPhoneNumber);
         policyHolderTableFilling.setPolicyHolderEmail(policyHolderEmail);
         policyHolderTableFilling.setPolicyHolderPassword(policyHolderPassword);
+        policyHolderTableFilling.setPolicyOwnerHolderTable(policyOwnerHolderTable);
+        policyHolderTableFilling.setCardNumberHolderTable(cardNumberHolderTable);
+        policyHolderTableFilling.setPolicyHolderSearchField(policyHolderSearchField);
         policyHolderTableFilling.setPolicyHolderRemoveButton(policyHolderRemoveButton);
         policyHolderTableFilling.setPolicyHolderAddDependantButton(policyHolderAddDependantButton);
         policyHolderTableFilling.setPolicyHolderRemoveButton(policyHolderRemoveButton);
-        policyHolderTableFilling.setPolicyHolderSearchField(policyHolderSearchField);
         return policyHolderTableFilling;
     }
 
@@ -351,9 +353,12 @@ public class DashBoardController_SystemAdmin extends InsuranceManagerTableFillin
         dependantTableFilling.setDependantAddress(dependantAddress);
         dependantTableFilling.setDependantPhoneNumber(dependantPhoneNumber);
         dependantTableFilling.setDependantPassword(dependantPassword);
+        dependantTableFilling.setPolicyHolderDependantTable(policyHolderDependantTable);
+        dependantTableFilling.setPolicyOwnerDependantTable(policyOwnerDependantTable);
+        dependantTableFilling.setCardNumberDependantTable(cardNumberDependantTable);
+        dependantTableFilling.setDependantSearchField(dependantSearchField);
         dependantTableFilling.setDependantRemoveButton(dependantRemoveButton);
         dependantTableFilling.setDependantUpdateInfoButton(dependantUpdateInfoButton);
-        dependantTableFilling.setDependantSearchField(dependantSearchField);
         return dependantTableFilling;
     }
 
@@ -364,8 +369,8 @@ public class DashBoardController_SystemAdmin extends InsuranceManagerTableFillin
         insuranceCardFillingTable.setCardHolderId(cardHolderId);
         insuranceCardFillingTable.setPolicyOwnerInsuranceCardTable(policyOwnerInsuranceCardTable);
         insuranceCardFillingTable.setExpiryDate(expiryDate);
-        insuranceCardFillingTable.setInsuranceCardRemoveButton(insuranceCardRemoveButton);
         insuranceCardFillingTable.setInsuranceCardSearchField(insuranceCardSearchField);
+        insuranceCardFillingTable.setInsuranceCardRemoveButton(insuranceCardRemoveButton);
         return insuranceCardFillingTable;
     }
 
@@ -377,7 +382,6 @@ public class DashBoardController_SystemAdmin extends InsuranceManagerTableFillin
         claimTableFilling.setInsuredPersonId(insuredPersonId);
         claimTableFilling.setPolicyOwnerClaimTable(policyOwnerClaimTable);
         claimTableFilling.setCardNumberClaimTable(cardNumberClaimTable);
-        claimTableFilling.setClaimButton(claimButton);
         claimTableFilling.setCreationDate(creationDate);
         claimTableFilling.setSettlementDate(settlementDate);
         claimTableFilling.setStatus(status);
@@ -390,6 +394,7 @@ public class DashBoardController_SystemAdmin extends InsuranceManagerTableFillin
         claimTableFilling.setClaimListSearchField(claimListSearchField);
         claimTableFilling.setSortList(sortList);
         claimTableFilling.setStatusList(statusList);
+        claimTableFilling.setClaimButton(claimButton);
         return claimTableFilling;
     }
 
