@@ -16,7 +16,7 @@ public class InputValidator {
         return password.matches(pattern);
     }
 
-    public boolean validateEmailFormat(String email) {
+    public static boolean validateEmailFormat(String email) {
         //email must include "@" and ".com"
         // Regular expression for email format
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";

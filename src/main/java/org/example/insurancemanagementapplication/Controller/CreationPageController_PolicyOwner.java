@@ -64,9 +64,29 @@ public class CreationPageController_PolicyOwner implements CustomerCreateRemove,
             });
         }
         else {
-            submitButton.setOnAction(event -> {
+            submitButton.setOnAction(event -> {    // Validate input fields before creating or updating a InsuranceManager entity
+                        String fullName = fullNameField.getText();
+                        //String address = addressField.getText();
+                        String phoneNumber = phoneNumberField.getText();
+                        String email = emailField.getText();
+                        String password = passwordField.getText();
+                        String passwordValidation = passwordValidationField.getText();
+
+                        // Perform input validation using InputValidator methods
+                        if (!InputValidator.validateNonEmptyString(fullName)) {
+                            errorContainer.setText("Full name cannot be empty.");
+                        } else if (!InputValidator.validateEmailFormat(email)) {
+                            errorContainer.setText("Invalid email format.");
+                        } else if (!InputValidator.validatePhoneFormat(phoneNumber)) {
+                            errorContainer.setText("Invalid phone number format.");
+                        } else if (!InputValidator.validatePasswordFormat(password)) {
+                            errorContainer.setText("Invalid password format.");
+                        } else if (!password.equals(passwordValidation)) {
+                            errorContainer.setText("Passwords do not match.");
+                        } else {
+                            // If all validations pass, proceed with creating or updating the InsuranceManager entity
                 CustomerCreateRemove.createPolicyOwner(entityManager, errorContainer, fullNameField.getText(), addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText(), passwordValidationField.getText());
-            });
+            }});
         }
         returnButton.setOnAction(event -> {
             if (user instanceof SystemAdmin){
@@ -150,5 +170,9 @@ public class CreationPageController_PolicyOwner implements CustomerCreateRemove,
         this.entityManager = entityManager;
         this.user = user;
         this.policyOwner = policyOwner;
+    }
+
+    public CreationPageController_PolicyOwner(EntityManager entityManager) {
+        this.entityManager = entityManager;
     }
 }

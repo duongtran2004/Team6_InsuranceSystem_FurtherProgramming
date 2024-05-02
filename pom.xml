@@ -50,6 +50,15 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/io.github.jan-tennert.supabase/gotrue-kt-jvm -->
+        <dependency>
+            <groupId>io.github.jan-tennert.supabase</groupId>
+            <artifactId>gotrue-kt-jvm</artifactId>
+            <version>2.3.1</version>
+        </dependency>
+
+
     </dependencies>
 
     <build>

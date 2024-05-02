@@ -91,13 +91,34 @@ public class CreationPageController_InsuranceSurveyor implements Initializable, 
         });
 
         submitButton.setOnAction(e ->{
+            // Validate input fields before creating or updating a InsuranceManager entity
+            String fullName = fullNameField.getText();
+            //String address = addressField.getText();
+            String phoneNumber = phoneNumberField.getText();
+            String email = emailField.getText();
+            String password = passwordField.getText();
+            String passwordValidation = passwordValidationField.getText();
+
+            // Perform input validation using InputValidator methods
+            if (!InputValidator.validateNonEmptyString(fullName)) {
+                errorContainer.setText("Full name cannot be empty.");
+            } else if (!InputValidator.validateEmailFormat(email)) {
+                errorContainer.setText("Invalid email format.");
+            } else if (!InputValidator.validatePhoneFormat(phoneNumber)) {
+                errorContainer.setText("Invalid phone number format.");
+            } else if (!InputValidator.validatePasswordFormat(password)) {
+                errorContainer.setText("Invalid password format.");
+            } else if (!password.equals(passwordValidation)) {
+                errorContainer.setText("Passwords do not match.");
+            } else {
+                // If all validations pass, proceed with creating or updating the InsuranceManager entity
             if (manager != null){
                 EmployeeUpdate.updateInsuranceSurveyor(managerReassign, entityManager, errorContainer, insuranceSurveyor, managerIdField.getText(), addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText(), passwordValidationField.getText());
             }
             else {
                 EmployeeCreateRemove.createInsuranceSurveyor(entityManager, errorContainer, fullNameField.getText(), addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText(), manager, passwordValidationField.getText());
 
-            }
+            }}
         });
 
         returnButton.setOnAction(event -> {

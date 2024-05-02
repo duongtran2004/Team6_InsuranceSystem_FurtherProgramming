@@ -47,6 +47,10 @@ public class Claim {
     @Basic
     @Column(name = "insurance_surveyor_id", insertable = false, updatable = false)
     private String insuranceSurveyorId;
+    @Lob
+
+    @Column(name = "document_image")
+    private byte[] documentImage;
 
     public String getInsuredPersonId() {
         return insuredPersonId;

@@ -1,14 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="$CONTROLLER_NAME$"
-            prefHeight="400.0" prefWidth="600.0" >
 
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.insurancemanagementapplication.Controller.ClaimCreationPageController">
+   <children>
+      <Pane layoutX="69.0" layoutY="10.0" minWidth="-Infinity" prefHeight="600.0" prefWidth="500.0">
+         <children>
+            <GridPane alignment="CENTER" layoutY="32.0" minHeight="400.0" minWidth="300.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="194.40001220703124" minWidth="0.0" prefWidth="150.3999755859375" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="195.20001220703125" minWidth="10.0" prefWidth="151.2000244140625" />
+              </columnConstraints>
+              <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="38.79999389648437" minHeight="10.0" prefHeight="33.19998779296874" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="55.600012207031256" minHeight="10.0" prefHeight="55.600012207031256" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label prefHeight="18.0" prefWidth="142.0" text="Bank Name" />
+                  <Label prefHeight="18.0" prefWidth="135.0" text="Bank Account Name " GridPane.rowIndex="1" />
+                  <Label prefHeight="18.0" prefWidth="145.0" text="Bank Account Number" GridPane.rowIndex="2" />
+                  <Label prefHeight="18.0" prefWidth="94.0" text="Status " GridPane.rowIndex="3" />
+                  <Label prefHeight="18.0" prefWidth="94.0" text="Claim Amount " GridPane.rowIndex="4" />
+                  <Label prefHeight="18.0" prefWidth="118.0" text="Insured Person ID" GridPane.rowIndex="5" />
+                  <Label prefHeight="18.0" prefWidth="94.0" text="Card Number " GridPane.rowIndex="6" />
+                  <Label prefHeight="18.0" prefWidth="138.0" text="Insurance Surveyor ID" GridPane.rowIndex="7" />
+                  <Button fx:id="returnButton" mnemonicParsing="false" prefHeight="26.0" prefWidth="139.0" text="Back to DashBoard" GridPane.rowIndex="10" />
+                  <Button fx:id="submitButton" mnemonicParsing="false" prefHeight="26.0" prefWidth="98.0" text="Submit" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                  <TextField fx:id="bankNameField" prefHeight="26.0" prefWidth="111.0" GridPane.columnIndex="1" />
+                  <TextField fx:id="bankAccountNameField" prefHeight="26.0" prefWidth="111.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="bankAccountNumberField" alignment="CENTER" prefHeight="27.0" prefWidth="112.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="cardNumberField" alignment="CENTER" prefHeight="26.0" prefWidth="111.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <TextField fx:id="claimAmountField" prefHeight="26.0" prefWidth="111.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <TextField fx:id="insuredPersonIDFIeld" prefHeight="26.0" prefWidth="111.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <ChoiceBox fx:id="statusChoiceBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Label prefHeight="18.0" prefWidth="132.0" text="Insurance Manager ID" GridPane.rowIndex="8" />
+                  <TextField fx:id="insuranceSurveyorField" alignment="CENTER" prefHeight="26.0" prefWidth="111.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                  <TextField fx:id="insuranceManagerField" alignment="CENTER" prefHeight="26.0" prefWidth="111.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                  <Label prefHeight="18.0" prefWidth="132.0" text="Document" GridPane.rowIndex="9" />
+                  <Button fx:id="updloadDocumentButton" mnemonicParsing="false" prefHeight="26.0" prefWidth="98.0" text="Upload" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+               </children>
+            </GridPane>
+            <Label layoutX="82.0" layoutY="7.0" prefHeight="17.0" prefWidth="322.0" text="CLAIM CREATION PAGE" />
+         </children>
+      </Pane>
+   </children>
 </AnchorPane>
