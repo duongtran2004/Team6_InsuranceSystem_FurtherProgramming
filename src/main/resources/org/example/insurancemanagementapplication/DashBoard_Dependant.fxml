@@ -147,7 +147,7 @@
                                 <TextField fx:id="claimListSearchField" prefHeight="25.0" prefWidth="1474.0" HBox.hgrow="ALWAYS" />
                             </children>
                         </HBox>
-                        <Label alignment="CENTER" prefHeight="31.0" prefWidth="1536.0" text="Claims List" GridPane.hgrow="ALWAYS">
+                        <Label maxWidth="Infinity" alignment="CENTER" prefHeight="31.0" prefWidth="1536.0" text="Claims List" GridPane.hgrow="ALWAYS">
                             <font>
                                 <Font name="Helvetica Neue Bold" size="16.0" />
                             </font>

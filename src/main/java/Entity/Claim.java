@@ -1,6 +1,7 @@
 package Entity;
 
 import jakarta.persistence.*;
+import javafx.scene.control.Button;
 
 import java.sql.Date;
 import java.util.Objects;
@@ -52,6 +53,9 @@ public class Claim {
     @Column(name = "document_image")
     private byte[] documentImage;
 
+    @Transient
+    private javafx.scene.control.Button claimButton;
+
     public String getInsuredPersonId() {
         return insuredPersonId;
     }
@@ -90,6 +94,14 @@ public class Claim {
 
     public void setInsuranceSurveyorId(String insuranceSurveyorId) {
         this.insuranceSurveyorId = insuranceSurveyorId;
+    }
+
+    public Button getClaimButton() {
+        return claimButton;
+    }
+
+    public void setClaimButton(Button claimButton) {
+        this.claimButton = claimButton;
     }
 
     @ManyToOne
