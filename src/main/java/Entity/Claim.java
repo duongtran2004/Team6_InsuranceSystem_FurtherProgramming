@@ -49,6 +49,21 @@ public class Claim {
     @Column(name = "insurance_surveyor_id", insertable = false, updatable = false)
     private String insuranceSurveyorId;
 
+    @Basic
+    @Column(name = "bank_name")
+    private String bankName;
+
+    @Basic
+    @Column(name = "bank_account_name")
+    private String bankAccountName;
+
+    @Basic
+    @Column(name = "bank_account_number")
+    private String bankAccountNumber;
+
+    @Column(name = "document_image")
+    private byte[] documentImage;
+
     @Transient
     private javafx.scene.control.Button claimButton;
 
@@ -154,6 +169,30 @@ public class Claim {
 
     public void setClaimAmount(int claimAmount) {
         this.claimAmount = claimAmount;
+    }
+
+    public String getBankName() {
+        return bankName;
+    }
+
+    public void setBankName(String bankName) {
+        this.bankName = bankName;
+    }
+
+    public String getBankAccountName() {
+        return bankAccountName;
+    }
+
+    public void setBankAccountName(String bankAccountName) {
+        this.bankAccountName = bankAccountName;
+    }
+
+    public String getBankAccountNumber() {
+        return bankAccountNumber;
+    }
+
+    public void setBankAccountNumber(String bankAccountNumber) {
+        this.bankAccountNumber = bankAccountNumber;
     }
 
     @Override

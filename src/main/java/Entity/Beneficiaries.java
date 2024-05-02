@@ -116,7 +116,7 @@ public class Beneficiaries extends Customer {
         return addClaimButton;
     }
 
-    public void setAddClaimButton(Button addClaim) {
-        this.addClaimButton = addClaim;
+    public void setAddClaimButton(Button addClaimButton) {
+        this.addClaimButton = addClaimButton;
     }
 }
