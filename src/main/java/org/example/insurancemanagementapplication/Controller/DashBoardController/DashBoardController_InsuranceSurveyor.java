@@ -17,7 +17,7 @@ import java.sql.Date;
  */
 public class DashBoardController_InsuranceSurveyor {
     private final EntityManager entityManager;
-    private final InsuranceSurveyor insuranceSurveyor;
+    private final InsuranceSurveyor user;
     private Customer customer;
     private Claim claim;
     //PolicyOwner Table
@@ -99,13 +99,13 @@ public class DashBoardController_InsuranceSurveyor {
     private TableColumn<InsuranceCard, String> policyOwnerInsuranceCardTable;
 
     public DashBoardController_InsuranceSurveyor(InsuranceSurveyor insuranceSurveyor, EntityManager entityManager) {
-        this.insuranceSurveyor = insuranceSurveyor;
+        this.user = insuranceSurveyor;
         this.entityManager = entityManager;
 
     }
 
-    public InsuranceSurveyor getInsuranceSurveyor() {
-        return insuranceSurveyor;
+    public InsuranceSurveyor getUser() {
+        return user;
     }
 
     public Customer getCustomer() {

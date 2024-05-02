@@ -240,11 +240,21 @@ public class DashBoardController_SystemAdmin extends InsuranceManagerTableFillin
 
 
 
-
+    public void FillingUserDetail(){
+        userIdField.setText(user.getId());
+        fullNameField.setText(user.getFullName());
+        addressField.setText(user.getAddress());
+        phoneNumberField.setText(user.getPhoneNumber());
+        emailField.setText(user.getEmail());
+        passwordField.setText(user.getPassword());
+        passwordValidationField.setText(user.getPassword());
+    }
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        FillingUserDetail();
+
         System.out.println("Hello World");
 
         InsuranceManagerTableFilling insuranceManagerTableFilling = instantiateInsuranceManagerTableFilling();

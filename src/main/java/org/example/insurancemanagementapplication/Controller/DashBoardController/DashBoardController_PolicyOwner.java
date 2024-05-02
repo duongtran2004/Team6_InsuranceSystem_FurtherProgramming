@@ -1,14 +1,12 @@
 package org.example.insurancemanagementapplication.Controller.DashBoardController;
 
-import Entity.*;
+import Entity.Beneficiaries;
+import Entity.Claim;
+import Entity.PolicyOwner;
 import jakarta.persistence.EntityManager;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import org.example.insurancemanagementapplication.Interfaces.CustomerCreateRemove;
-
-import java.sql.Date;
 
 /**
  * @author Luong Thanh Trung
@@ -18,69 +16,35 @@ import java.sql.Date;
  */
 public class DashBoardController_PolicyOwner implements CustomerCreateRemove {
     private  EntityManager entityManager;
-    private  PolicyOwner policyOwner;
+    private  PolicyOwner user;
     private Beneficiaries beneficiary;
     private Claim claim;
 
 
     @FXML
-    private TableView<PolicyHolder> policyHolderTable;
+    private TextField userIdField;
     @FXML
-    private TableColumn<PolicyHolder, String> policyHolderId;
+    private TextField fullNameField;
     @FXML
-    private TableColumn<PolicyHolder, String> policyHolderFullName;
+    private TextField addressField;
     @FXML
-    private TableColumn<PolicyHolder, String> policyHolderAddress;
+    private TextField phoneNumberField;
     @FXML
-    private TableColumn<PolicyHolder, String> policyHolderPhoneNumber;
+    private TextField emailField;
     @FXML
-    private TableColumn<PolicyHolder, String> policyHolderEmail;
+    private TextField passwordField;
     @FXML
-    private TableColumn<PolicyHolder, String> policyHolderPassword;
-    @FXML
-    private TableColumn<PolicyHolder, String> policyOwnerHolderTable;
-    @FXML
-    private TableColumn<PolicyHolder, String> cardNumberHolderTable;
-    @FXML
-    private TableColumn<PolicyHolder, Button> policyHolderUpdateInfoButton;
-    @FXML
-    private TableColumn<PolicyHolder, Button> policyHolderAddDependantButton;
+    private TextField passwordValidationField;
 
-
-    //Dependant Table
-    @FXML
-    private TableView<Dependant> dependantTable;
-    @FXML
-    private TableColumn<Dependant, String> dependantId;
-    @FXML
-    private TableColumn<Dependant, String> dependantFullName;
-    @FXML
-    private TableColumn<Dependant, String> dependantAddress;
-    @FXML
-    private TableColumn<Dependant, String> dependantPhoneNumber;
-    @FXML
-    private TableColumn<Dependant, String> dependantEmail;
-    @FXML
-    private TableColumn<Dependant, String> dependantPassword;
-    @FXML
-    private TableColumn<Dependant, String> policyOwnerDependantTable;
-    @FXML
-    private TableColumn<Dependant, String> cardNumberDependantTable;
-    @FXML
-    private TableColumn<Dependant, Button> dependantUpdateInfoButton;
-
-    //Insurance Card Table
-    @FXML
-    private TableColumn<InsuranceCard, String> cardNumber;
-    @FXML
-    private TableColumn<InsuranceCard, Date> expiryDate;
-    @FXML
-    private TableColumn<InsuranceCard, String> cardHolder;
-    @FXML
-    private TableColumn<InsuranceCard, String> policyOwnerInsuranceCardTable;
-
-
-    //added
+    public void FillingUserDetail(){
+        userIdField.setText(user.getId());
+        fullNameField.setText(user.getFullName());
+        addressField.setText(user.getAddress());
+        phoneNumberField.setText(user.getPhoneNumber());
+        emailField.setText(user.getEmail());
+        passwordField.setText(user.getPassword());
+        passwordValidationField.setText(user.getPassword());
+    }
 
 
     public DashBoardController_PolicyOwner(EntityManager entityManager) {
@@ -88,12 +52,12 @@ public class DashBoardController_PolicyOwner implements CustomerCreateRemove {
     }
 
     public DashBoardController_PolicyOwner(PolicyOwner policyOwner, EntityManager entityManager) {
-        this.policyOwner = policyOwner;
+        this.user = policyOwner;
         this.entityManager = entityManager;
     }
 
-    public PolicyOwner getPolicyOwner() {
-        return policyOwner;
+    public PolicyOwner getUser() {
+        return user;
     }
 
     public Beneficiaries getBeneficiary() {
