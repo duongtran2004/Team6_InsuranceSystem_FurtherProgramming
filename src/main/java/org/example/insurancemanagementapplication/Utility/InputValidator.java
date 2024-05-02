@@ -55,18 +55,10 @@ public class InputValidator {
         return true; // If the phone number is all digits and has length 10, return true
     }
 
-    public static void validateAddressFormat(String address) {
 
-    }
-
-    public static boolean validateClaimAmount(String claimAmount) {
-        // Check if the claim amount is a positive integer
-        try {
-            double amount = Double.parseDouble(claimAmount);
-            return amount == (int) amount && amount > 0;
-        } catch (NumberFormatException e) {
-            return false; // If parsing fails, it's not a valid number
-        }
+    public static boolean validateClaimAmount(int claimAmount) {
+        // Check if true if the claim amount is a positive integer
+        return claimAmount > 0;
     }
 
     public static boolean validateNonEmptyString(String nonEmptyString) {
@@ -121,5 +113,86 @@ public class InputValidator {
     }
 
 
+    public static String validatingClaim(EntityManager entityManager, int claimAmount, String bankName, String accountName, String accountNumber) {
+        String message = "";
+        if (validateClaimAmount(claimAmount) == false) {
+            return message = "Invalid Claim Amount, must be a positive integer";
+        }
+        if (validateNonEmptyString(String.valueOf(claimAmount)) == false) {
+            return message = "Invalid Claim Amount, must not be empty";
+        }
 
+        if (validateNonEmptyString(bankName) == false) {
+            return message = "Invalid Bank Name, must not be empty";
+        }
+        if (validateNonEmptyString(accountName) == false) {
+            return message = "Invalid Bank Account Name, must not be empty";
+        }
+        if (validateNonEmptyString(accountNumber) == false) {
+            return message = "Invalid Bank Account Number, must not be empty";
+        } else {
+            return message = "Success";
+        }
+    }
+
+    public static String validatingUser(String role, EntityManager entityManager, String fullName, String email, String password, String phoneNumber, String address) {
+//        boolean allInfoValid = true;
+//        boolean userExists = false;
+//        boolean inputValidation = false;
+        String message = "";
+
+        if (validateNonEmptyString(fullName) == false) {
+            return message = "Invalid full name, cannot be empty";
+        }
+        if (validateNonEmptyString(email) == false) {
+            return message = "Invalid email, cannot be empty";
+        }
+        if (validateNonEmptyString(email) == false) {
+            return message = "Invalid email, cannot be empty";
+        }
+        if (validateNonEmptyString(password) == false) {
+            return message = "Invalid email, cannot be empty";
+        }
+        if (validateNonEmptyString(password) == false) {
+            return message = "Invalid email, cannot be empty";
+        }
+        if (validateNonEmptyString(phoneNumber) == false) {
+            return message = "Invalid phone number, cannot be empty";
+        }
+        if (validateNonEmptyString(address) == false) {
+            return message = "Invalid address, cannot be empty";
+        }
+        if (role == "Dependant") {
+            if (checkIfDependantAlreadyExist(entityManager, fullName, email, password, phoneNumber, address) == true) {
+                return message = "User already exist";
+            }
+        }
+        if (role == "InsuranceManager") {
+            if (checkIfInsuranceManagerAlreadyExist(entityManager, fullName, email, password, phoneNumber, address) == true) {
+                return message = "User already exist";
+            }
+        }
+        if (role == "InsuranceSurveyor") {
+            if (checkIfInsuranceSurveyorAlreadyExist(entityManager, fullName, email, password, phoneNumber, address) == true) {
+                return message = "User already exist";
+            }
+        }
+        if (role == "SystemAdmin") {
+            if (checkIfSystemAdminAlreadyExist(entityManager, fullName, email, password, phoneNumber, address) == true) {
+                return message = "User already exist";
+            }
+        }
+        if (role == "PolicyHolder") {
+            if (checkIfPolicyHolderAlreadyExist(entityManager, fullName, email, password, phoneNumber, address) == true) {
+                return message = "User already exist";
+            }
+        }
+        if (role == "PolicyOwner") {
+            if (checkIfPolicyOwnerAlreadyExist(entityManager, fullName, email, password, phoneNumber, address) == true) {
+                return message = "User already exist";
+            }
+        }
+        return message = "Success";
+
+    }
 }
