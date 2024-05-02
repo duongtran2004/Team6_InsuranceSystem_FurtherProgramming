@@ -3,11 +3,15 @@ package org.example.insurancemanagementapplication.Controller.DashBoardControlle
 import Entity.*;
 import jakarta.persistence.EntityManager;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 
+import java.net.URL;
 import java.sql.Date;
+import java.util.ResourceBundle;
 
 /**
  * @author Luong Thanh Trung
@@ -15,13 +19,27 @@ import java.sql.Date;
  * @created 27/04/2024 04:54
  * @project InsuranceManagementTeamProject
  */
-public class DashBoardController_InsuranceManager {
+public class DashBoardController_InsuranceManager implements Initializable {
     private final EntityManager entityManager;
-    private final InsuranceManager insuranceManager;
+    private final InsuranceManager user;
     private InsuranceSurveyor insuranceSurveyor;
     private Customer customer;
     private Claim claim;
 
+    @FXML
+    private TextField userIdField;
+    @FXML
+    private TextField fullNameField;
+    @FXML
+    private TextField addressField;
+    @FXML
+    private TextField phoneNumberField;
+    @FXML
+    private TextField emailField;
+    @FXML
+    private TextField passwordField;
+    @FXML
+    private TextField passwordValidationField;
 
     //Insurance Surveyor Table
     @FXML
@@ -120,13 +138,27 @@ public class DashBoardController_InsuranceManager {
     @FXML
     private TableColumn<InsuranceCard, String> policyOwnerInsuranceCardTable;
 
-    public DashBoardController_InsuranceManager(InsuranceManager insuranceManager, EntityManager entityManager) {
-        this.insuranceManager = insuranceManager;
+    public DashBoardController_InsuranceManager(InsuranceManager user, EntityManager entityManager) {
+        this.user = user;
         this.entityManager = entityManager;
     }
+    public void userFillingData(){
+        userIdField.setText(user.getId());
+        fullNameField.setText(user.getFullName());
+        addressField.setText(user.getAddress());
+        phoneNumberField.setText(user.getPhoneNumber());
+        emailField.setText(user.getEmail());
+        passwordField.setText(user.getPassword());
+        passwordValidationField.setText(user.getPassword());
+    }
 
-    public InsuranceManager getInsuranceManager() {
-        return insuranceManager;
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        userFillingData();
+    }
+
+    public InsuranceManager getUser() {
+        return user;
     }
 
     public InsuranceSurveyor getInsuranceSurveyor() {

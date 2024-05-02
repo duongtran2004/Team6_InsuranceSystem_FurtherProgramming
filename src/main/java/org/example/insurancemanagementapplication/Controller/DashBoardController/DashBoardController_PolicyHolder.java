@@ -5,9 +5,14 @@ import Entity.Dependant;
 import Entity.PolicyHolder;
 import jakarta.persistence.EntityManager;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * @author Luong Thanh Trung
@@ -15,12 +20,26 @@ import javafx.scene.control.TableView;
  * @created 27/04/2024 04:54
  * @project InsuranceManagementTeamProject
  */
-public class DashBoardController_PolicyHolder {
+public class DashBoardController_PolicyHolder implements Initializable {
     private final EntityManager entityManager;
-    private final PolicyHolder user;
+    private PolicyHolder user;
     private Dependant dependant;
     private Claim claim;
 
+    @FXML
+    private TextField userIdField;
+    @FXML
+    private TextField fullNameField;
+    @FXML
+    private TextField addressField;
+    @FXML
+    private TextField phoneNumberField;
+    @FXML
+    private TextField emailField;
+    @FXML
+    private TextField passwordField;
+    @FXML
+    private TextField passwordValidationField;
 
     //Dependant Table
     @FXML
@@ -44,8 +63,23 @@ public class DashBoardController_PolicyHolder {
     @FXML
     private TableColumn<Dependant, Button> dependantUpdateInfoButton;
 
-    public DashBoardController_PolicyHolder(PolicyHolder policyHolder, EntityManager entityManager) {
-        this.user = policyHolder;
+    public void userFillingData(){
+        userIdField.setText(user.getId());
+        fullNameField.setText(user.getFullName());
+        addressField.setText(user.getAddress());
+        phoneNumberField.setText(user.getPhoneNumber());
+        emailField.setText(user.getEmail());
+        passwordField.setText(user.getPassword());
+        passwordValidationField.setText(user.getPassword());
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        userFillingData();
+    }
+
+    public DashBoardController_PolicyHolder(PolicyHolder user, EntityManager entityManager) {
+        this.user = user;
         this.entityManager = entityManager;
     }
 
