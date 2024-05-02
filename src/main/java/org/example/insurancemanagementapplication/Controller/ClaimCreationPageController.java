@@ -10,12 +10,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import org.example.insurancemanagementapplication.Interfaces.ClaimCreateRemove;
 import org.example.insurancemanagementapplication.Interfaces.ClaimUpdate;
+import org.example.insurancemanagementapplication.Interfaces.EmployeeAnalytics;
 import org.example.insurancemanagementapplication.Utility.InputValidator;
 
+import java.util.Random;
 import java.io.File;
 import java.net.URL;
-import java.sql.Wrapper;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 class ClaimCreationPageController implements Initializable {
@@ -137,7 +138,7 @@ class ClaimCreationPageController implements Initializable {
                 });
             }
             // UPDATE CASE 3: POLICY HOLDER OR POLICY OWNER
-            if (user instanceof PolicyOwner || user instanceof PolicyHolder){
+            if (user instanceof PolicyOwner || user instanceof PolicyHolder) {
                 //read text fields => store to variables
                 String bankAccountName = bankAccountNameField.getText();
                 String bankAccountNumber = bankAccountNumberField.getText();
@@ -183,18 +184,29 @@ class ClaimCreationPageController implements Initializable {
 
     }
 
-    public static  void randomlyAssignClaimsToInsuranceManager (){}
-
-
-    public static void initializeUpdateCases() {
-
-
+    public static void randomlyAssignClaimsToInsuranceManager() {
     }
 
-    public static void initializeCreateCases() {
-
-
+    public static void randomlyAssignClaimsToInsuranceManager(EntityManager entityManager, Claim claim) {
+        List<InsuranceManager> insuranceManagers = EmployeeAnalytics.getAllInsuranceManager(entityManager);
+        Random random = new Random();
+        int randomIndex = random.nextInt(insuranceManagers.size());
+        InsuranceManager randomManager = insuranceManagers.get(randomIndex);
+        claim.setInsuranceManager(randomManager);
     }
+
+
+
+
+public static void initializeUpdateCases() {
+
+
+}
+
+public static void initializeCreateCases() {
+
+
+}
 
 //    private void uploadDocument(String s, File file) {
 //    }

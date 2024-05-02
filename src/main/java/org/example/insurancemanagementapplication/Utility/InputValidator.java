@@ -164,12 +164,11 @@ public class InputValidator {
     //ClaimUpdateValidator for PolicyHolder and PolicyOwner
     public static String ClaimUpdateValidator(EntityManager entityManager, String bankName, String accountName, String accountNumber) {
         String message = "";
-       if (validateBankingInfo(bankName, accountName, accountNumber) == false){
+       if (validateBankingInfo( entityManager,bankName, accountName, accountNumber) == false){
            return message = "Invalid Banking Information, no fields should be empty";
         } else {
             return message = "Success";
         }
-        return message;
     }
 
 
