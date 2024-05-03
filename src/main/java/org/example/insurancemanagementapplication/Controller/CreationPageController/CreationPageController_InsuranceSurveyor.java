@@ -89,6 +89,7 @@ public class CreationPageController_InsuranceSurveyor extends CreationPageContro
                     managerIdField.setDisable(true);
                 }
             });
+
             submitButton.setOnAction(event -> {
                 String message = InputValidator.validatingUser(emailField.getText(), passwordField.getText(), phoneNumberField.getText(), addressField.getText(), passwordValidationField.getText());
                 if (message.equals("Success")){
