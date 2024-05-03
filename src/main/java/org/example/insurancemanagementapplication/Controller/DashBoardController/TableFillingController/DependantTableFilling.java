@@ -30,36 +30,40 @@ import java.util.ListIterator;
  * @created 01/05/2024 15:33
  * @project InsuranceManagementTeamProject
  */
-public class DependantTableFilling extends ClaimTableFilling {
+public class DependantTableFilling extends DashBoardController {
+    @FXML
+    protected TableView<Dependant> dependantTable;
+    @FXML
+    protected TableColumn<Dependant, String> dependantId;
+    @FXML
+    protected TableColumn<Dependant, String> dependantFullName;
+    @FXML
+    protected TableColumn<Dependant, String> dependantAddress;
+    @FXML
+    protected TableColumn<Dependant, String> dependantPhoneNumber;
+    @FXML
+    protected TableColumn<Dependant, String> dependantEmail;
+    @FXML
+    protected TableColumn<Dependant, String> dependantPassword;
+    @FXML
+    protected TableColumn<Dependant, String> policyOwnerDependantTable;
+    @FXML
+    protected TableColumn<Dependant, String> cardNumberDependantTable;
+    @FXML
+    protected TableColumn<Dependant, Button> dependantUpdateInfoButton;
+    @FXML
+    protected TableColumn<Dependant, Button> dependantAddClaimButton;
+    @FXML
+    protected TableColumn<Dependant, Button> dependantRemoveButton;
+    @FXML
+    protected TableColumn<Dependant, String> policyHolderDependantTable;
+    @FXML
+    protected TextField dependantSearchField;
 
-    @FXML
-    private TableView<Dependant> dependantTable;
-    @FXML
-    private TableColumn<Dependant, String> dependantId;
-    @FXML
-    private TableColumn<Dependant, String> dependantFullName;
-    @FXML
-    private TableColumn<Dependant, String> dependantAddress;
-    @FXML
-    private TableColumn<Dependant, String> dependantPhoneNumber;
-    @FXML
-    private TableColumn<Dependant, String> dependantEmail;
-    @FXML
-    private TableColumn<Dependant, String> dependantPassword;
-    @FXML
-    private TableColumn<Dependant, String> policyOwnerDependantTable;
-    @FXML
-    private TableColumn<Dependant, String> cardNumberDependantTable;
-    @FXML
-    private TableColumn<Dependant, Button> dependantUpdateInfoButton;
-    @FXML
-    private TableColumn<Dependant, Button> dependantAddClaimButton;
-    @FXML
-    private TableColumn<Dependant, Button> dependantRemoveButton;
-    @FXML
-    private TableColumn<Dependant, String> policyHolderDependantTable;
-    @FXML
-    private TextField dependantSearchField;
+    public DependantTableFilling(EntityManager entityManager, User user) {
+        super(entityManager, user);
+    }
+
     public void filteringDependantTable(FilteredList<Dependant> filteredDependantList){
         dependantSearchField.textProperty().addListener((observable, oldValue, newValue)->{
             filteredDependantList.setPredicate(dependant -> {
@@ -178,8 +182,7 @@ public class DependantTableFilling extends ClaimTableFilling {
 
 
 
-    public DependantTableFilling() {
-    }
+
 
     public TableView<Dependant> getDependantTable() {
         return dependantTable;

@@ -58,33 +58,26 @@ public class CreationPageController_Dependant extends CreationPageController imp
             emailField.setText(dependant.getEmail());
             passwordField.setText(dependant.getPassword());
             passwordValidationField.setText(dependant.getPassword());
-
-
-        }
-
-        submitButton.setOnAction(event -> {
-            String fullName = fullNameField.getText();
-            String address = addressField.getText();
-            String phoneNumber = phoneNumberField.getText();
-            String email = emailField.getText();
-            String password = passwordField.getText();
-            String passwordValidation = passwordValidationField.getText();
-
-            String message = InputValidator.validatingUser("Dependant", entityManager, fullName, email, password, phoneNumber, address, passwordValidation);
-            if (message.equals("Success")){
-                if (dependant != null){
-                    CustomerUpdate.updateDependant(entityManager, dependant, addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText());
+            submitButton.setOnAction(event -> {
+                String message = InputValidator.validatingUser(emailField.getText(), passwordField.getText(), phoneNumberField.getText(), addressField.getText(), passwordValidationField.getText());
+                if (message.equals("Success")){
+                    CustomerUpdate.updateDependant(entityManager, dependant, addressField.getText(), phoneNumberField.getText(), passwordField.getText(), passwordValidationField.getText());
                 }
                 else {
-                    String id = RepeatedCode.idGenerate("DE");
-                    CustomerCreateRemove.createDependant(entityManager, id, fullName, addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText(), policyHolder);
+                    errorContainer.setText(message);
                 }
+            });
+        }
+        else {
+            submitButton.setOnAction(event -> {
+                String message = InputValidator.validatingUser("Dependant", entityManager, fullNameField.getText(), emailField.getText(), passwordField.getText(), phoneNumberField.getText(), addressField.getText(), passwordValidationField.getText());
+                if (message.equals("Success")){
+                    String id = RepeatedCode.idGenerate("DE");
+                    CustomerCreateRemove.createDependant(entityManager, id, fullNameField.getText(), addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText(), policyHolder);
+                }
+            });
+        }
 
-            }
-            else{
-                errorContainer.setText(message);
-            }
-        });
 
     }
 

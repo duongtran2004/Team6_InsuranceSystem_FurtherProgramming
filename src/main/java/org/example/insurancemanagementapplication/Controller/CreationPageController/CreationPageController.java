@@ -25,6 +25,10 @@ public abstract class CreationPageController {
         this.entityManager = entityManager;
     }
 
+    public void fillingFormAuto(){
+
+    }
+
     public void setActionReturnButton(){
         returnButton.setOnAction(event -> {
             if (user instanceof SystemAdmin) {

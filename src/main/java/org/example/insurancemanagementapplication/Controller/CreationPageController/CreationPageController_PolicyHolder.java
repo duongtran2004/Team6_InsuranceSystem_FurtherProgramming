@@ -65,22 +65,21 @@ public class CreationPageController_PolicyHolder extends CreationPageController 
             emailField.setText(policyHolder.getEmail());
             passwordField.setText(policyHolder.getPassword());
             passwordValidationField.setText(policyHolder.getPassword());
-
-        }
-
-        submitButton.setOnAction(e ->{
-            String fullName = fullNameField.getText();
-            String phoneNumber = phoneNumberField.getText();
-            String email = emailField.getText();
-            String address = addressField.getText();
-            String password = passwordField.getText();
-            String passwordValidation = passwordValidationField.getText();
-            String message = InputValidator.validatingUser("Policy Holder", entityManager, fullName, email, password, phoneNumber, address, passwordValidation);
-            if (message.equals("Success")){
-                if (policyHolder != null){
-                    CustomerUpdate.updatePolicyHolder(entityManager, policyHolder, addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText());
+            submitButton.setOnAction(event -> {
+                String message = InputValidator.validatingUser(emailField.getText(), passwordField.getText(), phoneNumberField.getText(), addressField.getText(), passwordValidationField.getText());
+                if (message.equals("Success")){
+                    CustomerUpdate.updatePolicyHolder(entityManager, policyHolder, addressField.getText(), phoneNumberField.getText(), passwordField.getText(), passwordValidationField.getText());
                 }
                 else {
+                    errorContainer.setText(message);
+                }
+            });
+
+        }
+        else {
+            submitButton.setOnAction(event -> {
+                String message = InputValidator.validatingUser("Policy Holder", entityManager, fullNameField.getText(), emailField.getText(), passwordField.getText(), addressField.getText(), phoneNumberField.getText(), passwordValidationField.getText());
+                if (message.equals("Success")){
                     String id = RepeatedCode.idGenerate("PH");
                     String cardNumber = RepeatedCode.idGenerate("");
                     Date utilDate = new Date();
@@ -91,22 +90,18 @@ public class CreationPageController_PolicyHolder extends CreationPageController 
                         InsuranceCard insuranceCard = new InsuranceCard();
                         insuranceCard.setCardNumber(cardNumber);
                         insuranceCard.setExpirationDate(new java.sql.Date(expiryUtilDate.getTime()));
-                        CustomerCreateRemove.createPolicyHolder(entityManager, id, insuranceCard, fullName, addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText(), policyOwner);
+                        CustomerCreateRemove.createPolicyHolder(entityManager, id, insuranceCard, fullNameField.getText(), addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText(), policyOwner);
 
                     } catch (NumberFormatException exception){
                         errorContainer.setText("Length of contract must be in numerical format");
                     }
-
+                }
+                else {
+                    errorContainer.setText(message);
                 }
 
-            }
-            else{
-                errorContainer.setText(message);
-            }
-
-
-        });
-
+            });
+        }
 
 
     }

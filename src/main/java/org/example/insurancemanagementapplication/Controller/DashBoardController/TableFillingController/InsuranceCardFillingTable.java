@@ -28,19 +28,23 @@ import java.util.ListIterator;
 public class InsuranceCardFillingTable extends DependantTableFilling {
 
     @FXML
-    private TableView<InsuranceCard> insuranceCardTable;
+    protected TableView<InsuranceCard> insuranceCardTable;
     @FXML
-    private TableColumn<InsuranceCard, String> cardNumber;
+    protected TableColumn<InsuranceCard, String> cardNumber;
     @FXML
-    private TableColumn<InsuranceCard, Date> expiryDate;
+    protected TableColumn<InsuranceCard, Date> expiryDate;
     @FXML
-    private TableColumn<InsuranceCard, String> cardHolderId;
+    protected TableColumn<InsuranceCard, String> cardHolderId;
     @FXML
-    private TableColumn<InsuranceCard, String> policyOwnerInsuranceCardTable;
+    protected TableColumn<InsuranceCard, String> policyOwnerInsuranceCardTable;
     @FXML
-    private TableColumn<InsuranceCard, Button> insuranceCardRemoveButton;
+    protected TableColumn<InsuranceCard, Button> insuranceCardRemoveButton;
     @FXML
-    private TextField insuranceCardSearchField;
+    protected TextField insuranceCardSearchField;
+
+    public InsuranceCardFillingTable(EntityManager entityManager, User user) {
+        super(entityManager, user);
+    }
 
     public void filteringInsuranceCardTable(FilteredList<InsuranceCard> filteredInsuranceCardList){
         insuranceCardSearchField.textProperty().addListener((observable, oldValue, newValue) ->{
@@ -102,8 +106,7 @@ public class InsuranceCardFillingTable extends DependantTableFilling {
 
     }
 
-    public InsuranceCardFillingTable() {
-    }
+
 
 
 

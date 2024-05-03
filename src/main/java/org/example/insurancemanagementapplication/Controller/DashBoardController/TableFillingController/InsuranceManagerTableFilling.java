@@ -31,27 +31,27 @@ import java.util.ListIterator;
  */
 public class InsuranceManagerTableFilling extends InsuranceSurveyorTableFilling {
     @FXML
-    private TableView<InsuranceManager> managerTable;
+    protected TableView<InsuranceManager> managerTable;
     @FXML
-    private TableColumn<InsuranceManager, String> managerId;
+    protected TableColumn<InsuranceManager, String> managerId;
     @FXML
-    private TableColumn<InsuranceManager, String> managerFullName;
+    protected TableColumn<InsuranceManager, String> managerFullName;
     @FXML
-    private TableColumn<InsuranceManager, String> managerAddress;
+    protected TableColumn<InsuranceManager, String> managerAddress;
     @FXML
-    private TableColumn<InsuranceManager, String> managerPhoneNumber;
+    protected TableColumn<InsuranceManager, String> managerPhoneNumber;
     @FXML
-    private TableColumn<InsuranceManager, String> managerEmail;
+    protected TableColumn<InsuranceManager, String> managerEmail;
     @FXML
-    private TableColumn<InsuranceManager, String> managerPassword;
+    protected TableColumn<InsuranceManager, String> managerPassword;
     @FXML
-    private TableColumn<InsuranceManager, Button> managerUpdateInfoButton;
+    protected TableColumn<InsuranceManager, Button> managerUpdateInfoButton;
     @FXML
-    private TableColumn<InsuranceManager, Button> managerAddSurveyorButton;
+    protected TableColumn<InsuranceManager, Button> managerAddSurveyorButton;
     @FXML
-    private TableColumn<InsuranceManager, Button> managerRemoveButton;
+    protected TableColumn<InsuranceManager, Button> managerRemoveButton;
     @FXML
-    private TextField  insuranceManagerSearchField;
+    protected TextField  insuranceManagerSearchField;
 
     public void filteringInsuranceManagerTable(FilteredList<InsuranceManager> filteredManagerList){
         insuranceManagerSearchField.textProperty().addListener((observable, oldValue, newValue)->{
@@ -145,25 +145,8 @@ public class InsuranceManagerTableFilling extends InsuranceSurveyorTableFilling 
         managerRemoveButton.setCellValueFactory(new PropertyValueFactory<InsuranceManager, Button>("removeButton") );
         managerTable.getItems().setAll(filteredManagerList);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public InsuranceManagerTableFilling(){
-
+    public InsuranceManagerTableFilling(EntityManager entityManager, User user){
+        super(entityManager, user);
     }
 
 

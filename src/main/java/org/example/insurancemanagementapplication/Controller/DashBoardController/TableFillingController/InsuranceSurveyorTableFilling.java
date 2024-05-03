@@ -31,27 +31,31 @@ import java.util.ListIterator;
  */
 public class InsuranceSurveyorTableFilling extends PolicyOwnerTableFilling{
     @FXML
-    private TableView<InsuranceSurveyor> surveyorTable;
+    protected TableView<InsuranceSurveyor> surveyorTable;
     @FXML
-    private TableColumn<InsuranceSurveyor, String> surveyorId;
+    protected TableColumn<InsuranceSurveyor, String> surveyorId;
     @FXML
-    private TableColumn<InsuranceSurveyor, String> surveyorFullName;
+    protected TableColumn<InsuranceSurveyor, String> surveyorFullName;
     @FXML
-    private TableColumn<InsuranceSurveyor, String> surveyorAddress;
+    protected TableColumn<InsuranceSurveyor, String> surveyorAddress;
     @FXML
-    private TableColumn<InsuranceSurveyor, String> surveyorPhoneNumber;
+    protected TableColumn<InsuranceSurveyor, String> surveyorPhoneNumber;
     @FXML
-    private TableColumn<InsuranceSurveyor, String> surveyorEmail;
+    protected TableColumn<InsuranceSurveyor, String> surveyorEmail;
     @FXML
-    private TableColumn<InsuranceSurveyor, String> surveyorPassword;
+    protected TableColumn<InsuranceSurveyor, String> surveyorPassword;
     @FXML
-    private TableColumn<InsuranceSurveyor, String> manager;
+    protected TableColumn<InsuranceSurveyor, String> manager;
     @FXML
-    private  TableColumn<InsuranceSurveyor, Button> surveyorUpdateInfoButton;
+    protected  TableColumn<InsuranceSurveyor, Button> surveyorUpdateInfoButton;
     @FXML
-    private TableColumn<InsuranceSurveyor, Button> surveyorRemoveButton;
+    protected TableColumn<InsuranceSurveyor, Button> surveyorRemoveButton;
     @FXML
-    private TextField insuranceSurveyorSearchField;
+    protected TextField insuranceSurveyorSearchField;
+
+    public InsuranceSurveyorTableFilling(EntityManager entityManager, User user) {
+        super(entityManager, user);
+    }
 
     public void filteringSurveyorTable(FilteredList<InsuranceSurveyor> filteredSurveyorList){
         insuranceSurveyorSearchField.textProperty().addListener((observable, oldValue, newValue)->{
@@ -138,113 +142,4 @@ public class InsuranceSurveyorTableFilling extends PolicyOwnerTableFilling{
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public InsuranceSurveyorTableFilling(){
-
-    }
-
-    public TableView<InsuranceSurveyor> getSurveyorTable() {
-        return surveyorTable;
-    }
-
-    public void setSurveyorTable(TableView<InsuranceSurveyor> surveyorTable) {
-        this.surveyorTable = surveyorTable;
-    }
-
-    public TableColumn<InsuranceSurveyor, String> getSurveyorId() {
-        return surveyorId;
-    }
-
-    public void setSurveyorId(TableColumn<InsuranceSurveyor, String> surveyorId) {
-        this.surveyorId = surveyorId;
-    }
-
-    public TableColumn<InsuranceSurveyor, String> getSurveyorFullName() {
-        return surveyorFullName;
-    }
-
-    public void setSurveyorFullName(TableColumn<InsuranceSurveyor, String> surveyorFullName) {
-        this.surveyorFullName = surveyorFullName;
-    }
-
-    public TableColumn<InsuranceSurveyor, String> getSurveyorAddress() {
-        return surveyorAddress;
-    }
-
-    public void setSurveyorAddress(TableColumn<InsuranceSurveyor, String> surveyorAddress) {
-        this.surveyorAddress = surveyorAddress;
-    }
-
-    public TableColumn<InsuranceSurveyor, String> getSurveyorPhoneNumber() {
-        return surveyorPhoneNumber;
-    }
-
-    public void setSurveyorPhoneNumber(TableColumn<InsuranceSurveyor, String> surveyorPhoneNumber) {
-        this.surveyorPhoneNumber = surveyorPhoneNumber;
-    }
-
-    public TableColumn<InsuranceSurveyor, String> getSurveyorEmail() {
-        return surveyorEmail;
-    }
-
-    public void setSurveyorEmail(TableColumn<InsuranceSurveyor, String> surveyorEmail) {
-        this.surveyorEmail = surveyorEmail;
-    }
-
-    public TableColumn<InsuranceSurveyor, String> getSurveyorPassword() {
-        return surveyorPassword;
-    }
-
-    public void setSurveyorPassword(TableColumn<InsuranceSurveyor, String> surveyorPassword) {
-        this.surveyorPassword = surveyorPassword;
-    }
-
-    public TableColumn<InsuranceSurveyor, String> getManager() {
-        return manager;
-    }
-
-    public void setManager(TableColumn<InsuranceSurveyor, String> manager) {
-        this.manager = manager;
-    }
-
-    public TableColumn<InsuranceSurveyor, Button> getSurveyorUpdateInfoButton() {
-        return surveyorUpdateInfoButton;
-    }
-
-    public void setSurveyorUpdateInfoButton(TableColumn<InsuranceSurveyor, Button> surveyorUpdateInfoButton) {
-        this.surveyorUpdateInfoButton = surveyorUpdateInfoButton;
-    }
-
-    public TableColumn<InsuranceSurveyor, Button> getSurveyorRemoveButton() {
-        return surveyorRemoveButton;
-    }
-
-    public void setSurveyorRemoveButton(TableColumn<InsuranceSurveyor, Button> surveyorRemoveButton) {
-        this.surveyorRemoveButton = surveyorRemoveButton;
-    }
-
-    public TextField getInsuranceSurveyorSearchField() {
-        return insuranceSurveyorSearchField;
-    }
-
-    public void setInsuranceSurveyorSearchField(TextField insuranceSurveyorSearchField) {
-        this.insuranceSurveyorSearchField = insuranceSurveyorSearchField;
-    }
 }

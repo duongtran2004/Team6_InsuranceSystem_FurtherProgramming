@@ -32,27 +32,31 @@ import java.util.ListIterator;
  */
 public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
     @FXML
-    private TableView<PolicyOwner> policyOwnerTable;
+    protected TableView<PolicyOwner> policyOwnerTable;
     @FXML
-    private TableColumn<PolicyOwner, String> policyOwnerId;
+    protected TableColumn<PolicyOwner, String> policyOwnerId;
     @FXML
-    private TableColumn<PolicyOwner, String> policyOwnerFullName;
+    protected TableColumn<PolicyOwner, String> policyOwnerFullName;
     @FXML
-    private TableColumn<PolicyOwner, String> policyOwnerAddress;
+    protected TableColumn<PolicyOwner, String> policyOwnerAddress;
     @FXML
-    private TableColumn<PolicyOwner, String> policyOwnerPhoneNumber;
+    protected TableColumn<PolicyOwner, String> policyOwnerPhoneNumber;
     @FXML
-    private TableColumn<PolicyOwner, String> policyOwnerEmail;
+    protected TableColumn<PolicyOwner, String> policyOwnerEmail;
     @FXML
-    private TableColumn<PolicyOwner, String> policyOwnerPassword;
+    protected TableColumn<PolicyOwner, String> policyOwnerPassword;
     @FXML
-    private TableColumn<PolicyOwner, Button> policyOwnerUpdateInfoButton;
+    protected TableColumn<PolicyOwner, Button> policyOwnerUpdateInfoButton;
     @FXML
-    private TableColumn<PolicyOwner, Button> policyOwnerAddPolicyButton;
+    protected TableColumn<PolicyOwner, Button> policyOwnerAddPolicyButton;
     @FXML
-    private TableColumn<PolicyOwner, Button> policyOwnerRemoveButton;
+    protected TableColumn<PolicyOwner, Button> policyOwnerRemoveButton;
     @FXML
-    private TextField policyOwnerSearchField;
+    protected TextField policyOwnerSearchField;
+
+    public PolicyOwnerTableFilling(EntityManager entityManager, User user) {
+        super(entityManager, user);
+    }
 
     public void filteringPolicyOwnerTable(FilteredList<PolicyOwner> filteredPolicyOwnerList){
         policyOwnerSearchField.textProperty().addListener((observable, oldValue, newValue)->{
@@ -159,109 +163,4 @@ public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public PolicyOwnerTableFilling(){
-
-    }
-
-    public TableView<PolicyOwner> getPolicyOwnerTable() {
-        return policyOwnerTable;
-    }
-
-    public void setPolicyOwnerTable(TableView<PolicyOwner> policyOwnerTable) {
-        this.policyOwnerTable = policyOwnerTable;
-    }
-
-    public TableColumn<PolicyOwner, String> getPolicyOwnerId() {
-        return policyOwnerId;
-    }
-
-    public void setPolicyOwnerId(TableColumn<PolicyOwner, String> policyOwnerId) {
-        this.policyOwnerId = policyOwnerId;
-    }
-
-    public TableColumn<PolicyOwner, String> getPolicyOwnerFullName() {
-        return policyOwnerFullName;
-    }
-
-    public void setPolicyOwnerFullName(TableColumn<PolicyOwner, String> policyOwnerFullName) {
-        this.policyOwnerFullName = policyOwnerFullName;
-    }
-
-    public TableColumn<PolicyOwner, String> getPolicyOwnerAddress() {
-        return policyOwnerAddress;
-    }
-
-    public void setPolicyOwnerAddress(TableColumn<PolicyOwner, String> policyOwnerAddress) {
-        this.policyOwnerAddress = policyOwnerAddress;
-    }
-
-    public TableColumn<PolicyOwner, String> getPolicyOwnerPhoneNumber() {
-        return policyOwnerPhoneNumber;
-    }
-
-    public void setPolicyOwnerPhoneNumber(TableColumn<PolicyOwner, String> policyOwnerPhoneNumber) {
-        this.policyOwnerPhoneNumber = policyOwnerPhoneNumber;
-    }
-
-    public TableColumn<PolicyOwner, String> getPolicyOwnerEmail() {
-        return policyOwnerEmail;
-    }
-
-    public void setPolicyOwnerEmail(TableColumn<PolicyOwner, String> policyOwnerEmail) {
-        this.policyOwnerEmail = policyOwnerEmail;
-    }
-
-    public TableColumn<PolicyOwner, String> getPolicyOwnerPassword() {
-        return policyOwnerPassword;
-    }
-
-    public void setPolicyOwnerPassword(TableColumn<PolicyOwner, String> policyOwnerPassword) {
-        this.policyOwnerPassword = policyOwnerPassword;
-    }
-
-    public TableColumn<PolicyOwner, Button> getPolicyOwnerUpdateInfoButton() {
-        return policyOwnerUpdateInfoButton;
-    }
-
-    public void setPolicyOwnerUpdateInfoButton(TableColumn<PolicyOwner, Button> policyOwnerUpdateInfoButton) {
-        this.policyOwnerUpdateInfoButton = policyOwnerUpdateInfoButton;
-    }
-
-    public TableColumn<PolicyOwner, Button> getPolicyOwnerAddPolicyButton() {
-        return policyOwnerAddPolicyButton;
-    }
-
-    public void setPolicyOwnerAddPolicyButton(TableColumn<PolicyOwner, Button> policyOwnerAddPolicyButton) {
-        this.policyOwnerAddPolicyButton = policyOwnerAddPolicyButton;
-    }
-
-    public TableColumn<PolicyOwner, Button> getPolicyOwnerRemoveButton() {
-        return policyOwnerRemoveButton;
-    }
-
-    public void setPolicyOwnerRemoveButton(TableColumn<PolicyOwner, Button> policyOwnerRemoveButton) {
-        this.policyOwnerRemoveButton = policyOwnerRemoveButton;
-    }
-
-    public TextField getPolicyOwnerSearchField() {
-        return policyOwnerSearchField;
-    }
-
-    public void setPolicyOwnerSearchField(TextField policyOwnerSearchField) {
-        this.policyOwnerSearchField = policyOwnerSearchField;
-    }
 }

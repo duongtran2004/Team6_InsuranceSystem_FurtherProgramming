@@ -170,68 +170,96 @@ public class InputValidator {
     }
 
 
+    public static String validatingUser(String email, String password, String phoneNumber, String address, String passwordValidator){
+        if (!validateNonEmptyString(email)) {
+            return "Invalid email, cannot be empty";
+        }
+        else if (!validateEmailFormat(email)) {
+            return "Invalid email format";
+        }
+        else if (!validateNonEmptyString(password)) {
+            return "Invalid password, cannot be empty";
+        }
+        else if (validatePasswordFormat(password)) {
+            return "Invalid password format";
+        }
+        else if (!validateNonEmptyString(phoneNumber)) {
+            return "Invalid phone number, cannot be empty";
+        }
+        else if (validatePhoneFormat(phoneNumber)) {
+            return "Invalid address format";
+        }
+        else if (passwordValidator(passwordValidator, password)){
+            return "Passwords do not match.";
+        }
+        else {
+            return "Success";
+        }
+    }
+
 
     public static String validatingUser(String role, EntityManager entityManager, String fullName, String email, String password, String phoneNumber, String address, String passwordValidator) {
 //        boolean allInfoValid = true;
 //        boolean userExists = false;
 //        boolean inputValidation = false;
-        String message = "";
 
-        if (validateNonEmptyString(fullName) == false) {
-            return message = "Invalid full name, cannot be empty";
+
+        if (!validateNonEmptyString(fullName)) {
+            return "Invalid full name, cannot be empty";
         }
-        if (validateNonEmptyString(email) == false) {
-            return message = "Invalid email, cannot be empty";
+        if (!validateNonEmptyString(email)) {
+            return "Invalid email, cannot be empty";
         }
-        if (validateNonEmptyString(email) == false) {
-            return message = "Invalid email, cannot be empty";
+        if (!validateEmailFormat(email)) {
+            return "Invalid email format";
         }
-        if (validateNonEmptyString(password) == false) {
-            return message = "Invalid email, cannot be empty";
+        if (!validateNonEmptyString(password)) {
+            return "Invalid password, cannot be empty";
         }
-        if (validateNonEmptyString(password) == false) {
-            return message = "Invalid email, cannot be empty";
+        if (validatePasswordFormat(password)) {
+            return "Invalid password format";
         }
-        if (validateNonEmptyString(phoneNumber) == false) {
-            return message = "Invalid phone number, cannot be empty";
+        if (!validateNonEmptyString(phoneNumber)) {
+            return "Invalid phone number, cannot be empty";
         }
-        if (validateNonEmptyString(address) == false) {
-            return message = "Invalid address, cannot be empty";
+        if (validatePhoneFormat(phoneNumber)) {
+            return "Invalid address format";
         }
         if (passwordValidator(passwordValidator, password)){
-            return message = "Passwords do not match.";
+            return "Passwords do not match.";
         }
-        if (role == "Dependant") {
-            if (checkIfDependantAlreadyExist(entityManager, fullName, email, password, phoneNumber, address) == true) {
-                return message = "User already exist";
+
+        if (role.equals("Dependant")) {
+            if (checkIfDependantAlreadyExist(entityManager, fullName, email, password, phoneNumber, address)) {
+                return "User already exist";
             }
         }
-        if (role == "Insurance Manager") {
-            if (checkIfInsuranceManagerAlreadyExist(entityManager, fullName, email, password, phoneNumber, address) == true) {
-                return message = "User already exist";
+        if (role.equals("Insurance Manager")) {
+            if (checkIfInsuranceManagerAlreadyExist(entityManager, fullName, email, password, phoneNumber, address)) {
+                return "User already exist";
             }
         }
-        if (role == "Insurance Surveyor") {
-            if (checkIfInsuranceSurveyorAlreadyExist(entityManager, fullName, email, password, phoneNumber, address) == true) {
-                return message = "User already exist";
+        if (role.equals("Insurance Surveyor")) {
+            if (checkIfInsuranceSurveyorAlreadyExist(entityManager, fullName, email, password, phoneNumber, address)) {
+                return "User already exist";
             }
         }
-        if (role == "System Admin") {
-            if (checkIfSystemAdminAlreadyExist(entityManager, fullName, email, password, phoneNumber, address) == true) {
-                return message = "User already exist";
+        if (role.equals("System Admin")) {
+            if (checkIfSystemAdminAlreadyExist(entityManager, fullName, email, password, phoneNumber, address)) {
+                return "User already exist";
             }
         }
-        if (role == "Policy Holder") {
-            if (checkIfPolicyHolderAlreadyExist(entityManager, fullName, email, password, phoneNumber, address) == true) {
-                return message = "User already exist";
+        if (role.equals("Policy Holder")) {
+            if (checkIfPolicyHolderAlreadyExist(entityManager, fullName, email, password, phoneNumber, address)) {
+                return "User already exist";
             }
         }
-        if (role == "Policy Owner") {
-            if (checkIfPolicyOwnerAlreadyExist(entityManager, fullName, email, password, phoneNumber, address) == true) {
-                return message = "User already exist";
+        if (role.equals("Policy Owner")) {
+            if (checkIfPolicyOwnerAlreadyExist(entityManager, fullName, email, password, phoneNumber, address)) {
+                return "User already exist";
             }
         }
-        return message = "Success";
+        return "Success";
 
     }
 

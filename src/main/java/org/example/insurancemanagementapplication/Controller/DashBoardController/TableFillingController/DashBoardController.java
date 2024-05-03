@@ -22,50 +22,94 @@ import java.util.ListIterator;
  * @created 01/05/2024 15:21
  * @project InsuranceManagementTeamProject
  */
-public class ClaimTableFilling implements ClaimCreateRemove {
+public class DashBoardController implements ClaimCreateRemove {
+    protected final EntityManager entityManager;
+    protected final User user;
+
+    @FXML
+    protected TextField userIdField;
+    @FXML
+    protected TextField fullNameField;
+    @FXML
+    protected TextField addressField;
+    @FXML
+    protected TextField phoneNumberField;
+    @FXML
+    protected TextField emailField;
+    @FXML
+    protected TextField passwordField;
+    @FXML
+    protected TextField passwordValidationField;
+    @FXML
+    protected Label errorContainer;
+
 
     //The TableView element in the front end listing Claims
     @FXML
-    private TableView<Claim> claimTable;
+    protected TableView<Claim> claimTable;
     //The table column containing claims' ids
     @FXML
-    private  TableColumn<Claim, String> claimId;
+    protected  TableColumn<Claim, String> claimId;
     @FXML
-    private  TableColumn<Claim, Date> creationDate;
+    protected  TableColumn<Claim, Date> creationDate;
     @FXML
-    private  TableColumn<Claim, String> insuredPersonId;
+    protected  TableColumn<Claim, String> insuredPersonId;
     @FXML
-    private  TableColumn<Claim, String> cardNumberClaimTable;
+    protected  TableColumn<Claim, String> cardNumberClaimTable;
     @FXML
-    private  TableColumn<Claim, String> policyOwnerClaimTable;
+    protected  TableColumn<Claim, String> policyOwnerClaimTable;
     @FXML
-    private  TableColumn<Claim, Integer> claimAmount;
+    protected  TableColumn<Claim, Integer> claimAmount;
     @FXML
-    private  TableColumn<Claim, Date> settlementDate;
+    protected  TableColumn<Claim, Date> settlementDate;
     @FXML
-    private  TableColumn<Claim, String> status;
+    protected  TableColumn<Claim, String> status;
     @FXML
-    private  TableColumn<Claim, Button> claimButton;
+    protected  TableColumn<Claim, Button> claimButton;
     @FXML
-    private TableColumn<Claim, Button> removeClaimButton;
+    protected TableColumn<Claim, Button> removeClaimButton;
     @FXML
-    private  TextField claimListSearchField;
+    protected  TextField claimListSearchField;
     @FXML
-    private  ChoiceBox<String> sortList;
+    protected  ChoiceBox<String> sortList;
     @FXML
-    private  ChoiceBox<String> statusList;
+    protected  ChoiceBox<String> statusList;
     @FXML
-    private  DatePicker creationDateFrom;
+    protected  DatePicker creationDateFrom;
     @FXML
-    private  DatePicker creationDateTo;
+    protected  DatePicker creationDateTo;
     @FXML
-    private  DatePicker settlementDateFrom;
+    protected  DatePicker settlementDateFrom;
     @FXML
-    private  DatePicker settlementDateTo;
+    protected  DatePicker settlementDateTo;
     @FXML
-    private  TextField claimAmountFrom;
+    protected  TextField claimAmountFrom;
     @FXML
-    private  TextField claimAmountTo;
+    protected  TextField claimAmountTo;
+
+    public void userFillingData (){
+        userIdField.setText(user.getId());
+        userIdField.setDisable(true);
+        fullNameField.setText(user.getFullName());
+        fullNameField.setDisable(true);
+        addressField.setText(user.getAddress());
+        phoneNumberField.setText(user.getPhoneNumber());
+        emailField.setText(user.getEmail());
+        passwordField.setText(user.getPassword());
+        passwordValidationField.setText(user.getPassword());
+        if (!(user instanceof SystemAdmin)){
+            addressField.setDisable(true);
+            phoneNumberField.setDisable(true);
+            emailField.setDisable(true);
+            passwordField.setDisable(true);
+            passwordValidationField.setDisable(true);
+        }
+    }
+
+    public DashBoardController(EntityManager entityManager, User user) {
+        this.entityManager = entityManager;
+        this.user = user;
+    }
 
     public void sortingClaimTable(SortedList<Claim> sortedClaimList ){
         class ClaimCreationDateComparator implements Comparator<Claim> {
@@ -341,7 +385,9 @@ public class ClaimTableFilling implements ClaimCreateRemove {
 
 
 
-    public ClaimTableFilling() {
+    public DashBoardController(EntityManager entityManager, SystemAdmin user) {
+        this.entityManager = entityManager;
+        this.user = user;
     }
 
     public TableView<Claim> getClaimTable() {

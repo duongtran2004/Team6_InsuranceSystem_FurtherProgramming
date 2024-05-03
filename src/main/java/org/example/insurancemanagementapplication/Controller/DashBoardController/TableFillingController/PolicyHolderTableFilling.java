@@ -33,33 +33,37 @@ import java.util.ListIterator;
  */
 public class PolicyHolderTableFilling extends InsuranceCardFillingTable{
     @FXML
-    private TableView<PolicyHolder> policyHolderTable;
+    protected TableView<PolicyHolder> policyHolderTable;
     @FXML
-    private TableColumn<PolicyHolder, String> policyHolderId;
+    protected TableColumn<PolicyHolder, String> policyHolderId;
     @FXML
-    private TableColumn<PolicyHolder, String> policyHolderFullName;
+    protected TableColumn<PolicyHolder, String> policyHolderFullName;
     @FXML
-    private TableColumn<PolicyHolder, String> policyHolderAddress;
+    protected TableColumn<PolicyHolder, String> policyHolderAddress;
     @FXML
-    private TableColumn<PolicyHolder, String> policyHolderPhoneNumber;
+    protected TableColumn<PolicyHolder, String> policyHolderPhoneNumber;
     @FXML
-    private TableColumn<PolicyHolder, String> policyHolderEmail;
+    protected TableColumn<PolicyHolder, String> policyHolderEmail;
     @FXML
-    private TableColumn<PolicyHolder, String> policyHolderPassword;
+    protected TableColumn<PolicyHolder, String> policyHolderPassword;
     @FXML
-    private TableColumn<PolicyHolder, String> policyOwnerHolderTable;
+    protected TableColumn<PolicyHolder, String> policyOwnerHolderTable;
     @FXML
-    private TableColumn<PolicyHolder, String> cardNumberHolderTable;
+    protected TableColumn<PolicyHolder, String> cardNumberHolderTable;
     @FXML
-    private TableColumn<PolicyHolder, Button> policyHolderUpdateInfoButton;
+    protected TableColumn<PolicyHolder, Button> policyHolderUpdateInfoButton;
     @FXML
-    private TableColumn<PolicyHolder, Button> policyHolderAddDependantButton;
+    protected TableColumn<PolicyHolder, Button> policyHolderAddDependantButton;
     @FXML
-    private TableColumn<PolicyHolder, Button> policyHolderAddClaimButton;
+    protected TableColumn<PolicyHolder, Button> policyHolderAddClaimButton;
     @FXML
-    private TableColumn<PolicyHolder, Button> policyHolderRemoveButton;
+    protected TableColumn<PolicyHolder, Button> policyHolderRemoveButton;
     @FXML
-    private TextField policyHolderSearchField;
+    protected TextField policyHolderSearchField;
+
+    public PolicyHolderTableFilling(EntityManager entityManager, User user) {
+        super(entityManager, user);
+    }
 
     public void filteringPolicyHolderTable(FilteredList<PolicyHolder> filteredPolicyHolderList){
         policyHolderSearchField.textProperty().addListener((observable, oldValue, newValue)->{
@@ -191,12 +195,6 @@ public class PolicyHolderTableFilling extends InsuranceCardFillingTable{
 
 
 
-
-
-
-    public PolicyHolderTableFilling(){
-
-    }
 
     public TableView<PolicyHolder> getPolicyHolderTable() {
         return policyHolderTable;

@@ -58,32 +58,51 @@ public class CreationPageController_PolicyOwner extends CreationPageController i
             emailField.setText(policyOwner.getEmail());
             passwordField.setText(policyOwner.getPassword());
             passwordValidationField.setText(policyOwner.getPassword());
-
-            submitButton.setOnAction(e ->{
-                String fullName = fullNameField.getText();
-                String phoneNumber = phoneNumberField.getText();
-                String email = emailField.getText();
-                String address = addressField.getText();
-                String password = passwordField.getText();
-                String passwordValidation = passwordValidationField.getText();
-                String message = InputValidator.validatingUser("Policy Owner", entityManager, fullName, email, password, phoneNumber, address, passwordValidation);
+            submitButton.setOnAction(event -> {
+                String message = InputValidator.validatingUser(emailField.getText(), passwordField.getText(), phoneNumberField.getText(), addressField.getText(), passwordValidationField.getText());
                 if (message.equals("Success")){
-                    if (policyOwner != null){
-                        CustomerUpdate.updatePolicyOwner(entityManager, policyOwner, addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText());
-                    }
-                    else {
-                        String id = RepeatedCode.idGenerate("PO");
-                        CustomerCreateRemove.createPolicyOwner(entityManager, id, fullName, addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText());
-                    }
-
+                    CustomerUpdate.updatePolicyOwner(entityManager, policyOwner, addressField.getText(), phoneNumberField.getText(), passwordField.getText(), passwordValidationField.getText());
                 }
-                else{
+                else {
                     errorContainer.setText(message);
                 }
+            });
 
 
+        }
+        else {
+            submitButton.setOnAction(event -> {
+                String message = InputValidator.validatingUser("Policy Owner", entityManager, fullNameField.getText(), emailField.getText(), passwordField.getText(), phoneNumberField.getText(), addressField.getText(), passwordValidationField.getText());
+                if (message.equals("Success")){
+                    String id = RepeatedCode.idGenerate("PO");
+                    CustomerCreateRemove.createPolicyOwner(entityManager, id, fullNameField.getText(), addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText());
+                }
             });
         }
+        submitButton.setOnAction(e ->{
+            String fullName = fullNameField.getText();
+            String phoneNumber = phoneNumberField.getText();
+            String email = emailField.getText();
+            String address = addressField.getText();
+            String password = passwordField.getText();
+            String passwordValidation = passwordValidationField.getText();
+            String message = InputValidator.validatingUser("Policy Owner", entityManager, fullName, email, password, phoneNumber, address, passwordValidation);
+            if (message.equals("Success")){
+                if (policyOwner != null){
+                    CustomerUpdate.updatePolicyOwner(entityManager, policyOwner, addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText());
+                }
+                else {
+                    String id = RepeatedCode.idGenerate("PO");
+                    CustomerCreateRemove.createPolicyOwner(entityManager, id, fullName, addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText());
+                }
+
+            }
+            else{
+                errorContainer.setText(message);
+            }
+
+
+        });
 
 
 

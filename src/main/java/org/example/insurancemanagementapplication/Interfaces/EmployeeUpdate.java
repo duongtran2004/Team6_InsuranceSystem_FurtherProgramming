@@ -2,6 +2,7 @@ package org.example.insurancemanagementapplication.Interfaces;
 
 import Entity.InsuranceManager;
 import Entity.InsuranceSurveyor;
+import Entity.SystemAdmin;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
@@ -12,6 +13,25 @@ import jakarta.persistence.EntityTransaction;
  * @project InsuranceManagementTeamProject
  */
 public interface EmployeeUpdate {
+
+    static boolean updateSystemAdmin(EntityManager entityManager, SystemAdmin systemAdmin, String address, String phoneNumber, String email, String password){
+        EntityTransaction transaction = entityManager.getTransaction();
+        try{
+            transaction.begin();
+            entityManager.persist(systemAdmin);
+            systemAdmin.setAddress(address);
+            systemAdmin.setPhoneNumber(phoneNumber);
+            systemAdmin.setEmail(email);
+            transaction.commit();
+
+
+        }finally {
+            if (transaction.isActive()){
+                transaction.rollback();
+            }
+        }
+        return true;
+    }
     static boolean updateInsuranceManager(EntityManager entityManager, InsuranceManager insuranceManager, String address, String phoneNumber, String email, String password){
         EntityTransaction transaction = entityManager.getTransaction();
         try{

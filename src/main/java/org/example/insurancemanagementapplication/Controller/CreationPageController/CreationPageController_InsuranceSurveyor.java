@@ -89,21 +89,9 @@ public class CreationPageController_InsuranceSurveyor extends CreationPageContro
                     managerIdField.setDisable(true);
                 }
             });
-        }
-
-
-
-        submitButton.setOnAction(e ->{
-            String fullName = fullNameField.getText();
-            String address = addressField.getText();
-            String phoneNumber = phoneNumberField.getText();
-            String email = emailField.getText();
-            String password = passwordField.getText();
-            String passwordValidation = passwordValidationField.getText();
-
-            String message = InputValidator.validatingUser("Insurance Manager", entityManager, fullName, email, password, phoneNumber, address, passwordValidation);
-            if (message.equals("Success")){
-                if (insuranceSurveyor != null){
+            submitButton.setOnAction(event -> {
+                String message = InputValidator.validatingUser(emailField.getText(), passwordField.getText(), phoneNumberField.getText(), addressField.getText(), passwordValidationField.getText());
+                if (message.equals("Success")){
                     if (managerReassign){
                         InsuranceManager insuranceManager = EmployeeAnalytics.findInsuranceManagerById(entityManager, managerIdField.getText());
                         if (insuranceManager == null){
@@ -112,27 +100,24 @@ public class CreationPageController_InsuranceSurveyor extends CreationPageContro
                         else {
                             EmployeeUpdate.updateInsuranceSurveyor(entityManager, insuranceSurveyor, addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText(), insuranceManager);
                         }
-
                     }
-                    else {
-                        EmployeeUpdate.updateInsuranceSurveyor(entityManager, insuranceSurveyor, addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText());
-                    }
-
                 }
                 else {
-                    String id = RepeatedCode.idGenerate("IS");
-                    EmployeeCreateRemove.createInsuranceSurveyor(entityManager, id, fullName, addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText(), manager );
+                    errorContainer.setText(message);
                 }
-
-            }
-
-            else{
-                errorContainer.setText(message);
-            }
-
-        });
+            });
 
 
+        }
+        else {
+            submitButton.setOnAction(event -> {
+                String message = InputValidator.validatingUser("Insurance Manager", entityManager, fullNameField.getText(), emailField.getText(), passwordField.getText(), phoneNumberField.getText(), addressField.getText(), passwordValidationField.getText());
+                if (message.equals("Success")){
+                    String id = RepeatedCode.idGenerate("IS");
+                    EmployeeCreateRemove.createInsuranceSurveyor(entityManager, id, fullNameField.getText(), addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText(), manager );
+                }
+            });
+        }
 
     }
 }

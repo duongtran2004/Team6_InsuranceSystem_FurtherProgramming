@@ -7,10 +7,13 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageController_InsuranceManager;
+import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageController_PolicyOwner;
 import org.example.insurancemanagementapplication.Controller.DashBoardController.TableFillingController.InsuranceManagerTableFilling;
 import org.example.insurancemanagementapplication.Interfaces.*;
+import org.example.insurancemanagementapplication.Utility.InputValidator;
+import org.example.insurancemanagementapplication.Utility.RepeatedCode;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -22,8 +25,7 @@ import java.util.ResourceBundle;
  * @project InsuranceManagementTeamProject
  */
 public class DashBoardController_SystemAdmin extends InsuranceManagerTableFilling implements ClaimAnalytics, EmployeeCreateRemove, CustomerCreateRemove, Initializable, EmployeeAnalytics, Controller {
-    private final EntityManager entityManager;
-    private final SystemAdmin user;
+
 
     private ObservableList<InsuranceManager> insuranceManagersObservableList = FXCollections.observableArrayList();
     private ObservableList<InsuranceSurveyor> insuranceSurveyorsObservableList = FXCollections.observableArrayList();
@@ -36,68 +38,47 @@ public class DashBoardController_SystemAdmin extends InsuranceManagerTableFillin
 
 
     @FXML
-    private TextField userIdField;
+    private Button updateInfoButton;
     @FXML
-    private TextField fullNameField;
+    private Button addPolicyOwnerButton;
     @FXML
-    private TextField addressField;
-    @FXML
-    private TextField phoneNumberField;
-    @FXML
-    private TextField emailField;
-    @FXML
-    private TextField passwordField;
-    @FXML
-    private TextField passwordValidationField;
-    @FXML
-    private Button updateInfo;
-    @FXML
-    private Button addSurveyor;
-    @FXML
-    private Button addManager;
-    @FXML
-    private Label errorContainer;
+    private Button addManagerButton;
 
 
-
-    public void userFillingData (){
-        userIdField.setText(user.getId());
-        fullNameField.setText(user.getFullName());
-        addressField.setText(user.getAddress());
-        phoneNumberField.setText(user.getPhoneNumber());
-        emailField.setText(user.getEmail());
-        passwordField.setText(user.getPassword());
-        passwordValidationField.setText(user.getPassword());
+    public DashBoardController_SystemAdmin(EntityManager entityManager, User user) {
+        super(entityManager, user);
     }
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         userFillingData();
-        System.out.println("Hello World");
+        updateInfoButton.setOnAction(event -> {
+            String message = InputValidator.validatingUser(emailField.getText(), passwordField.getText(), phoneNumberField.getText(), addressField.getText(), passwordValidationField.getText());
+            if (message.equals("Success")){
+                EmployeeUpdate.updateSystemAdmin(entityManager, (SystemAdmin) user, addressField.getText(), phoneNumberField.getText(), addressField.getText(), passwordField.getText());
+            }
+            else {
+                errorContainer.setText(message);
+            }
+
+        });
+
+        addPolicyOwnerButton.setOnAction(event -> {
+            CreationPageController_PolicyOwner creationPageControllerPolicyOwner = new CreationPageController_PolicyOwner(entityManager, user);
+            RepeatedCode.showStage((Stage) addPolicyOwnerButton.getScene().getWindow(), creationPageControllerPolicyOwner, "PolicyOwnerCreationPage.fxml", "Policy Owner Creation Page");
+        });
+
+        addManagerButton.setOnAction(event -> {
+            CreationPageController_InsuranceManager creationPageControllerInsuranceManager = new CreationPageController_InsuranceManager(entityManager, user);
+            RepeatedCode.showStage((Stage) addManagerButton.getScene().getWindow(), creationPageControllerInsuranceManager, "InsuranceManagerCreationPage.fxml", "Insurance Manager Creation Page");
+        });
 
         fillingInsuranceManagerTable(entityManager, user, EmployeeAnalytics.getAllInsuranceManager(entityManager), insuranceManagersObservableList);
-
-        System.out.println("Hello Insurance Surveyor");
-
         fillingInsuranceSurveyorTable(entityManager, user, EmployeeAnalytics.getAllInsuranceSurveyor(entityManager), insuranceSurveyorsObservableList);
-
-        System.out.println("Hello Policy Owner");
-
         fillingPolicyOwnerTable(entityManager, user, CustomerAnalytics.getAllPolicyOwner(entityManager), policyOwnersObservableList);
-
         fillingPolicyHolderTable(entityManager, user, CustomerAnalytics.getAllPolicyHolder(entityManager), policyHoldersObservableList);
-
-        System.out.println("Dependant");
-
         fillingDependantTable(entityManager, user, CustomerAnalytics.getAllDependant(entityManager), dependantsObservableList);
-
-
-
-        System.out.println("Hello Card");
         fillingInsuranceCardTable(entityManager, user, CustomerAnalytics.getAllInsuranceCard(entityManager), insuranceCardsObservableList);
-
         fillingClaimTable(entityManager, user, ClaimAnalytics.getAllClaims(entityManager), claimObservableList);
 
 
@@ -107,10 +88,7 @@ public class DashBoardController_SystemAdmin extends InsuranceManagerTableFillin
 
     }
 
-    public DashBoardController_SystemAdmin(EntityManager entityManager, SystemAdmin systemAdmin) {
-        this.entityManager = entityManager;
-        this.user = systemAdmin;
-    }
+
 
     public EntityManager getEntityManager() {
         return entityManager;

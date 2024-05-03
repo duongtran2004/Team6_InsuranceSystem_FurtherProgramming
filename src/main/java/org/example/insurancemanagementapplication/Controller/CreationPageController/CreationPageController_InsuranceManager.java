@@ -68,31 +68,24 @@ public class CreationPageController_InsuranceManager extends CreationPageControl
             emailField.setText(insuranceManager.getEmail());
             passwordField.setText(insuranceManager.getPassword());
             passwordValidationField.setText(insuranceManager.getPassword());
-        }
-        submitButton.setOnAction(e ->{
-            String fullName = fullNameField.getText();
-            String phoneNumber = phoneNumberField.getText();
-            String email = emailField.getText();
-            String address = addressField.getText();
-            String password = passwordField.getText();
-            String passwordValidation = passwordValidationField.getText();
-            String message = InputValidator.validatingUser("Insurance Manager", entityManager, fullName, email, password, phoneNumber, address, passwordValidation);
-            if (message.equals("Success")){
-                if (insuranceManager != null){
-                    EmployeeUpdate.updateInsuranceManager(entityManager, insuranceManager, addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText());
+            submitButton.setOnAction(event -> {
+                String message = InputValidator.validatingUser(emailField.getText(), passwordField.getText(), phoneNumberField.getText(), addressField.getText(), passwordValidationField.getText());
+                if (message.equals("Success")){
+                    EmployeeUpdate.updateInsuranceManager(entityManager, insuranceManager, addressField.getText(), phoneNumberField.getText(), passwordField.getText(), passwordValidationField.getText());
                 }
                 else {
-                    String id = RepeatedCode.idGenerate("IM");
-                    EmployeeCreateRemove.createInsuranceManager(entityManager, id, fullName, addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText());
+                    errorContainer.setText(message);
                 }
-
-            }
-            else{
-                errorContainer.setText(message);
-            }
-
-
-        });
-
+            });
+        }
+        else {
+            submitButton.setOnAction(event -> {
+                String message = InputValidator.validatingUser("Insurance Manager", entityManager, fullNameField.getText(), emailField.getText(), passwordField.getText(), phoneNumberField.getText(), addressField.getText(), passwordValidationField.getText());
+                if (message.equals("Success")){
+                    String id = RepeatedCode.idGenerate("IM");
+                    EmployeeCreateRemove.createInsuranceManager(entityManager, id, fullNameField.getText(), addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText());
+                }
+            });
+        }
     }
 }
