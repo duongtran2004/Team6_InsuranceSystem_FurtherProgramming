@@ -7,8 +7,6 @@ import jakarta.persistence.EntityManager;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -18,9 +16,8 @@ import javafx.stage.Stage;
 import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageController_PolicyHolder;
 import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageController_PolicyOwner;
 import org.example.insurancemanagementapplication.Interfaces.CustomerCreateRemove;
-import org.example.insurancemanagementapplication.MainEntryPoint;
+import org.example.insurancemanagementapplication.Utility.RepeatedCode;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -99,36 +96,16 @@ public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
             if (user instanceof SystemAdmin){
                 buttonUpdateInfo.setOnAction(event -> {
                     CreationPageController_PolicyOwner creationPageControllerPolicyOwner = new CreationPageController_PolicyOwner(entityManager, user, policyOwner);
-                    FXMLLoader fxmlLoader = new FXMLLoader();
-                    fxmlLoader.setLocation(MainEntryPoint.class.getResource("PolicyOwnerCreationPage.fxml"));
-                    fxmlLoader.setController(creationPageControllerPolicyOwner);
-                    try {
-                        Scene scene = new Scene(fxmlLoader.load());
-                        Stage stage = (Stage) buttonUpdateInfo.getScene().getWindow();
-                        stage.setScene(scene);
-                        stage.show();
+                    RepeatedCode.showStage((Stage) buttonUpdateInfo.getScene().getWindow(), creationPageControllerPolicyOwner, "PolicyOwnerCreationPage.fxml", "Policy Owner Update");
 
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
                 });
 
                 policyOwner.setUpdateInfoButton(buttonUpdateInfo);
 
                 buttonAddPolicy.setOnAction(event -> {
                     CreationPageController_PolicyHolder creationPageControllerPolicyHolder = new CreationPageController_PolicyHolder(entityManager, user, policyOwner);
-                    FXMLLoader fxmlLoader = new FXMLLoader();
-                    fxmlLoader.setLocation(MainEntryPoint.class.getResource("PolicyHolderCreationPage.fxml"));
-                    fxmlLoader.setController(creationPageControllerPolicyHolder);
-                    try {
-                        Scene scene = new Scene(fxmlLoader.load());
-                        Stage stage = (Stage) buttonAddPolicy.getScene().getWindow();
-                        stage.setScene(scene);
-                        stage.show();
+                    RepeatedCode.showStage((Stage) buttonAddPolicy.getScene().getWindow(), creationPageControllerPolicyHolder, "PolicyHolderCreationPage.fxml", "Policy Creation");
 
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
                 });
 
                 policyOwner.setRemoveButton(buttonRemove);

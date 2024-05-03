@@ -6,8 +6,6 @@ import jakarta.persistence.EntityManager;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -17,9 +15,8 @@ import javafx.stage.Stage;
 import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageController_InsuranceManager;
 import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageController_InsuranceSurveyor;
 import org.example.insurancemanagementapplication.Interfaces.EmployeeCreateRemove;
-import org.example.insurancemanagementapplication.MainEntryPoint;
+import org.example.insurancemanagementapplication.Utility.RepeatedCode;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -89,40 +86,18 @@ public class InsuranceManagerTableFilling extends InsuranceSurveyorTableFilling 
             InsuranceManager insuranceManager = listIteratorInsuranceManager.next();
             Button buttonUpdateInfo = new Button("Update Info");
             insuranceManager.setUpdateInfoButton(buttonUpdateInfo);
-            buttonUpdateInfo.setUserData(insuranceManager);
             buttonUpdateInfo.setOnAction(event -> {
-                CreationPageController_InsuranceManager insuranceManagerCreationPageController = new CreationPageController_InsuranceManager(entityManager, user, (InsuranceManager) buttonUpdateInfo.getUserData());
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(MainEntryPoint.class.getResource("InsuranceManagerCreationPage.fxml"));
-                fxmlLoader.setController(insuranceManagerCreationPageController);
-                try {
-                    Scene scene = new Scene(fxmlLoader.load());
-                    Stage stage = (Stage) buttonUpdateInfo.getScene().getWindow();
-                    stage.setScene(scene);
-                    stage.show();
-
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                CreationPageController_InsuranceManager insuranceManagerCreationPageController = new CreationPageController_InsuranceManager(entityManager, user, insuranceManager);
+                RepeatedCode.showStage((Stage) buttonUpdateInfo.getScene().getWindow(), insuranceManagerCreationPageController, "InsuranceManagerCreationPage.fxml", "Insurance Manager Update");
             });
+
             Button buttonAddSurveyor = new Button("Add Surveyor");
             insuranceManager.setAddSurveyorButton(buttonAddSurveyor);
-            buttonAddSurveyor.setUserData(insuranceManager);
             buttonAddSurveyor.setOnAction(event ->{
-                CreationPageController_InsuranceSurveyor creationPageControllerInsuranceSurveyor = new CreationPageController_InsuranceSurveyor(entityManager, user, (InsuranceManager) buttonAddSurveyor.getUserData());
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(MainEntryPoint.class.getResource("InsuranceSurveyorCreationPage.fxml"));
-                fxmlLoader.setController(creationPageControllerInsuranceSurveyor);
-                try {
-                    Scene scene = new Scene(fxmlLoader.load());
-                    Stage stage = (Stage) buttonAddSurveyor.getScene().getWindow();
-                    stage.setScene(scene);
-                    stage.show();
-
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                CreationPageController_InsuranceSurveyor creationPageControllerInsuranceSurveyor = new CreationPageController_InsuranceSurveyor(entityManager, user, insuranceManager);
+                RepeatedCode.showStage((Stage) buttonAddSurveyor.getScene().getWindow(), creationPageControllerInsuranceSurveyor, "InsuranceSurveyorCreationPage.fxml", "Insurance Surveyor Creation");
             });
+
             Button buttonRemove = new Button("Remove");
             insuranceManager.setRemoveButton(buttonRemove);
             buttonRemove.setOnAction(event -> {

@@ -1,27 +1,22 @@
 package org.example.insurancemanagementapplication.Controller.DashBoardController.TableFillingController;
 
-import Entity.Customer;
-import Entity.PolicyHolder;
-import Entity.SystemAdmin;
-import Entity.User;
+import Entity.*;
 import jakarta.persistence.EntityManager;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageController_Claim;
 import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageController_Dependant;
 import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageController_PolicyHolder;
 import org.example.insurancemanagementapplication.Interfaces.CustomerCreateRemove;
-import org.example.insurancemanagementapplication.MainEntryPoint;
+import org.example.insurancemanagementapplication.Utility.RepeatedCode;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -113,34 +108,11 @@ public class PolicyHolderTableFilling extends InsuranceCardFillingTable{
             if (user instanceof SystemAdmin || user instanceof Customer){
                 buttonUpdateInfo.setOnAction(event -> {
                     CreationPageController_PolicyHolder creationPageControllerPolicyHolder = new CreationPageController_PolicyHolder(entityManager, user, policyHolder);
-                    FXMLLoader fxmlLoader = new FXMLLoader();
-                    fxmlLoader.setLocation(MainEntryPoint.class.getResource("PolicyHolderCreationPage.fxml"));
-                    fxmlLoader.setController(creationPageControllerPolicyHolder);
-                    try {
-                        Scene scene = new Scene(fxmlLoader.load());
-                        Stage stage = (Stage) buttonUpdateInfo.getScene().getWindow();
-                        stage.setScene(scene);
-                        stage.show();
-
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
+                    RepeatedCode.showStage((Stage) buttonUpdateInfo.getScene().getWindow(), creationPageControllerPolicyHolder, "PolicyHolderCreationPage.fxml", "Policy Holder Update");
                 });
                 buttonAddDependant.setOnAction(event -> {
                     CreationPageController_Dependant creationPageControllerDependant = new CreationPageController_Dependant(entityManager, user, policyHolder);
-                    FXMLLoader fxmlLoader = new FXMLLoader();
-                    fxmlLoader.setLocation(MainEntryPoint.class.getResource("DependantCreationPage.fxml"));
-                    fxmlLoader.setController(creationPageControllerDependant);
-                    try {
-                        Scene scene = new Scene(fxmlLoader.load());
-                        Stage stage = (Stage) buttonAddDependant.getScene().getWindow();
-                        stage.setScene(scene);
-                        stage.show();
-
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-
+                    RepeatedCode.showStage((Stage) buttonAddDependant.getScene().getWindow(), creationPageControllerDependant, "DependantCreationPage.fxml", "Dependant Creation" );
                 });
                 buttonRemove.setOnAction(event -> {
                     CustomerCreateRemove.removePolicyHolder(entityManager, policyHolder );
@@ -149,10 +121,12 @@ public class PolicyHolderTableFilling extends InsuranceCardFillingTable{
                 policyHolder.setAddDependantButton(buttonAddDependant);
                 policyHolder.setUpdateInfoButton(buttonUpdateInfo);
 
-                if (user instanceof Customer){
+                if (user instanceof PolicyOwner){
                     buttonAddClaim.setOnAction(event -> {
-                        policyHolder.setAddClaimButton(buttonAddClaim);
+                        CreationPageController_Claim creationPageControllerClaim = new CreationPageController_Claim(entityManager, user, policyHolder);
+                        RepeatedCode.showStage((Stage) buttonAddClaim.getScene().getWindow(), creationPageControllerClaim, "ClaimCreationPage.fxml", "Claim Creation");
                     });
+                    policyHolder.setAddClaimButton(buttonAddClaim);
                 }
             }
 
