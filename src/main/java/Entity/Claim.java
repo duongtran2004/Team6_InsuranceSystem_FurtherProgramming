@@ -61,8 +61,8 @@ public class Claim {
     @Column(name = "bank_account_number")
     private String bankAccountNumber;
 
-    @Column(name = "document_image")
-    private byte[] documentImage;
+    //@Column(name = "document_image")
+    //private byte[] documentImage;
 
     @Transient
     private javafx.scene.control.Button claimButton;

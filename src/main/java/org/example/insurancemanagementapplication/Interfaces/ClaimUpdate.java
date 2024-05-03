@@ -1,8 +1,11 @@
 package org.example.insurancemanagementapplication.Interfaces;
 
 import Entity.Claim;
+import Entity.InsuranceSurveyor;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+
+import java.sql.Date;
 
 /**
  * @author Luong Thanh Trung
@@ -12,8 +15,9 @@ import jakarta.persistence.EntityTransaction;
  */
 public interface ClaimUpdate {
 
-    //overloading 3 methods
+    //overloading 4 methods
     //update claim for PolicyHolder and PolicyOwner
+
     static boolean updateClaim(EntityManager entityManager, Claim claim, String bankName, String bankAccountName, String accountNumber) {
         EntityTransaction transaction = entityManager.getTransaction();
         try {
@@ -47,13 +51,42 @@ public interface ClaimUpdate {
     }
 
     //update claim for insurance manager
-    static boolean updateClaim(EntityManager entityManager, Claim claim, int claimAmount, String insuranceSurveyorId, String status) {
+    static boolean updateClaim(EntityManager entityManager, Claim claim, InsuranceSurveyor insuranceSurveyor){
+        EntityTransaction transaction = entityManager.getTransaction();
+        try {
+            transaction.begin();
+            entityManager.persist(claim);
+            claim.setInsuranceSurveyor(insuranceSurveyor);
+            transaction.commit();
+        } finally {
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+        }
+        return true;
+    }
+    static boolean updateClaim(EntityManager entityManager, Claim claim, int claimAmount, Date settlementDate, String status) {
         EntityTransaction transaction = entityManager.getTransaction();
         try {
             transaction.begin();
             entityManager.persist(claim);
             claim.setClaimAmount(claimAmount);
-            claim.setInsuranceSurveyorId(insuranceSurveyorId);
+            claim.setStatus(status);
+            transaction.commit();
+        } finally {
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+        }
+        return true;
+    }
+
+    static boolean updateClaim(EntityManager entityManager, Claim claim, Date settlementDate, String status) {
+        EntityTransaction transaction = entityManager.getTransaction();
+        try {
+            transaction.begin();
+            entityManager.persist(claim);
+            claim.setSettlementDate(settlementDate);
             claim.setStatus(status);
             transaction.commit();
         } finally {

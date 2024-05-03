@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.example.insurancemanagementapplication.Controller.DashBoardController.*;
+import org.example.insurancemanagementapplication.Interfaces.Controller;
 import org.example.insurancemanagementapplication.Interfaces.CustomerCreateRemove;
 import org.example.insurancemanagementapplication.Interfaces.CustomerUpdate;
 import org.example.insurancemanagementapplication.MainEntryPoint;
@@ -26,7 +27,7 @@ import java.util.ResourceBundle;
  * @created 29/04/2024 11:50
  * @project InsuranceManagementTeamProject
  */
-public class CreationPageController_PolicyHolder implements CustomerCreateRemove, CustomerUpdate, Initializable {
+public class CreationPageController_PolicyHolder implements CustomerCreateRemove, CustomerUpdate, Initializable, Controller {
     private EntityManager entityManager;
     private User user;
     private PolicyOwner policyOwner;

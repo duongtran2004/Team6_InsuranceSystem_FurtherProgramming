@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import org.example.insurancemanagementapplication.Interfaces.Controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -20,7 +21,7 @@ import java.util.ResourceBundle;
  * @created 27/04/2024 04:54
  * @project InsuranceManagementTeamProject
  */
-public class DashBoardController_PolicyHolder implements Initializable {
+public class DashBoardController_PolicyHolder implements Initializable, Controller {
     private final EntityManager entityManager;
     private PolicyHolder user;
     private Dependant dependant;

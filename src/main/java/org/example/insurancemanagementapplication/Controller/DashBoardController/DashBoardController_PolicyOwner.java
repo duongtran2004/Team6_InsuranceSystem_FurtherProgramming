@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import org.example.insurancemanagementapplication.Interfaces.Controller;
 import org.example.insurancemanagementapplication.Interfaces.CustomerCreateRemove;
 
 import java.net.URL;
@@ -20,7 +21,7 @@ import java.util.ResourceBundle;
  * @created 27/04/2024 04:54
  * @project InsuranceManagementTeamProject
  */
-public class DashBoardController_PolicyOwner implements CustomerCreateRemove, Initializable {
+public class DashBoardController_PolicyOwner implements CustomerCreateRemove, Initializable, Controller {
     private  EntityManager entityManager;
     private  PolicyOwner user;
     private Beneficiaries beneficiary;

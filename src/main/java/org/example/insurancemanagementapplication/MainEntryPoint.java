@@ -20,9 +20,6 @@ public class MainEntryPoint extends Application {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         SystemAdmin systemAdmin = entityManager.find(SystemAdmin.class, "SA90987611");
         DashBoardController_SystemAdmin dashBoardControllerSystemAdmin = new DashBoardController_SystemAdmin(entityManager, systemAdmin);
-
-
-
         fxmlLoader.setController(dashBoardControllerSystemAdmin);
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Hello!");

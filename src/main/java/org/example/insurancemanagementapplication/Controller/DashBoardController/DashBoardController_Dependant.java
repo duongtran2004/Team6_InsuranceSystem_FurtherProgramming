@@ -6,6 +6,7 @@ import jakarta.persistence.EntityManager;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
+import org.example.insurancemanagementapplication.Interfaces.Controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -16,7 +17,7 @@ import java.util.ResourceBundle;
  * @created 27/04/2024 04:53
  * @project InsuranceManagementTeamProject
  */
-public class DashBoardController_Dependant implements Initializable {
+public class DashBoardController_Dependant  implements Initializable, Controller {
     private final EntityManager entityManager;
     private final Dependant user;
     private Claim claim;

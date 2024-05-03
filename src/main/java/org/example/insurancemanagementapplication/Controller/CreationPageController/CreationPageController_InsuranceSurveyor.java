@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.example.insurancemanagementapplication.Controller.DashBoardController.*;
+import org.example.insurancemanagementapplication.Interfaces.Controller;
 import org.example.insurancemanagementapplication.Interfaces.EmployeeCreateRemove;
 import org.example.insurancemanagementapplication.Interfaces.EmployeeUpdate;
 import org.example.insurancemanagementapplication.MainEntryPoint;
@@ -26,7 +27,7 @@ import java.util.ResourceBundle;
  * @created 29/04/2024 11:48
  * @project InsuranceManagementTeamProject
  */
-public class CreationPageController_InsuranceSurveyor implements Initializable, EmployeeCreateRemove, EmployeeUpdate {
+public class CreationPageController_InsuranceSurveyor implements Initializable, EmployeeCreateRemove, EmployeeUpdate, Controller {
     private EntityManager entityManager;
     private User user;
     private InsuranceSurveyor insuranceSurveyor;

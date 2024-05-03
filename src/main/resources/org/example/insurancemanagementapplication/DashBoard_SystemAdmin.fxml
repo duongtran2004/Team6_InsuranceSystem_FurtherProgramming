@@ -390,7 +390,7 @@
                     <children>
                         <ScrollPane fitToWidth="true" maxHeight="325" maxWidth="Infinity" prefHeight="200.0" prefWidth="200.0" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
                             <content>
-                                <TableView fx:id="insuraceCardTable" maxHeight="Infinity" maxWidth="Infinity" minHeight="325.0" minWidth="1150.0" prefHeight="325.0" prefWidth="1600.0">
+                                <TableView fx:id="insuranceCardTable" maxHeight="Infinity" maxWidth="Infinity" minHeight="325.0" minWidth="1150.0" prefHeight="325.0" prefWidth="1600.0">
                                     <columns>
                                         <TableColumn fx:id="cardNumber" maxWidth="Infinity" minWidth="287.5" prefWidth="150.0" text="Card Number" />
                                         <TableColumn fx:id="cardHolderId" maxWidth="Infinity" minWidth="287.5" prefWidth="170.0" text="Card Holder ID" />
