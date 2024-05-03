@@ -5,7 +5,6 @@ import Entity.PolicyHolder;
 import Entity.PolicyOwner;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
-import javafx.scene.control.Label;
 
 /**
  * @author Luong Thanh Trung
@@ -14,15 +13,10 @@ import javafx.scene.control.Label;
  * @project InsuranceManagementTeamProject
  */
 public interface CustomerUpdate {
-    static boolean updatePolicyOwner(EntityManager entityManager, PolicyOwner policyOwner, Label errorContainer, String address, String phoneNumber, String email, String password, String passwordValidator){
+    static boolean updatePolicyOwner(EntityManager entityManager, PolicyOwner policyOwner, String address, String phoneNumber, String email, String password){
         EntityTransaction transaction = entityManager.getTransaction();
         try{
             transaction.begin();
-            if (!password.equals(passwordValidator)){
-                errorContainer.setText("Passwords Do Not Match. Please Try Again");
-                transaction.rollback();
-                return false;
-            }
             entityManager.persist(policyOwner);
             policyOwner.setAddress(address);
             policyOwner.setPhoneNumber(phoneNumber);
@@ -38,15 +32,10 @@ public interface CustomerUpdate {
         return true;
     }
 
-    static boolean updatePolicyHolder(EntityManager entityManager, PolicyHolder policyHolder, Label errorContainer, String address, String phoneNumber, String email, String password, String passwordValidator){
+    static boolean updatePolicyHolder(EntityManager entityManager, PolicyHolder policyHolder, String address, String phoneNumber, String email, String password){
         EntityTransaction transaction = entityManager.getTransaction();
         try{
             transaction.begin();
-            if (!password.equals(passwordValidator)){
-                errorContainer.setText("Passwords Do Not Match. Please Try Again");
-                transaction.rollback();
-                return false;
-            }
             entityManager.persist(policyHolder);
             policyHolder.setAddress(address);
             policyHolder.setPhoneNumber(phoneNumber);
@@ -62,15 +51,10 @@ public interface CustomerUpdate {
         return true;
     }
 
-    static boolean updateDependant(EntityManager entityManager, Dependant dependant, Label errorContainer, String address, String phoneNumber, String email, String password, String passwordValidator){
+    static boolean updateDependant(EntityManager entityManager, Dependant dependant, String address, String phoneNumber, String email, String password){
         EntityTransaction transaction = entityManager.getTransaction();
         try{
             transaction.begin();
-            if (!password.equals(passwordValidator)){
-                errorContainer.setText("Passwords Do Not Match. Please Try Again");
-                transaction.rollback();
-                return false;
-            }
             entityManager.persist(dependant);
             dependant.setAddress(address);
             dependant.setPhoneNumber(phoneNumber);

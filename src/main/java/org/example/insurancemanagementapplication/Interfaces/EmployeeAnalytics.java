@@ -31,6 +31,11 @@ public interface EmployeeAnalytics {
         return insuranceSurveyor;
     }
 
+    public static InsuranceManager findInsuranceManagerById(EntityManager entityManager, String id){
+        InsuranceManager insuranceManager = entityManager.find(InsuranceManager.class, id);
+        return insuranceManager;
+    }
+
     public static SystemAdmin getSystemAdminWithCredential(EntityManager entityManager, String id, String email, String password){
         SystemAdmin employee = (SystemAdmin) entityManager.createQuery("SELECT c FROM SystemAdmin c WHERE c.id LIKE ?1 AND c.password LIKE ?2 AND c.email LIKE ?3").setParameter(1, id).setParameter(2, password).setParameter(3, email).getSingleResult();
         return employee;

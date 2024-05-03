@@ -15,7 +15,7 @@ import java.util.Random;
  * @created 03/05/2024 05:25
  * @project InsuranceManagementTeamProject
  */
-public class repeatedCode {
+public class RepeatedCode {
     public static String idGenerate(String prefix){
         Random random = new Random();
         String id = prefix;

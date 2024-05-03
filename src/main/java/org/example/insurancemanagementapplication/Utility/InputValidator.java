@@ -9,12 +9,17 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class InputValidator {
-
-
     public static boolean validatePasswordFormat(String password) {
         // Password format: 1 uppercase, 1 special character, more than 8 characters
         String pattern = "^(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
         return password.matches(pattern);
+    }
+
+    public static boolean passwordValidator(String password, String passwordValidator){
+        if (passwordValidator.equals(password)){
+            return true;
+        }
+        return false;
     }
 
     public static boolean validateEmailFormat(String email) {
@@ -166,7 +171,7 @@ public class InputValidator {
 
 
 
-    public static String validatingUser(String role, EntityManager entityManager, String fullName, String email, String password, String phoneNumber, String address) {
+    public static String validatingUser(String role, EntityManager entityManager, String fullName, String email, String password, String phoneNumber, String address, String passwordValidator) {
 //        boolean allInfoValid = true;
 //        boolean userExists = false;
 //        boolean inputValidation = false;
@@ -193,32 +198,35 @@ public class InputValidator {
         if (validateNonEmptyString(address) == false) {
             return message = "Invalid address, cannot be empty";
         }
+        if (passwordValidator(passwordValidator, password)){
+            return message = "Passwords do not match.";
+        }
         if (role == "Dependant") {
             if (checkIfDependantAlreadyExist(entityManager, fullName, email, password, phoneNumber, address) == true) {
                 return message = "User already exist";
             }
         }
-        if (role == "InsuranceManager") {
+        if (role == "Insurance Manager") {
             if (checkIfInsuranceManagerAlreadyExist(entityManager, fullName, email, password, phoneNumber, address) == true) {
                 return message = "User already exist";
             }
         }
-        if (role == "InsuranceSurveyor") {
+        if (role == "Insurance Surveyor") {
             if (checkIfInsuranceSurveyorAlreadyExist(entityManager, fullName, email, password, phoneNumber, address) == true) {
                 return message = "User already exist";
             }
         }
-        if (role == "SystemAdmin") {
+        if (role == "System Admin") {
             if (checkIfSystemAdminAlreadyExist(entityManager, fullName, email, password, phoneNumber, address) == true) {
                 return message = "User already exist";
             }
         }
-        if (role == "PolicyHolder") {
+        if (role == "Policy Holder") {
             if (checkIfPolicyHolderAlreadyExist(entityManager, fullName, email, password, phoneNumber, address) == true) {
                 return message = "User already exist";
             }
         }
-        if (role == "PolicyOwner") {
+        if (role == "Policy Owner") {
             if (checkIfPolicyOwnerAlreadyExist(entityManager, fullName, email, password, phoneNumber, address) == true) {
                 return message = "User already exist";
             }

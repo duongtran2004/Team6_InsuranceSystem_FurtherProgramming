@@ -12,15 +12,14 @@ import org.example.insurancemanagementapplication.Interfaces.ClaimCreateRemove;
 import org.example.insurancemanagementapplication.Interfaces.ClaimUpdate;
 import org.example.insurancemanagementapplication.Interfaces.Controller;
 import org.example.insurancemanagementapplication.Interfaces.EmployeeAnalytics;
-import org.example.insurancemanagementapplication.Utility.repeatedCode;
+import org.example.insurancemanagementapplication.Utility.RepeatedCode;
 import org.example.insurancemanagementapplication.Utility.InputValidator;
 
 import java.net.URL;
 import java.util.*;
 
-public class CreationPageController_Claim implements Initializable, Controller {
-    private EntityManager entityManager;
-    private User user;
+public class CreationPageController_Claim extends CreationPageController implements Initializable, Controller {
+
     private Beneficiaries beneficiary;
     private Claim claim;
 
@@ -58,13 +57,11 @@ public class CreationPageController_Claim implements Initializable, Controller {
     Button viewDocumentButton;
 
 
-    // Initialize Supabase client and storage
 
-
-    ;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        setActionReturnButton();
         //1st case: Update Claim
         if (claim != null) {//=> If claim exist
             //Before user click on Submit Button to Update Claim
@@ -257,7 +254,7 @@ public class CreationPageController_Claim implements Initializable, Controller {
                 InsuranceManager randomManager = insuranceManagers.get(randomIndex);
                 Date today = new Date();
                 java.sql.Date sqlToday = new java.sql.Date(today.getTime());
-                String claimId = repeatedCode.idGenerate("C");
+                String claimId = RepeatedCode.idGenerate("C");
                 ClaimCreateRemove.createClaim(entityManager, claimId, sqlToday, beneficiary, beneficiary.getPolicyOwner(), beneficiary.getInsuranceCard(), randomManager, bankName, bankAccountName, bankAccountNumber);
 
             }
@@ -271,14 +268,12 @@ public class CreationPageController_Claim implements Initializable, Controller {
 
 
     public CreationPageController_Claim(EntityManager entityManager, User user, Beneficiaries beneficiary) {
-        this.entityManager = entityManager;
-        this.user = user;
+        super(entityManager, user);
         this.beneficiary = beneficiary;
     }
 
     public CreationPageController_Claim(EntityManager entityManager, User user, Claim claim) {
-        this.entityManager = entityManager;
-        this.user = user;
+        super(entityManager, user);
         this.claim = claim;
     }
 
