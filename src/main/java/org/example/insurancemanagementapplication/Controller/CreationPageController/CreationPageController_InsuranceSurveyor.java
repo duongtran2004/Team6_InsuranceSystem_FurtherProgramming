@@ -7,7 +7,6 @@ import jakarta.persistence.EntityManager;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import org.example.insurancemanagementapplication.Interfaces.Controller;
 import org.example.insurancemanagementapplication.Interfaces.EmployeeAnalytics;
@@ -26,31 +25,16 @@ import java.util.ResourceBundle;
  * @project InsuranceManagementTeamProject
  */
 public class CreationPageController_InsuranceSurveyor extends CreationPageController implements Initializable, EmployeeCreateRemove, EmployeeUpdate, Controller {
-    private EntityManager entityManager;
-    private User user;
     private InsuranceSurveyor insuranceSurveyor;
     private InsuranceManager manager;
+    //This field will determine whether the application will update the Insurance Manager of the surveyor. True means Yes, False means No.
     private boolean managerReassign = false;
 
+    //This field is disabled in creation mode. In update mode, it can be disabled or enabled by the managerReassign button
     @FXML
     private TextField managerIdField;
-    @FXML
-    private TextField fullNameField;
-    @FXML
-    private TextField addressField;
-    @FXML
-    private TextField phoneNumberField;
-    @FXML
-    private TextField emailField;
-    @FXML
-    private TextField passwordField;
-    @FXML
-    private TextField passwordValidationField;
-    @FXML
-    private Label errorContainer;
-    @FXML
-    private Button submitButton;
 
+    //In update mode this button is used to enable or disable the managerId field
     @FXML
     private Button managerReassignButton;
 
@@ -67,19 +51,17 @@ public class CreationPageController_InsuranceSurveyor extends CreationPageContro
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setActionReturnButton();
+
         managerIdField.setDisable(true);
+
         managerReassignButton.setDisable(true);
+
         if (insuranceSurveyor != null){
             managerReassignButton.setDisable(false);
             managerIdField.setText(insuranceSurveyor.getInsuranceManagerId());
-            fullNameField.setDisable(true);
-            fullNameField.setText(insuranceSurveyor.getFullName());
-            addressField.setText(insuranceSurveyor.getAddress());
-            phoneNumberField.setText(insuranceSurveyor.getPhoneNumber());
-            emailField.setText(insuranceSurveyor.getEmail());
-            passwordField.setText(insuranceSurveyor.getPassword());
-            passwordValidationField.setText(insuranceSurveyor.getPassword());
+            autoFillingForm();
 
+            //Setting handler for the managerReassignButton.
             managerReassignButton.setOnAction(e ->{
                 managerReassign = !managerReassign;
                 if (managerReassign){
@@ -101,6 +83,9 @@ public class CreationPageController_InsuranceSurveyor extends CreationPageContro
                         else {
                             EmployeeUpdate.updateInsuranceSurveyor(entityManager, insuranceSurveyor, addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText(), insuranceManager);
                         }
+                    }
+                    else {
+                        EmployeeUpdate.updateInsuranceSurveyor(entityManager, insuranceSurveyor, addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText());
                     }
                 }
                 else {

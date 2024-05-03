@@ -7,8 +7,6 @@ import Entity.User;
 import jakarta.persistence.EntityManager;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import org.example.insurancemanagementapplication.Interfaces.Controller;
 import org.example.insurancemanagementapplication.Interfaces.CustomerCreateRemove;
@@ -27,53 +25,18 @@ import java.util.ResourceBundle;
  * @project InsuranceManagementTeamProject
  */
 public class CreationPageController_PolicyHolder extends CreationPageController implements CustomerCreateRemove, CustomerUpdate, Initializable, Controller {
-    private EntityManager entityManager;
-    private User user;
-    private PolicyOwner policyOwner;
-    private PolicyHolder policyHolder;
 
+    private PolicyOwner policyOwner;
     @FXML
     private TextField lengthOfContractField;
-    @FXML
-    private TextField fullNameField;
-    @FXML
-    private TextField addressField;
-    @FXML
-    private TextField phoneNumberField;
-    @FXML
-    private TextField emailField;
-    @FXML
-    private TextField passwordField;
-    @FXML
-    private TextField passwordValidationField;
-    @FXML
-    private Label errorContainer;
-    @FXML
-    private Button submitButton;
-
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setActionReturnButton();
-        if (policyHolder != null){
-            fullNameField.setText(policyHolder.getFullName());
-            fullNameField.setDisable(true);
+        if (selectedUser != null){
             lengthOfContractField.setDisable(true);
-            addressField.setText(policyHolder.getAddress());
-            phoneNumberField.setText(policyHolder.getPhoneNumber());
-            emailField.setText(policyHolder.getEmail());
-            passwordField.setText(policyHolder.getPassword());
-            passwordValidationField.setText(policyHolder.getPassword());
-            submitButton.setOnAction(event -> {
-                String message = InputValidator.validatingUser(emailField.getText(), passwordField.getText(), phoneNumberField.getText(), addressField.getText(), passwordValidationField.getText());
-                if (message.equals("Success")){
-                    CustomerUpdate.updatePolicyHolder(entityManager, policyHolder, addressField.getText(), phoneNumberField.getText(), passwordField.getText(), passwordValidationField.getText());
-                }
-                else {
-                    errorContainer.setText(message);
-                }
-            });
+            autoFillingForm();
+            setHandlerForSubmitButtonInUserUpdateMode();
 
         }
         else {
@@ -112,7 +75,6 @@ public class CreationPageController_PolicyHolder extends CreationPageController 
     }
 
     public CreationPageController_PolicyHolder(EntityManager entityManager, User user, PolicyHolder policyHolder) {
-        super(entityManager, user);
-        this.policyHolder = policyHolder;
+        super(entityManager, user, policyHolder);
     }
 }

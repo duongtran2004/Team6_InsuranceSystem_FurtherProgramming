@@ -4,8 +4,13 @@ import Entity.*;
 import jakarta.persistence.EntityManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.example.insurancemanagementapplication.Controller.DashBoardController.*;
+import org.example.insurancemanagementapplication.Interfaces.CustomerUpdate;
+import org.example.insurancemanagementapplication.Interfaces.EmployeeUpdate;
+import org.example.insurancemanagementapplication.Utility.InputValidator;
 import org.example.insurancemanagementapplication.Utility.RepeatedCode;
 
 /**
@@ -15,10 +20,37 @@ import org.example.insurancemanagementapplication.Utility.RepeatedCode;
  * @project InsuranceManagementTeamProject
  */
 public abstract class CreationPageController {
-    User user;
-    EntityManager entityManager;
+    protected User user;
+
+    protected EntityManager entityManager;
+    protected User selectedUser;
     @FXML
-    public Button returnButton;
+    protected TextField fullNameField;
+    @FXML
+    protected TextField addressField;
+    @FXML
+    protected TextField phoneNumberField;
+    @FXML
+    protected TextField emailField;
+    @FXML
+    protected TextField passwordField;
+    @FXML
+    protected TextField passwordValidationField;
+    @FXML
+    protected Label errorContainer;
+    @FXML Button submitButton;
+    @FXML
+    protected Button returnButton;
+
+    public void autoFillingForm(){
+
+    }
+
+    public CreationPageController(EntityManager entityManager, User user, User selectedUser) {
+        this.user = user;
+        this.entityManager = entityManager;
+        this.selectedUser = selectedUser;
+    }
 
     public CreationPageController(EntityManager entityManager, User user) {
         this.user = user;
@@ -26,7 +58,37 @@ public abstract class CreationPageController {
     }
 
     public void fillingFormAuto(){
+        fullNameField.setDisable(true);
+        fullNameField.setText(selectedUser.getFullName());
+        addressField.setText(selectedUser.getAddress());
+        phoneNumberField.setText(selectedUser.getPhoneNumber());
+        emailField.setText(selectedUser.getEmail());
+        passwordField.setText(selectedUser.getPassword());
+        passwordValidationField.setText(selectedUser.getPassword());
+    }
 
+    public void setHandlerForSubmitButtonInUserUpdateMode(){
+        submitButton.setOnAction(event -> {
+            String message = InputValidator.validatingUser(emailField.getText(), passwordField.getText(), phoneNumberField.getText(), addressField.getText(), passwordValidationField.getText());
+            if (message.equals("Success")){
+                if (selectedUser instanceof Dependant){
+                    CustomerUpdate.updateDependant(entityManager, (Dependant) selectedUser, addressField.getText(), phoneNumberField.getText(), passwordField.getText(), passwordValidationField.getText());
+                }
+                else if (selectedUser instanceof PolicyHolder){
+                    CustomerUpdate.updatePolicyHolder(entityManager, (PolicyHolder) selectedUser, addressField.getText(), phoneNumberField.getText(), passwordField.getText(), passwordValidationField.getText());
+                }
+                else if (selectedUser instanceof PolicyOwner){
+                    CustomerUpdate.updatePolicyOwner(entityManager, (PolicyOwner) selectedUser, addressField.getText(), phoneNumberField.getText(), passwordField.getText(), passwordValidationField.getText());
+                }
+                else if (selectedUser instanceof InsuranceManager){
+                    EmployeeUpdate.updateInsuranceManager(entityManager, (InsuranceManager) selectedUser, addressField.getText(), phoneNumberField.getText(), passwordField.getText(), passwordValidationField.getText());
+                }
+
+            }
+            else {
+                errorContainer.setText(message);
+            }
+        });
     }
 
     public void setActionReturnButton(){
