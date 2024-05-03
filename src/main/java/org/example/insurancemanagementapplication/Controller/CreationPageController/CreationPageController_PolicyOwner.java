@@ -44,8 +44,7 @@ public class CreationPageController_PolicyOwner extends CreationPageController i
     private Label errorContainer;
     @FXML
     private Button submitButton;
-    @FXML
-    private Button returnButton;
+
 
 
     @Override

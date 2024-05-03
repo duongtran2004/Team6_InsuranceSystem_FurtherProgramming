@@ -54,7 +54,8 @@ public class CreationPageController_Claim extends CreationPageController impleme
     @FXML
     private Button updloadDocumentButton;
     @FXML
-    Button viewDocumentButton;
+    private Button viewDocumentButton;
+
 
 
 

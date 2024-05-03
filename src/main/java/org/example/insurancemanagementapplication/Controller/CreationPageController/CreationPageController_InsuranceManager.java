@@ -46,8 +46,7 @@ public class CreationPageController_InsuranceManager extends CreationPageControl
     private Label errorContainer;
     @FXML
     private Button submitButton;
-    @FXML
-    private Button returnButton;
+
 
     public CreationPageController_InsuranceManager(EntityManager entityManager, User user) {
         super(entityManager, user);

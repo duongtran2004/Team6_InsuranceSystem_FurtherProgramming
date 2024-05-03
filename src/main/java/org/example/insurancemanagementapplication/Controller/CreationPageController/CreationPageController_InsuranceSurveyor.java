@@ -50,8 +50,7 @@ public class CreationPageController_InsuranceSurveyor extends CreationPageContro
     private Label errorContainer;
     @FXML
     private Button submitButton;
-    @FXML
-    private Button returnButton;
+
     @FXML
     private Button managerReassignButton;
 
