@@ -7,7 +7,6 @@ import Entity.User;
 import jakarta.persistence.EntityManager;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -32,33 +31,26 @@ import java.util.ListIterator;
  * @project InsuranceManagementTeamProject
  */
 public class PolicyHolderTableFilling extends InsuranceCardFillingTable{
-    @FXML
     private TableView<PolicyHolder> policyHolderTable;
-    @FXML
     private TableColumn<PolicyHolder, String> policyHolderId;
-    @FXML
     private TableColumn<PolicyHolder, String> policyHolderFullName;
-    @FXML
     private TableColumn<PolicyHolder, String> policyHolderAddress;
-    @FXML
     private TableColumn<PolicyHolder, String> policyHolderPhoneNumber;
-    @FXML
     private TableColumn<PolicyHolder, String> policyHolderEmail;
-    @FXML
     private TableColumn<PolicyHolder, String> policyHolderPassword;
-    @FXML
+
     private TableColumn<PolicyHolder, String> policyOwnerHolderTable;
-    @FXML
+
     private TableColumn<PolicyHolder, String> cardNumberHolderTable;
-    @FXML
+
     private TableColumn<PolicyHolder, Button> policyHolderUpdateInfoButton;
-    @FXML
+
     private TableColumn<PolicyHolder, Button> policyHolderAddDependantButton;
-    @FXML
+
     private TableColumn<PolicyHolder, Button> policyHolderAddClaimButton;
-    @FXML
+
     private TableColumn<PolicyHolder, Button> policyHolderRemoveButton;
-    @FXML
+
     private TextField policyHolderSearchField;
 
     public void filteringPolicyHolderTable(FilteredList<PolicyHolder> filteredPolicyHolderList){

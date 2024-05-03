@@ -7,7 +7,6 @@ import Entity.User;
 import jakarta.persistence.EntityManager;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -26,19 +25,13 @@ import java.util.ListIterator;
  * @project InsuranceManagementTeamProject
  */
 public class InsuranceCardFillingTable extends DependantTableFilling {
-    @FXML
+
     private TableView<InsuranceCard> insuranceCardTable;
-    @FXML
     private TableColumn<InsuranceCard, String> cardNumber;
-    @FXML
     private TableColumn<InsuranceCard, Date> expiryDate;
-    @FXML
     private TableColumn<InsuranceCard, String> cardHolderId;
-    @FXML
     private TableColumn<InsuranceCard, String> policyOwnerInsuranceCardTable;
-    @FXML
     private TableColumn<InsuranceCard, Button> insuranceCardRemoveButton;
-    @FXML
     private TextField insuranceCardSearchField;
 
     public void filteringInsuranceCardTable(FilteredList<InsuranceCard> filteredInsuranceCardList){
