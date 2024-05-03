@@ -55,8 +55,8 @@ public class CreationPageController_Dependant implements CustomerCreateRemove, C
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         if (dependant != null) {
-            fullNameField.setText(dependant.getFullName());
             fullNameField.setDisable(true);
+            fullNameField.setText(dependant.getFullName());
             addressField.setText(dependant.getAddress());
             phoneNumberField.setText(dependant.getPhoneNumber());
             emailField.setText(dependant.getEmail());
@@ -64,13 +64,12 @@ public class CreationPageController_Dependant implements CustomerCreateRemove, C
             passwordValidationField.setText(dependant.getPassword());
 
             submitButton.setOnAction(event -> {
-// Validate input fields before creating or updating a Dependant entity
                 String fullName = fullNameField.getText();
-                //String address = addressField.getText();
                 String phoneNumber = phoneNumberField.getText();
                 String email = emailField.getText();
                 String password = passwordField.getText();
                 String passwordValidation = passwordValidationField.getText();
+
 
                 // Perform input validation using InputValidator methods
                 if (!InputValidator.validateNonEmptyString(fullName)) { //pass for all textField

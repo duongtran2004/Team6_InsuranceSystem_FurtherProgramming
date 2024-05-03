@@ -16,10 +16,7 @@ import org.example.insurancemanagementapplication.Utility.repeatedCode;
 import org.example.insurancemanagementapplication.Utility.InputValidator;
 
 import java.net.URL;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class CreationPageController_Claim implements Initializable, Controller {
     private EntityManager entityManager;
@@ -80,96 +77,95 @@ public class CreationPageController_Claim implements Initializable, Controller {
             // UPDATE CASE 1: INSURANCE SURVEYOR
             //if user is Insurance Surveyor: can only view document and change status
             if (user instanceof InsuranceSurveyor) {
-                //disable necessary fields
-                bankAccountNameField.setDisable(true);
-                bankAccountNumberField.setDisable(true);
-                bankNameField.setDisable(true);
-                claimAmountField.setDisable(true);
-                cardNumberField.setDisable(true);
-                //set disable for insurance manager and insurance surveyor field
-                insuranceSurveyorIdField.setDisable(true);
-                insuranceManagerIdField.setDisable(true);
-
-                //set Array String for status choice box
-                String[] Status = {"NEED INF", "PROCESSING"};
-                statusChoiceBox.getItems().addAll(Status);
-
-                //After user click on  Submit Button to Update Claim
-                submitButton.setOnAction(event -> {
-                    ClaimUpdate.updateClaim(entityManager, claim, statusChoiceBox.getValue());
-                });
+                updateModeInsuranceSurveyor();
             }
             // UPDATE CASE 2: INSURANCE MANAGER
             // if user is InsuranceManager: can only change claimAmount and Status (to either "Rejected or Approved")
             if (user instanceof InsuranceManager) {
-                bankAccountNameField.setDisable(true);
-                bankAccountNumberField.setDisable(true);
-                bankNameField.setDisable(true);
-                insuranceManagerIdField.setDisable(true);
-                cardNumberField.setDisable(true);
-                claimAmountField.setDisable(true);
-                //set Array String for status choice box
+                updateModeInsuranceManager();
+            }
+
+            // UPDATE CASE 3: POLICY HOLDER OR POLICY OWNER
+            if (user instanceof PolicyOwner || user instanceof PolicyHolder) {
+                updateModeCustomer();
+            }
+
+
+            }
+        //2nd case: Create claim => If claim does NOT exist
+
+        if (claim == null) {
+            creteMode();
+        }
+    }
+
+    //This method is called when the user is an insurance surveyor and the claim attribute of the object is not null
+    public void updateModeInsuranceSurveyor(){
+        //disable necessary fields
+        bankAccountNameField.setDisable(true);
+        bankAccountNumberField.setDisable(true);
+        bankNameField.setDisable(true);
+        claimAmountField.setDisable(true);
+        cardNumberField.setDisable(true);
+        //set disable for insurance manager and insurance surveyor field
+        insuranceSurveyorIdField.setDisable(true);
+        insuranceManagerIdField.setDisable(true);
+
+        //set Array String for status choice box
+        String[] Status = {"NEED INF", "PROCESSING"};
+        statusChoiceBox.getItems().addAll(Status);
+
+        //After user click on  Submit Button to Update Claim
+        submitButton.setOnAction(event -> {
+            ClaimUpdate.updateClaim(entityManager, claim, statusChoiceBox.getValue());
+        });
+    }
+    //This method is called when the user is an insurance manager and the claim attribute of the object is not null
+    public void updateModeInsuranceManager(){
+        bankAccountNameField.setDisable(true);
+        bankAccountNumberField.setDisable(true);
+        bankNameField.setDisable(true);
+        insuranceManagerIdField.setDisable(true);
+        cardNumberField.setDisable(true);
+        claimAmountField.setDisable(true);
+        //set Array String for status choice box
 
 
 
-                // If user is a manager and the selected claim has "NEW" status, the only option in the choice box will be "NEW", and the insurance surveyor field will not be disabled
-                if (claim.getStatus().equals("NEW")){
-                    String[] status = {"NEW"};
-                    statusChoiceBox.getItems().addAll(status);
-                    String insuranceSurveyorID = insuranceSurveyorIdField.getText();
-                    submitButton.setOnAction(event -> {
-                        ClaimUpdate.updateClaim(entityManager, claim, EmployeeAnalytics.findInsuranceSurveyorById(entityManager, insuranceSurveyorID));
-                    });
-                    EmployeeAnalytics.findInsuranceSurveyorById(entityManager, insuranceSurveyorID);
-                }
-
-                //If user is a manager and the selected claim has one of the statuses, the insurance surveyor field will be disabled
-                else {
-                    insuranceSurveyorIdField.setDisable(true);
-                    //If the selected claim has "NEED INFO" status, the manager cannot select any other option. The submit button will also be disabled in this case
-                    if (claim.getStatus().equals("NEED INFO")){
-                        String[] status = {"NEED INFO"};
-                        statusChoiceBox.getItems().addAll(status);
-                        submitButton.setDisable(true);
+        // If user is a manager and the selected claim has "NEW" status, the only option in the choice box will be "NEW", and the insurance surveyor field will not be disabled
+        if (claim.getStatus().equals("NEW")){
+            String[] status = {"NEW"};
+            statusChoiceBox.getItems().addAll(status);
+            String insuranceSurveyorID = insuranceSurveyorIdField.getText();
+            //Define handler for the submit button in case the claim's status is "NEW". The manager could only update the claim's Insurance Surveyor in this case
+            submitButton.setOnAction(event -> {
+                ArrayList<InsuranceSurveyor> insuranceSurveyors = (ArrayList<InsuranceSurveyor>) ((InsuranceManager) user).getListOfSurveyors();
+                for (int i = 0; i < insuranceSurveyors.size(); i++){
+                    if (insuranceSurveyors.get(i).getId().equals(insuranceSurveyorID)){
+                        ClaimUpdate.updateClaim(entityManager, claim, insuranceSurveyors.get(i).getId());
+                        break;
                     }
-                    //If the selected claim has "PROCESSING" status, the manager can select either "APPROVED" or "REJECTED"
-                    else if (claim.getStatus().equals("PROCESSING")){
-                        String[] status = {"APPROVED", "REJECTED"};
-                        statusChoiceBox.getItems().addAll(status);
-
-                    }
-                    //The choice box will be disabled in other cases
                     else {
-                        statusChoiceBox.setDisable(true);
-                        submitButton.setDisable(true);
+                        errorContainer.setText("Insurance Surveyor either does not exist or not belong to you");
                     }
-
-                    //Defining handler for the submit button in case the user selects either "APPROVED" or "REJECTED".
-                    submitButton.setOnAction(event -> {
-                        String status = (String) statusChoiceBox.getValue(); //get Status from choiceBox
-                        //get claimAmount from TextField
-                        String stringClaimAmount = claimAmountField.getText();
-                        int claimAmount = Integer.parseInt(stringClaimAmount);
-                        //input validator for claim amount
-                        errorContainer.setText(InputValidator.ClaimUpdateValidator(entityManager, claimAmount, (InsuranceManager) user, insuranceSurveyorIdField.getText()));
-                        //if errorContainer announce success, process to update Claim
-                        Date date = new Date();
-                        java.sql.Date settlementDate = new java.sql.Date(date.getTime());
-                        if (errorContainer.getText().equals("Success")) {
-                            if (statusChoiceBox.getValue().equals("APPROVED")){
-                                //Selecting "APPROVED" will update claim's amount, claim's settlement date, and claim's status
-                                ClaimUpdate.updateClaim(entityManager, claim, claimAmount, settlementDate, statusChoiceBox.getValue());
-                            }
-                            else {
-                                //Selecting "REJECTED" will update claim's settlement date, and claim's status
-                                ClaimUpdate.updateClaim(entityManager, claim, settlementDate, statusChoiceBox.getValue());
-                            }
-
-
-                        }
-                    });
                 }
 
+            });
+        }
+
+        //If user is a manager and the selected claim has one of the statuses, the insurance surveyor field will be disabled
+        else {
+            insuranceSurveyorIdField.setDisable(true);
+            //If the selected claim has "NEED INFO" status, the manager cannot select any other option. The submit button will also be disabled in this case
+            if (claim.getStatus().equals("NEED INFO")){
+                String[] status = {"NEED INFO"};
+                statusChoiceBox.getItems().addAll(status);
+                submitButton.setDisable(true);
+            }
+            //If the selected claim has "PROCESSING" status, the manager can select either "APPROVED" or "REJECTED"
+            else if (claim.getStatus().equals("PROCESSING")){
+                String[] status = {"APPROVED", "REJECTED"};
+                statusChoiceBox.getItems().addAll(status);
                 //Monitoring for changes in the choice box's value. If the new value is "APPROVED", manager will have access to the claimAmountField
                 statusChoiceBox.valueProperty().addListener((observable, oldVal, newVal)->{
                     if (newVal.equals("APPROVED")){
@@ -180,69 +176,96 @@ public class CreationPageController_Claim implements Initializable, Controller {
                     }
                 });
 
-
-
-
-                //After user click on  Submit Button to Update Claim
-
             }
-            // UPDATE CASE 3: POLICY HOLDER OR POLICY OWNER
-            if (user instanceof PolicyOwner || user instanceof PolicyHolder) {
-                //disable necessary fields
+            //The choice box will be disabled in other cases
+            else {
                 statusChoiceBox.setDisable(true);
-                claimAmountField.setDisable(true);
-                insuranceManagerIdField.setDisable(true);
-                insuranceSurveyorIdField.setDisable(true);
-                cardNumberField.setDisable(true);
-                //not allowed to update insured person id
-                //After use clicked on submit button
-                submitButton.setOnAction(event -> {
-//read text fields => store to variables
-                    String bankAccountName = bankAccountNameField.getText();
-                    String bankAccountNumber = bankAccountNumberField.getText();
-                    String bankName = bankNameField.getText();
-                    // input validator for Claim's Field
-                    errorContainer.setText(InputValidator.ClaimUpdateValidator(entityManager, bankName, bankAccountName, bankAccountNumber));
-                    if (errorContainer.getText().equals("Success")) {
-                        ClaimUpdate.updateClaim(entityManager, claim, bankName, bankAccountName, bankAccountNumber);
-                    }
-                });
+                submitButton.setDisable(true);
             }
-        }
 
-        //2nd case: Create claim => If claim does NOT exist
-
-        if (claim == null) {
-            //no need to set the condition if user is instance of policyHolder or policyOwner (Front-end logic handled that)
-            //disable necessary fields
-            statusChoiceBox.setDisable(true);
-            claimAmountField.setDisable(true);
-            insuranceManagerIdField.setDisable(true);
-            insuranceSurveyorIdField.setDisable(true);
-            cardNumberField.setDisable(true);
+            //Defining handler for the submit button in case the user selects either "APPROVED" or "REJECTED".
             submitButton.setOnAction(event -> {
-                //read text fields => store to variables
-                String bankAccountName = bankAccountNameField.getText();
-                String bankAccountNumber = bankAccountNumberField.getText();
-                String bankName = bankNameField.getText();
-                // input validator for Claim's Field
-                errorContainer.setText(InputValidator.ClaimUpdateValidator(entityManager, bankName, bankAccountName, bankAccountNumber));
-                if (errorContainer.getText().equals("Success")) {
-                    List<InsuranceManager> insuranceManagers = EmployeeAnalytics.getAllInsuranceManager(entityManager);
-                    Random random = new Random();
-                    int randomIndex = random.nextInt(0, insuranceManagers.size());
-                    InsuranceManager randomManager = insuranceManagers.get(randomIndex);
-                    Date today = new Date();
-                    java.sql.Date sqlToday = new java.sql.Date(today.getTime());
-                    String claimId = repeatedCode.idGenerate("C");
-                    ClaimCreateRemove.createClaim(entityManager, claimId, sqlToday, beneficiary, beneficiary.getPolicyOwner(), beneficiary.getInsuranceCard(), randomManager, bankName, bankAccountName, bankAccountNumber);
+                String status = statusChoiceBox.getValue(); //get Status from choiceBox
+                Date date = new Date();
+                java.sql.Date settlementDate = new java.sql.Date(date.getTime());
+                //get claimAmount from TextField
+                if (status.equals("APPROVED")){
+                    String stringClaimAmount = claimAmountField.getText();
+                    int claimAmount = Integer.parseInt(stringClaimAmount);
+                    String message = InputValidator.ClaimUpdateValidator(entityManager, claimAmount, (InsuranceManager) user);
+                    if (message.equals("Success")){
+                        //If the message is "Success", update the claim in the database
+                        //Selecting "APPROVED" will update claim's amount, claim's settlement date, and claim's status
+                        ClaimUpdate.updateClaim(entityManager, claim, claimAmount, settlementDate, statusChoiceBox.getValue());
+                    }
+                    else {
+                        errorContainer.setText(message);
+                    }
+                    //input validator for claim amount
 
                 }
-
+                else {
+                    //Selecting "REJECTED" will update claim's settlement date, and claim's status
+                    ClaimUpdate.updateClaim(entityManager, claim, settlementDate, statusChoiceBox.getValue());
+                }
 
             });
         }
     }
+    //This method is called when the user is either an owner or a holder, and the claim attribute of the object is not null
+    public void updateModeCustomer(){
+        //disable necessary fields
+        statusChoiceBox.setDisable(true);
+        claimAmountField.setDisable(true);
+        insuranceManagerIdField.setDisable(true);
+        insuranceSurveyorIdField.setDisable(true);
+        cardNumberField.setDisable(true);
+        //not allowed to update insured person id
+        //After use clicked on submit button
+        submitButton.setOnAction(event -> {
+//read text fields => store to variables
+            String bankAccountName = bankAccountNameField.getText();
+            String bankAccountNumber = bankAccountNumberField.getText();
+            String bankName = bankNameField.getText();
+            // input validator for Claim's Field
+            errorContainer.setText(InputValidator.ClaimUpdateValidator(entityManager, bankName, bankAccountName, bankAccountNumber));
+            if (errorContainer.getText().equals("Success")) {
+                ClaimUpdate.updateClaim(entityManager, claim, bankName, bankAccountName, bankAccountNumber);
+            }
+        });
+    }
+    //This method is called when the claim attribute of the object is null
+    public void creteMode(){
+        //no need to set the condition if user is instance of policyHolder or policyOwner (Front-end logic handled that)
+        //disable necessary fields
+        statusChoiceBox.setDisable(true);
+        claimAmountField.setDisable(true);
+        insuranceManagerIdField.setDisable(true);
+        insuranceSurveyorIdField.setDisable(true);
+        cardNumberField.setDisable(true);
+        submitButton.setOnAction(event -> {
+            //read text fields => store to variables
+            String bankAccountName = bankAccountNameField.getText();
+            String bankAccountNumber = bankAccountNumberField.getText();
+            String bankName = bankNameField.getText();
+            // input validator for Claim's Field
+            errorContainer.setText(InputValidator.ClaimUpdateValidator(entityManager, bankName, bankAccountName, bankAccountNumber));
+            if (errorContainer.getText().equals("Success")) {
+                List<InsuranceManager> insuranceManagers = EmployeeAnalytics.getAllInsuranceManager(entityManager);
+                Random random = new Random();
+                int randomIndex = random.nextInt(0, insuranceManagers.size());
+                InsuranceManager randomManager = insuranceManagers.get(randomIndex);
+                Date today = new Date();
+                java.sql.Date sqlToday = new java.sql.Date(today.getTime());
+                String claimId = repeatedCode.idGenerate("C");
+                ClaimCreateRemove.createClaim(entityManager, claimId, sqlToday, beneficiary, beneficiary.getPolicyOwner(), beneficiary.getInsuranceCard(), randomManager, bankName, bankAccountName, bankAccountNumber);
+
+            }
+
+
+        });
+    }
+
 
 
 
@@ -258,6 +281,8 @@ public class CreationPageController_Claim implements Initializable, Controller {
         this.user = user;
         this.claim = claim;
     }
+
+
 
     //        public static void initializeUpdateCases () {
 //

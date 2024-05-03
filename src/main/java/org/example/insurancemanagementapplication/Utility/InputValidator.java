@@ -1,12 +1,10 @@
 package org.example.insurancemanagementapplication.Utility;
 
 import Entity.InsuranceManager;
-import Entity.InsuranceSurveyor;
 import jakarta.persistence.EntityManager;
 import org.example.insurancemanagementapplication.Interfaces.CustomerAnalytics;
 import org.example.insurancemanagementapplication.Interfaces.EmployeeAnalytics;
 
-import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -108,6 +106,8 @@ public class InputValidator {
         return false;
     }
 
+
+
     public static boolean checkIfSystemAdminAlreadyExist(EntityManager entityManager, String fullName, String email, String password, String phoneNumber, String address) {
         if ((EmployeeAnalytics.getSystemAdminByCredential(entityManager, fullName, email, password, phoneNumber, address)) != null) {
             return true;
@@ -116,13 +116,13 @@ public class InputValidator {
     }
     public static boolean validateBankingInfo(EntityManager entityManager, String bankName, String bankAccountName, String bankAccountNumber) {
         String message = "";
-        if (validateNonEmptyString(bankName) == false) {
+        if (!validateNonEmptyString(bankName)) {
             return false;
         }
-        if (validateNonEmptyString(bankAccountName) == false) {
+        if (!validateNonEmptyString(bankAccountName)) {
             return false;
         }
-        if (validateNonEmptyString(bankAccountNumber) == false) {
+        if (!validateNonEmptyString(bankAccountNumber)) {
             return false;
         } else {
             return true;
@@ -131,7 +131,7 @@ public class InputValidator {
 
     public static String ClaimCreateValidator(EntityManager entityManager, String bankName, String accountName, String accountNumber) {
         String message = "";
-        if (validateBankingInfo(entityManager, bankName, accountName, accountNumber) == false) {
+        if (!validateBankingInfo(entityManager, bankName, accountName, accountNumber)) {
             return message = "Invalid Banking Information, no fields should be empty";
         } return  message = "Success";
 
@@ -141,27 +141,23 @@ public class InputValidator {
 
 
     //ClaimUpdateValidator for Insurance Manager
-    public static String ClaimUpdateValidator(EntityManager entityManager, int claimAmount, InsuranceManager insuranceManager, String insuranceSurveyorId) {
+    public static String ClaimUpdateValidator(EntityManager entityManager, int claimAmount, InsuranceManager insuranceManager) {
         String message = "";
-        if (validateClaimAmount(claimAmount) == false) {
+        if (!validateClaimAmount(claimAmount)) {
             return message = "Invalid Claim Amount, must be a positive integer";
         }
-        if (validateNonEmptyString(String.valueOf(claimAmount)) == false) {
+        if (!validateNonEmptyString(String.valueOf(claimAmount))) {
             return message = "Invalid Claim Amount, must not be empty";
         }
-
-        if (checkIfAnInsuranceSurveyorBelongsToAnInsuranceManager(entityManager, insuranceManager, insuranceSurveyorId) == true) {
-
-        } else {
+        else {
             return message = "Success";
         }
-        return message;
     }
 
     //ClaimUpdateValidator for PolicyHolder and PolicyOwner
     public static String ClaimUpdateValidator(EntityManager entityManager, String bankName, String accountName, String accountNumber) {
         String message = "";
-       if (validateBankingInfo( entityManager,bankName, accountName, accountNumber) == false){
+       if (!validateBankingInfo(entityManager, bankName, accountName, accountNumber)){
            return message = "Invalid Banking Information, no fields should be empty";
         } else {
             return message = "Success";
@@ -230,20 +226,5 @@ public class InputValidator {
         return message = "Success";
 
     }
-    public static boolean checkIfAnInsuranceSurveyorBelongsToAnInsuranceManager(EntityManager entityManager, InsuranceManager insuranceManager, String targetInsuranceSurveyorId) {
-        boolean insuranceSurveyorExist = false;
-        String insuranceSurveyorId = "";
-        ArrayList<InsuranceSurveyor> surveyors = (ArrayList<InsuranceSurveyor>) insuranceManager.getListOfSurveyors();
 
-        // Loop through the list of surveyors
-        for (InsuranceSurveyor surveyor : surveyors) {
-            insuranceSurveyorId = surveyor.getId();
-
-            if (insuranceSurveyorId.equals(targetInsuranceSurveyorId)) {
-                insuranceSurveyorExist = true;
-                break; // Exit the loop since we found the surveyor ID
-            }
-        }
-        return insuranceSurveyorExist;
-    }
 }
