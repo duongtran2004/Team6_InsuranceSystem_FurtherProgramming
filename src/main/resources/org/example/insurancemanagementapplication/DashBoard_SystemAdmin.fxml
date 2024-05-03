@@ -175,7 +175,7 @@
                               <Font name="Helvetica Neue Bold" size="16.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="insuranceManagerSearchField" onMouseDragOver="#R" prefHeight="25.0" prefWidth="1474.0" HBox.hgrow="ALWAYS" />
+                        <TextField fx:id="insuranceManagerSearchField"  prefHeight="25.0" prefWidth="1474.0" HBox.hgrow="ALWAYS" />
                      </children>
                   </HBox>
                   <Label alignment="BOTTOM_CENTER" maxWidth="Infinity" prefHeight="31.0" prefWidth="1536.0" text="Insurance Managers List" GridPane.hgrow="ALWAYS">

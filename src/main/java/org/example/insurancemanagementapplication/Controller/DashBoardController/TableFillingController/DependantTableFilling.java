@@ -7,6 +7,7 @@ import Entity.User;
 import jakarta.persistence.EntityManager;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -31,19 +32,33 @@ import java.util.ListIterator;
  */
 public class DependantTableFilling extends ClaimTableFilling {
 
+    @FXML
     private TableView<Dependant> dependantTable;
+    @FXML
     private TableColumn<Dependant, String> dependantId;
+    @FXML
     private TableColumn<Dependant, String> dependantFullName;
+    @FXML
     private TableColumn<Dependant, String> dependantAddress;
+    @FXML
     private TableColumn<Dependant, String> dependantPhoneNumber;
+    @FXML
     private TableColumn<Dependant, String> dependantEmail;
+    @FXML
     private TableColumn<Dependant, String> dependantPassword;
+    @FXML
     private TableColumn<Dependant, String> policyOwnerDependantTable;
+    @FXML
     private TableColumn<Dependant, String> cardNumberDependantTable;
+    @FXML
     private TableColumn<Dependant, Button> dependantUpdateInfoButton;
+    @FXML
     private TableColumn<Dependant, Button> dependantAddClaimButton;
+    @FXML
     private TableColumn<Dependant, Button> dependantRemoveButton;
+    @FXML
     private TableColumn<Dependant, String> policyHolderDependantTable;
+    @FXML
     private TextField dependantSearchField;
     public void filteringDependantTable(FilteredList<Dependant> filteredDependantList){
         dependantSearchField.textProperty().addListener((observable, oldValue, newValue)->{

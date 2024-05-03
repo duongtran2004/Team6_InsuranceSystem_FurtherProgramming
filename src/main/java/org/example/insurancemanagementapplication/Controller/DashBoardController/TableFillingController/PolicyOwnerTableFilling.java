@@ -6,6 +6,7 @@ import Entity.User;
 import jakarta.persistence.EntityManager;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -30,27 +31,27 @@ import java.util.ListIterator;
  * @project InsuranceManagementTeamProject
  */
 public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
-
+    @FXML
     private TableView<PolicyOwner> policyOwnerTable;
-
+    @FXML
     private TableColumn<PolicyOwner, String> policyOwnerId;
-
+    @FXML
     private TableColumn<PolicyOwner, String> policyOwnerFullName;
-
+    @FXML
     private TableColumn<PolicyOwner, String> policyOwnerAddress;
-
+    @FXML
     private TableColumn<PolicyOwner, String> policyOwnerPhoneNumber;
-
+    @FXML
     private TableColumn<PolicyOwner, String> policyOwnerEmail;
-
+    @FXML
     private TableColumn<PolicyOwner, String> policyOwnerPassword;
-
+    @FXML
     private TableColumn<PolicyOwner, Button> policyOwnerUpdateInfoButton;
-
+    @FXML
     private TableColumn<PolicyOwner, Button> policyOwnerAddPolicyButton;
-
+    @FXML
     private TableColumn<PolicyOwner, Button> policyOwnerRemoveButton;
-
+    @FXML
     private TextField policyOwnerSearchField;
 
     public void filteringPolicyOwnerTable(FilteredList<PolicyOwner> filteredPolicyOwnerList){

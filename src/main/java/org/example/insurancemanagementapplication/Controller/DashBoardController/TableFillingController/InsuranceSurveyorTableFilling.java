@@ -6,6 +6,7 @@ import Entity.User;
 import jakarta.persistence.EntityManager;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -29,16 +30,27 @@ import java.util.ListIterator;
  * @project InsuranceManagementTeamProject
  */
 public class InsuranceSurveyorTableFilling extends PolicyOwnerTableFilling{
+    @FXML
     private TableView<InsuranceSurveyor> surveyorTable;
+    @FXML
     private TableColumn<InsuranceSurveyor, String> surveyorId;
+    @FXML
     private TableColumn<InsuranceSurveyor, String> surveyorFullName;
+    @FXML
     private TableColumn<InsuranceSurveyor, String> surveyorAddress;
+    @FXML
     private TableColumn<InsuranceSurveyor, String> surveyorPhoneNumber;
+    @FXML
     private TableColumn<InsuranceSurveyor, String> surveyorEmail;
+    @FXML
     private TableColumn<InsuranceSurveyor, String> surveyorPassword;
+    @FXML
     private TableColumn<InsuranceSurveyor, String> manager;
+    @FXML
     private  TableColumn<InsuranceSurveyor, Button> surveyorUpdateInfoButton;
+    @FXML
     private TableColumn<InsuranceSurveyor, Button> surveyorRemoveButton;
+    @FXML
     private TextField insuranceSurveyorSearchField;
 
     public void filteringSurveyorTable(FilteredList<InsuranceSurveyor> filteredSurveyorList){

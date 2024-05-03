@@ -5,6 +5,7 @@ import jakarta.persistence.EntityManager;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageController_Claim;
@@ -24,27 +25,46 @@ import java.util.ListIterator;
 public class ClaimTableFilling implements ClaimCreateRemove {
 
     //The TableView element in the front end listing Claims
+    @FXML
     private TableView<Claim> claimTable;
     //The table column containing claims' ids
+    @FXML
     private  TableColumn<Claim, String> claimId;
-
+    @FXML
     private  TableColumn<Claim, Date> creationDate;
+    @FXML
     private  TableColumn<Claim, String> insuredPersonId;
+    @FXML
     private  TableColumn<Claim, String> cardNumberClaimTable;
+    @FXML
     private  TableColumn<Claim, String> policyOwnerClaimTable;
+    @FXML
     private  TableColumn<Claim, Integer> claimAmount;
+    @FXML
     private  TableColumn<Claim, Date> settlementDate;
+    @FXML
     private  TableColumn<Claim, String> status;
+    @FXML
     private  TableColumn<Claim, Button> claimButton;
+    @FXML
     private TableColumn<Claim, Button> removeClaimButton;
+    @FXML
     private  TextField claimListSearchField;
+    @FXML
     private  ChoiceBox<String> sortList;
+    @FXML
     private  ChoiceBox<String> statusList;
+    @FXML
     private  DatePicker creationDateFrom;
+    @FXML
     private  DatePicker creationDateTo;
+    @FXML
     private  DatePicker settlementDateFrom;
+    @FXML
     private  DatePicker settlementDateTo;
+    @FXML
     private  TextField claimAmountFrom;
+    @FXML
     private  TextField claimAmountTo;
 
     public void sortingClaimTable(SortedList<Claim> sortedClaimList ){
