@@ -114,12 +114,12 @@
                                                 <Font name="Helvetica Neue Bold" size="16.0" />
                                             </font>
                                         </Button>
-                              <Button mnemonicParsing="false" text="Add Manager">
+                              <Button fx:id="addManagerButton" mnemonicParsing="false" text="Add Manager">
                                  <font>
                                     <Font name="Helvetica Neue Bold" size="16.0" />
                                  </font>
                               </Button>
-                              <Button mnemonicParsing="false" text="Add Policy Owner">
+                              <Button fx:id="addPolicyOwnerButton" mnemonicParsing="false" text="Add Policy Owner">
                                  <font>
                                     <Font name="System Bold" size="16.0" />
                                  </font>
