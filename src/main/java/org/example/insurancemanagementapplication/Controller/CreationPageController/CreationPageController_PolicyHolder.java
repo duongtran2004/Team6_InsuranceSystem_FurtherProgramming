@@ -26,7 +26,7 @@ import java.util.ResourceBundle;
  * @created 29/04/2024 11:50
  * @project InsuranceManagementTeamProject
  */
-public class CreationPageController_PolicyHolder implements CustomerCreateRemove, CustomerUpdate, Initializable, Controller {
+public class CreationPageController_PolicyHolder extends CreationPageController implements CustomerCreateRemove, CustomerUpdate, Initializable, Controller {
     private EntityManager entityManager;
     private User user;
     private PolicyOwner policyOwner;
@@ -56,6 +56,7 @@ public class CreationPageController_PolicyHolder implements CustomerCreateRemove
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        setActionReturnButton();
         if (policyHolder != null){
             fullNameField.setText(policyHolder.getFullName());
             fullNameField.setDisable(true);
@@ -112,15 +113,12 @@ public class CreationPageController_PolicyHolder implements CustomerCreateRemove
     }
 
     public CreationPageController_PolicyHolder(EntityManager entityManager, User user, PolicyOwner policyOwner) {
-        this.entityManager = entityManager;
-        this.user = user;
+       super(entityManager, user);
         this.policyOwner = policyOwner;
     }
 
     public CreationPageController_PolicyHolder(EntityManager entityManager, User user, PolicyHolder policyHolder) {
-        this.entityManager = entityManager;
-        this.user = user;
-        this.policyOwner = policyOwner;
+        super(entityManager, user);
         this.policyHolder = policyHolder;
     }
 }
