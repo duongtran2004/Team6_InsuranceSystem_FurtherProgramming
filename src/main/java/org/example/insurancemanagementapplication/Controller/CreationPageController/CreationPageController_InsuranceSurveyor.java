@@ -61,7 +61,7 @@ public class CreationPageController_InsuranceSurveyor extends CreationPageContro
             managerIdField.setText(insuranceSurveyor.getInsuranceManagerId());
             autoFillingForm();
 
-            //Setting handler for the managerReassignButton.
+            //Setting handler for the managerReassignButton. It will first change the current boolean value of the managerReassign Field to the opposite value. Based on the new boolean value, the managerId field is either disabled or enabled
             managerReassignButton.setOnAction(e ->{
                 managerReassign = !managerReassign;
                 if (managerReassign){
