@@ -67,25 +67,25 @@ public class PolicyHolderTableFilling extends InsuranceCardFillingTable{
                     return true;
                 }
                 String searchValue = newValue.toLowerCase();
-                if (policyHolder.getId().equals(searchValue)){
+                if (policyHolder.getId().toLowerCase().contains(searchValue)){
                     return true;
                 }
-                else if (policyHolder.getFullName().equals(searchValue)){
+                else if (policyHolder.getFullName().toLowerCase().contains(searchValue)){
                     return true;
                 }
-                else if (policyHolder.getEmail().equals(searchValue)){
+                else if (policyHolder.getEmail().toLowerCase().contains(searchValue)){
                     return true;
                 }
-                else if (policyHolder.getAddress().equals(searchValue)){
+                else if (policyHolder.getAddress().toLowerCase().contains(searchValue)){
                     return true;
                 }
-                else if (policyHolder.getPhoneNumber().equals(searchValue)){
+                else if (policyHolder.getPhoneNumber().toLowerCase().contains(searchValue)){
                     return true;
                 }
-                else if (policyHolder.getPolicyOwnerId().equals(searchValue)){
+                else if (policyHolder.getPolicyOwnerId().toLowerCase().contains(searchValue)){
                     return true;
                 }
-                else if( policyHolder.getPolicyOwner().getFullName().equals(searchValue)) {
+                else if( policyHolder.getPolicyOwner().getFullName().toLowerCase().contains(searchValue)) {
                     return true;
                 }
 

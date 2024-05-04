@@ -26,7 +26,7 @@ public class CreationPageController_Dependant extends CreationPageController imp
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setActionReturnButton();
         if (selectedUser != null) {
-            autoFillingForm();
+            fillingFormAuto();
             setHandlerForSubmitButtonInUserUpdateMode();
         }
         else {

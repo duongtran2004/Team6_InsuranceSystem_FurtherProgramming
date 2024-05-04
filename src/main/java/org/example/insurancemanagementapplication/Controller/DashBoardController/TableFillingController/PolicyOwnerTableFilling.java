@@ -62,19 +62,19 @@ public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
                     return true;
                 }
                 String searchValue = newValue.toLowerCase();
-                if (policyOwner.getId().equals(searchValue)){
+                if (policyOwner.getId().toLowerCase().contains(searchValue)){
                     return true;
                 }
-                else if (policyOwner.getFullName().equals(searchValue)){
+                else if (policyOwner.getFullName().toLowerCase().contains(searchValue)){
                     return true;
                 }
-                else if (policyOwner.getEmail().equals(searchValue)){
+                else if (policyOwner.getEmail().toLowerCase().contains(searchValue)){
                     return true;
                 }
-                else if (policyOwner.getAddress().equals(searchValue)){
+                else if (policyOwner.getAddress().toLowerCase().contains(searchValue)){
                     return true;
                 }
-                else if (policyOwner.getPhoneNumber().equals(searchValue)){
+                else if (policyOwner.getPhoneNumber().toLowerCase().contains(searchValue)){
                     return true;
                 }
 

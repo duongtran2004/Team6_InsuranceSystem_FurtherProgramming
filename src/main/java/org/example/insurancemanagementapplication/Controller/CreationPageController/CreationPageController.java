@@ -42,9 +42,7 @@ public abstract class CreationPageController {
     @FXML
     protected Button returnButton;
 
-    public void autoFillingForm(){
 
-    }
 
     public CreationPageController(EntityManager entityManager, User user, User selectedUser) {
         this.user = user;

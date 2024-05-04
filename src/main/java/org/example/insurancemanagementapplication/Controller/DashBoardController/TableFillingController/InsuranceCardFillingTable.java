@@ -53,19 +53,19 @@ public class InsuranceCardFillingTable extends DependantTableFilling {
                     return true;
                 }
                 String searchValue = newValue.toLowerCase();
-                if (insuranceCard.getCardNumber().equals(searchValue)){
+                if (insuranceCard.getCardNumber().toLowerCase().contains(searchValue)){
                     return true;
                 }
-                else if (insuranceCard.getCardHolderId().equals(searchValue)){
+                else if (insuranceCard.getCardHolderId().toLowerCase().contains(searchValue)){
                     return true;
                 }
-                else if (insuranceCard.getPolicyOwnerId().equals(searchValue)){
+                else if (insuranceCard.getPolicyOwnerId().toLowerCase().contains(searchValue)){
                     return true;
                 }
-                else if (insuranceCard.getCardHolder().getFullName().equals(searchValue)){
+                else if (insuranceCard.getCardHolder().getFullName().toLowerCase().contains(searchValue)){
                     return true;
                 }
-                else if (insuranceCard.getPolicyOwner().getFullName().equals(searchValue)){
+                else if (insuranceCard.getPolicyOwner().getFullName().toLowerCase().contains(searchValue)){
                     return true;
                 }
                 else {

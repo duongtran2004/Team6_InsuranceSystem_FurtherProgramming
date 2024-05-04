@@ -65,25 +65,25 @@ public class InsuranceSurveyorTableFilling extends PolicyOwnerTableFilling{
                     return true;
                 }
                 String searchValue = newValue.toLowerCase();
-                if (insuranceSurveyor.getId().equals(searchValue)){
+                if (insuranceSurveyor.getId().toLowerCase().contains(searchValue)){
                     return true;
                 }
-                else if (insuranceSurveyor.getFullName().equals(searchValue)){
+                else if (insuranceSurveyor.getFullName().toLowerCase().contains(searchValue)){
                     return true;
                 }
-                else if (insuranceSurveyor.getEmail().equals(searchValue)){
+                else if (insuranceSurveyor.getEmail().toLowerCase().contains(searchValue)){
                     return true;
                 }
-                else if (insuranceSurveyor.getAddress().equals(searchValue)){
+                else if (insuranceSurveyor.getAddress().toLowerCase().contains(searchValue)){
                     return true;
                 }
-                else if (insuranceSurveyor.getPhoneNumber().equals(searchValue)){
+                else if (insuranceSurveyor.getPhoneNumber().toLowerCase().contains(searchValue)){
                     return true;
                 }
-                else if (insuranceSurveyor.getInsuranceManagerId().equals(searchValue)){
+                else if (insuranceSurveyor.getInsuranceManagerId().toLowerCase().contains(searchValue)){
                     return true;
                 }
-                else if (insuranceSurveyor.getInsuranceManager().getFullName().equals(searchValue)){
+                else if (insuranceSurveyor.getInsuranceManager().getFullName().toLowerCase().contains(searchValue)){
                     return true;
                 }
                 else {

@@ -35,7 +35,7 @@ public class CreationPageController_PolicyHolder extends CreationPageController 
         setActionReturnButton();
         if (selectedUser != null){
             lengthOfContractField.setDisable(true);
-            autoFillingForm();
+            fillingFormAuto();
             setHandlerForSubmitButtonInUserUpdateMode();
 
         }

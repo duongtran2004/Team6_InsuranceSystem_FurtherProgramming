@@ -177,16 +177,16 @@ public class DashBoardController implements ClaimCreateRemove {
                 if (newValue.isEmpty() || newValue.isBlank() || newValue == null){
                     return true;
                 }
-                else if (claim.getClaimId().equals(searchValue)){
+                else if (claim.getClaimId().toLowerCase().contains(searchValue)){
                     return true;
                 }
-                else if (claim.getInsuredPersonId().equals(searchValue)){
+                else if (claim.getInsuredPersonId().toLowerCase().contains(searchValue)){
                     return true;
-                } else if (claim.getCardNumber().equals(searchValue)){
+                } else if (claim.getCardNumber().toLowerCase().contains(searchValue)){
                     return true;
-                } else if (claim.getPolicyOwnerId().equals(searchValue)){
+                } else if (claim.getPolicyOwnerId().toLowerCase().contains(searchValue)){
                     return true;
-                } else if (claim.getStatus().equals(searchValue)){
+                } else if (claim.getStatus().toLowerCase().contains(searchValue)){
                     return true;
                 } else{
                     return false;

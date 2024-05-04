@@ -26,7 +26,7 @@ public class CreationPageController_PolicyOwner extends CreationPageController i
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setActionReturnButton();
         if (selectedUser != null){
-            autoFillingForm();
+            fillingFormAuto();
             setHandlerForSubmitButtonInUserUpdateMode();
         }
         else {

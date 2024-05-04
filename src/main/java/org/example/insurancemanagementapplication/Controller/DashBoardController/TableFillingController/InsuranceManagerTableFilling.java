@@ -57,19 +57,19 @@ public class InsuranceManagerTableFilling extends InsuranceSurveyorTableFilling 
                     return true;
                 }
                 String searchValue = newValue.toLowerCase();
-                if (insuranceManager.getId().equals(searchValue)){
+                if (insuranceManager.getId().toLowerCase().contains(searchValue)){
                     return true;
                 }
-                else if (insuranceManager.getFullName().equals(searchValue)){
+                else if (insuranceManager.getFullName().toLowerCase().contains(searchValue)){
                     return true;
                 }
-                else if (insuranceManager.getEmail().equals(searchValue)){
+                else if (insuranceManager.getEmail().toLowerCase().contains(searchValue)){
                     return true;
                 }
-                else if (insuranceManager.getAddress().equals(searchValue)){
+                else if (insuranceManager.getAddress().toLowerCase().contains(searchValue)){
                     return true;
                 }
-                else if (insuranceManager.getPhoneNumber().equals(searchValue)){
+                else if (insuranceManager.getPhoneNumber().toLowerCase().contains(searchValue)){
                     return true;
                 }
                 else {
@@ -106,9 +106,6 @@ public class InsuranceManagerTableFilling extends InsuranceSurveyorTableFilling 
 
             insuranceManagersObservableList.add(insuranceManager);
         }
-        FilteredList<InsuranceManager> filteredManagerList = new FilteredList<>(insuranceManagersObservableList, b -> true);
-        filteringInsuranceManagerTable(filteredManagerList);
-
         managerId.setCellValueFactory(new PropertyValueFactory<InsuranceManager, String>("id"));
         managerFullName.setCellValueFactory(new PropertyValueFactory<InsuranceManager, String>("fullName"));
         managerAddress.setCellValueFactory(new PropertyValueFactory<InsuranceManager, String>("address"));
@@ -118,7 +115,9 @@ public class InsuranceManagerTableFilling extends InsuranceSurveyorTableFilling 
         managerUpdateInfoButton.setCellValueFactory(new PropertyValueFactory<InsuranceManager, Button>("updateInfoButton"));
         managerAddSurveyorButton.setCellValueFactory(new PropertyValueFactory<InsuranceManager, Button>("addSurveyorButton"));
         managerRemoveButton.setCellValueFactory(new PropertyValueFactory<InsuranceManager, Button>("removeButton") );
-        managerTable.getItems().setAll(filteredManagerList);
+        FilteredList<InsuranceManager> filteredManagerList = new FilteredList<>(insuranceManagersObservableList, b -> true);
+        filteringInsuranceManagerTable(filteredManagerList);
+        managerTable.setItems(filteredManagerList);
     }
     public InsuranceManagerTableFilling(EntityManager entityManager, User user){
         super(entityManager, user);

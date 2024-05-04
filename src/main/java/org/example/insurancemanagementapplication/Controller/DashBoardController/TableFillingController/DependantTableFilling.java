@@ -64,36 +64,37 @@ public class DependantTableFilling extends DashBoardController {
 
     public void filteringDependantTable(FilteredList<Dependant> filteredDependantList){
         dependantSearchField.textProperty().addListener((observable, oldValue, newValue)->{
+
             filteredDependantList.setPredicate(dependant -> {
                 if (newValue.isEmpty() || newValue == null || newValue.isBlank()){
                     return true;
                 }
                 String searchValue = newValue.toLowerCase();
-                if (dependant.getId().equals(searchValue)){
+                if (dependant.getId().toLowerCase().contains(searchValue)){
                     return true;
                 }
-                else if (dependant.getFullName().equals(searchValue)){
+                else if (dependant.getFullName().toLowerCase().contains(searchValue)){
                     return true;
                 }
-                else if (dependant.getAddress().equals(searchValue)){
+                else if (dependant.getAddress().toLowerCase().contains(searchValue)){
                     return true;
                 }
-                else if (dependant.getEmail().equals(searchValue)){
+                else if (dependant.getEmail().toLowerCase().contains(searchValue)){
                     return true;
                 }
-                else if (dependant.getPhoneNumber().equals(searchValue)){
+                else if (dependant.getPhoneNumber().toLowerCase().contains(searchValue)){
                     return true;
                 }
-                else if (dependant.getPolicyOwnerId().equals(searchValue)){
+                else if (dependant.getPolicyOwnerId().toLowerCase().contains(searchValue)){
                     return true;
                 }
-                else if(dependant.getPolicyOwner().getFullName().equals(searchValue)) {
+                else if(dependant.getPolicyOwner().getFullName().toLowerCase().contains(searchValue)) {
                     return true;
                 }
-                else if (dependant.getPolicyHolderId().equals(searchValue)){
+                else if (dependant.getPolicyHolderId().toLowerCase().contains(searchValue)){
                     return true;
                 }
-                else if(dependant.getPolicyHolder().getFullName().equals(searchValue)) {
+                else if(dependant.getPolicyHolder().getFullName().toLowerCase().contains(searchValue)) {
                     return true;
                 }
                 else {
