@@ -127,8 +127,7 @@ public class InsuranceSurveyorTableFilling extends PolicyOwnerTableFilling{
 
             insuranceSurveyorsObservableList.add(insuranceSurveyor);
         }
-        FilteredList<InsuranceSurveyor> filteredSurveyorList = new FilteredList<>(insuranceSurveyorsObservableList, b -> true);
-        filteringSurveyorTable(filteredSurveyorList);
+
         surveyorId.setCellValueFactory(new PropertyValueFactory<InsuranceSurveyor, String>("id"));
         surveyorFullName.setCellValueFactory(new PropertyValueFactory<InsuranceSurveyor, String>("fullName"));
         surveyorAddress.setCellValueFactory(new PropertyValueFactory<InsuranceSurveyor, String>("address"));
@@ -139,8 +138,9 @@ public class InsuranceSurveyorTableFilling extends PolicyOwnerTableFilling{
             surveyorUpdateInfoButton.setCellValueFactory(new PropertyValueFactory<InsuranceSurveyor, Button>("updateInfoButton"));
             surveyorRemoveButton.setCellValueFactory(new PropertyValueFactory<InsuranceSurveyor, Button>("removeButton"));
         }
-
-        surveyorTable.getItems().setAll(filteredSurveyorList);
+        FilteredList<InsuranceSurveyor> filteredSurveyorList = new FilteredList<>(insuranceSurveyorsObservableList, b -> true);
+        filteringSurveyorTable(filteredSurveyorList);
+        surveyorTable.setItems(filteredSurveyorList);
     }
 
 

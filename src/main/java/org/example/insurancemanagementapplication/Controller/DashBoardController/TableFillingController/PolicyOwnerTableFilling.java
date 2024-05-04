@@ -118,8 +118,7 @@ public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
             policyOwnersObservableList.add(policyOwner);
         }
 
-        FilteredList<PolicyOwner> filteredPolicyOwnerList = new FilteredList<>(policyOwnersObservableList, b -> true);
-        filteringPolicyOwnerTable(filteredPolicyOwnerList);
+
 
         policyOwnerId.setCellValueFactory(new PropertyValueFactory<PolicyOwner, String>("id"));
         policyOwnerFullName.setCellValueFactory(new PropertyValueFactory<PolicyOwner, String>("fullName"));
@@ -131,8 +130,9 @@ public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
             policyOwnerAddPolicyButton.setCellValueFactory(new PropertyValueFactory<PolicyOwner, Button>("addPolicyButton"));
             policyOwnerRemoveButton.setCellValueFactory(new PropertyValueFactory<PolicyOwner, Button>("removeButton"));
         }
-
-        policyOwnerTable.getItems().setAll(filteredPolicyOwnerList);
+        FilteredList<PolicyOwner> filteredPolicyOwnerList = new FilteredList<>(policyOwnersObservableList, b -> true);
+        filteringPolicyOwnerTable(filteredPolicyOwnerList);
+        policyOwnerTable.setItems(filteredPolicyOwnerList);
 
     }
 

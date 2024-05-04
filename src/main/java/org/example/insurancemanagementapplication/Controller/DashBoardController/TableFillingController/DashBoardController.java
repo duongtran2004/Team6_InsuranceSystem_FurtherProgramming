@@ -365,7 +365,7 @@ public class DashBoardController implements ClaimCreateRemove {
             //System Admins, Insurance Managers, and Insurance Surveyors are not allowed to remove Claims. So they do not have access to the removeClaim button
             removeClaimButton.setCellValueFactory(new PropertyValueFactory<Claim, Button>("claimRemoveButton"));
         }
-        claimTable.getItems().setAll(sortedClaimList);
+        claimTable.setItems(sortedClaimList);
     }
 
 

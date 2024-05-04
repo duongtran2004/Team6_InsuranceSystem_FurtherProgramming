@@ -89,12 +89,6 @@ public class InsuranceCardFillingTable extends DependantTableFilling {
             }
             insuranceCardObservableList.add(insuranceCard);
         }
-
-        FilteredList<InsuranceCard> filteredInsuranceCardList = new FilteredList<>(insuranceCardObservableList, b -> true);
-        filteringInsuranceCardTable(filteredInsuranceCardList);
-
-
-
         cardNumber.setCellValueFactory(new PropertyValueFactory<InsuranceCard, String>("cardNumber"));
         cardHolderId.setCellValueFactory(new PropertyValueFactory<InsuranceCard, String>("cardHolder"));
         policyOwnerInsuranceCardTable.setCellValueFactory(new PropertyValueFactory<InsuranceCard, String>("policyOwner"));
@@ -102,7 +96,9 @@ public class InsuranceCardFillingTable extends DependantTableFilling {
         if (user instanceof SystemAdmin || user instanceof PolicyOwner){
             insuranceCardRemoveButton.setCellValueFactory(new PropertyValueFactory<InsuranceCard, Button>("removeButton"));
         }
-        insuranceCardTable.getItems().addAll(filteredInsuranceCardList);
+        FilteredList<InsuranceCard> filteredInsuranceCardList = new FilteredList<>(insuranceCardObservableList, b -> true);
+        filteringInsuranceCardTable(filteredInsuranceCardList);
+        insuranceCardTable.setItems(filteredInsuranceCardList);
 
     }
 

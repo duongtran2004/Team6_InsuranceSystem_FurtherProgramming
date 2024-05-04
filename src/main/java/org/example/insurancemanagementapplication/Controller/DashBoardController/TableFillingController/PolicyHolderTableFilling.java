@@ -133,8 +133,7 @@ public class PolicyHolderTableFilling extends InsuranceCardFillingTable{
             policyHoldersObservableList.add(policyHolder);
         }
 
-        FilteredList<PolicyHolder> filteredPolicyHolderList = new FilteredList<>(policyHoldersObservableList, b -> true);
-        filteringPolicyHolderTable(filteredPolicyHolderList);
+
 
         policyHolderId.setCellValueFactory(new PropertyValueFactory<PolicyHolder, String>("id"));
         policyHolderFullName.setCellValueFactory(new PropertyValueFactory<PolicyHolder, String>("fullName"));
@@ -151,8 +150,9 @@ public class PolicyHolderTableFilling extends InsuranceCardFillingTable{
                 policyHolderAddClaimButton.setCellValueFactory(new PropertyValueFactory<PolicyHolder, Button>("addClaimButton"));
             }
         }
-
-        policyHolderTable.getItems().setAll(filteredPolicyHolderList);
+        FilteredList<PolicyHolder> filteredPolicyHolderList = new FilteredList<>(policyHoldersObservableList, b -> true);
+        filteringPolicyHolderTable(filteredPolicyHolderList);
+        policyHolderTable.setItems(filteredPolicyHolderList);
     }
 
 

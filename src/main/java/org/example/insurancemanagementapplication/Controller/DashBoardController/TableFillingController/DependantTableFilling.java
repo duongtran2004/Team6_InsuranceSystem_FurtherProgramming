@@ -143,9 +143,6 @@ public class DependantTableFilling extends DashBoardController {
 
 
         }
-        FilteredList<Dependant> filteredDependantList = new FilteredList<>(dependantObservableList, b -> true);
-        filteringDependantTable(filteredDependantList);
-
         dependantId.setCellValueFactory(new PropertyValueFactory<Dependant, String>("id"));
         dependantFullName.setCellValueFactory(new PropertyValueFactory<Dependant, String>("fullName"));
         dependantAddress.setCellValueFactory(new PropertyValueFactory<Dependant, String>("address"));
@@ -162,7 +159,12 @@ public class DependantTableFilling extends DashBoardController {
             }
         }
 
-        dependantTable.getItems().setAll(dependantObservableList);
+        FilteredList<Dependant> filteredDependantList = new FilteredList<>(dependantObservableList, b -> true);
+        filteringDependantTable(filteredDependantList);
+
+
+
+        dependantTable.setItems(filteredDependantList);
     }
 
 
