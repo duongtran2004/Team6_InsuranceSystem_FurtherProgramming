@@ -46,6 +46,7 @@
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
                                 <Label alignment="CENTER" prefHeight="47.0" prefWidth="425.0" text="User ID">
@@ -83,20 +84,13 @@
                                 <TextField fx:id="addressField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                 <TextField fx:id="phoneNumberField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                 <TextField fx:id="emailField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
-                                    <children>
-                                        <PasswordField fx:id="passwordField" minWidth="200.0" />
-                                        <Label text="Re-Enter Password">
-                                            <font>
-                                                <Font name="Helvetica Neue Bold" size="16.0" />
-                                            </font>
-                                            <HBox.margin>
-                                                <Insets left="10.0" right="10.0" />
-                                            </HBox.margin>
-                                        </Label>
-                                        <PasswordField fx:id="passwordValidationField" minWidth="200.0" />
-                                    </children>
-                                </HBox>
+                                  <Label alignment="CENTER" prefHeight="38.0" prefWidth="204.0" text="Re-Enter Password" GridPane.rowIndex="6">
+                                      <font>
+                                          <Font name="Helvetica Neue Bold" size="16.0" />
+                                      </font>
+                                  </Label>
+                                  <PasswordField fx:id="passwordValidationField" minWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <PasswordField fx:id="passwordField" minWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                             </children>
                             <padding>
                                 <Insets right="75.0" top="10.0" />
