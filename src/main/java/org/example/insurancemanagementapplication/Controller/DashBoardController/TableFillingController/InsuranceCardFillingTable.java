@@ -27,7 +27,8 @@ import java.util.ListIterator;
  * @project InsuranceManagementTeamProject
  */
 public class InsuranceCardFillingTable extends DependantTableFilling {
-    //Task: Create a thread that get all Insurance Cards from the table  and check if new entries exist. If they do, append the new entries to the Observable List
+
+    //Create a thread that get all Insurance Cards from the table  and check if new entries exist. If they do, append the new entries to the Observable List
     private ObservableList<InsuranceCard> insuranceCardsObservableList = FXCollections.observableArrayList();
     @FXML
     protected TableView<InsuranceCard> insuranceCardTable;
