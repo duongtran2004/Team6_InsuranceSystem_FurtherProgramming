@@ -19,7 +19,9 @@ public class DashBoardController_Dependant extends DashBoardController implement
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        //See the DashBoardController class
         userFillingData();
+        //TODO Fill the claim table with claims by calling the claim table filling class from the DashBoardControllerClass. Put this method call in a thread
 
     }
 

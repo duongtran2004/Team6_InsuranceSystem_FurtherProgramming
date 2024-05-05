@@ -32,17 +32,24 @@ public class CreationPageController_PolicyHolder extends CreationPageController 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        //See the CreationPageController class for this method
         setActionReturnButton();
+        //when the controller is in update mode
         if (selectedUser != null){
             lengthOfContractField.setDisable(true);
+            //See the CreationPageController class for this method
             fillingFormAuto();
+            //See the CreationPageController class for this method
             setHandlerForSubmitButtonInUserUpdateMode();
 
         }
+        //when the controller is in creation mode
         else {
             submitButton.setOnAction(event -> {
                 String message = InputValidator.validatingUser("Policy Holder", entityManager, fullNameField.getText(), emailField.getText(), passwordField.getText(), addressField.getText(), phoneNumberField.getText(), passwordValidationField.getText());
                 if (message.equals("Success")){
+                    //See the RepeatedCode class for this method.
+                    //This method generates an ID.
                     String id = RepeatedCode.idGenerate("PH");
                     String cardNumber = RepeatedCode.idGenerate("");
                     Date utilDate = new Date();
@@ -69,11 +76,13 @@ public class CreationPageController_PolicyHolder extends CreationPageController 
 
     }
 
+    //Calling this constructor when the controller is to be open in creation mode
     public CreationPageController_PolicyHolder(EntityManager entityManager, User user, PolicyOwner policyOwner) {
        super(entityManager, user);
         this.policyOwner = policyOwner;
     }
 
+    //Call this constructor when the controller is to be open in update mode
     public CreationPageController_PolicyHolder(EntityManager entityManager, User user, PolicyHolder policyHolder) {
         super(entityManager, user, policyHolder);
     }

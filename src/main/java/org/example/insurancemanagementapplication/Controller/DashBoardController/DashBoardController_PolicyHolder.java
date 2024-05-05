@@ -1,12 +1,7 @@
 package org.example.insurancemanagementapplication.Controller.DashBoardController;
 
-import Entity.Claim;
-import Entity.Dependant;
-import Entity.InsuranceCard;
 import Entity.PolicyHolder;
 import jakarta.persistence.EntityManager;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 import org.example.insurancemanagementapplication.Controller.DashBoardController.TableFillingController.DependantTableFilling;
 import org.example.insurancemanagementapplication.Interfaces.Controller;
@@ -24,7 +19,10 @@ public class DashBoardController_PolicyHolder extends DependantTableFilling impl
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        //See the DashBoardController class
         userFillingData();
+        //TODO Fill the claim table with claims by calling the claim table filling method from the DashBoardControllerClass. Put this method call in a thread
+        //TODO Fill the dependant table with dependants by calling the dependant table filling method from the DependantTableFilling class. Put this method call in a thread
     }
 
     public DashBoardController_PolicyHolder(PolicyHolder user, EntityManager entityManager) {

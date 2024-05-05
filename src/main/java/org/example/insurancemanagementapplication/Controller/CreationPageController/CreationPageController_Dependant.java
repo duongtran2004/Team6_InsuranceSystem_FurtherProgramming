@@ -24,15 +24,22 @@ public class CreationPageController_Dependant extends CreationPageController imp
     private PolicyHolder policyHolder;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        //See the CreationPageController class for this method
         setActionReturnButton();
+        //When the controller is in update mode
         if (selectedUser != null) {
+            //See the CreationPageController class for this method
             fillingFormAuto();
+            //See the CrationPageController class for this method
             setHandlerForSubmitButtonInUserUpdateMode();
         }
+        //When the controller is in creation mode
         else {
             submitButton.setOnAction(event -> {
                 String message = InputValidator.validatingUser("Dependant", entityManager, fullNameField.getText(), emailField.getText(), passwordField.getText(), phoneNumberField.getText(), addressField.getText(), passwordValidationField.getText());
                 if (message.equals("Success")){
+                    //See the RepeatedCode class for this method
+                    //This method generates an ID.
                     String id = RepeatedCode.idGenerate("DE");
                     CustomerCreateRemove.createDependant(entityManager, id, fullNameField.getText(), addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText(), policyHolder);
                 }

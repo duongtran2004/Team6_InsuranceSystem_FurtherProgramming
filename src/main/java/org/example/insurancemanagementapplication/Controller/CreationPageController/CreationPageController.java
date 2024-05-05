@@ -55,6 +55,9 @@ public abstract class CreationPageController {
         this.entityManager = entityManager;
     }
 
+    /**
+     * This method automatically fill form when the controller is in update mode
+     */
     public void fillingFormAuto(){
         fullNameField.setDisable(true);
         fullNameField.setText(selectedUser.getFullName());
@@ -65,6 +68,9 @@ public abstract class CreationPageController {
         passwordValidationField.setText(selectedUser.getPassword());
     }
 
+    /**
+     * This method defines the action for the submit button when the controller is in update mode
+     */
     public void setHandlerForSubmitButtonInUserUpdateMode(){
         submitButton.setOnAction(event -> {
             String message = InputValidator.validatingUser(emailField.getText(), passwordField.getText(), phoneNumberField.getText(), addressField.getText(), passwordValidationField.getText());
@@ -89,6 +95,9 @@ public abstract class CreationPageController {
         });
     }
 
+    /**
+     * This method defines action for the return button. Pressing this button will return to the dashboard
+     */
     public void setActionReturnButton(){
         returnButton.setOnAction(event -> {
             if (user instanceof SystemAdmin) {

@@ -29,6 +29,7 @@ import java.util.ListIterator;
  * @project InsuranceManagementTeamProject
  */
 public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
+    //TODO Create a thread that get all Policy Owners from the table  and check if new entries exist. If they do, append the new entries to the Observable List
     private ObservableList<PolicyOwner> policyOwnersObservableList = FXCollections.observableArrayList();
     @FXML
     protected TableView<PolicyOwner> policyOwnerTable;
@@ -56,7 +57,10 @@ public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
     public PolicyOwnerTableFilling(EntityManager entityManager, User user) {
         super(entityManager, user);
     }
-
+    /**
+     * Attach an event listener to the policy owner search field that filter the policy owner table according to changes in this field
+     * @param filteredPolicyOwnerList
+     */
     public void filteringPolicyOwnerTable(FilteredList<PolicyOwner> filteredPolicyOwnerList){
         policyOwnerSearchField.textProperty().addListener((observable, oldValue, newValue)->{
             filteredPolicyOwnerList.setPredicate(policyOwner -> {
@@ -87,15 +91,24 @@ public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
         });
     }
 
+    /**
+     * Mapping the columns of the policy owner tables with Policy Owner entity. Fill up the policy owner tables with data from the database
+     * @param entityManager
+     * @param user
+     * @param policyOwners
+     */
     public void fillingPolicyOwnerTable(EntityManager entityManager, User user, List<PolicyOwner> policyOwners){
         ListIterator<PolicyOwner> policyOwnerListIterator = policyOwners.listIterator();
+        //Add policy owners to the observable list
         while (policyOwnerListIterator.hasNext()){
             PolicyOwner policyOwner = policyOwnerListIterator.next();
             Button buttonUpdateInfo = new Button("Update Info");
             Button buttonAddPolicy = new Button("Add Policy");
             Button buttonRemove = new Button("Remove");
-
+            //Only a system admin has access to the update info, add policy, and remove button
             if (user instanceof SystemAdmin){
+                //The Update Info Button will create a CreationPage Controller for the policy owner in update mode by passing in the policy owner object
+                //It will then open the Policy Owner Creation Page
                 buttonUpdateInfo.setOnAction(event -> {
                     CreationPageController_PolicyOwner creationPageControllerPolicyOwner = new CreationPageController_PolicyOwner(entityManager, user, policyOwner);
                     RepeatedCode.showStage((Stage) buttonUpdateInfo.getScene().getWindow(), creationPageControllerPolicyOwner, "PolicyOwnerCreationPage.fxml", "Policy Owner Update");
@@ -103,13 +116,15 @@ public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
                 });
 
                 policyOwner.setUpdateInfoButton(buttonUpdateInfo);
-
+                //The addPolicyHolder button will create a Policy Holder CreationPage Controller in creation mode by passing the policy owner object
+                //It will then open the Policy Holder Creation Form
                 buttonAddPolicy.setOnAction(event -> {
                     CreationPageController_PolicyHolder creationPageControllerPolicyHolder = new CreationPageController_PolicyHolder(entityManager, user, policyOwner);
                     RepeatedCode.showStage((Stage) buttonAddPolicy.getScene().getWindow(), creationPageControllerPolicyHolder, "PolicyHolderCreationPage.fxml", "Policy Creation");
 
                 });
 
+                //The remove button will remove its policy owner button from the database
                 policyOwner.setRemoveButton(buttonRemove);
                 buttonRemove.setOnAction(event -> {
                     CustomerCreateRemove.removePolicyOwner(entityManager, policyOwner );
@@ -127,6 +142,7 @@ public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
         policyOwnerAddress.setCellValueFactory(new PropertyValueFactory<PolicyOwner, String>("address"));
         policyOwnerEmail.setCellValueFactory(new PropertyValueFactory<PolicyOwner, String>("email"));
         policyOwnerPassword.setCellValueFactory(new PropertyValueFactory<PolicyOwner, String>("password"));
+        policyOwnerPhoneNumber.setCellValueFactory(new PropertyValueFactory<PolicyOwner, String>("phoneNumber"));
         if (user instanceof SystemAdmin){
             policyOwnerUpdateInfoButton.setCellValueFactory(new PropertyValueFactory<PolicyOwner, Button>("updateInfoButton"));
             policyOwnerAddPolicyButton.setCellValueFactory(new PropertyValueFactory<PolicyOwner, Button>("addPolicyButton"));

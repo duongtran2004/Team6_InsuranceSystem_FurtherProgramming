@@ -50,15 +50,18 @@ public class CreationPageController_InsuranceSurveyor extends CreationPageContro
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        //See the CreationPageController class for this method
         setActionReturnButton();
 
         managerIdField.setDisable(true);
 
         managerReassignButton.setDisable(true);
 
+        //When the controller is in update mode
         if (insuranceSurveyor != null){
             managerReassignButton.setDisable(false);
             managerIdField.setText(insuranceSurveyor.getInsuranceManagerId());
+            //see the CreationPageController class for this method
             fillingFormAuto();
 
             //Setting handler for the managerReassignButton. It will first change the current boolean value of the managerReassign Field to the opposite value. Based on the new boolean value, the managerId field is either disabled or enabled
@@ -95,6 +98,7 @@ public class CreationPageController_InsuranceSurveyor extends CreationPageContro
 
 
         }
+        //When the controller is in creation mode
         else {
             submitButton.setOnAction(event -> {
                 String message = InputValidator.validatingUser("Insurance Manager", entityManager, fullNameField.getText(), emailField.getText(), passwordField.getText(), phoneNumberField.getText(), addressField.getText(), passwordValidationField.getText());

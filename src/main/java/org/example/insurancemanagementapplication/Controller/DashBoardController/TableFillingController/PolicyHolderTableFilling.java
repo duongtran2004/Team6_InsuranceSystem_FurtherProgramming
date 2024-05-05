@@ -28,7 +28,7 @@ import java.util.ListIterator;
  * @project InsuranceManagementTeamProject
  */
 public class PolicyHolderTableFilling extends InsuranceCardFillingTable{
-    //Task: Create a thread that get all Policy Holders from the table  and check if new entries exist. If they do, append the new entries to the Observable List
+    //TODO Create a thread that get all Policy Holders from the table  and check if new entries exist. If they do, append the new entries to the Observable List
     private ObservableList<PolicyHolder> policyHoldersObservableList = FXCollections.observableArrayList();
     @FXML
     protected TableView<PolicyHolder> policyHolderTable;
@@ -63,6 +63,10 @@ public class PolicyHolderTableFilling extends InsuranceCardFillingTable{
         super(entityManager, user);
     }
 
+    /**
+     * Attach an event listener to the policy holder search field that filter the policy holder table according to changes in this field
+     * @param filteredPolicyHolderList
+     */
     public void filteringPolicyHolderTable(FilteredList<PolicyHolder> filteredPolicyHolderList){
         policyHolderSearchField.textProperty().addListener((observable, oldValue, newValue)->{
             filteredPolicyHolderList.setPredicate(policyHolder -> {
@@ -99,8 +103,15 @@ public class PolicyHolderTableFilling extends InsuranceCardFillingTable{
         });
     }
 
+    /**
+     * Mapping the columns of the policy holder tables with Policy Holder entity. Fill up the policy holder tables with data from the database
+     * @param entityManager
+     * @param user
+     * @param policyHolders
+     */
     public void fillingPolicyHolderTable(EntityManager entityManager, User user, List<PolicyHolder> policyHolders){
         ListIterator<PolicyHolder> policyHolderListIterator = policyHolders.listIterator();
+        //Add policy holders to the observable list
         while (policyHolderListIterator.hasNext()){
             PolicyHolder policyHolder = policyHolderListIterator.next();
             Button buttonUpdateInfo = new Button("Update Info");
@@ -108,15 +119,21 @@ public class PolicyHolderTableFilling extends InsuranceCardFillingTable{
             Button buttonRemove = new Button("Remove");
             Button buttonAddClaim = new Button("Add Claim");
 
+            //Only a system admin and a policy owner has access to the update info and remove and add dependant buttons
             if (user instanceof SystemAdmin || user instanceof Customer){
+                //The Update Info Button will create a CreationPage Controller for the policy holder in update mode by passing in the policy holder object
+                //It will then open the Policy Holder Creation Page
                 buttonUpdateInfo.setOnAction(event -> {
                     CreationPageController_PolicyHolder creationPageControllerPolicyHolder = new CreationPageController_PolicyHolder(entityManager, user, policyHolder);
                     RepeatedCode.showStage((Stage) buttonUpdateInfo.getScene().getWindow(), creationPageControllerPolicyHolder, "PolicyHolderCreationPage.fxml", "Policy Holder Update");
                 });
+                //The addDependant button will create a Dependant CreationPage Controller in creation mode by passing the policy holder object
+                //It will then open the Dependant Creation Form
                 buttonAddDependant.setOnAction(event -> {
                     CreationPageController_Dependant creationPageControllerDependant = new CreationPageController_Dependant(entityManager, user, policyHolder);
                     RepeatedCode.showStage((Stage) buttonAddDependant.getScene().getWindow(), creationPageControllerDependant, "DependantCreationPage.fxml", "Dependant Creation" );
                 });
+                //The remove button will remove its policy holder from the database
                 buttonRemove.setOnAction(event -> {
                     CustomerCreateRemove.removePolicyHolder(entityManager, policyHolder );
                 });
@@ -124,7 +141,10 @@ public class PolicyHolderTableFilling extends InsuranceCardFillingTable{
                 policyHolder.setAddDependantButton(buttonAddDependant);
                 policyHolder.setUpdateInfoButton(buttonUpdateInfo);
 
+                //Only a policy owner has access to the add claim button
                 if (user instanceof PolicyOwner){
+                    //Create a ClaimCreationPage controller in creation mode by passing the policy holder object to the constructor
+                    //Open a new scene in the existing stage by calling the showStage static method from the Repeated Code Class
                     buttonAddClaim.setOnAction(event -> {
                         CreationPageController_Claim creationPageControllerClaim = new CreationPageController_Claim(entityManager, user, policyHolder);
                         RepeatedCode.showStage((Stage) buttonAddClaim.getScene().getWindow(), creationPageControllerClaim, "ClaimCreationPage.fxml", "Claim Creation");

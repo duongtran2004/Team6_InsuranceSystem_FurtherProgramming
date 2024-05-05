@@ -36,7 +36,7 @@ import java.util.ListIterator;
  * DashBoard Controller, which does not have access to this table
  */
 public class DependantTableFilling extends DashBoardController {
-    //Task: Create a thread that get all Dependants from the table  and check if new entries exist. If they do, append the new entries to the Observable List
+    //TODO Create a thread that runs in a selected interval that get all Dependants from the database  and check if new entries exist. If they do, append the new entries to the Observable List
     private ObservableList<Dependant> dependantsObservableList = FXCollections.observableArrayList();
     @FXML
     protected TableView<Dependant> dependantTable;
@@ -126,6 +126,7 @@ public class DependantTableFilling extends DashBoardController {
      */
     public void fillingDependantTable(EntityManager entityManager, User user, List<Dependant> dependants){
         ListIterator<Dependant> dependantListIterator = dependants.listIterator();
+        //Adding dependants to the dependant observable list
         while (dependantListIterator.hasNext()){
             Dependant dependant = dependantListIterator.next();
             Button buttonUpdateInfo = new Button();

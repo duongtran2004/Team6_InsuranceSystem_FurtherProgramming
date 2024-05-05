@@ -32,15 +32,22 @@ public class CreationPageController_InsuranceManager extends CreationPageControl
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        //See the CreationPageController Class for this method
         setActionReturnButton();
+        //When the controller is in update mode
         if (selectedUser != null){
+            //See the CreationPageController class for this method
             fillingFormAuto();
+            //See the CreationPageController class for this method
             setHandlerForSubmitButtonInUserUpdateMode();
         }
+        //When the controller is in creation mode
         else {
             submitButton.setOnAction(event -> {
                 String message = InputValidator.validatingUser("Insurance Manager", entityManager, fullNameField.getText(), emailField.getText(), passwordField.getText(), phoneNumberField.getText(), addressField.getText(), passwordValidationField.getText());
                 if (message.equals("Success")){
+                    //See the RepeatedCode class for this method
+                    //This method generates an id.
                     String id = RepeatedCode.idGenerate("IM");
                     EmployeeCreateRemove.createInsuranceManager(entityManager, id, fullNameField.getText(), addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText());
                 }

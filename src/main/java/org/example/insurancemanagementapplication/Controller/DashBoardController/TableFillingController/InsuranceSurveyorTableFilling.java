@@ -8,8 +8,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -18,10 +16,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageController_InsuranceSurveyor;
 import org.example.insurancemanagementapplication.Interfaces.EmployeeCreateRemove;
-import org.example.insurancemanagementapplication.MainEntryPoint;
 import org.example.insurancemanagementapplication.Utility.RepeatedCode;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -32,6 +28,7 @@ import java.util.ListIterator;
  * @project InsuranceManagementTeamProject
  */
 public class InsuranceSurveyorTableFilling extends PolicyOwnerTableFilling{
+    //TODO Create a thread that runs in a selected interval that get all Managers from the database and check if new entries exist. If they do, append the new entries to the Observable List
     private ObservableList<InsuranceSurveyor> insuranceSurveyorsObservableList = FXCollections.observableArrayList();
     @FXML
     protected TableView<InsuranceSurveyor> surveyorTable;
@@ -59,7 +56,10 @@ public class InsuranceSurveyorTableFilling extends PolicyOwnerTableFilling{
     public InsuranceSurveyorTableFilling(EntityManager entityManager, User user) {
         super(entityManager, user);
     }
-
+    /**
+     * Attach an event listener to the surveyor search field that filter the insurance surveyor table according to changes in this field
+     * @param filteredSurveyorList
+     */
     public void filteringSurveyorTable(FilteredList<InsuranceSurveyor> filteredSurveyorList){
         insuranceSurveyorSearchField.textProperty().addListener((observable, oldValue, newValue)->{
             filteredSurveyorList.setPredicate(insuranceSurveyor -> {
@@ -95,31 +95,31 @@ public class InsuranceSurveyorTableFilling extends PolicyOwnerTableFilling{
 
         });
     }
-
+    /**
+     * Mapping the columns of the insurance surveyor tables with Insurance Surveyor entity. Fill up the Insurance Surveyor tables with data from the database
+     * @param entityManager
+     * @param user
+     * @param insuranceSurveyors
+     */
     public void fillingInsuranceSurveyorTable(EntityManager entityManager, User user, List<InsuranceSurveyor> insuranceSurveyors){
         ListIterator<InsuranceSurveyor> listIteratorInsuranceSurveyor = insuranceSurveyors.listIterator();
+        //Adding insurance surveyors to the observable list.
         while (listIteratorInsuranceSurveyor.hasNext()){
             InsuranceSurveyor insuranceSurveyor = listIteratorInsuranceSurveyor.next();
             Button buttonUpdateInfo = new Button("Update Info");
+            //Only System admin has access to the update info button and the remove button
             if (user instanceof SystemAdmin){
+                //The Update Info Button will create a CreationPage Controller for the Insurance Surveyor in update mode by passing in the insurance surveyor object
+                //It will then open the Insurance Surveyor Creation Page
                 buttonUpdateInfo.setOnAction(event -> {
                     CreationPageController_InsuranceSurveyor creationPageControllerInsuranceSurveyor = new CreationPageController_InsuranceSurveyor(entityManager, user, insuranceSurveyor);
                     RepeatedCode.showStage((Stage) buttonUpdateInfo.getScene().getWindow(), creationPageControllerInsuranceSurveyor, "InsuranceSurveyorCreationPage.fxml", "Insurance Surveyor Update");
-                    FXMLLoader fxmlLoader = new FXMLLoader();
-                    fxmlLoader.setLocation(MainEntryPoint.class.getResource("InsuranceSurveyorCreationPage.fxml"));
-                    fxmlLoader.setController(creationPageControllerInsuranceSurveyor);
-                    try {
-                        Scene scene = new Scene(fxmlLoader.load());
-                        Stage stage = (Stage) buttonUpdateInfo.getScene().getWindow();
-                        stage.setScene(scene);
-                        stage.show();
 
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
 
                 });
+
                 insuranceSurveyor.setUpdateInfoButton(buttonUpdateInfo);
+                //The remove button will remove its Insurance Surveyor from the database
                 Button buttonRemove = new Button("Remove");
                 insuranceSurveyor.setRemoveButton(buttonRemove);
                 buttonRemove.setOnAction(event -> {

@@ -28,7 +28,7 @@ import java.util.ListIterator;
  */
 public class InsuranceCardFillingTable extends DependantTableFilling {
 
-    //Create a thread that get all Insurance Cards from the table  and check if new entries exist. If they do, append the new entries to the Observable List
+    //TODO Create a thread that runs in a selected interval that get all Insurance Cards from the databse  and check if new entries exist. If they do, append the new entries to the Observable List
     private ObservableList<InsuranceCard> insuranceCardsObservableList = FXCollections.observableArrayList();
     @FXML
     protected TableView<InsuranceCard> insuranceCardTable;
@@ -50,7 +50,7 @@ public class InsuranceCardFillingTable extends DependantTableFilling {
     }
 
     /**
-     * Attach an event listener to the insurance card search field that filter the insurance manager according to changes in this field
+     * Attach an event listener to the insurance card search field that filter the insurance card table according to changes in this field
      * @param filteredInsuranceCardList
      */
     public void filteringInsuranceCardTable(FilteredList<InsuranceCard> filteredInsuranceCardList){
@@ -83,7 +83,7 @@ public class InsuranceCardFillingTable extends DependantTableFilling {
     }
 
     /**
-     * Mapping the columns of the insurance card tables with Insurance Card entity. Fill up the Insurance Card tables with data from the databse
+     * Mapping the columns of the insurance card tables with Insurance Card entity. Fill up the Insurance Card tables with data from the database
      * @param entityManager
      * @param user
      * @param insuranceCards
@@ -91,6 +91,7 @@ public class InsuranceCardFillingTable extends DependantTableFilling {
     public void fillingInsuranceCardTable(EntityManager entityManager, User user, List<InsuranceCard> insuranceCards){
 
         ListIterator<InsuranceCard> insuranceCardListIterator = insuranceCards.listIterator();
+        //Adding Insurance Cards to the insurance card observable list
         while (insuranceCardListIterator.hasNext()){
 
             InsuranceCard insuranceCard = insuranceCardListIterator.next();
@@ -99,8 +100,8 @@ public class InsuranceCardFillingTable extends DependantTableFilling {
             if (user instanceof SystemAdmin || user instanceof PolicyOwner){
                 buttonRemove.setOnAction(event -> {
                     CustomerCreateRemove.removeInsuranceCard(entityManager, insuranceCard);
-                    //Task: Method needed to remove the insurance card
-                    //Before we remove the insurance card, we need to update the insurance card field of all of its beneficiaries
+                    //TODO Method needed to remove the insurance card
+                    //TODO Before we remove the insurance card, we need to update the insurance card field of all of its beneficiaries
                 });
                 insuranceCard.setRemoveButton(buttonRemove);
             }

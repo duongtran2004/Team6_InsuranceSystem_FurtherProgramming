@@ -64,19 +64,19 @@ public class DashBoardController_SystemAdmin extends InsuranceManagerTableFillin
             RepeatedCode.showStage((Stage) addManagerButton.getScene().getWindow(), creationPageControllerInsuranceManager, "InsuranceManagerCreationPage.fxml", "Insurance Manager Creation Page");
         });
 
-        //Task: Create a separate thread to fill in Insurance Manager Table
+        //TODO Create a separate thread to fill in Insurance Manager Table
         fillingInsuranceManagerTable(entityManager, user, EmployeeAnalytics.getAllInsuranceManager(entityManager));
-        //Task: Create a separate thread to fill in the Insurance Surveyor Table
+        //TODO Create a separate thread to fill in the Insurance Surveyor Table
         fillingInsuranceSurveyorTable(entityManager, user, EmployeeAnalytics.getAllInsuranceSurveyor(entityManager));
-        //Task: Create a separate thread to fill in the Policy Owner Table
+        //TODO Create a separate thread to fill in the Policy Owner Table
         fillingPolicyOwnerTable(entityManager, user, CustomerAnalytics.getAllPolicyOwner(entityManager));
-        //Task: Create a separate thread to fill in the Policy Holder Table
+        //TODO Create a separate thread to fill in the Policy Holder Table
         fillingPolicyHolderTable(entityManager, user, CustomerAnalytics.getAllPolicyHolder(entityManager));
-        //Task: Create a separate thread to fill in the Dependant Table
+        //TODO Create a separate thread to fill in the Dependant Table
         fillingDependantTable(entityManager, user, CustomerAnalytics.getAllDependant(entityManager));
-        //Task: Create a separate thread to fill in the Insurance Claim Table
+        //TODO Create a separate thread to fill in the Insurance Claim Table
         fillingInsuranceCardTable(entityManager, user, CustomerAnalytics.getAllInsuranceCard(entityManager));
-        //Task: Create a separate thread to fill in the Claim Table
+        //TODO Create a separate thread to fill in the Claim Table
         fillingClaimTable(entityManager, user, ClaimAnalytics.getAllClaims(entityManager));
 
     }

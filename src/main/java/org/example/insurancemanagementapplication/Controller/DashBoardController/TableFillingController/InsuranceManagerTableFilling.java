@@ -28,6 +28,7 @@ import java.util.ListIterator;
  * @project InsuranceManagementTeamProject
  */
 public class InsuranceManagerTableFilling extends InsuranceSurveyorTableFilling {
+    //TODO Create a thread that runs in a selected interval that get all Managers from the database and check if new entries exist. If they do, append the new entries to the Observable List
     private ObservableList<InsuranceManager> insuranceManagersObservableList = FXCollections.observableArrayList();
     @FXML
     protected TableView<InsuranceManager> managerTable;
@@ -52,6 +53,11 @@ public class InsuranceManagerTableFilling extends InsuranceSurveyorTableFilling 
     @FXML
     protected TextField  insuranceManagerSearchField;
 
+
+    /**
+     * Attach an event listener to the manager search field that filter the insurance manager according to changes in this field
+     * @param filteredManagerList
+     */
     public void filteringInsuranceManagerTable(FilteredList<InsuranceManager> filteredManagerList){
         insuranceManagerSearchField.textProperty().addListener((observable, oldValue, newValue)->{
             filteredManagerList.setPredicate(insuranceManager -> {
@@ -81,13 +87,21 @@ public class InsuranceManagerTableFilling extends InsuranceSurveyorTableFilling 
 
         });
     }
-
+    /**
+     * Mapping the columns of the insurance manager tables with Insurance Manager entity. Fill up the Insurance Manager tables with data from the database
+     * @param entityManager
+     * @param user
+     * @param insuranceManagers
+     */
     public void fillingInsuranceManagerTable(EntityManager entityManager, User user, List<InsuranceManager> insuranceManagers){
         ListIterator<InsuranceManager> listIteratorInsuranceManager = insuranceManagers.listIterator();
+        //adding insurance managers into the observable list
         while (listIteratorInsuranceManager.hasNext()){
             InsuranceManager insuranceManager = listIteratorInsuranceManager.next();
             Button buttonUpdateInfo = new Button("Update Info");
             insuranceManager.setUpdateInfoButton(buttonUpdateInfo);
+            //The update info button on each row will create a CreationPage Controller in update mode for the corresponding insurance manager by passing in the insurance manager object
+            //It will then open the Insurance Manager Creation Form
             buttonUpdateInfo.setOnAction(event -> {
                 CreationPageController_InsuranceManager insuranceManagerCreationPageController = new CreationPageController_InsuranceManager(entityManager, user, insuranceManager);
                 RepeatedCode.showStage((Stage) buttonUpdateInfo.getScene().getWindow(), insuranceManagerCreationPageController, "InsuranceManagerCreationPage.fxml", "Insurance Manager Update");
@@ -95,11 +109,14 @@ public class InsuranceManagerTableFilling extends InsuranceSurveyorTableFilling 
 
             Button buttonAddSurveyor = new Button("Add Surveyor");
             insuranceManager.setAddSurveyorButton(buttonAddSurveyor);
+            //The addSurveyor button will create an Insurance Surveyor CreationPage Controller in creation mode by passing the insurance manage object
+            //It will then open the Insurance Surveyor Creation Form
             buttonAddSurveyor.setOnAction(event ->{
                 CreationPageController_InsuranceSurveyor creationPageControllerInsuranceSurveyor = new CreationPageController_InsuranceSurveyor(entityManager, user, insuranceManager);
                 RepeatedCode.showStage((Stage) buttonAddSurveyor.getScene().getWindow(), creationPageControllerInsuranceSurveyor, "InsuranceSurveyorCreationPage.fxml", "Insurance Surveyor Creation");
             });
 
+            //The remove button will remove its insurance manager from the database
             Button buttonRemove = new Button("Remove");
             insuranceManager.setRemoveButton(buttonRemove);
             buttonRemove.setOnAction(event -> {

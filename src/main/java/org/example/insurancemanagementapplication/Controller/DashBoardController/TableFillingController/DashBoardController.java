@@ -33,7 +33,7 @@ import java.util.ListIterator;
 public class DashBoardController implements ClaimCreateRemove {
     protected final EntityManager entityManager;
     protected final User user;
-    //Task: Create a thread that get all claims from the table  and check if new entries exist. If they do, append the new entries to the Observable List
+    //TODO Create a thread that runs in a selected interval that get all claims from the database and check if new entries exist. If they do, append the new entries to the Observable List
     private ObservableList<Claim> claimObservableList = FXCollections.observableArrayList();
 
     @FXML
@@ -54,7 +54,7 @@ public class DashBoardController implements ClaimCreateRemove {
     protected Label errorContainer;
 
 
-    //The TableView element in the front end listing Claims
+    //Table View and Columns
     @FXML
     protected TableView<Claim> claimTable;
     //The table column containing claims' ids
@@ -80,23 +80,36 @@ public class DashBoardController implements ClaimCreateRemove {
     protected TableColumn<Claim, Button> removeClaimButton;
     @FXML
     protected  TextField claimListSearchField;
+    //User will select what sorting they would like to use
     @FXML
     protected  ChoiceBox<String> sortList;
+    //User will select the status they want to see
     @FXML
     protected  ChoiceBox<String> statusList;
+    //User will input the earliest settlement date they want to see
     @FXML
     protected  DatePicker creationDateFrom;
+
+    //User will input the latest settlement creation they want to see
     @FXML
     protected  DatePicker creationDateTo;
+    //User will input the earliest settlement date they want to see
     @FXML
     protected  DatePicker settlementDateFrom;
+    //User will input the latest settlement date they want to see
     @FXML
     protected  DatePicker settlementDateTo;
+    //User will input the min claim amount that they want to see
     @FXML
     protected  TextField claimAmountFrom;
+    //User will input the max claim amount they want to see
     @FXML
     protected  TextField claimAmountTo;
 
+
+    /**
+     * Filling the form on top of the dashboard with user's information. The fields are disabled unless the user is a system admin
+     */
     public void userFillingData (){
         userIdField.setText(user.getId());
         userIdField.setDisable(true);
@@ -123,6 +136,8 @@ public class DashBoardController implements ClaimCreateRemove {
 
     //This method adds event listener to sorting choice boxes and fields that sort the claim tables when their values change.
     public void sortingClaimTable(SortedList<Claim> sortedClaimList ){
+
+        //Comparator class. An instance of this class will be used as a parameter of the sort Method to define the sorting factor. In this class, the sorting factor is the claim's creation date
         class ClaimCreationDateComparator implements Comparator<Claim> {
             @Override
             public int compare(Claim firstClaim, Claim secondClaim) {
@@ -131,6 +146,7 @@ public class DashBoardController implements ClaimCreateRemove {
                 return Long.compare(firstClaimTime, secondClaimTime);
             }
         }
+        //Comparator class. An instance of this class will be used as a parameter of the sort Method to define the sorting factor. In this class, the sorting factor is the claim's settlement date
         class ClaimSettlementDateComparator implements Comparator<Claim>{
             @Override
             public int compare(Claim firstClaim, Claim secondClaim) {
@@ -140,12 +156,14 @@ public class DashBoardController implements ClaimCreateRemove {
             }
         }
 
+        //Comparator class. An instance of this class will be used as a parameter of the sort Method to define the sorting factor. In this class, the sorting factor is the claim's claim amount
         class ClaimAmountComparator implements Comparator<Claim>{
             @Override
             public int compare(Claim firstClaim, Claim secondClaim) {
                 return Float.compare(firstClaim.getClaimAmount(), secondClaim.getClaimAmount());
             }
         }
+        //add a listener to the sort list choice box. The listener will monitor the choice box's value to apply the correct sorting
         sortList.valueProperty().addListener((observable, oldVal, newVal)->{
             if (newVal.equals("Sort By Creation Date In Ascending Order")){
                 ClaimCreationDateComparator claimCreationDateComparator = new ClaimCreationDateComparator();
@@ -321,7 +339,14 @@ public class DashBoardController implements ClaimCreateRemove {
 
     //This method maps table's columns with entity's fields and fill the table up with data.
     public void fillingClaimTable(EntityManager entityManager, User user, List<Claim> claims){
+        //Putting values into the statusList choice box
+        String[] statusArray = {"NEW", "PROCESSING", "NEED INFO", "APPROVED", "REJECTED"};
+        statusList.getItems().setAll(statusArray);
+        //Putting values into the sortList choice box
+        String[] sortArray = {"Sort By Creation Date In Ascending Order", "Sort By Creation Date In Descending Order", "Sort By Settlement Date In Ascending Order", "Sort By Settlement Date In Descending Order", "Sort by Claim Amount In Ascending Order", "Sort by Claim Amount In Descending Order"};
+        sortList.getItems().setAll(sortArray);
         ListIterator<Claim> claimListIterator = claims.listIterator();
+        //Adding Claims to the claim observable list
         while (claimListIterator.hasNext()){
             Claim claim = claimListIterator.next();
 
