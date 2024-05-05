@@ -28,6 +28,12 @@ import java.util.ListIterator;
  * @created 01/05/2024 15:33
  * @project InsuranceManagementTeamProject
  */
+
+/**
+ * This class extends the DashBoardController class. As such, it has access to all instance fields and methods of that class
+ * This class contains methods to fill up Dependant table. It is extended by all DashBoard Controller classes except for the Dependant
+ * DashBoard Controller, which does not have access to this table
+ */
 public class DependantTableFilling extends DashBoardController {
     @FXML
     protected TableView<Dependant> dependantTable;
@@ -62,6 +68,11 @@ public class DependantTableFilling extends DashBoardController {
         super(entityManager, user);
     }
 
+    /**
+     * This method attaches an event listener to the dependant search field. It will listen for change in value of this field and filter the dependant
+     * table accordingly.
+     * @param filteredDependantList
+     */
     public void filteringDependantTable(FilteredList<Dependant> filteredDependantList){
         dependantSearchField.textProperty().addListener((observable, oldValue, newValue)->{
 
@@ -103,6 +114,14 @@ public class DependantTableFilling extends DashBoardController {
             });
         });
     }
+
+    /**
+     * This method maps columns of the dependant tables with the dependant entity. It will then fill up the table with data from the beneficiary database.
+     * @param entityManager
+     * @param user
+     * @param dependants
+     * @param dependantObservableList
+     */
     public void fillingDependantTable(EntityManager entityManager, User user, List<Dependant> dependants, ObservableList<Dependant> dependantObservableList){
         ListIterator<Dependant> dependantListIterator = dependants.listIterator();
         while (dependantListIterator.hasNext()){
@@ -110,8 +129,11 @@ public class DependantTableFilling extends DashBoardController {
             Button buttonUpdateInfo = new Button();
             Button buttonAddClaim = new Button();
             Button buttonRemove = new Button();
+            //Only system admin and policy holder and policy owner have access to the update info button, remove button
             if (user instanceof SystemAdmin || user instanceof Customer){
                 buttonUpdateInfo.setText("Update Info");
+                //Create a CreationPageController for the Dependant in Update mode by passing in the dependant object to the constructor
+                //Open a new scene on the existing stage by calling the showStage static method from the Repeated Code Class
                 buttonUpdateInfo.setOnAction(event -> {
                     CreationPageController_Dependant creationPageControllerDependant = new CreationPageController_Dependant(entityManager, user, dependant);
                     RepeatedCode.showStage((Stage) buttonUpdateInfo.getScene().getWindow(), creationPageControllerDependant, "DependantCreationPage.fxml", "Dependant Update");
@@ -120,6 +142,7 @@ public class DependantTableFilling extends DashBoardController {
 
                 buttonRemove.setText("Remove");
                 dependant.setRemoveButton(buttonRemove);
+                //Set action for the remove button. Clicking the button will remove its dependant
                 buttonRemove.setOnAction(event -> {
                     CustomerCreateRemove.removeDependant(entityManager, dependant );
                 });
@@ -127,10 +150,12 @@ public class DependantTableFilling extends DashBoardController {
                 buttonUpdateInfo.setUserData(dependant);
                 dependant.setUpdateInfoButton(buttonUpdateInfo);
 
-
+                //Only policy holder and policy owner could create a new claim for a dependant
                 if (!(user instanceof SystemAdmin)){
                     buttonAddClaim.setText("Add Claim");
                     buttonAddClaim.setOnAction(event -> {
+                        //Create a ClaimCreationPage controller in creation mode by passing the dependant object to the constructor
+                        //Open a new scene in the existing stage by calling the showStage static method from the Repeated Code Class
                         CreationPageController_Claim creationPageControllerClaim = new CreationPageController_Claim(entityManager, user, dependant);
                         RepeatedCode.showStage((Stage) buttonUpdateInfo.getScene().getWindow(), creationPageControllerClaim, "ClaimCreationPage.fxml", "Claim Creation");
                     });
@@ -161,9 +186,6 @@ public class DependantTableFilling extends DashBoardController {
 
         FilteredList<Dependant> filteredDependantList = new FilteredList<>(dependantObservableList, b -> true);
         filteringDependantTable(filteredDependantList);
-
-
-
         dependantTable.setItems(filteredDependantList);
     }
 

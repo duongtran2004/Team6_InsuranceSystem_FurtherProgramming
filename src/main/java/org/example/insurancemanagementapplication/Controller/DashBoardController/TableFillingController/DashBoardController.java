@@ -22,6 +22,13 @@ import java.util.ListIterator;
  * @created 01/05/2024 15:21
  * @project InsuranceManagementTeamProject
  */
+
+/**
+ * The most encompassing class that all dashboard controller inherits from.This class contains a function that inhabits
+ * the claim tables of all users' dashboards with data.
+ * It also contains a method that automatically fill up the form on top of each dashboard with user's data.
+ */
+//T
 public class DashBoardController implements ClaimCreateRemove {
     protected final EntityManager entityManager;
     protected final User user;
@@ -111,6 +118,7 @@ public class DashBoardController implements ClaimCreateRemove {
         this.user = user;
     }
 
+    //This method adds event listener to sorting choice boxes and fields that sort the claim tables when their values change.
     public void sortingClaimTable(SortedList<Claim> sortedClaimList ){
         class ClaimCreationDateComparator implements Comparator<Claim> {
             @Override
@@ -168,7 +176,7 @@ public class DashBoardController implements ClaimCreateRemove {
         });
     }
 
-    //This method adds handlers to changes in filtering Fields.
+    //This method adds handlers to changes in filtering fields that filter the claim tables when their value changes.
     public void filteringClaimTable(FilteredList<Claim> filteredClaimList){
         //Add a handler to the search field
         claimListSearchField.textProperty().addListener((observable, oldValue, newValue)->{
@@ -308,6 +316,7 @@ public class DashBoardController implements ClaimCreateRemove {
         });
     }
 
+    //This method maps table's columns with entity's fields and fill the table up with data.
     public void fillingClaimTable(EntityManager entityManager, User user, List<Claim> claims, ObservableList<Claim> claimObservableList){
         ListIterator<Claim> claimListIterator = claims.listIterator();
         while (claimListIterator.hasNext()){

@@ -17,15 +17,7 @@ import java.util.ResourceBundle;
  */
 public class DashBoardController_Dependant extends DashBoardController implements Initializable, Controller {
 
-    public void userFillingData(){
-        userIdField.setText(user.getId());
-        fullNameField.setText(user.getFullName());
-        addressField.setText(user.getAddress());
-        phoneNumberField.setText(user.getPhoneNumber());
-        emailField.setText(user.getEmail());
-        passwordField.setText(user.getPassword());
-        passwordValidationField.setText(user.getPassword());
-    }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

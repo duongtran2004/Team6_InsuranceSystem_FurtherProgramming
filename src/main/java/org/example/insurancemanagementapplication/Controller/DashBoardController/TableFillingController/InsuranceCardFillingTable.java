@@ -46,6 +46,10 @@ public class InsuranceCardFillingTable extends DependantTableFilling {
         super(entityManager, user);
     }
 
+    /**
+     * Attach an event listener to the insurance card search field that filter the insurance manager according to changes in this field
+     * @param filteredInsuranceCardList
+     */
     public void filteringInsuranceCardTable(FilteredList<InsuranceCard> filteredInsuranceCardList){
         insuranceCardSearchField.textProperty().addListener((observable, oldValue, newValue) ->{
             filteredInsuranceCardList.setPredicate(insuranceCard -> {
@@ -74,6 +78,14 @@ public class InsuranceCardFillingTable extends DependantTableFilling {
             });
         });
     }
+
+    /**
+     * Mapping the columns of the insurance card tables with Insurance Card entity. Fill up the Insurance Card tables with data from the databse
+     * @param entityManager
+     * @param user
+     * @param insuranceCards
+     * @param insuranceCardObservableList
+     */
     public void fillingInsuranceCardTable(EntityManager entityManager, User user, List<InsuranceCard> insuranceCards, ObservableList<InsuranceCard> insuranceCardObservableList){
 
         ListIterator<InsuranceCard> insuranceCardListIterator = insuranceCards.listIterator();
@@ -81,9 +93,12 @@ public class InsuranceCardFillingTable extends DependantTableFilling {
 
             InsuranceCard insuranceCard = insuranceCardListIterator.next();
             Button buttonRemove = new Button("Remove");
+            //Only system admin and policy owner has access to this button
             if (user instanceof SystemAdmin || user instanceof PolicyOwner){
                 buttonRemove.setOnAction(event -> {
                     CustomerCreateRemove.removeInsuranceCard(entityManager, insuranceCard);
+                    //Task: Method needed to remove the insurance card
+                    //Before we remove the insurance card, we need to update the insurance card field of all of its beneficiaries
                 });
                 insuranceCard.setRemoveButton(buttonRemove);
             }
