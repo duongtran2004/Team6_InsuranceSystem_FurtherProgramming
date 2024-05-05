@@ -5,6 +5,7 @@ import Entity.PolicyOwner;
 import Entity.SystemAdmin;
 import Entity.User;
 import jakarta.persistence.EntityManager;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
@@ -26,7 +27,8 @@ import java.util.ListIterator;
  * @project InsuranceManagementTeamProject
  */
 public class InsuranceCardFillingTable extends DependantTableFilling {
-
+    //Task: Create a thread that get all Insurance Cards from the table  and check if new entries exist. If they do, append the new entries to the Observable List
+    private ObservableList<InsuranceCard> insuranceCardsObservableList = FXCollections.observableArrayList();
     @FXML
     protected TableView<InsuranceCard> insuranceCardTable;
     @FXML
@@ -84,9 +86,8 @@ public class InsuranceCardFillingTable extends DependantTableFilling {
      * @param entityManager
      * @param user
      * @param insuranceCards
-     * @param insuranceCardObservableList
      */
-    public void fillingInsuranceCardTable(EntityManager entityManager, User user, List<InsuranceCard> insuranceCards, ObservableList<InsuranceCard> insuranceCardObservableList){
+    public void fillingInsuranceCardTable(EntityManager entityManager, User user, List<InsuranceCard> insuranceCards){
 
         ListIterator<InsuranceCard> insuranceCardListIterator = insuranceCards.listIterator();
         while (insuranceCardListIterator.hasNext()){
@@ -102,7 +103,7 @@ public class InsuranceCardFillingTable extends DependantTableFilling {
                 });
                 insuranceCard.setRemoveButton(buttonRemove);
             }
-            insuranceCardObservableList.add(insuranceCard);
+            insuranceCardsObservableList.add(insuranceCard);
         }
         cardNumber.setCellValueFactory(new PropertyValueFactory<InsuranceCard, String>("cardNumber"));
         cardHolderId.setCellValueFactory(new PropertyValueFactory<InsuranceCard, String>("cardHolder"));
@@ -111,7 +112,7 @@ public class InsuranceCardFillingTable extends DependantTableFilling {
         if (user instanceof SystemAdmin || user instanceof PolicyOwner){
             insuranceCardRemoveButton.setCellValueFactory(new PropertyValueFactory<InsuranceCard, Button>("removeButton"));
         }
-        FilteredList<InsuranceCard> filteredInsuranceCardList = new FilteredList<>(insuranceCardObservableList, b -> true);
+        FilteredList<InsuranceCard> filteredInsuranceCardList = new FilteredList<>(insuranceCardsObservableList, b -> true);
         filteringInsuranceCardTable(filteredInsuranceCardList);
         insuranceCardTable.setItems(filteredInsuranceCardList);
 

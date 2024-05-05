@@ -5,6 +5,7 @@ import Entity.Dependant;
 import Entity.SystemAdmin;
 import Entity.User;
 import jakarta.persistence.EntityManager;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
@@ -35,6 +36,8 @@ import java.util.ListIterator;
  * DashBoard Controller, which does not have access to this table
  */
 public class DependantTableFilling extends DashBoardController {
+    //Task: Create a thread that get all Dependants from the table  and check if new entries exist. If they do, append the new entries to the Observable List
+    private ObservableList<Dependant> dependantsObservableList = FXCollections.observableArrayList();
     @FXML
     protected TableView<Dependant> dependantTable;
     @FXML
@@ -120,9 +123,8 @@ public class DependantTableFilling extends DashBoardController {
      * @param entityManager
      * @param user
      * @param dependants
-     * @param dependantObservableList
      */
-    public void fillingDependantTable(EntityManager entityManager, User user, List<Dependant> dependants, ObservableList<Dependant> dependantObservableList){
+    public void fillingDependantTable(EntityManager entityManager, User user, List<Dependant> dependants){
         ListIterator<Dependant> dependantListIterator = dependants.listIterator();
         while (dependantListIterator.hasNext()){
             Dependant dependant = dependantListIterator.next();
@@ -162,7 +164,7 @@ public class DependantTableFilling extends DashBoardController {
                     dependant.setAddClaimButton(buttonAddClaim);
                 }
 
-                dependantObservableList.add(dependant);
+                dependantsObservableList.add(dependant);
 
             }
 
@@ -184,7 +186,7 @@ public class DependantTableFilling extends DashBoardController {
             }
         }
 
-        FilteredList<Dependant> filteredDependantList = new FilteredList<>(dependantObservableList, b -> true);
+        FilteredList<Dependant> filteredDependantList = new FilteredList<>(dependantsObservableList, b -> true);
         filteringDependantTable(filteredDependantList);
         dependantTable.setItems(filteredDependantList);
     }

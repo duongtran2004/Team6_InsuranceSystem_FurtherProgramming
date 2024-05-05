@@ -4,6 +4,7 @@ import Entity.PolicyOwner;
 import Entity.SystemAdmin;
 import Entity.User;
 import jakarta.persistence.EntityManager;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
@@ -28,6 +29,7 @@ import java.util.ListIterator;
  * @project InsuranceManagementTeamProject
  */
 public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
+    private ObservableList<PolicyOwner> policyOwnersObservableList = FXCollections.observableArrayList();
     @FXML
     protected TableView<PolicyOwner> policyOwnerTable;
     @FXML
@@ -85,7 +87,7 @@ public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
         });
     }
 
-    public void fillingPolicyOwnerTable(EntityManager entityManager, User user, List<PolicyOwner> policyOwners, ObservableList<PolicyOwner> policyOwnersObservableList){
+    public void fillingPolicyOwnerTable(EntityManager entityManager, User user, List<PolicyOwner> policyOwners){
         ListIterator<PolicyOwner> policyOwnerListIterator = policyOwners.listIterator();
         while (policyOwnerListIterator.hasNext()){
             PolicyOwner policyOwner = policyOwnerListIterator.next();

@@ -2,6 +2,7 @@ package org.example.insurancemanagementapplication.Controller.DashBoardControlle
 
 import Entity.*;
 import jakarta.persistence.EntityManager;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
@@ -27,6 +28,8 @@ import java.util.ListIterator;
  * @project InsuranceManagementTeamProject
  */
 public class PolicyHolderTableFilling extends InsuranceCardFillingTable{
+    //Task: Create a thread that get all Policy Holders from the table  and check if new entries exist. If they do, append the new entries to the Observable List
+    private ObservableList<PolicyHolder> policyHoldersObservableList = FXCollections.observableArrayList();
     @FXML
     protected TableView<PolicyHolder> policyHolderTable;
     @FXML
@@ -96,7 +99,7 @@ public class PolicyHolderTableFilling extends InsuranceCardFillingTable{
         });
     }
 
-    public void fillingPolicyHolderTable(EntityManager entityManager, User user, List<PolicyHolder> policyHolders, ObservableList<PolicyHolder> policyHoldersObservableList){
+    public void fillingPolicyHolderTable(EntityManager entityManager, User user, List<PolicyHolder> policyHolders){
         ListIterator<PolicyHolder> policyHolderListIterator = policyHolders.listIterator();
         while (policyHolderListIterator.hasNext()){
             PolicyHolder policyHolder = policyHolderListIterator.next();

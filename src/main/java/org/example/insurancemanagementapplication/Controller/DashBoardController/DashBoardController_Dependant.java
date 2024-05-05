@@ -17,8 +17,6 @@ import java.util.ResourceBundle;
  */
 public class DashBoardController_Dependant extends DashBoardController implements Initializable, Controller {
 
-
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         userFillingData();

@@ -4,6 +4,7 @@ import Entity.InsuranceSurveyor;
 import Entity.SystemAdmin;
 import Entity.User;
 import jakarta.persistence.EntityManager;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
@@ -31,6 +32,7 @@ import java.util.ListIterator;
  * @project InsuranceManagementTeamProject
  */
 public class InsuranceSurveyorTableFilling extends PolicyOwnerTableFilling{
+    private ObservableList<InsuranceSurveyor> insuranceSurveyorsObservableList = FXCollections.observableArrayList();
     @FXML
     protected TableView<InsuranceSurveyor> surveyorTable;
     @FXML
@@ -94,7 +96,7 @@ public class InsuranceSurveyorTableFilling extends PolicyOwnerTableFilling{
         });
     }
 
-    public void fillingInsuranceSurveyorTable(EntityManager entityManager, User user, List<InsuranceSurveyor> insuranceSurveyors, ObservableList<InsuranceSurveyor> insuranceSurveyorsObservableList){
+    public void fillingInsuranceSurveyorTable(EntityManager entityManager, User user, List<InsuranceSurveyor> insuranceSurveyors){
         ListIterator<InsuranceSurveyor> listIteratorInsuranceSurveyor = insuranceSurveyors.listIterator();
         while (listIteratorInsuranceSurveyor.hasNext()){
             InsuranceSurveyor insuranceSurveyor = listIteratorInsuranceSurveyor.next();

@@ -2,6 +2,7 @@ package org.example.insurancemanagementapplication.Controller.DashBoardControlle
 
 import Entity.*;
 import jakarta.persistence.EntityManager;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
@@ -32,6 +33,8 @@ import java.util.ListIterator;
 public class DashBoardController implements ClaimCreateRemove {
     protected final EntityManager entityManager;
     protected final User user;
+    //Task: Create a thread that get all claims from the table  and check if new entries exist. If they do, append the new entries to the Observable List
+    private ObservableList<Claim> claimObservableList = FXCollections.observableArrayList();
 
     @FXML
     protected TextField userIdField;
@@ -317,7 +320,7 @@ public class DashBoardController implements ClaimCreateRemove {
     }
 
     //This method maps table's columns with entity's fields and fill the table up with data.
-    public void fillingClaimTable(EntityManager entityManager, User user, List<Claim> claims, ObservableList<Claim> claimObservableList){
+    public void fillingClaimTable(EntityManager entityManager, User user, List<Claim> claims){
         ListIterator<Claim> claimListIterator = claims.listIterator();
         while (claimListIterator.hasNext()){
             Claim claim = claimListIterator.next();

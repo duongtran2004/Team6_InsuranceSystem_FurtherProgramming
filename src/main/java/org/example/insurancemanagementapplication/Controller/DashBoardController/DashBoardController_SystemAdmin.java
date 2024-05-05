@@ -1,9 +1,8 @@
 package org.example.insurancemanagementapplication.Controller.DashBoardController;
 
-import Entity.*;
+import Entity.SystemAdmin;
+import Entity.User;
 import jakarta.persistence.EntityManager;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -25,22 +24,6 @@ import java.util.ResourceBundle;
  * @project InsuranceManagementTeamProject
  */
 public class DashBoardController_SystemAdmin extends InsuranceManagerTableFilling implements ClaimAnalytics, EmployeeCreateRemove, CustomerCreateRemove, Initializable, EmployeeAnalytics, Controller {
-
-
-    private ObservableList<InsuranceManager> insuranceManagersObservableList = FXCollections.observableArrayList();
-    private ObservableList<InsuranceSurveyor> insuranceSurveyorsObservableList = FXCollections.observableArrayList();
-    private ObservableList<PolicyOwner> policyOwnersObservableList = FXCollections.observableArrayList();
-    //Task: Create a thread that get all Policy Holders from the table  and check if new entries exist. If they do, append the new entries to the Observable List
-    private ObservableList<PolicyHolder> policyHoldersObservableList = FXCollections.observableArrayList();
-    //Task: Create a thread that get all Dependants from the table  and check if new entries exist. If they do, append the new entries to the Observable List
-    private ObservableList<Dependant> dependantsObservableList = FXCollections.observableArrayList();
-    //Task: Create a thread that get all Insurance Cards from the table  and check if new entries exist. If they do, append the new entries to the Observable List
-    private ObservableList<InsuranceCard> insuranceCardsObservableList = FXCollections.observableArrayList();
-    //Task: Create a thread that get all claims from the table  and check if new entries exist. If they do, append the new entries to the Observable List
-    private ObservableList<Claim> claimObservableList = FXCollections.observableArrayList();
-
-
-
     @FXML
     private Button updateInfoButton;
     @FXML
@@ -82,19 +65,19 @@ public class DashBoardController_SystemAdmin extends InsuranceManagerTableFillin
         });
 
         //Task: Create a separate thread to fill in Insurance Manager Table
-        fillingInsuranceManagerTable(entityManager, user, EmployeeAnalytics.getAllInsuranceManager(entityManager), insuranceManagersObservableList);
+        fillingInsuranceManagerTable(entityManager, user, EmployeeAnalytics.getAllInsuranceManager(entityManager));
         //Task: Create a separate thread to fill in the Insurance Surveyor Table
-        fillingInsuranceSurveyorTable(entityManager, user, EmployeeAnalytics.getAllInsuranceSurveyor(entityManager), insuranceSurveyorsObservableList);
+        fillingInsuranceSurveyorTable(entityManager, user, EmployeeAnalytics.getAllInsuranceSurveyor(entityManager));
         //Task: Create a separate thread to fill in the Policy Owner Table
-        fillingPolicyOwnerTable(entityManager, user, CustomerAnalytics.getAllPolicyOwner(entityManager), policyOwnersObservableList);
+        fillingPolicyOwnerTable(entityManager, user, CustomerAnalytics.getAllPolicyOwner(entityManager));
         //Task: Create a separate thread to fill in the Policy Holder Table
-        fillingPolicyHolderTable(entityManager, user, CustomerAnalytics.getAllPolicyHolder(entityManager), policyHoldersObservableList);
+        fillingPolicyHolderTable(entityManager, user, CustomerAnalytics.getAllPolicyHolder(entityManager));
         //Task: Create a separate thread to fill in the Dependant Table
-        fillingDependantTable(entityManager, user, CustomerAnalytics.getAllDependant(entityManager), dependantsObservableList);
+        fillingDependantTable(entityManager, user, CustomerAnalytics.getAllDependant(entityManager));
         //Task: Create a separate thread to fill in the Insurance Claim Table
-        fillingInsuranceCardTable(entityManager, user, CustomerAnalytics.getAllInsuranceCard(entityManager), insuranceCardsObservableList);
+        fillingInsuranceCardTable(entityManager, user, CustomerAnalytics.getAllInsuranceCard(entityManager));
         //Task: Create a separate thread to fill in the Claim Table
-        fillingClaimTable(entityManager, user, ClaimAnalytics.getAllClaims(entityManager), claimObservableList);
+        fillingClaimTable(entityManager, user, ClaimAnalytics.getAllClaims(entityManager));
 
     }
 
