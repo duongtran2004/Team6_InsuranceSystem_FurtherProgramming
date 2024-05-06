@@ -23,7 +23,7 @@ import java.util.ResourceBundle;
  * @created 27/04/2024 04:55
  * @project InsuranceManagementTeamProject
  */
-public class DashBoardController_SystemAdmin extends InsuranceManagerTableFilling implements ClaimAnalytics, EmployeeCreateRemove, CustomerCreateRemove, Initializable, EmployeeAnalytics, Controller {
+public class DashBoardController_SystemAdmin extends InsuranceManagerTableFilling implements ClaimRead, EmployeeCreateRemove, CustomerCreateRemove, Initializable, EmployeeRead, Controller {
     @FXML
     private Button updateInfoButton;
     @FXML
@@ -65,19 +65,19 @@ public class DashBoardController_SystemAdmin extends InsuranceManagerTableFillin
         });
 
         //Task: Create a separate thread to fill in Insurance Manager Table
-        fillingInsuranceManagerTable(entityManager, user, EmployeeAnalytics.getAllInsuranceManager(entityManager));
+        fillingInsuranceManagerTable(entityManager, user, EmployeeRead.getAllInsuranceManager(entityManager));
         //Task: Create a separate thread to fill in the Insurance Surveyor Table
-        fillingInsuranceSurveyorTable(entityManager, user, EmployeeAnalytics.getAllInsuranceSurveyor(entityManager));
+        fillingInsuranceSurveyorTable(entityManager, user, EmployeeRead.getAllInsuranceSurveyor(entityManager));
         //Task: Create a separate thread to fill in the Policy Owner Table
-        fillingPolicyOwnerTable(entityManager, user, CustomerAnalytics.getAllPolicyOwner(entityManager));
+        fillingPolicyOwnerTable(entityManager, user, CustomerRead.getAllPolicyOwner(entityManager));
         //Task: Create a separate thread to fill in the Policy Holder Table
-        fillingPolicyHolderTable(entityManager, user, CustomerAnalytics.getAllPolicyHolder(entityManager));
+        fillingPolicyHolderTable(entityManager, user, CustomerRead.getAllPolicyHolder(entityManager));
         //Task: Create a separate thread to fill in the Dependant Table
-        fillingDependantTable(entityManager, user, CustomerAnalytics.getAllDependant(entityManager));
+        fillingDependantTable(entityManager, user, CustomerRead.getAllDependant(entityManager));
         //Task: Create a separate thread to fill in the Insurance Claim Table
-        fillingInsuranceCardTable(entityManager, user, CustomerAnalytics.getAllInsuranceCard(entityManager));
+        fillingInsuranceCardTable(entityManager, user, CustomerRead.getAllInsuranceCard(entityManager));
         //Task: Create a separate thread to fill in the Claim Table
-        fillingClaimTable(entityManager, user, ClaimAnalytics.getAllClaims(entityManager));
+        fillingClaimTable(entityManager, user, ClaimRead.getAllClaims(entityManager));
 
     }
 
