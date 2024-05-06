@@ -111,6 +111,7 @@
                         </Button>
                     </buttons>
                   </ButtonBar>
+                  <Label fx:id="errorContainer" prefHeight="18.0" prefWidth="379.0" GridPane.rowIndex="4" />
                </children>
                <padding>
                   <Insets left="50.0" right="150.0" />

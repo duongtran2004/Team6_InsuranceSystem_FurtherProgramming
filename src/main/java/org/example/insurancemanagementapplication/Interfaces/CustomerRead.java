@@ -43,7 +43,7 @@ public interface CustomerRead {
         }
         else {
             if (role.equals("Dependant")){
-                Dependant customer = (Dependant) entityManager.createQuery("SELECT c FROM Beneficiaries c WHERE c.id LIKE ?1 AND c.password LIKE ?2 AND c.email LIKE ?3 AND c.type = ?4").setParameter(1, id).setParameter(2, password).setParameter(3, email).setParameter(4, "DE").getSingleResult();
+                Dependant customer = (Dependant) entityManager.createQuery("SELECT c FROM Beneficiaries c WHERE c.id LIKE ?1 AND c.password LIKE ?2 AND c.email LIKE ?3 AND c.type = 'DE'").setParameter(1, id).setParameter(2, password).setParameter(3, email).setParameter(4, "DE").getSingleResult();
                 return customer;
             }
             else {

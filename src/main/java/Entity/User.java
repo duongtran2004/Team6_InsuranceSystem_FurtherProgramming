@@ -92,7 +92,7 @@ public class User {
     }
 
     public void setUpdateInfoButton(Button updateInfo) {
-        this.updateInfoButton = updateInfo;
+        this.updateInfoButton = updateInfo; //method set the object of updateInfoButton
     }
 
     public Button getRemoveButton() {

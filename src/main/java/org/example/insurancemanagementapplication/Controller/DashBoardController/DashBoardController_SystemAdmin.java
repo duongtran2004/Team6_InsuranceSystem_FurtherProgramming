@@ -24,12 +24,17 @@ import java.util.ResourceBundle;
  * @project InsuranceManagementTeamProject
  */
 public class DashBoardController_SystemAdmin extends InsuranceManagerTableFilling implements ClaimRead, EmployeeCreateRemove, CustomerCreateRemove, Initializable, EmployeeRead, Controller {
+
+
+    //import necessary FXML controller object for the creation and update form at the top
     @FXML
     private Button updateInfoButton;
     @FXML
     private Button addPolicyOwnerButton;
     @FXML
     private Button addManagerButton;
+
+    //constructor
 
 
     public DashBoardController_SystemAdmin(EntityManager entityManager, User user) {
@@ -38,6 +43,7 @@ public class DashBoardController_SystemAdmin extends InsuranceManagerTableFillin
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        //UPDATE INFO
         //See the DashBoardController Class for this method
         userFillingData();
         //
@@ -51,6 +57,7 @@ public class DashBoardController_SystemAdmin extends InsuranceManagerTableFillin
             }
 
         });
+        // ADD A NEW POLICY OWNER USER
 
         //Add handler to the addPolicyOwnerButton. this function creates a CreationPage Controller for Policy Owner and then transfer the user to the Policy Owner Creation Page
         addPolicyOwnerButton.setOnAction(event -> {
@@ -58,11 +65,16 @@ public class DashBoardController_SystemAdmin extends InsuranceManagerTableFillin
             //See the RepeatedCode class for this method
             RepeatedCode.showStage((Stage) addPolicyOwnerButton.getScene().getWindow(), creationPageControllerPolicyOwner, "PolicyOwnerCreationPage.fxml", "Policy Owner Creation Page");
         });
+
+        // ADD A NEW INSURANCE MANAGER USER
         //Add handler to the addManagerButton. this function creates a CreationPage Controller for Insurance Manager and then transfer the user to the Insurance Manager Creation Page
         addManagerButton.setOnAction(event -> {
             CreationPageController_InsuranceManager creationPageControllerInsuranceManager = new CreationPageController_InsuranceManager(entityManager, user);
             RepeatedCode.showStage((Stage) addManagerButton.getScene().getWindow(), creationPageControllerInsuranceManager, "InsuranceManagerCreationPage.fxml", "Insurance Manager Creation Page");
         });
+
+        //FILL ALL THE NECESSARY TABLE (CALL METHODS IN TABLE FILLING CLASS)
+        //METHOD FROM TABLE FILLING CLASS CALLS "READ ALL" METHODS IN READ INTERFACES (PASS ENTITY MANAGER AS ARGUMENT)
 
         //Task: Create a separate thread to fill in Insurance Manager Table
         fillingInsuranceManagerTable(entityManager, user, EmployeeRead.getAllInsuranceManager(entityManager));

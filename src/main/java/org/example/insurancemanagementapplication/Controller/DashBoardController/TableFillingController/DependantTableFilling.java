@@ -1,9 +1,6 @@
 package org.example.insurancemanagementapplication.Controller.DashBoardController.TableFillingController;
 
-import Entity.Customer;
-import Entity.Dependant;
-import Entity.SystemAdmin;
-import Entity.User;
+import Entity.*;
 import jakarta.persistence.EntityManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -37,7 +34,12 @@ import java.util.ListIterator;
  */
 public class DependantTableFilling extends DashBoardController {
     //TODO Create a thread that runs in a selected interval that get all Dependants from the database  and check if new entries exist. If they do, append the new entries to the Observable List
+
+    //this List is to get notice of changes in dependents Collection
     private ObservableList<Dependant> dependantsObservableList = FXCollections.observableArrayList();
+
+    //import necessary FXML object
+    //tables and its column
     @FXML
     protected TableView<Dependant> dependantTable;
     @FXML
@@ -56,12 +58,14 @@ public class DependantTableFilling extends DashBoardController {
     protected TableColumn<Dependant, String> policyOwnerDependantTable;
     @FXML
     protected TableColumn<Dependant, String> cardNumberDependantTable;
+    //controller like button and search field
     @FXML
     protected TableColumn<Dependant, Button> dependantUpdateInfoButton;
     @FXML
     protected TableColumn<Dependant, Button> dependantAddClaimButton;
     @FXML
     protected TableColumn<Dependant, Button> dependantRemoveButton;
+    //child table inside the dashboard
     @FXML
     protected TableColumn<Dependant, String> policyHolderDependantTable;
     @FXML
@@ -76,6 +80,7 @@ public class DependantTableFilling extends DashBoardController {
      * table accordingly.
      * @param filteredDependantList
      */
+    //AKA: FILTERING THE DEPENDENT TABLE BASED ON WHAT WE TYPE ON THE SEARCH FIELD
     public void filteringDependantTable(FilteredList<Dependant> filteredDependantList){
         dependantSearchField.textProperty().addListener((observable, oldValue, newValue)->{
 
@@ -124,16 +129,19 @@ public class DependantTableFilling extends DashBoardController {
      * @param user
      * @param dependants
      */
+    //AKA: MAP: 1 COLUMNS IN DEPENDENT TABLE = 1 ATTRIBUTES OF DEPENDENT CLASS
     public void fillingDependantTable(EntityManager entityManager, User user, List<Dependant> dependants){
         ListIterator<Dependant> dependantListIterator = dependants.listIterator();
         //Adding dependants to the dependant observable list
         while (dependantListIterator.hasNext()){
             Dependant dependant = dependantListIterator.next();
+            //ADD NECESSARY BUTTONS BESIDE 1 ROW
             Button buttonUpdateInfo = new Button();
             Button buttonAddClaim = new Button();
             Button buttonRemove = new Button();
             //Only system admin and policy holder and policy owner have access to the update info button, remove button
-            if (user instanceof SystemAdmin || user instanceof Customer){
+            if (user instanceof PolicyOwner || user instanceof PolicyHolder){
+                //MAKE BUTTON TO UPDATE INFO OF DEPENDENT OBJECT BECOME VISIBLE
                 buttonUpdateInfo.setText("Update Info");
                 //Create a CreationPageController for the Dependant in Update mode by passing in the dependant object to the constructor
                 //Open a new scene on the existing stage by calling the showStage static method from the Repeated Code Class
@@ -142,7 +150,7 @@ public class DependantTableFilling extends DashBoardController {
                     RepeatedCode.showStage((Stage) buttonUpdateInfo.getScene().getWindow(), creationPageControllerDependant, "DependantCreationPage.fxml", "Dependant Update");
 
                 });
-
+                //MAKE BUTTON TO REMOVE DEPENDENT OBJECTS BECOME VISIBLE
                 buttonRemove.setText("Remove");
                 dependant.setRemoveButton(buttonRemove);
                 //Set action for the remove button. Clicking the button will remove its dependant
@@ -150,11 +158,12 @@ public class DependantTableFilling extends DashBoardController {
                     CustomerCreateRemove.removeDependant(entityManager, dependant );
                 });
 
-                buttonUpdateInfo.setUserData(dependant);
+                buttonUpdateInfo.setUserData(dependant); //built in method of javafx button class
                 dependant.setUpdateInfoButton(buttonUpdateInfo);
 
+                //MAKE BUTTON TO ADD CLAIMS FOR DEPENDENT OBJECT BECOME VISIBLE
                 //Only policy holder and policy owner could create a new claim for a dependant
-                if (!(user instanceof SystemAdmin)){
+                if (user instanceof PolicyHolder || user instanceof PolicyOwner){
                     buttonAddClaim.setText("Add Claim");
                     buttonAddClaim.setOnAction(event -> {
                         //Create a ClaimCreationPage controller in creation mode by passing the dependant object to the constructor
@@ -171,6 +180,7 @@ public class DependantTableFilling extends DashBoardController {
 
 
         }
+        //set label for table's column
         dependantId.setCellValueFactory(new PropertyValueFactory<Dependant, String>("id"));
         dependantFullName.setCellValueFactory(new PropertyValueFactory<Dependant, String>("fullName"));
         dependantAddress.setCellValueFactory(new PropertyValueFactory<Dependant, String>("address"));
@@ -179,14 +189,29 @@ public class DependantTableFilling extends DashBoardController {
         policyOwnerDependantTable.setCellValueFactory(new PropertyValueFactory<Dependant, String>("policyOwnerId"));
         cardNumberDependantTable.setCellValueFactory(new PropertyValueFactory<Dependant, String>("cardNumber"));
         policyHolderDependantTable.setCellValueFactory(new PropertyValueFactory<Dependant, String>("policyHolderId"));
-        if (user instanceof SystemAdmin || user instanceof Customer){
+
+
+        //CRUD for Dependent objects
+
+        if ((user instanceof PolicyOwner || user instanceof PolicyHolder)){
+            //only PolicyOwner and PolicyHolder and update information of Dependent object
             dependantUpdateInfoButton.setCellValueFactory(new PropertyValueFactory<Dependant, Button>("updateInfoButton"));
+        }
+
+
+        if (user instanceof SystemAdmin || user instanceof PolicyOwner){
+            //only system admin and PolicyOwner  can create or remove Dependent objects
             dependantRemoveButton.setCellValueFactory(new PropertyValueFactory<Dependant, Button>("removeButton"));
-            if (!(user instanceof SystemAdmin)){
+            if (user instanceof PolicyOwner || user instanceof PolicyHolder){
+                //only PolicyOwner and PolicyHolder can add claim for Dependent
                 dependantAddClaimButton.setCellValueFactory(new PropertyValueFactory<Dependant, Button>("addClaim"));
             }
         }
 
+        //FilteredList: Wraps an ObservableList and filters it's content using the provided Predicate. All changes in the ObservableList are propagated immediately to the FilteredList.
+
+
+        //AKA: ADD A NEW, FILTERED LIST OF DEPENDENT INTO THE TABLE SCOPE AFTER THE USER FILTER BY SEARCH BAR
         FilteredList<Dependant> filteredDependantList = new FilteredList<>(dependantsObservableList, b -> true);
         filteringDependantTable(filteredDependantList);
         dependantTable.setItems(filteredDependantList);

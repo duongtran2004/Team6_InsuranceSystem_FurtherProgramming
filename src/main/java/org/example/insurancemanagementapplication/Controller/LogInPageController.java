@@ -2,6 +2,7 @@ package org.example.insurancemanagementapplication.Controller;
 
 import Entity.*;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -12,9 +13,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.example.insurancemanagementapplication.Controller.DashBoardController.*;
-import org.example.insurancemanagementapplication.MainEntryPoint;
 import org.example.insurancemanagementapplication.Interfaces.CustomerRead;
 import org.example.insurancemanagementapplication.Interfaces.EmployeeRead;
+import org.example.insurancemanagementapplication.MainEntryPoint;
 
 import java.io.IOException;
 import java.net.URL;
@@ -64,121 +65,114 @@ public class LogInPageController implements Initializable, CustomerRead, Employe
             String password = passwordField.getText();
             String role = roleSelectionBox.getValue();
             Stage stage = (Stage) logInButton.getScene().getWindow();
-            if (role.equals("System Admin")){
-                SystemAdmin systemAdmin = EmployeeRead.getSystemAdminWithCredential(entityManager, userId, email, password);
-                if (systemAdmin != null){
-                    FXMLLoader fxmlLoader = new FXMLLoader(MainEntryPoint.class.getResource("DashBoard_SystemAdmin.fxml"));
-                    DashBoardController_SystemAdmin dashBoardControllerSystemAdmin = new DashBoardController_SystemAdmin(entityManager, systemAdmin);
-                    fxmlLoader.setController(dashBoardControllerSystemAdmin);
-                    try {
-                        Scene scene = new Scene(fxmlLoader.load());
-                        stage.setScene(scene);
-                        stage.show();
+            //try-catch block to catch NoResultException (user not found)
+            try {
+                if (role.equals("System Admin")){
+                    SystemAdmin systemAdmin = EmployeeRead.getSystemAdminWithCredential(entityManager, userId, email, password);
+                    if (systemAdmin != null){
+                        FXMLLoader fxmlLoader = new FXMLLoader(MainEntryPoint.class.getResource("DashBoard_SystemAdmin.fxml"));
+                        DashBoardController_SystemAdmin dashBoardControllerSystemAdmin = new DashBoardController_SystemAdmin(entityManager, systemAdmin);
+                        fxmlLoader.setController(dashBoardControllerSystemAdmin);
+                        try {
+                            Scene scene = new Scene(fxmlLoader.load());
+                            stage.setScene(scene);
+                            stage.show();
 
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+
+                }
+                else if (role.equals("Insurance Manager")){
+                    InsuranceManager insuranceManager = EmployeeRead.getInsuranceManagerWithCredential(entityManager, userId, email, password);
+                    if (insuranceManager != null){
+                        FXMLLoader fxmlLoader = new FXMLLoader(MainEntryPoint.class.getResource("DashBoard_InsuranceManager.fxml"));
+                        DashBoardController_InsuranceManager dashBoardControllerInsuranceManager = new DashBoardController_InsuranceManager(insuranceManager, entityManager);
+                        fxmlLoader.setController(dashBoardControllerInsuranceManager);
+                        try {
+                            Scene scene = new Scene(fxmlLoader.load());
+                            stage.setScene(scene);
+                            stage.show();
+
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+
+                }
+                else if (role.equals("Insurance Surveyor")){
+                    InsuranceSurveyor insuranceSurveyor = EmployeeRead.getInsuranceSurveyorWithCredential(entityManager, userId, email, password);
+                    if (insuranceSurveyor != null){
+                        FXMLLoader fxmlLoader = new FXMLLoader(MainEntryPoint.class.getResource("DashBoard_InsuranceSurveyor.fxml"));
+                        DashBoardController_InsuranceSurveyor dashBoardControllerInsuranceSurveyor = new DashBoardController_InsuranceSurveyor(insuranceSurveyor, entityManager);
+                        fxmlLoader.setController(dashBoardControllerInsuranceSurveyor);
+                        try {
+                            Scene scene = new Scene(fxmlLoader.load());
+                            stage.setScene(scene);
+                            stage.show();
+
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+
+                }
+                else if (role.equals("Policy Owner")){
+                    PolicyOwner policyOwner = (PolicyOwner) CustomerRead.getCustomerWithCredentials(entityManager, userId, email, password, "Policy Owner");
+                    if (policyOwner != null){
+                        FXMLLoader fxmlLoader = new FXMLLoader(MainEntryPoint.class.getResource("DashBoard_PolicyOwner.fxml"));
+                        DashBoardController_PolicyOwner dashBoardController_policyOwner = new DashBoardController_PolicyOwner(policyOwner, entityManager);
+                        fxmlLoader.setController(dashBoardController_policyOwner);
+                        try {
+                            Scene scene = new Scene(fxmlLoader.load());
+                            stage.setScene(scene);
+                            stage.show();
+
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+
+                }
+                else if (role.equals("Policy Holder")){
+                    PolicyHolder policyHolder = (PolicyHolder) CustomerRead.getCustomerWithCredentials(entityManager, userId, email, password, "Policy Holder");
+                    if (policyHolder != null){
+                        FXMLLoader fxmlLoader = new FXMLLoader(MainEntryPoint.class.getResource("DashBoard_PolicyHolder.fxml"));
+                        DashBoardController_PolicyHolder dashBoardController_policyHolder = new DashBoardController_PolicyHolder(policyHolder, entityManager);
+                        fxmlLoader.setController(dashBoardController_policyHolder);
+                        try {
+                            Scene scene = new Scene(fxmlLoader.load());
+                            stage.setScene(scene);
+                            stage.show();
+
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+
+                }
+                else if (role.equals("Dependant")){
+                    Dependant dependant = (Dependant) CustomerRead.getCustomerWithCredentials(entityManager, userId, email, password, "Dependant");
+                    if (dependant != null){
+                        FXMLLoader fxmlLoader = new FXMLLoader(MainEntryPoint.class.getResource("DashBoard_Dependant.fxml"));
+                        DashBoardController_Dependant dashBoardController_dependant = new DashBoardController_Dependant(dependant, entityManager);
+                        fxmlLoader.setController(dashBoardController_dependant);
+                        try {
+                            Scene scene = new Scene(fxmlLoader.load());
+                            stage.setScene(scene);
+                            stage.show();
+
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                 }
-                else {
-                    errorContainer.setText("User Not Found. Please Try Again");
-                }
-            }
-            else if (role.equals("Insurance Manager")){
-                InsuranceManager insuranceManager = EmployeeRead.getInsuranceManagerWithCredential(entityManager, userId, email, password);
-                if (insuranceManager != null){
-                    FXMLLoader fxmlLoader = new FXMLLoader(MainEntryPoint.class.getResource("DashBoard_InsuranceManager.fxml"));
-                    DashBoardController_InsuranceManager dashBoardControllerInsuranceManager = new DashBoardController_InsuranceManager(insuranceManager, entityManager);
-                    fxmlLoader.setController(dashBoardControllerInsuranceManager);
-                    try {
-                        Scene scene = new Scene(fxmlLoader.load());
-                        stage.setScene(scene);
-                        stage.show();
 
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-                else {
-                    errorContainer.setText("User Not Found. Please Try Again");
-                }
+            }catch (NoResultException noResultException){
+                errorContainer.setText("User Not Found. Please Try Again");
             }
-            else if (role.equals("Insurance Surveyor")){
-                InsuranceSurveyor insuranceSurveyor = EmployeeRead.getInsuranceSurveyorWithCredential(entityManager, userId, email, password);
-                if (insuranceSurveyor != null){
-                    FXMLLoader fxmlLoader = new FXMLLoader(MainEntryPoint.class.getResource("DashBoard_InsuranceSurveyor.fxml"));
-                    DashBoardController_InsuranceSurveyor dashBoardControllerInsuranceSurveyor = new DashBoardController_InsuranceSurveyor(insuranceSurveyor, entityManager);
-                    fxmlLoader.setController(dashBoardControllerInsuranceSurveyor);
-                    try {
-                        Scene scene = new Scene(fxmlLoader.load());
-                        stage.setScene(scene);
-                        stage.show();
 
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-                else {
-                    errorContainer.setText("User Not Found. Please Try Again");
-                }
-            }
-            else if (role.equals("Policy Owner")){
-                PolicyOwner policyOwner = (PolicyOwner) CustomerRead.getCustomerWithCredentials(entityManager, userId, email, password, "Policy Owner");
-                if (policyOwner != null){
-                    FXMLLoader fxmlLoader = new FXMLLoader(MainEntryPoint.class.getResource("DashBoard_PolicyOwner.fxml"));
-                   DashBoardController_PolicyOwner dashBoardController_policyOwner = new DashBoardController_PolicyOwner(policyOwner, entityManager);
-                    fxmlLoader.setController(dashBoardController_policyOwner);
-                    try {
-                        Scene scene = new Scene(fxmlLoader.load());
-                        stage.setScene(scene);
-                        stage.show();
-
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-                else {
-                    errorContainer.setText("User Not Found. Please Try Again");
-                }
-            }
-            else if (role.equals("Policy Holder")){
-                PolicyHolder policyHolder = (PolicyHolder) CustomerRead.getCustomerWithCredentials(entityManager, userId, email, password, "Policy Holder");
-                if (policyHolder != null){
-                    FXMLLoader fxmlLoader = new FXMLLoader(MainEntryPoint.class.getResource("DashBoard_PolicyHolder.fxml"));
-                    DashBoardController_PolicyHolder dashBoardController_policyHolder = new DashBoardController_PolicyHolder(policyHolder, entityManager);
-                    fxmlLoader.setController(dashBoardController_policyHolder);
-                    try {
-                        Scene scene = new Scene(fxmlLoader.load());
-                        stage.setScene(scene);
-                        stage.show();
-
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-                else {
-                    errorContainer.setText("User Not Found. Please Try Again");
-                }
-            }
-            else if (role.equals("Dependant")){
-                Dependant dependant = (Dependant) CustomerRead.getCustomerWithCredentials(entityManager, userId, email, password, "Policy Dependant");
-                if (dependant != null){
-                    FXMLLoader fxmlLoader = new FXMLLoader(MainEntryPoint.class.getResource("DashBoard_Dependant.fxml"));
-                    DashBoardController_Dependant dashBoardController_dependant = new DashBoardController_Dependant(dependant, entityManager);
-                    fxmlLoader.setController(dashBoardController_dependant);
-                    try {
-                        Scene scene = new Scene(fxmlLoader.load());
-                        stage.setScene(scene);
-                        stage.show();
-
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-                else {
-                    errorContainer.setText("User Not Found. Please Try Again");
-                }
-
-            }
         });
 
 

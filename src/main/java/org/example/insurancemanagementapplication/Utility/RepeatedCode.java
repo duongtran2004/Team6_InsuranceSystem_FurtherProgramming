@@ -16,6 +16,7 @@ import java.util.Random;
  * @project InsuranceManagementTeamProject
  */
 public class RepeatedCode {
+    //SPLIT INTO SEPERATED CLASSES, EACH CLASS HAS 1 METHOD
     public static String idGenerate(String prefix){
         Random random = new Random();
         String id = prefix;
