@@ -1,6 +1,7 @@
 package org.example.insurancemanagementapplication.Controller.DashBoardController;
 
-import Entity.*;
+import Entity.Claim;
+import Entity.PolicyOwner;
 import jakarta.persistence.EntityManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,7 +11,6 @@ import org.example.insurancemanagementapplication.Controller.DashBoardController
 import org.example.insurancemanagementapplication.Interfaces.Controller;
 import org.example.insurancemanagementapplication.Interfaces.CustomerCreateRemove;
 
-import java.awt.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -23,7 +23,7 @@ import java.util.ResourceBundle;
 public class DashBoardController_PolicyOwner extends PolicyHolderTableFilling implements CustomerCreateRemove, Initializable, Controller {
 
     @FXML
-    private Button addPolicyButton;
+    private javafx.scene.control.Button addPolicyButton;
     private ObservableList<Claim> claimObservableList = FXCollections.observableArrayList();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

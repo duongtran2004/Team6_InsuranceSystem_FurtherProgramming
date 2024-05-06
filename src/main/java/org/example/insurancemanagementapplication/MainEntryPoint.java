@@ -1,5 +1,6 @@
 package org.example.insurancemanagementapplication;
 
+import Entity.PolicyOwner;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -7,7 +8,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.example.insurancemanagementapplication.Controller.LogInPageController;
+import org.example.insurancemanagementapplication.Controller.DashBoardController.DashBoardController_PolicyOwner;
 
 import java.io.IOException;
 
@@ -25,26 +26,43 @@ public class MainEntryPoint extends Application {
 //        DashBoardController_SystemAdmin dashBoardControllerSystemAdmin = new DashBoardController_SystemAdmin(entityManager, systemAdmin);
 //        fxmlLoader.setController(dashBoardControllerSystemAdmin);
 
+//
+//        //Load login page
+//        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("LogInPage.fxml"));
+//        LogInPageController logInPageController = new LogInPageController(entityManager);
+//        fxmlLoader.setController(logInPageController);
 
-        //Load login page
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("LogInPage.fxml"));
-        LogInPageController logInPageController = new LogInPageController(entityManager);
-        fxmlLoader.setController(logInPageController);
 
-//        //Load Insurance Surveyor DashBoard
+
+
+        //Load Policy Owner Dashboard
+        FXMLLoader fxmlLoader = new FXMLLoader(MainEntryPoint.class.getResource("DashBoard_PolicyOwner.fxml"));
+
+        PolicyOwner policyOwner = entityManager.find(PolicyOwner.class, "PO6173753721");
+
+        DashBoardController_PolicyOwner dashBoardController_policyOwner = new DashBoardController_PolicyOwner(policyOwner,entityManager);
+        fxmlLoader.setController(dashBoardController_policyOwner);
+
+//                //Load Policy Holder Dashboard
+//                FXMLLoader fxmlLoader = new FXMLLoader(MainEntryPoint.class.getResource("DashBoard_PolicyHolder.fxml"));
+//
+//
+//        PolicyHolder policyHolder = entityManager.find(PolicyHolder.class, "PH5264972101");
+//
+//
+//        DashBoardController_PolicyHolder dashBoardController_policyHolder = new DashBoardController_PolicyHolder(policyHolder,entityManager);
+//        fxmlLoader.setController(dashBoardController_policyHolder);
+
+//        //Load Dependent Dashboard
 //        FXMLLoader fxmlLoader = new FXMLLoader(MainEntryPoint.class.getResource("DashBoard_InsuranceSurveyor.fxml"));
-//        InsuranceSurveyor insuranceSurveyor = entityManager.find(InsuranceSurveyor.class, "IS402665881");
-//        DashBoardController_InsuranceSurveyor dashBoardControllerInsuranceSurveyor = new DashBoardController_InsuranceSurveyor(insuranceSurveyor,entityManager);
-//        fxmlLoader.setController(dashBoardControllerInsuranceSurveyor);
-
-
-//        //Load Policy Owner Dashboard
-//                FXMLLoader fxmlLoader = new FXMLLoader(MainEntryPoint.class.getResource("DashBoard_InsuranceSurveyor.fxml"));
 //
-//        PolicyOwner policyOwner = entityManager.find(PolicyOwner.class, "PO6173753721");
 //
-//        DashBoardController_PolicyOwner dashBoardController_policyOwner = new DashBoardController_PolicyOwner(policyOwner,entityManager);
-//        fxmlLoader.setController(dashBoardController_policyOwner);
+//        PolicyHolder policyHolder = entityManager.find(PolicyHolder.class, "PH5264972101");
+//
+//
+//        DashBoardController_PolicyHolder dashBoardController_policyHolder = new DashBoardController_PolicyHolder(policyHolder,entityManager);
+//        fxmlLoader.setController(dashBoardController_policyHolder);
+
 
 
 
