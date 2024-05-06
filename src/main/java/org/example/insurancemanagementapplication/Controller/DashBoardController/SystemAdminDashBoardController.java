@@ -12,7 +12,6 @@ import org.example.insurancemanagementapplication.Controller.CreationPageControl
 import org.example.insurancemanagementapplication.Controller.DashBoardController.TableFillingController.InsuranceManagerTableFilling;
 import org.example.insurancemanagementapplication.Interfaces.*;
 import org.example.insurancemanagementapplication.Utility.InputValidator;
-import org.example.insurancemanagementapplication.Utility.RepeatedCode;
 
 import java.net.URL;
 import java.util.ResourceBundle;

@@ -7,8 +7,8 @@ import javafx.fxml.Initializable;
 import org.example.insurancemanagementapplication.Interfaces.Controller;
 import org.example.insurancemanagementapplication.Interfaces.EmployeeCreateRemove;
 import org.example.insurancemanagementapplication.Interfaces.EmployeeUpdate;
+import org.example.insurancemanagementapplication.Utility.IDGenerator;
 import org.example.insurancemanagementapplication.Utility.InputValidator;
-import org.example.insurancemanagementapplication.Utility.RepeatedCode;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -48,7 +48,7 @@ public class CreationPageController_InsuranceManager extends CreationPageControl
                 if (message.equals("Success")){
                     //See the RepeatedCode class for this method
                     //This method generates an id.
-                    String id = RepeatedCode.idGenerate("IM");
+                    String id = IDGenerator.generateId("IM");
                     EmployeeCreateRemove.createInsuranceManager(entityManager, id, fullNameField.getText(), addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText());
                 }
             });

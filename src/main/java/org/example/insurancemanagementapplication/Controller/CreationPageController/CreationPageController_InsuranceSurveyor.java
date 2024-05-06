@@ -12,8 +12,8 @@ import org.example.insurancemanagementapplication.Interfaces.Controller;
 import org.example.insurancemanagementapplication.Interfaces.EmployeeRead;
 import org.example.insurancemanagementapplication.Interfaces.EmployeeCreateRemove;
 import org.example.insurancemanagementapplication.Interfaces.EmployeeUpdate;
+import org.example.insurancemanagementapplication.Utility.IDGenerator;
 import org.example.insurancemanagementapplication.Utility.InputValidator;
-import org.example.insurancemanagementapplication.Utility.RepeatedCode;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -103,7 +103,7 @@ public class CreationPageController_InsuranceSurveyor extends CreationPageContro
             submitButton.setOnAction(event -> {
                 String message = InputValidator.validatingUser("Insurance Manager", entityManager, fullNameField.getText(), emailField.getText(), passwordField.getText(), phoneNumberField.getText(), addressField.getText(), passwordValidationField.getText());
                 if (message.equals("Success")){
-                    String id = RepeatedCode.idGenerate("IS");
+                    String id = IDGenerator.generateId("IS");
                     EmployeeCreateRemove.createInsuranceSurveyor(entityManager, id, fullNameField.getText(), addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText(), manager );
                 }
             });

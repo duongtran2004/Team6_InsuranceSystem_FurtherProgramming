@@ -16,7 +16,6 @@ import javafx.stage.Stage;
 import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageController_InsuranceManager;
 import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageController_InsuranceSurveyor;
 import org.example.insurancemanagementapplication.Interfaces.EmployeeCreateRemove;
-import org.example.insurancemanagementapplication.Utility.RepeatedCode;
 
 import java.util.List;
 import java.util.ListIterator;

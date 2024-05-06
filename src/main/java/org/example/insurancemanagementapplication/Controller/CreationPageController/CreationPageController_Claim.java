@@ -12,7 +12,7 @@ import org.example.insurancemanagementapplication.Interfaces.ClaimCreateRemove;
 import org.example.insurancemanagementapplication.Interfaces.ClaimUpdate;
 import org.example.insurancemanagementapplication.Interfaces.Controller;
 import org.example.insurancemanagementapplication.Interfaces.EmployeeRead;
-import org.example.insurancemanagementapplication.Utility.RepeatedCode;
+import org.example.insurancemanagementapplication.Utility.IDGenerator;
 import org.example.insurancemanagementapplication.Utility.InputValidator;
 
 import java.net.URL;
@@ -255,7 +255,7 @@ public class CreationPageController_Claim extends CreationPageController impleme
                 InsuranceManager randomManager = insuranceManagers.get(randomIndex);
                 Date today = new Date();
                 java.sql.Date sqlToday = new java.sql.Date(today.getTime());
-                String claimId = RepeatedCode.idGenerate("C");
+                String claimId = IDGenerator.generateId("C");
                 ClaimCreateRemove.createClaim(entityManager, claimId, sqlToday, beneficiary, beneficiary.getPolicyOwner(), beneficiary.getInsuranceCard(), randomManager, bankName, bankAccountName, bankAccountNumber);
 
             }

@@ -11,7 +11,7 @@ import org.example.insurancemanagementapplication.Controller.DashBoardController
 import org.example.insurancemanagementapplication.Interfaces.CustomerUpdate;
 import org.example.insurancemanagementapplication.Interfaces.EmployeeUpdate;
 import org.example.insurancemanagementapplication.Utility.InputValidator;
-import org.example.insurancemanagementapplication.Utility.RepeatedCode;
+import org.example.insurancemanagementapplication.Utility.StageBuilder;
 
 /**
  * @author Luong Thanh Trung
@@ -102,27 +102,27 @@ public abstract class CreationPageController {
         returnButton.setOnAction(event -> {
             if (user instanceof SystemAdmin) {
                 SystemAdminDashBoardController dashBoardControllerSystemAdmin = new SystemAdminDashBoardController(entityManager, (SystemAdmin) user);
-                RepeatedCode.showStage((Stage) returnButton.getScene().getWindow(), dashBoardControllerSystemAdmin, "DashBoard_SystemAdmin.fxml", "Dashboard");
+                StageBuilder.showStage((Stage) returnButton.getScene().getWindow(), dashBoardControllerSystemAdmin, "SystemAdminDashBoard.fxml", "Dashboard");
             }
             else if (user instanceof InsuranceManager) {
                 InsuranceManagerDashBoardController dashBoardControllerInsuranceManager = new InsuranceManagerDashBoardController((InsuranceManager) user, entityManager);
-                RepeatedCode.showStage((Stage) returnButton.getScene().getWindow(), dashBoardControllerInsuranceManager, "DashBoard_InsuranceManager.fxml", "Dashboard");
+                StageBuilder.showStage((Stage) returnButton.getScene().getWindow(), dashBoardControllerInsuranceManager, "InsuranceManagerDashBoard.fxml", "Dashboard");
 
             }
             else if (user instanceof InsuranceSurveyor) {
 
                 InsuranceSurveyorDashBoardController dashBoardControllerInsuranceSurveyor = new InsuranceSurveyorDashBoardController((InsuranceSurveyor) user, entityManager);
-                RepeatedCode.showStage((Stage) returnButton.getScene().getWindow(), dashBoardControllerInsuranceSurveyor, "DashBoard_InsuranceSurveyor.fxml", "Dashboard");
+                StageBuilder.showStage((Stage) returnButton.getScene().getWindow(), dashBoardControllerInsuranceSurveyor, "InsuranceSurveyorDashBoard.fxml", "Dashboard");
 
             }
             else if (user instanceof PolicyOwner) {
                 PolicyOwnerDashBoardController dashBoardController_policyOwner = new PolicyOwnerDashBoardController((PolicyOwner) user, entityManager);
-                RepeatedCode.showStage((Stage) returnButton.getScene().getWindow(), dashBoardController_policyOwner, "DashBoard_PolicyOwner.fxml", "Dashboard");
+                StageBuilder.showStage((Stage) returnButton.getScene().getWindow(), dashBoardController_policyOwner, "PolicyOwnerDashBoard.fxml", "Dashboard");
 
             }
             else if (user instanceof PolicyHolder) {
                 PolicyHolderDashBoardController dashBoardControllerPolicyHolder = new PolicyHolderDashBoardController((PolicyHolder) user, entityManager);
-                RepeatedCode.showStage((Stage) returnButton.getScene().getWindow(), dashBoardControllerPolicyHolder, "DashBoard_PolicyHolder.fxml", "Dashboard");
+                StageBuilder.showStage((Stage) returnButton.getScene().getWindow(), dashBoardControllerPolicyHolder, "PolicyHolderDashBoard.fxml", "Dashboard");
 
             }
 

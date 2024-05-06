@@ -16,7 +16,6 @@ import org.example.insurancemanagementapplication.Controller.CreationPageControl
 import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageController_Dependant;
 import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageController_PolicyHolder;
 import org.example.insurancemanagementapplication.Interfaces.CustomerCreateRemove;
-import org.example.insurancemanagementapplication.Utility.RepeatedCode;
 
 import java.util.List;
 import java.util.ListIterator;

@@ -7,8 +7,8 @@ import javafx.fxml.Initializable;
 import org.example.insurancemanagementapplication.Interfaces.Controller;
 import org.example.insurancemanagementapplication.Interfaces.CustomerCreateRemove;
 import org.example.insurancemanagementapplication.Interfaces.CustomerUpdate;
+import org.example.insurancemanagementapplication.Utility.IDGenerator;
 import org.example.insurancemanagementapplication.Utility.InputValidator;
-import org.example.insurancemanagementapplication.Utility.RepeatedCode;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -39,7 +39,7 @@ public class CreationPageController_PolicyOwner extends CreationPageController i
                 String message = InputValidator.validatingUser("Policy Owner", entityManager, fullNameField.getText(), emailField.getText(), passwordField.getText(), phoneNumberField.getText(), addressField.getText(), passwordValidationField.getText());
                 if (message.equals("Success")){
                     //See the RepeatedCode class for this method
-                    String id = RepeatedCode.idGenerate("PO");
+                    String id = IDGenerator.generateId("PO");
                     CustomerCreateRemove.createPolicyOwner(entityManager, id, fullNameField.getText(), addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText());
                 }
             });

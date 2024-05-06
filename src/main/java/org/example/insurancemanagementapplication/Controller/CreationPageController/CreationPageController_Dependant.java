@@ -8,8 +8,8 @@ import javafx.fxml.Initializable;
 import org.example.insurancemanagementapplication.Interfaces.Controller;
 import org.example.insurancemanagementapplication.Interfaces.CustomerCreateRemove;
 import org.example.insurancemanagementapplication.Interfaces.CustomerUpdate;
+import org.example.insurancemanagementapplication.Utility.IDGenerator;
 import org.example.insurancemanagementapplication.Utility.InputValidator;
-import org.example.insurancemanagementapplication.Utility.RepeatedCode;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -40,7 +40,7 @@ public class CreationPageController_Dependant extends CreationPageController imp
                 if (message.equals("Success")){
                     //See the RepeatedCode class for this method
                     //This method generates an ID.
-                    String id = RepeatedCode.idGenerate("DE");
+                    String id = IDGenerator.generateId("DE");
                     CustomerCreateRemove.createDependant(entityManager, id, fullNameField.getText(), addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText(), policyHolder);
                 }
             });

@@ -11,8 +11,8 @@ import javafx.scene.control.TextField;
 import org.example.insurancemanagementapplication.Interfaces.Controller;
 import org.example.insurancemanagementapplication.Interfaces.CustomerCreateRemove;
 import org.example.insurancemanagementapplication.Interfaces.CustomerUpdate;
+import org.example.insurancemanagementapplication.Utility.IDGenerator;
 import org.example.insurancemanagementapplication.Utility.InputValidator;
-import org.example.insurancemanagementapplication.Utility.RepeatedCode;
 
 import java.net.URL;
 import java.util.Date;
@@ -50,8 +50,8 @@ public class CreationPageController_PolicyHolder extends CreationPageController 
                 if (message.equals("Success")){
                     //See the RepeatedCode class for this method.
                     //This method generates an ID.
-                    String id = RepeatedCode.idGenerate("PH");
-                    String cardNumber = RepeatedCode.idGenerate("");
+                    String id = IDGenerator.generateId("PH");
+                    String cardNumber = IDGenerator.generateId("");
                     Date utilDate = new Date();
                     int lengthOfContract;
                     try{

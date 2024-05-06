@@ -32,7 +32,7 @@ public class PolicyOwnerDashBoardController extends PolicyHolderTableFilling imp
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //see the ClaimTableFilling Class
         userFillingData();
-        //TODO Set action for the add policy button. This button will create a Policy Holder CreationPage controller by passing in the policy owner object into the constructor.
+        //TODO Set action for the add policy holder  button. This button will create a Policy Holder CreationPage controller by passing in the policy owner object into the constructor.
 
         fillingClaimTable(entityManager, user, ClaimRead.getAllClaims(entityManager));
         fillingDependantTable(entityManager, user, CustomerRead.getAllDependant(entityManager));

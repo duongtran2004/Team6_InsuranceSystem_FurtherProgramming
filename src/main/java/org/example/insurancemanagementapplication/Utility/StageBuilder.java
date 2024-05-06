@@ -7,24 +7,8 @@ import org.example.insurancemanagementapplication.Interfaces.Controller;
 import org.example.insurancemanagementapplication.MainEntryPoint;
 
 import java.io.IOException;
-import java.util.Random;
 
-/**
- * @author Luong Thanh Trung
- * @version ${}
- * @created 03/05/2024 05:25
- * @project InsuranceManagementTeamProject
- */
-public class RepeatedCode {
-    //SPLIT INTO SEPERATED CLASSES, EACH CLASS HAS 1 METHOD
-    public static String idGenerate(String prefix){
-        Random random = new Random();
-        String id = prefix;
-        for (int i = 0; i < 10; i++){
-            id = id + random.nextInt(0, 10);
-        }
-        return id;
-    }
+public class StageBuilder {
 
     public static void showStage(Stage stage, Controller controller, String fxmlFile, String title)  {
         FXMLLoader fxmlLoader = new FXMLLoader(MainEntryPoint.class.getResource(fxmlFile));

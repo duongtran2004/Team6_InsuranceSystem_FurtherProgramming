@@ -20,7 +20,7 @@ public class MainEntryPoint extends Application {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
 //        //Load System Admin DashBoard
-//        FXMLLoader fxmlLoader = new FXMLLoader(MainEntryPoint.class.getResource("DashBoard_SystemAdmin.fxml"));
+//        FXMLLoader fxmlLoader = new FXMLLoader(MainEntryPoint.class.getResource("SystemAdminDashBoard.fxml"));
 //        SystemAdmin systemAdmin = entityManager.find(SystemAdmin.class, "SA90987611");
 //        SystemAdminDashBoardController dashBoardControllerSystemAdmin = new SystemAdminDashBoardController(entityManager, systemAdmin);
 //        fxmlLoader.setController(dashBoardControllerSystemAdmin);
@@ -35,7 +35,7 @@ public class MainEntryPoint extends Application {
 
 
 //        //Load Policy Owner Dashboard
-//        FXMLLoader fxmlLoader = new FXMLLoader(MainEntryPoint.class.getResource("DashBoard_PolicyOwner.fxml"));
+//        FXMLLoader fxmlLoader = new FXMLLoader(MainEntryPoint.class.getResource("PolicyOwnerDashBoard.fxml"));
 //
 //        PolicyOwner policyOwner = entityManager.find(PolicyOwner.class, "PO6173753721");
 //
@@ -43,7 +43,7 @@ public class MainEntryPoint extends Application {
 //        fxmlLoader.setController(dashBoardController_policyOwner);
 
 //                //Load Policy Holder Dashboard
-//                FXMLLoader fxmlLoader = new FXMLLoader(MainEntryPoint.class.getResource("DashBoard_PolicyHolder.fxml"));
+//                FXMLLoader fxmlLoader = new FXMLLoader(MainEntryPoint.class.getResource("PolicyHolderDashBoard.fxml"));
 //
 //
 //        PolicyHolder policyHolder = entityManager.find(PolicyHolder.class, "PH5264972101");
