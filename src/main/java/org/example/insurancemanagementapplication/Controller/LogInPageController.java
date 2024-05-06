@@ -118,7 +118,7 @@ public class LogInPageController implements Initializable, CustomerRead, Employe
 
                 }
                 else if (role.equals("Policy Owner")){
-                    PolicyOwner policyOwner = (PolicyOwner) CustomerRead.getCustomerWithCredentials(entityManager, userId, email, password, "Policy Owner");
+                    PolicyOwner policyOwner = CustomerRead.getPolicyOwnerWithLoginCredentials(entityManager, email, password, userId);
                     if (policyOwner != null){
                         FXMLLoader fxmlLoader = new FXMLLoader(MainEntryPoint.class.getResource("DashBoard_PolicyOwner.fxml"));
                         DashBoardController_PolicyOwner dashBoardController_policyOwner = new DashBoardController_PolicyOwner(policyOwner, entityManager);
@@ -134,8 +134,9 @@ public class LogInPageController implements Initializable, CustomerRead, Employe
                     }
 
                 }
+
                 else if (role.equals("Policy Holder")){
-                    PolicyHolder policyHolder = (PolicyHolder) CustomerRead.getCustomerWithCredentials(entityManager, userId, email, password, "Policy Holder");
+                    PolicyHolder policyHolder = CustomerRead.getPolicyHolderWithLoginCredentials(entityManager, email, password, userId);
                     if (policyHolder != null){
                         FXMLLoader fxmlLoader = new FXMLLoader(MainEntryPoint.class.getResource("DashBoard_PolicyHolder.fxml"));
                         DashBoardController_PolicyHolder dashBoardController_policyHolder = new DashBoardController_PolicyHolder(policyHolder, entityManager);

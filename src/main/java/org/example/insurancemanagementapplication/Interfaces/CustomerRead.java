@@ -39,21 +39,21 @@ public interface CustomerRead {
     }
 
     //for login
-    public static Customer getCustomerWithCredentials(EntityManager entityManager, String email, String password, String id, String role) {
-        if (role.equals("Policy Owner")) {
-            PolicyOwner customer = (PolicyOwner) entityManager.createQuery("SELECT c FROM PolicyOwner c WHERE c.id LIKE ?1 AND c.password LIKE ?2 AND c.email LIKE ?3").setParameter(1, id).setParameter(2, password).setParameter(3, email).getSingleResult();
-            return customer;
-        } else {
-            if (role.equals("Dependant")) {
-                Dependant customer = (Dependant) entityManager.createQuery("SELECT c FROM Beneficiaries c WHERE c.id LIKE ?1 AND c.password LIKE ?2 AND c.email LIKE ?3 AND c.type = 'DE'").setParameter(1, id).setParameter(2, password).setParameter(3, email).setParameter(4, "DE").getSingleResult();
-                return customer;
-            } else {
-                PolicyHolder customer = (PolicyHolder) entityManager.createQuery("SELECT c FROM Beneficiaries c WHERE c.id LIKE ?1 AND c.password LIKE ?2 AND c.email LIKE ?3 AND c.type = ?4").setParameter(1, id).setParameter(2, password).setParameter(3, email).setParameter(4, "PH").getSingleResult();
-                return customer;
-            }
-        }
+//    public static Customer getCustomerWithCredentials(EntityManager entityManager, String email, String password, String id, String role) {
+//        if (role.equals("Policy Owner")) {
+//            PolicyOwner customer = (PolicyOwner) entityManager.createQuery("SELECT c FROM PolicyOwner c WHERE c.id LIKE ?1 AND c.password LIKE ?2 AND c.email LIKE ?3").setParameter(1, id).setParameter(2, password).setParameter(3, email).getSingleResult();
+//            return customer;
+//        } else {
+//            if (role.equals("Dependant")) {
+//                Dependant customer = (Dependant) entityManager.createQuery("SELECT c FROM Beneficiaries c WHERE c.id LIKE ?1 AND c.password LIKE ?2 AND c.email LIKE ?3 AND c.type = 'DE'").setParameter(1, id).setParameter(2, password).setParameter(3, email).setParameter(4, "DE").getSingleResult();
+//                return customer;
+//            } else {
+//                PolicyHolder customer = (PolicyHolder) entityManager.createQuery("SELECT c FROM Beneficiaries c WHERE c.id LIKE ?1 AND c.password LIKE ?2 AND c.email LIKE ?3 AND c.type = ?4").setParameter(1, id).setParameter(2, password).setParameter(3, email).setParameter(4, "PH").getSingleResult();
+//                return customer;
+//            }
+//        }
 
-    }
+  //  }
     //write new methods for logins for each type of customer, as the old one does not work. remember to call them in login page controller
 
     public static SystemAdmin getSystemAdminWithCredential(EntityManager entityManager, String id, String email, String password) {
@@ -62,21 +62,50 @@ public interface CustomerRead {
     }
 
     public static Dependant getDependentWithLoginCredentials(EntityManager entityManager, String email, String password, String id) {
-
-//        Dependant dependant = (Dependant) entityManager.createQuery("SELECT c FROM Beneficiaries c WHERE c.id LIKE ?1 AND c.password LIKE ?2 AND c.email LIKE ?3 AND c.type = 'DE'").setParameter(1, id).setParameter(2, password).setParameter(3, email).setParameter(4, "DE").getSingleResult()
-        Query query = entityManager.createQuery("SELECT c FROM Beneficiaries c WHERE c.id LIKE ?1 AND c.password LIKE ?2 AND c.email LIKE ?3 ");
+        Query query = entityManager.createQuery("SELECT c FROM Beneficiaries c WHERE c.id LIKE ?1 AND c.password LIKE ?2 AND c.email LIKE ?3 AND c.type = 'DE'");
         query.setParameter(1, id);
         query.setParameter(2, password);
         query.setParameter(3, email);
 
         Object result = query.getSingleResult();
-        System.out.println("Type of object returned by getSingleResult(): " + result.getClass().getName());
+        //System.out.println("Type of object returned by getSingleResult(): " + result.getClass().getName());
 
         // Attempt casting
         Dependant dependant = (Dependant) result;
-        System.out.println("Depedant: " + dependant.toString());
+       // System.out.println("Dependant: " + dependant.toString());
         return dependant;
 
+    }
+
+
+    public static PolicyOwner getPolicyOwnerWithLoginCredentials(EntityManager entityManager, String email, String password, String id) {
+        Query query = entityManager.createQuery("SELECT c FROM PolicyOwner c WHERE c.id LIKE ?1 AND c.password LIKE ?2 AND c.email LIKE ?3 ");
+        query.setParameter(1, id);
+        query.setParameter(2, password);
+        query.setParameter(3, email);
+
+        Object result = query.getSingleResult();
+        //System.out.println("Type of object returned by getSingleResult(): " + result.getClass().getName());
+
+        // Attempt casting
+        PolicyOwner policyOwner = (PolicyOwner) result;
+        return policyOwner;
+
+    }
+
+    public static PolicyHolder getPolicyHolderWithLoginCredentials(EntityManager entityManager, String email, String password, String id) {
+        Query query = entityManager.createQuery("SELECT c FROM Beneficiaries c WHERE c.id LIKE ?1 AND c.password LIKE ?2 AND c.email LIKE ?3 AND c.type = 'PH'");
+        query.setParameter(1, id);
+        query.setParameter(2, password);
+        query.setParameter(3, email);
+
+        Object result = query.getSingleResult();
+        //System.out.println("Type of object returned by getSingleResult(): " + result.getClass().getName());
+
+        // Attempt casting
+        PolicyHolder policyHolder = (PolicyHolder) result;
+        System.out.println("PolicyHolder: " + policyHolder.toString());
+        return policyHolder;
 
     }
 
