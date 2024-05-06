@@ -12,4 +12,7 @@ import jakarta.persistence.Entity;
 @Entity
 @DiscriminatorValue("DE")
 public class Dependant extends Beneficiaries{
+
+
+
 }

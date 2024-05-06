@@ -35,6 +35,7 @@ public interface EmployeeRead {
         InsuranceManager insuranceManager = entityManager.find(InsuranceManager.class, id);
         return insuranceManager;
     }
+    //FOR LOGIN
 
     public static SystemAdmin getSystemAdminWithCredential(EntityManager entityManager, String id, String email, String password){
         SystemAdmin employee = (SystemAdmin) entityManager.createQuery("SELECT c FROM SystemAdmin c WHERE c.id LIKE ?1 AND c.password LIKE ?2 AND c.email LIKE ?3").setParameter(1, id).setParameter(2, password).setParameter(3, email).getSingleResult();
@@ -48,6 +49,7 @@ public interface EmployeeRead {
         InsuranceSurveyor employee = (InsuranceSurveyor) entityManager.createQuery("SELECT c FROM InsuranceSurveyor c WHERE c.id LIKE ?1 AND c.password LIKE ?2 AND c.email LIKE ?3").setParameter(1, id).setParameter(2, password).setParameter(3, email).getSingleResult();
         return employee;
     }
+    //FOR RETRIEVING OBJECT
     public static InsuranceManager getInsuranceManagerByCredential(EntityManager entityManager, String fullName, String email, String password, String phoneNumber, String address) {
         try {
             InsuranceManager insuranceManager = (InsuranceManager) entityManager.createQuery(

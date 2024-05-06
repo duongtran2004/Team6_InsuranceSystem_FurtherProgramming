@@ -119,4 +119,5 @@ public class Beneficiaries extends Customer {
     public void setAddClaimButton(Button addClaimButton) {
         this.addClaimButton = addClaimButton;
     }
+
 }

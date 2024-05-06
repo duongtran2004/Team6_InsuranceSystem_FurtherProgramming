@@ -2,7 +2,6 @@ package org.example.insurancemanagementapplication.Controller;
 
 import Entity.*;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.NoResultException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -66,7 +65,7 @@ public class LogInPageController implements Initializable, CustomerRead, Employe
             String role = roleSelectionBox.getValue();
             Stage stage = (Stage) logInButton.getScene().getWindow();
             //try-catch block to catch NoResultException (user not found)
-            try {
+//            try {
                 if (role.equals("System Admin")){
                     SystemAdmin systemAdmin = EmployeeRead.getSystemAdminWithCredential(entityManager, userId, email, password);
                     if (systemAdmin != null){
@@ -153,7 +152,9 @@ public class LogInPageController implements Initializable, CustomerRead, Employe
 
                 }
                 else if (role.equals("Dependant")){
-                    Dependant dependant = (Dependant) CustomerRead.getCustomerWithCredentials(entityManager, userId, email, password, "Dependant");
+
+//                    Dependant dependant = (Dependant) CustomerRead.getCustomerWithCredentials(entityManager, userId, email, password, "Dependant");
+                    Dependant dependant = CustomerRead.getDependentWithLoginCredentials(entityManager, email, password, userId);
                     if (dependant != null){
                         FXMLLoader fxmlLoader = new FXMLLoader(MainEntryPoint.class.getResource("DashBoard_Dependant.fxml"));
                         DashBoardController_Dependant dashBoardController_dependant = new DashBoardController_Dependant(dependant, entityManager);
@@ -169,9 +170,9 @@ public class LogInPageController implements Initializable, CustomerRead, Employe
                     }
                 }
 
-            }catch (NoResultException noResultException){
-                errorContainer.setText("User Not Found. Please Try Again");
-            }
+//            }catch (NoResultException noResultException){
+//                errorContainer.setText("User Not Found. Please Try Again");
+//            }
 
         });
 

@@ -115,4 +115,21 @@ public class User {
     public int hashCode() {
         return Objects.hash(id, fullName, address, phoneNumber, email, password);
     }
+
+    //for unit testing purpose
+
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", address='" + address + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", updateInfoButton=" + updateInfoButton +
+                ", removeButton=" + removeButton +
+                '}';
+    }
 }
