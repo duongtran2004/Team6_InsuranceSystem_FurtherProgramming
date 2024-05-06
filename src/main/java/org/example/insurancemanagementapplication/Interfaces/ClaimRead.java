@@ -11,7 +11,7 @@ import java.util.List;
  * @created 27/04/2024 04:59
  * @project InsuranceManagementTeamProject
  */
-public interface ClaimAnalytics {
+public interface ClaimRead {
     public static List<Claim> getAllClaims(EntityManager entityManager){
         return entityManager.createQuery("SELECT c FROM Claim c").getResultList();
     }

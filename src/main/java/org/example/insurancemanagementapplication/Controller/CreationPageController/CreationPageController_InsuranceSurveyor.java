@@ -9,7 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import org.example.insurancemanagementapplication.Interfaces.Controller;
-import org.example.insurancemanagementapplication.Interfaces.EmployeeAnalytics;
+import org.example.insurancemanagementapplication.Interfaces.EmployeeRead;
 import org.example.insurancemanagementapplication.Interfaces.EmployeeCreateRemove;
 import org.example.insurancemanagementapplication.Interfaces.EmployeeUpdate;
 import org.example.insurancemanagementapplication.Utility.InputValidator;
@@ -79,7 +79,7 @@ public class CreationPageController_InsuranceSurveyor extends CreationPageContro
                 String message = InputValidator.validatingUser(emailField.getText(), passwordField.getText(), phoneNumberField.getText(), addressField.getText(), passwordValidationField.getText());
                 if (message.equals("Success")){
                     if (managerReassign){
-                        InsuranceManager insuranceManager = EmployeeAnalytics.findInsuranceManagerById(entityManager, managerIdField.getText());
+                        InsuranceManager insuranceManager = EmployeeRead.findInsuranceManagerById(entityManager, managerIdField.getText());
                         if (insuranceManager == null){
                             errorContainer.setText("Incorrect Manager ID");
                         }

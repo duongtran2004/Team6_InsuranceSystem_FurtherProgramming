@@ -12,7 +12,7 @@ import java.util.List;
  * @created 27/04/2024 04:56
  * @project InsuranceManagementTeamProject
  */
-public interface CustomerAnalytics {
+public interface CustomerRead {
     public static List<PolicyOwner> getAllPolicyOwner(EntityManager entityManager){
         return entityManager.createQuery(
                 "SELECT o FROM PolicyOwner o").getResultList();

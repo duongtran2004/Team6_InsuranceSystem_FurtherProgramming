@@ -14,7 +14,7 @@ import java.util.List;
  * @created 27/04/2024 04:57
  * @project InsuranceManagementTeamProject
  */
-public interface EmployeeAnalytics {
+public interface EmployeeRead {
     public static List<InsuranceManager> getAllInsuranceManager(EntityManager entityManager){
         return entityManager.createQuery(
                 "SELECT e FROM InsuranceManager e").getResultList();

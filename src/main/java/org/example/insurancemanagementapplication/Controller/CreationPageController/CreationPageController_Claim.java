@@ -11,7 +11,7 @@ import javafx.scene.control.TextField;
 import org.example.insurancemanagementapplication.Interfaces.ClaimCreateRemove;
 import org.example.insurancemanagementapplication.Interfaces.ClaimUpdate;
 import org.example.insurancemanagementapplication.Interfaces.Controller;
-import org.example.insurancemanagementapplication.Interfaces.EmployeeAnalytics;
+import org.example.insurancemanagementapplication.Interfaces.EmployeeRead;
 import org.example.insurancemanagementapplication.Utility.RepeatedCode;
 import org.example.insurancemanagementapplication.Utility.InputValidator;
 
@@ -249,7 +249,7 @@ public class CreationPageController_Claim extends CreationPageController impleme
             // input validator for Claim's Field
             errorContainer.setText(InputValidator.ClaimUpdateValidator(entityManager, bankName, bankAccountName, bankAccountNumber));
             if (errorContainer.getText().equals("Success")) {
-                List<InsuranceManager> insuranceManagers = EmployeeAnalytics.getAllInsuranceManager(entityManager);
+                List<InsuranceManager> insuranceManagers = EmployeeRead.getAllInsuranceManager(entityManager);
                 Random random = new Random();
                 int randomIndex = random.nextInt(0, insuranceManagers.size());
                 InsuranceManager randomManager = insuranceManagers.get(randomIndex);

@@ -2,8 +2,8 @@ package org.example.insurancemanagementapplication.Utility;
 
 import Entity.InsuranceManager;
 import jakarta.persistence.EntityManager;
-import org.example.insurancemanagementapplication.Interfaces.CustomerAnalytics;
-import org.example.insurancemanagementapplication.Interfaces.EmployeeAnalytics;
+import org.example.insurancemanagementapplication.Interfaces.CustomerRead;
+import org.example.insurancemanagementapplication.Interfaces.EmployeeRead;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -77,35 +77,35 @@ public class InputValidator {
 
 
     public static boolean checkIfPolicyOwnerAlreadyExist(EntityManager entityManager, String fullName, String email, String password, String phoneNumber, String address) {
-        if ((CustomerAnalytics.getPolicyOwnerByCredential(entityManager, fullName, email, password, phoneNumber, address)) != null) {
+        if ((CustomerRead.getPolicyOwnerByCredential(entityManager, fullName, email, password, phoneNumber, address)) != null) {
             return true;
         }
         return false;
     }
 
     public static boolean checkIfPolicyHolderAlreadyExist(EntityManager entityManager, String fullName, String email, String password, String phoneNumber, String address) {
-        if ((CustomerAnalytics.getPolicyHolderByCredential(entityManager, fullName, email, password, phoneNumber, address)) != null) {
+        if ((CustomerRead.getPolicyHolderByCredential(entityManager, fullName, email, password, phoneNumber, address)) != null) {
             return true;
         }
         return false;
     }
 
     public static boolean checkIfDependantAlreadyExist(EntityManager entityManager, String fullName, String email, String password, String phoneNumber, String address) {
-        if ((CustomerAnalytics.getDependantByCredential(entityManager, fullName, email, password, phoneNumber, address)) != null) {
+        if ((CustomerRead.getDependantByCredential(entityManager, fullName, email, password, phoneNumber, address)) != null) {
             return true;
         }
         return false;
     }
 
     public static boolean checkIfInsuranceManagerAlreadyExist(EntityManager entityManager, String fullName, String email, String password, String phoneNumber, String address) {
-        if ((EmployeeAnalytics.getInsuranceManagerByCredential(entityManager, fullName, email, password, phoneNumber, address)) != null) {
+        if ((EmployeeRead.getInsuranceManagerByCredential(entityManager, fullName, email, password, phoneNumber, address)) != null) {
             return true;
         }
         return false;
     }
 
     public static boolean checkIfInsuranceSurveyorAlreadyExist(EntityManager entityManager, String fullName, String email, String password, String phoneNumber, String address) {
-        if ((EmployeeAnalytics.getInsuranceSurveyorByCredential(entityManager, fullName, email, password, phoneNumber, address)) != null) {
+        if ((EmployeeRead.getInsuranceSurveyorByCredential(entityManager, fullName, email, password, phoneNumber, address)) != null) {
             return true;
         }
         return false;
@@ -114,7 +114,7 @@ public class InputValidator {
 
 
     public static boolean checkIfSystemAdminAlreadyExist(EntityManager entityManager, String fullName, String email, String password, String phoneNumber, String address) {
-        if ((EmployeeAnalytics.getSystemAdminByCredential(entityManager, fullName, email, password, phoneNumber, address)) != null) {
+        if ((EmployeeRead.getSystemAdminByCredential(entityManager, fullName, email, password, phoneNumber, address)) != null) {
             return true;
         }
         return false;
@@ -169,7 +169,7 @@ public class InputValidator {
         }
     }
 
-
+//overloading method
     public static String validatingUser(String email, String password, String phoneNumber, String address, String passwordValidator){
         if (!validateNonEmptyString(email)) {
             return "Invalid email, cannot be empty";
@@ -197,7 +197,7 @@ public class InputValidator {
         }
     }
 
-
+//overloading method
     public static String validatingUser(String role, EntityManager entityManager, String fullName, String email, String password, String phoneNumber, String address, String passwordValidator) {
 //        boolean allInfoValid = true;
 //        boolean userExists = false;

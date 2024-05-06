@@ -16,7 +16,6 @@ import java.util.Random;
  * @project InsuranceManagementTeamProject
  */
 public class RepeatedCode {
-    //This method generates an id
     public static String idGenerate(String prefix){
         Random random = new Random();
         String id = prefix;
@@ -26,13 +25,6 @@ public class RepeatedCode {
         return id;
     }
 
-    /**
-     * This method opens a new scene.
-     * @param stage
-     * @param controller
-     * @param fxmlFile
-     * @param title
-     */
     public static void showStage(Stage stage, Controller controller, String fxmlFile, String title)  {
         FXMLLoader fxmlLoader = new FXMLLoader(MainEntryPoint.class.getResource(fxmlFile));
         fxmlLoader.setController(controller);
