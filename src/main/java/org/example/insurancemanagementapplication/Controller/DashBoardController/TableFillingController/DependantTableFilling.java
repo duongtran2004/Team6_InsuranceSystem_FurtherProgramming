@@ -28,11 +28,11 @@ import java.util.ListIterator;
  */
 
 /**
- * This class extends the DashBoardController class. As such, it has access to all instance fields and methods of that class
+ * This class extends the ClaimTableFilling class. As such, it has access to all instance fields and methods of that class
  * This class contains methods to fill up Dependant table. It is extended by all DashBoard Controller classes except for the Dependant
  * DashBoard Controller, which does not have access to this table
  */
-public class DependantTableFilling extends DashBoardController {
+public class DependantTableFilling extends ClaimTableFilling {
     //TODO Create a thread that runs in a selected interval that get all Dependants from the database  and check if new entries exist. If they do, append the new entries to the Observable List
 
     //this List is to get notice of changes in dependents Collection

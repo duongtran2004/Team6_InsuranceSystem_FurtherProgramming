@@ -23,7 +23,7 @@ import java.util.ResourceBundle;
  * @created 27/04/2024 04:55
  * @project InsuranceManagementTeamProject
  */
-public class DashBoardController_SystemAdmin extends InsuranceManagerTableFilling implements ClaimRead, EmployeeCreateRemove, CustomerCreateRemove, Initializable, EmployeeRead, Controller {
+public class SystemAdminDashBoardController extends InsuranceManagerTableFilling implements ClaimRead, EmployeeCreateRemove, CustomerCreateRemove, Initializable, EmployeeRead, Controller {
 
 
     //import necessary FXML controller object for the creation and update form at the top
@@ -37,14 +37,15 @@ public class DashBoardController_SystemAdmin extends InsuranceManagerTableFillin
     //constructor
 
 
-    public DashBoardController_SystemAdmin(EntityManager entityManager, User user) {
+    public SystemAdminDashBoardController(EntityManager entityManager, User user) {
         super(entityManager, user);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //UPDATE INFO
-        //See the DashBoardController Class for this method
+        //See the ClaimTableFilling Class for this method
+        //automatically fill the top form with current user info
         userFillingData();
         //
         updateInfoButton.setOnAction(event -> {

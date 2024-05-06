@@ -29,8 +29,8 @@ import java.util.ListIterator;
  * the claim tables of all users' dashboards with data.
  * It also contains a method that automatically fill up the form on top of each dashboard with user's data.
  */
-//T
-public class DashBoardController implements ClaimCreateRemove {
+
+public class ClaimTableFilling implements ClaimCreateRemove {
     protected final EntityManager entityManager;
     protected final User user;
     //TODO Create a thread that runs in a selected interval that get all claims from the database and check if new entries exist. If they do, append the new entries to the Observable List
@@ -110,6 +110,7 @@ public class DashBoardController implements ClaimCreateRemove {
     /**
      * Filling the form on top of the dashboard with user's information. The fields are disabled unless the user is a system admin
      */
+    //AKA: personal info bar at the top
     public void userFillingData (){
         userIdField.setText(user.getId());
         userIdField.setDisable(true);
@@ -129,7 +130,8 @@ public class DashBoardController implements ClaimCreateRemove {
         }
     }
 
-    public DashBoardController(EntityManager entityManager, User user) {
+    //constructor
+    public ClaimTableFilling(EntityManager entityManager, User user) {
         this.entityManager = entityManager;
         this.user = user;
     }
@@ -163,6 +165,7 @@ public class DashBoardController implements ClaimCreateRemove {
                 return Float.compare(firstClaim.getClaimAmount(), secondClaim.getClaimAmount());
             }
         }
+        //claimSorting choiceBox
         //add a listener to the sort list choice box. The listener will monitor the choice box's value to apply the correct sorting
         sortList.valueProperty().addListener((observable, oldVal, newVal)->{
             if (newVal.equals("Sort By Creation Date In Ascending Order")){
@@ -422,7 +425,7 @@ public class DashBoardController implements ClaimCreateRemove {
 
 
 
-    public DashBoardController(EntityManager entityManager, SystemAdmin user) {
+    public ClaimTableFilling(EntityManager entityManager, SystemAdmin user) {
         this.entityManager = entityManager;
         this.user = user;
     }

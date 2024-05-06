@@ -22,7 +22,7 @@ public class MainEntryPoint extends Application {
 //        //Load System Admin DashBoard
 //        FXMLLoader fxmlLoader = new FXMLLoader(MainEntryPoint.class.getResource("DashBoard_SystemAdmin.fxml"));
 //        SystemAdmin systemAdmin = entityManager.find(SystemAdmin.class, "SA90987611");
-//        DashBoardController_SystemAdmin dashBoardControllerSystemAdmin = new DashBoardController_SystemAdmin(entityManager, systemAdmin);
+//        SystemAdminDashBoardController dashBoardControllerSystemAdmin = new SystemAdminDashBoardController(entityManager, systemAdmin);
 //        fxmlLoader.setController(dashBoardControllerSystemAdmin);
 
 
@@ -39,7 +39,7 @@ public class MainEntryPoint extends Application {
 //
 //        PolicyOwner policyOwner = entityManager.find(PolicyOwner.class, "PO6173753721");
 //
-//        DashBoardController_PolicyOwner dashBoardController_policyOwner = new DashBoardController_PolicyOwner(policyOwner,entityManager);
+//        PolicyOwnerDashBoardController dashBoardController_policyOwner = new PolicyOwnerDashBoardController(policyOwner,entityManager);
 //        fxmlLoader.setController(dashBoardController_policyOwner);
 
 //                //Load Policy Holder Dashboard
@@ -49,17 +49,17 @@ public class MainEntryPoint extends Application {
 //        PolicyHolder policyHolder = entityManager.find(PolicyHolder.class, "PH5264972101");
 //
 //
-//        DashBoardController_PolicyHolder dashBoardController_policyHolder = new DashBoardController_PolicyHolder(policyHolder,entityManager);
+//        PolicyHolderDashBoardController dashBoardController_policyHolder = new PolicyHolderDashBoardController(policyHolder,entityManager);
 //        fxmlLoader.setController(dashBoardController_policyHolder);
 
         //Load Dependent Dashboard
-//        FXMLLoader fxmlLoader = new FXMLLoader(MainEntryPoint.class.getResource("DashBoardController_Dependant"));
+//        FXMLLoader fxmlLoader = new FXMLLoader(MainEntryPoint.class.getResource("DependantDashBoardController"));
 //
 //
 //
 //        Dependant dependant = entityManager.find(Dependant.class, "DE9791594810");
 //
-//        DashBoardController_Dependant dashBoardController_dependant = new DashBoardController_Dependant(dependant, entityManager);
+//        DependantDashBoardController dashBoardController_dependant = new DependantDashBoardController(dependant, entityManager);
 //        fxmlLoader.setController(dashBoardController_dependant);
 
 

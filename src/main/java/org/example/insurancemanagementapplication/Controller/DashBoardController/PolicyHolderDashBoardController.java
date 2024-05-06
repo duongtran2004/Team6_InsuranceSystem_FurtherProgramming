@@ -4,7 +4,9 @@ import Entity.PolicyHolder;
 import jakarta.persistence.EntityManager;
 import javafx.fxml.Initializable;
 import org.example.insurancemanagementapplication.Controller.DashBoardController.TableFillingController.DependantTableFilling;
+import org.example.insurancemanagementapplication.Interfaces.ClaimRead;
 import org.example.insurancemanagementapplication.Interfaces.Controller;
+import org.example.insurancemanagementapplication.Interfaces.CustomerRead;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -15,17 +17,23 @@ import java.util.ResourceBundle;
  * @created 27/04/2024 04:54
  * @project InsuranceManagementTeamProject
  */
-public class DashBoardController_PolicyHolder extends DependantTableFilling implements Initializable, Controller {
+public class PolicyHolderDashBoardController extends DependantTableFilling implements Initializable, Controller {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //See the DashBoardController class
+        //See the ClaimTableFilling class
         userFillingData();
-        //TODO Fill the claim table with claims by calling the claim table filling method from the DashBoardControllerClass. Put this method call in a thread
-        //TODO Fill the dependant table with dependants by calling the dependant table filling method from the DependantTableFilling class. Put this method call in a thread
+
+
+        //fill claim table
+        fillingClaimTable(entityManager, user, ClaimRead.getAllClaims(entityManager));
+
+
+        //fill dependent table
+        fillingDependantTable(entityManager,user, CustomerRead.getAllDependant(entityManager));
     }
 
-    public DashBoardController_PolicyHolder(PolicyHolder user, EntityManager entityManager) {
+    public PolicyHolderDashBoardController(PolicyHolder user, EntityManager entityManager) {
         super(entityManager, user);
     }
 

@@ -2,6 +2,7 @@ package org.example.insurancemanagementapplication.Controller;
 
 import Entity.*;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -65,12 +66,12 @@ public class LogInPageController implements Initializable, CustomerRead, Employe
             String role = roleSelectionBox.getValue();
             Stage stage = (Stage) logInButton.getScene().getWindow();
             //try-catch block to catch NoResultException (user not found)
-//            try {
+            try {
                 if (role.equals("System Admin")){
                     SystemAdmin systemAdmin = EmployeeRead.getSystemAdminWithCredential(entityManager, userId, email, password);
                     if (systemAdmin != null){
                         FXMLLoader fxmlLoader = new FXMLLoader(MainEntryPoint.class.getResource("DashBoard_SystemAdmin.fxml"));
-                        DashBoardController_SystemAdmin dashBoardControllerSystemAdmin = new DashBoardController_SystemAdmin(entityManager, systemAdmin);
+                        SystemAdminDashBoardController dashBoardControllerSystemAdmin = new SystemAdminDashBoardController(entityManager, systemAdmin);
                         fxmlLoader.setController(dashBoardControllerSystemAdmin);
                         try {
                             Scene scene = new Scene(fxmlLoader.load());
@@ -87,7 +88,7 @@ public class LogInPageController implements Initializable, CustomerRead, Employe
                     InsuranceManager insuranceManager = EmployeeRead.getInsuranceManagerWithCredential(entityManager, userId, email, password);
                     if (insuranceManager != null){
                         FXMLLoader fxmlLoader = new FXMLLoader(MainEntryPoint.class.getResource("DashBoard_InsuranceManager.fxml"));
-                        DashBoardController_InsuranceManager dashBoardControllerInsuranceManager = new DashBoardController_InsuranceManager(insuranceManager, entityManager);
+                        InsuranceManagerDashBoardController dashBoardControllerInsuranceManager = new InsuranceManagerDashBoardController(insuranceManager, entityManager);
                         fxmlLoader.setController(dashBoardControllerInsuranceManager);
                         try {
                             Scene scene = new Scene(fxmlLoader.load());
@@ -104,7 +105,7 @@ public class LogInPageController implements Initializable, CustomerRead, Employe
                     InsuranceSurveyor insuranceSurveyor = EmployeeRead.getInsuranceSurveyorWithCredential(entityManager, userId, email, password);
                     if (insuranceSurveyor != null){
                         FXMLLoader fxmlLoader = new FXMLLoader(MainEntryPoint.class.getResource("DashBoard_InsuranceSurveyor.fxml"));
-                        DashBoardController_InsuranceSurveyor dashBoardControllerInsuranceSurveyor = new DashBoardController_InsuranceSurveyor(insuranceSurveyor, entityManager);
+                        InsuranceSurveyorDashBoardController dashBoardControllerInsuranceSurveyor = new InsuranceSurveyorDashBoardController(insuranceSurveyor, entityManager);
                         fxmlLoader.setController(dashBoardControllerInsuranceSurveyor);
                         try {
                             Scene scene = new Scene(fxmlLoader.load());
@@ -121,7 +122,7 @@ public class LogInPageController implements Initializable, CustomerRead, Employe
                     PolicyOwner policyOwner = CustomerRead.getPolicyOwnerWithLoginCredentials(entityManager, email, password, userId);
                     if (policyOwner != null){
                         FXMLLoader fxmlLoader = new FXMLLoader(MainEntryPoint.class.getResource("DashBoard_PolicyOwner.fxml"));
-                        DashBoardController_PolicyOwner dashBoardController_policyOwner = new DashBoardController_PolicyOwner(policyOwner, entityManager);
+                        PolicyOwnerDashBoardController dashBoardController_policyOwner = new PolicyOwnerDashBoardController(policyOwner, entityManager);
                         fxmlLoader.setController(dashBoardController_policyOwner);
                         try {
                             Scene scene = new Scene(fxmlLoader.load());
@@ -139,7 +140,7 @@ public class LogInPageController implements Initializable, CustomerRead, Employe
                     PolicyHolder policyHolder = CustomerRead.getPolicyHolderWithLoginCredentials(entityManager, email, password, userId);
                     if (policyHolder != null){
                         FXMLLoader fxmlLoader = new FXMLLoader(MainEntryPoint.class.getResource("DashBoard_PolicyHolder.fxml"));
-                        DashBoardController_PolicyHolder dashBoardController_policyHolder = new DashBoardController_PolicyHolder(policyHolder, entityManager);
+                        PolicyHolderDashBoardController dashBoardController_policyHolder = new PolicyHolderDashBoardController(policyHolder, entityManager);
                         fxmlLoader.setController(dashBoardController_policyHolder);
                         try {
                             Scene scene = new Scene(fxmlLoader.load());
@@ -158,8 +159,8 @@ public class LogInPageController implements Initializable, CustomerRead, Employe
                     Dependant dependant = CustomerRead.getDependentWithLoginCredentials(entityManager, email, password, userId);
                     if (dependant != null){
                         FXMLLoader fxmlLoader = new FXMLLoader(MainEntryPoint.class.getResource("DashBoard_Dependant.fxml"));
-                        DashBoardController_Dependant dashBoardController_dependant = new DashBoardController_Dependant(dependant, entityManager);
-                        fxmlLoader.setController(dashBoardController_dependant);
+                        DependantDashBoardController _dependantDashBoardController = new DependantDashBoardController(dependant, entityManager);
+                        fxmlLoader.setController(_dependantDashBoardController);
                         try {
                             Scene scene = new Scene(fxmlLoader.load());
                             stage.setScene(scene);
@@ -171,9 +172,9 @@ public class LogInPageController implements Initializable, CustomerRead, Employe
                     }
                 }
 
-//            }catch (NoResultException noResultException){
-//                errorContainer.setText("User Not Found. Please Try Again");
-//            }
+            }catch (NoResultException noResultException){
+                errorContainer.setText("User Not Found. Please Try Again");
+            }
 
         });
 
