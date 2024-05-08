@@ -26,6 +26,7 @@ public class Claim {
     @Basic
     @Column(name = "status")
     private String status;
+    //status: "NEW", "PROCESSING", "NEED INFO" , "REJECTED", "APPROVED"
     @Basic
     @Column(name = "claim_amount")
     private int claimAmount;
