@@ -24,10 +24,10 @@ public class InsuranceSurveyorDashBoardController extends PolicyOwnerTableFillin
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //see the ClaimTableFilling Class
         userFillingData();
-        fillingClaimTable(entityManager, user, ClaimRead.getAllClaims(entityManager));
-        fillingDependantTable(entityManager, user, CustomerRead.getAllDependant(entityManager));
-        fillingPolicyHolderTable(entityManager, user, CustomerRead.getAllPolicyHolder(entityManager));
-        fillingPolicyOwnerTable(entityManager, user, CustomerRead.getAllPolicyOwner(entityManager));
+        fillingClaimTable(entityManager, user, ClaimRead.getAllClaimsProcessByAnInsuranceSurveyor(entityManager, user.getId()));
+        fillingDependantTable(entityManager, user, CustomerRead.getAllDependantsTakeChargeByAnEmployee(entityManager, user.getId()));
+        fillingPolicyHolderTable(entityManager, user, CustomerRead.getAllPolicyHoldersTakeChargeByAnEmployee(entityManager, user.getId()));
+        fillingPolicyOwnerTable(entityManager, user, CustomerRead.getAllPolicyOwnersTakeChargeByAnEmployee(entityManager, user.getId()));
     }
 
     public InsuranceSurveyorDashBoardController(InsuranceSurveyor user, EntityManager entityManager) {

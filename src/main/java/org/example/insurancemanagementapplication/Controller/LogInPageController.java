@@ -170,7 +170,7 @@ public class LogInPageController implements Initializable, CustomerRead, Employe
                         }
                     }
                 }
-
+//comment out for debugging in console, then remember to put it back
 //            }catch (NoResultException noResultException){
 //                errorContainer.setText("User Not Found. Please Try Again");
 //            }

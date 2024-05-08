@@ -33,10 +33,10 @@ public class PolicyOwnerDashBoardController extends PolicyHolderTableFilling imp
         //see the ClaimTableFilling Class
         userFillingData();
         //TODO Set action for the add policy holder  button. This button will create a Policy Holder CreationPage controller by passing in the policy owner object into the constructor.
-
-        fillingClaimTable(entityManager, user, ClaimRead.getAllClaims(entityManager));
-        fillingDependantTable(entityManager, user, CustomerRead.getAllDependant(entityManager));
-        fillingPolicyHolderTable(entityManager, user, CustomerRead.getAllPolicyHolder(entityManager));
+//still miss to fix buttons
+        fillingClaimTable(entityManager, user, ClaimRead.getAllClaimsFromBeneficiariesOfAPolicyOwner(entityManager, user.getId()));
+        fillingDependantTable(entityManager, user, CustomerRead.getAllDependantsOfAPolicyOwner(entityManager, user.getId()));
+        fillingPolicyHolderTable(entityManager, user, CustomerRead.getAllPolicyHoldersOfAPolicyOwner(entityManager, user.getId()));
     }
 
     public PolicyOwnerDashBoardController(PolicyOwner user, EntityManager entityManager) {

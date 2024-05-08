@@ -16,6 +16,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageController_InsuranceSurveyor;
 import org.example.insurancemanagementapplication.Interfaces.EmployeeCreateRemove;
+import org.example.insurancemanagementapplication.Utility.StageBuilder;
 
 import java.util.List;
 import java.util.ListIterator;
@@ -112,7 +113,7 @@ public class InsuranceSurveyorTableFilling extends PolicyOwnerTableFilling{
                 //It will then open the Insurance Surveyor Creation Page
                 buttonUpdateInfo.setOnAction(event -> {
                     CreationPageController_InsuranceSurveyor creationPageControllerInsuranceSurveyor = new CreationPageController_InsuranceSurveyor(entityManager, user, insuranceSurveyor);
-                    RepeatedCode.showStage((Stage) buttonUpdateInfo.getScene().getWindow(), creationPageControllerInsuranceSurveyor, "InsuranceSurveyorCreationPage.fxml", "Insurance Surveyor Update");
+                    StageBuilder.showStage((Stage) buttonUpdateInfo.getScene().getWindow(), creationPageControllerInsuranceSurveyor, "InsuranceSurveyorCreationPage.fxml", "Insurance Surveyor Update");
 
 
                 });

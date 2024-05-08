@@ -21,11 +21,13 @@ public class DependantDashBoardController extends ClaimTableFilling implements I
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //See the ClaimTableFilling class
+        //aka fill the top form's default input as user's info
         userFillingData();
         //Put this method call in a thread
 
         //Fill claim table
-        fillingClaimTable(entityManager, user, ClaimRead.getAllClaims(entityManager));
+        fillingClaimTable(entityManager, user, ClaimRead.getAllClaimsFromABeneficiary(entityManager,user.getId()));
+        //only get the claim related to that user
 
     }
 

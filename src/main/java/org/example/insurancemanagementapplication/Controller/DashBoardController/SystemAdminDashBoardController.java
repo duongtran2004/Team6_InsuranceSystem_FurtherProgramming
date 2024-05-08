@@ -12,6 +12,7 @@ import org.example.insurancemanagementapplication.Controller.CreationPageControl
 import org.example.insurancemanagementapplication.Controller.DashBoardController.TableFillingController.InsuranceManagerTableFilling;
 import org.example.insurancemanagementapplication.Interfaces.*;
 import org.example.insurancemanagementapplication.Utility.InputValidator;
+import org.example.insurancemanagementapplication.Utility.StageBuilder;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -63,14 +64,14 @@ public class SystemAdminDashBoardController extends InsuranceManagerTableFilling
         addPolicyOwnerButton.setOnAction(event -> {
             CreationPageController_PolicyOwner creationPageControllerPolicyOwner = new CreationPageController_PolicyOwner(entityManager, user);
             //See the RepeatedCode class for this method
-            RepeatedCode.showStage((Stage) addPolicyOwnerButton.getScene().getWindow(), creationPageControllerPolicyOwner, "PolicyOwnerCreationPage.fxml", "Policy Owner Creation Page");
+            StageBuilder.showStage((Stage) addPolicyOwnerButton.getScene().getWindow(), creationPageControllerPolicyOwner, "PolicyOwnerCreationPage.fxml", "Policy Owner Creation Page");
         });
 
         // ADD A NEW INSURANCE MANAGER USER
         //Add handler to the addManagerButton. this function creates a CreationPage Controller for Insurance Manager and then transfer the user to the Insurance Manager Creation Page
         addManagerButton.setOnAction(event -> {
             CreationPageController_InsuranceManager creationPageControllerInsuranceManager = new CreationPageController_InsuranceManager(entityManager, user);
-            RepeatedCode.showStage((Stage) addManagerButton.getScene().getWindow(), creationPageControllerInsuranceManager, "InsuranceManagerCreationPage.fxml", "Insurance Manager Creation Page");
+            StageBuilder.showStage((Stage) addManagerButton.getScene().getWindow(), creationPageControllerInsuranceManager, "InsuranceManagerCreationPage.fxml", "Insurance Manager Creation Page");
         });
 
         //FILL ALL THE NECESSARY TABLE (CALL METHODS IN TABLE FILLING CLASS)

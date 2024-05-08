@@ -75,7 +75,8 @@ public class ClaimTableFilling implements ClaimCreateRemove {
     @FXML
     protected  TableColumn<Claim, String> status;
     @FXML
-    protected  TableColumn<Claim, Button> claimButton;
+
+    protected  TableColumn<Claim, Button> claimUpdateButton;
     @FXML
     protected TableColumn<Claim, Button> removeClaimButton;
     @FXML
@@ -399,7 +400,7 @@ public class ClaimTableFilling implements ClaimCreateRemove {
         status.setCellValueFactory(new PropertyValueFactory<Claim, String>("status"));
         if (!(user instanceof Dependant)){
             //Dependants dont have access to the claim buttons. The claimButton attribute of the Claim entity is left out in the mapping if user is a dependant
-            claimButton.setCellValueFactory(new PropertyValueFactory<Claim, Button>("claimButton"));
+            claimUpdateButton.setCellValueFactory(new PropertyValueFactory<Claim, Button>("claimButton"));
         }
         if (user instanceof PolicyHolder || user instanceof PolicyOwner){
             //System Admins, Insurance Managers, and Insurance Surveyors are not allowed to remove Claims. So they do not have access to the removeClaim button
@@ -503,11 +504,11 @@ public class ClaimTableFilling implements ClaimCreateRemove {
     }
 
     public TableColumn<Claim, Button> getClaimButton() {
-        return claimButton;
+        return claimUpdateButton;
     }
 
     public void setClaimButton(TableColumn<Claim, Button> claimButton) {
-        this.claimButton = claimButton;
+        this.claimUpdateButton = claimButton;
     }
 
     public TableColumn<Claim, Button> getRemoveClaimButton() {

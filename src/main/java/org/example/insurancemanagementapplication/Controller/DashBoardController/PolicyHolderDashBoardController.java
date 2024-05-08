@@ -26,11 +26,11 @@ public class PolicyHolderDashBoardController extends DependantTableFilling imple
 
 
         //fill claim table
-        fillingClaimTable(entityManager, user, ClaimRead.getAllClaims(entityManager));
+        fillingClaimTable(entityManager, user, ClaimRead.getAllClaimsFromABeneficiary(entityManager,user.getId()));
 
 
         //fill dependent table
-        fillingDependantTable(entityManager,user, CustomerRead.getAllDependant(entityManager));
+        fillingDependantTable(entityManager,user, CustomerRead.getAllDependantsOfAPolicyHolder(entityManager, user.getId()));
     }
 
     public PolicyHolderDashBoardController(PolicyHolder user, EntityManager entityManager) {

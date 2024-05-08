@@ -15,40 +15,44 @@ import java.util.List;
  * @project InsuranceManagementTeamProject
  */
 public interface EmployeeRead {
-    public static List<InsuranceManager> getAllInsuranceManager(EntityManager entityManager){
+    public static List<InsuranceManager> getAllInsuranceManager(EntityManager entityManager) {
         return entityManager.createQuery(
                 "SELECT e FROM InsuranceManager e").getResultList();
 
     }
-    public static List<InsuranceSurveyor> getAllInsuranceSurveyor(EntityManager entityManager){
+
+    public static List<InsuranceSurveyor> getAllInsuranceSurveyor(EntityManager entityManager) {
         return entityManager.createQuery(
                 "SELECT e FROM InsuranceSurveyor e").getResultList();
 
     }
 
-    public static InsuranceSurveyor findInsuranceSurveyorById(EntityManager entityManager, String id){
+    public static InsuranceSurveyor findInsuranceSurveyorById(EntityManager entityManager, String id) {
         InsuranceSurveyor insuranceSurveyor = entityManager.find(InsuranceSurveyor.class, id);
         return insuranceSurveyor;
     }
 
-    public static InsuranceManager findInsuranceManagerById(EntityManager entityManager, String id){
+    public static InsuranceManager findInsuranceManagerById(EntityManager entityManager, String id) {
         InsuranceManager insuranceManager = entityManager.find(InsuranceManager.class, id);
         return insuranceManager;
     }
     //FOR LOGIN
 
-    public static SystemAdmin getSystemAdminWithCredential(EntityManager entityManager, String id, String email, String password){
+    public static SystemAdmin getSystemAdminWithCredential(EntityManager entityManager, String id, String email, String password) {
         SystemAdmin employee = (SystemAdmin) entityManager.createQuery("SELECT c FROM SystemAdmin c WHERE c.id LIKE ?1 AND c.password LIKE ?2 AND c.email LIKE ?3").setParameter(1, id).setParameter(2, password).setParameter(3, email).getSingleResult();
         return employee;
     }
-    public static InsuranceManager getInsuranceManagerWithCredential(EntityManager entityManager, String id, String email, String password){
+
+    public static InsuranceManager getInsuranceManagerWithCredential(EntityManager entityManager, String id, String email, String password) {
         InsuranceManager employee = (InsuranceManager) entityManager.createQuery("SELECT c FROM InsuranceManager c WHERE c.id LIKE ?1 AND c.password LIKE ?2 AND c.email LIKE ?3").setParameter(1, id).setParameter(2, password).setParameter(3, email).getSingleResult();
         return employee;
     }
-    public static InsuranceSurveyor getInsuranceSurveyorWithCredential(EntityManager entityManager, String id, String email, String password){
+
+    public static InsuranceSurveyor getInsuranceSurveyorWithCredential(EntityManager entityManager, String id, String email, String password) {
         InsuranceSurveyor employee = (InsuranceSurveyor) entityManager.createQuery("SELECT c FROM InsuranceSurveyor c WHERE c.id LIKE ?1 AND c.password LIKE ?2 AND c.email LIKE ?3").setParameter(1, id).setParameter(2, password).setParameter(3, email).getSingleResult();
         return employee;
     }
+
     //FOR RETRIEVING OBJECT
     public static InsuranceManager getInsuranceManagerByCredential(EntityManager entityManager, String fullName, String email, String password, String phoneNumber, String address) {
         try {
@@ -98,6 +102,9 @@ public interface EmployeeRead {
         }
     }
 
+    public static List<InsuranceSurveyor> getAllInsuranceSurveyorOfAnInsuranceManager(EntityManager entityManager, String insuranceManagerID) {
+        return entityManager.createQuery("SELECT c FROM InsuranceSurveyor c WHERE c.insuranceManagerId = ?1").setParameter(1, insuranceManagerID).getResultList();
+    }
 
 
 }

@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageController_InsuranceManager;
 import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageController_InsuranceSurveyor;
 import org.example.insurancemanagementapplication.Interfaces.EmployeeCreateRemove;
+import org.example.insurancemanagementapplication.Utility.StageBuilder;
 
 import java.util.List;
 import java.util.ListIterator;
@@ -103,7 +104,7 @@ public class InsuranceManagerTableFilling extends InsuranceSurveyorTableFilling 
             //It will then open the Insurance Manager Creation Form
             buttonUpdateInfo.setOnAction(event -> {
                 CreationPageController_InsuranceManager insuranceManagerCreationPageController = new CreationPageController_InsuranceManager(entityManager, user, insuranceManager);
-                RepeatedCode.showStage((Stage) buttonUpdateInfo.getScene().getWindow(), insuranceManagerCreationPageController, "InsuranceManagerCreationPage.fxml", "Insurance Manager Update");
+                StageBuilder.showStage((Stage) buttonUpdateInfo.getScene().getWindow(), insuranceManagerCreationPageController, "InsuranceManagerCreationPage.fxml", "Insurance Manager Update");
             });
 
             Button buttonAddSurveyor = new Button("Add Surveyor");
@@ -112,7 +113,7 @@ public class InsuranceManagerTableFilling extends InsuranceSurveyorTableFilling 
             //It will then open the Insurance Surveyor Creation Form
             buttonAddSurveyor.setOnAction(event ->{
                 CreationPageController_InsuranceSurveyor creationPageControllerInsuranceSurveyor = new CreationPageController_InsuranceSurveyor(entityManager, user, insuranceManager);
-                RepeatedCode.showStage((Stage) buttonAddSurveyor.getScene().getWindow(), creationPageControllerInsuranceSurveyor, "InsuranceSurveyorCreationPage.fxml", "Insurance Surveyor Creation");
+               StageBuilder.showStage((Stage) buttonAddSurveyor.getScene().getWindow(), creationPageControllerInsuranceSurveyor, "InsuranceSurveyorCreationPage.fxml", "Insurance Surveyor Creation");
             });
 
             //The remove button will remove its insurance manager from the database

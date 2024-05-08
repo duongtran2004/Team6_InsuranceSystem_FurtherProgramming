@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageController_PolicyHolder;
 import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageController_PolicyOwner;
 import org.example.insurancemanagementapplication.Interfaces.CustomerCreateRemove;
+import org.example.insurancemanagementapplication.Utility.StageBuilder;
 
 import java.util.List;
 import java.util.ListIterator;
@@ -110,7 +111,7 @@ public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
                 //It will then open the Policy Owner Creation Page
                 buttonUpdateInfo.setOnAction(event -> {
                     CreationPageController_PolicyOwner creationPageControllerPolicyOwner = new CreationPageController_PolicyOwner(entityManager, user, policyOwner);
-                    RepeatedCode.showStage((Stage) buttonUpdateInfo.getScene().getWindow(), creationPageControllerPolicyOwner, "PolicyOwnerCreationPage.fxml", "Policy Owner Update");
+                    StageBuilder.showStage((Stage) buttonUpdateInfo.getScene().getWindow(), creationPageControllerPolicyOwner, "PolicyOwnerCreationPage.fxml", "Policy Owner Update");
 
                 });
 
@@ -119,7 +120,7 @@ public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
                 //It will then open the Policy Holder Creation Form
                 buttonAddPolicy.setOnAction(event -> {
                     CreationPageController_PolicyHolder creationPageControllerPolicyHolder = new CreationPageController_PolicyHolder(entityManager, user, policyOwner);
-                    RepeatedCode.showStage((Stage) buttonAddPolicy.getScene().getWindow(), creationPageControllerPolicyHolder, "PolicyHolderCreationPage.fxml", "Policy Creation");
+                    StageBuilder.showStage((Stage) buttonAddPolicy.getScene().getWindow(), creationPageControllerPolicyHolder, "PolicyHolderCreationPage.fxml", "Policy Creation");
 
                 });
 
