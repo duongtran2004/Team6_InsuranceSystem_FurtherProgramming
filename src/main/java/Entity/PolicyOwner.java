@@ -14,9 +14,9 @@ import java.util.Collection;
 @Entity
 @Table(name = "policy_owner", schema = "public", catalog = "postgres")
 public class PolicyOwner extends Customer {
-    @Basic
-    @Column (name = "yearly_rate")
-    private int yearlyRate;
+//    @Basic
+//    @Column (name = "yearly_rate")
+//    private int yearlyRate;
 
     @Transient
     private Button addPolicyButton;
@@ -60,12 +60,12 @@ public class PolicyOwner extends Customer {
     public void setListOfInsuranceCards(Collection<InsuranceCard> listOfInsuranceCards) {
         this.listOfInsuranceCards = listOfInsuranceCards;
     }
-
-    public int getYearlyRate() {
-        return yearlyRate;
-    }
-
-    public void setYearlyRate(int yearlyRate) {
-        this.yearlyRate = yearlyRate;
-    }
+//
+//    public int getYearlyRate() {
+//        return yearlyRate;
+//    }
+//
+//    public void setYearlyRate(int yearlyRate) {
+//        this.yearlyRate = yearlyRate;
+//    }
 }
