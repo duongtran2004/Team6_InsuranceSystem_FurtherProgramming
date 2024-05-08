@@ -147,7 +147,7 @@ public class DependantTableFilling extends ClaimTableFilling {
                 //Open a new scene on the existing stage by calling the showStage static method from the Repeated Code Class
                 buttonUpdateInfo.setOnAction(event -> {
                     CreationPageController_Dependant creationPageControllerDependant = new CreationPageController_Dependant(entityManager, user, dependant);
-                    StageBuilder.showStage((Stage) buttonUpdateInfo.getScene().getWindow(), creationPageControllerDependant, "DependantCreationPage.fxml", "Dependant Update");
+                    StageBuilder.showStage((Stage) buttonUpdateInfo.getScene().getWindow(), creationPageControllerDependant, "DependantCreationAndUpdatePage.fxml", "Dependant Update");
 
                 });
                 //MAKE BUTTON TO REMOVE DEPENDENT OBJECTS BECOME VISIBLE
@@ -169,7 +169,7 @@ public class DependantTableFilling extends ClaimTableFilling {
                         //Create a ClaimCreationPage controller in creation mode by passing the dependant object to the constructor
                         //Open a new scene in the existing stage by calling the showStage static method from the Repeated Code Class
                         CreationPageController_Claim creationPageControllerClaim = new CreationPageController_Claim(entityManager, user, dependant);
-                        StageBuilder.showStage((Stage) buttonUpdateInfo.getScene().getWindow(), creationPageControllerClaim, "ClaimCreationPage.fxml", "Claim Creation");
+                        StageBuilder.showStage((Stage) buttonUpdateInfo.getScene().getWindow(), creationPageControllerClaim, "ClaimCreationAndUpdatePage.fxml", "Claim Creation");
                     });
                     dependant.setAddClaimButton(buttonAddClaim);
                 }

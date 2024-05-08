@@ -40,7 +40,7 @@ public interface CustomerRead {
     }
     public static List<Dependant> getAllDependantsOfAPolicyHolder(EntityManager entityManager, String policyHolderID) {
         return entityManager.createQuery(
-                        "SELECT d FROM Beneficiaries d WHERE d.type LIKE ?1 AND d.policyHolderId = ?2")
+                        "SELECT d FROM Beneficiaries d WHERE d.type LIKE ?1 AND d.policyHolderId = ?2 AND d.type = 'DE'")
                 .setParameter(1, "DE")
                 .setParameter(2, policyHolderID)
                 .getResultList();
@@ -48,7 +48,7 @@ public interface CustomerRead {
 
     public static List<PolicyHolder> getAllPolicyHoldersOfAPolicyOwner(EntityManager entityManager, String policyOwnerID) {
         return entityManager.createQuery(
-                        "SELECT d FROM Beneficiaries d WHERE d.type LIKE ?1 AND d.policyOwnerId = ?2")
+                        "SELECT d FROM Beneficiaries d WHERE d.type LIKE ?1 AND d.policyOwnerId = ?2 AND d.type = 'PH'")
                 .setParameter(1, "DE")
                 .setParameter(2, policyOwnerID)
                 .getResultList();
@@ -64,8 +64,8 @@ public interface CustomerRead {
     }
     public static List<Beneficiaries> getAllBeneficiariesOfAPolicyOwner(EntityManager entityManager, String policyOwnerID) {
         return entityManager.createQuery(
-                        "SELECT d FROM Beneficiaries d WHERE d.policyOwnerId = ?2")
-                .setParameter(2, policyOwnerID)
+                        "SELECT d FROM Beneficiaries d WHERE d.policyOwnerId = ?1")
+                .setParameter(1, policyOwnerID)
                 .getResultList();
     }
 
@@ -267,6 +267,7 @@ public interface CustomerRead {
         return allCustomers;
 
     }
+    //rank each type of customer by successful claim Amount (remember to add the claim amount column)
 
     public static Map<String, Integer> rankAllCustomerBySuccessfulClaimAmount(EntityManager entityManager) {
         List<Customer> allCustomers = getAllCustomers(entityManager);

@@ -1,9 +1,6 @@
 package Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
+import jakarta.persistence.*;
 import javafx.scene.control.Button;
 
 import java.util.Collection;
@@ -17,6 +14,9 @@ import java.util.Collection;
 @Entity
 @Table(name = "policy_owner", schema = "public", catalog = "postgres")
 public class PolicyOwner extends Customer {
+    @Basic
+    @Column (name = "yearly_rate")
+    private int yearlyRate;
 
     @Transient
     private Button addPolicyButton;
@@ -59,5 +59,13 @@ public class PolicyOwner extends Customer {
 
     public void setListOfInsuranceCards(Collection<InsuranceCard> listOfInsuranceCards) {
         this.listOfInsuranceCards = listOfInsuranceCards;
+    }
+
+    public int getYearlyRate() {
+        return yearlyRate;
+    }
+
+    public void setYearlyRate(int yearlyRate) {
+        this.yearlyRate = yearlyRate;
     }
 }
