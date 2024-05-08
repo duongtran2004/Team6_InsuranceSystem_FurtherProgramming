@@ -85,64 +85,60 @@ public interface ClaimRead {
     }
 
 
+    public static int getTotalSuccessfulClaimAmountProcessedByAnEmployee(EntityManager entityManager, String employeeID, String role) {
+        int totalAmount = 0;
+        if (role == "InsuranceManager") {
+            totalAmount = getTotalSuccessfulClaimAmountApprovedByAnInsuranceManager(entityManager, employeeID);
+        }
+        if (role == "InsuranceSurveyor") {
+            totalAmount = getTotalSuccessfulClaimAmountProcessedByAnInsuranceSurveyor(entityManager, employeeID);
+        }
 
-public static int getTotalSuccessfulClaimAmountProcessedByAnEmployee(EntityManager entityManager, String employeeID, String role) {
-    int totalAmount = 0;
-    if (role == "InsuranceManager") {
-        totalAmount = getTotalSuccessfulClaimAmountApprovedByAnInsuranceManager(entityManager, employeeID);
-    }
-    if (role == "Insurance Surveyor") {
-        totalAmount = getTotalSuccessfulClaimAmountProcessedByAnInsuranceSurveyor(entityManager, employeeID);
-    }
-
-    return totalAmount;
-}
-
-
-
-
-
-public static int getTotalSuccessfulClaimAmountMadeByAPolicyOwner(EntityManager entityManager, String policyOwnerID) {
-    Query query = entityManager.createQuery("SELECT SUM(c.claimAmount) FROM Claim c WHERE c.status = 'APPROVED' AND c.policyOwnerId = ?1");
-    query.setParameter(1, policyOwnerID);
-    Integer totalAmount = (Integer) query.getSingleResult();
-    if (totalAmount != null) {
         return totalAmount;
-    } else {
-        return 0;
-    }
-}
-
-public static int getTotalSuccessfulClaimAmountMadeByABeneficiary(EntityManager entityManager, String beneficiaryID) {
-    Query query = entityManager.createQuery("SELECT SUM(c.claimAmount) FROM Claim c WHERE c.status = 'APPROVED' AND c.insuredPersonId = ?1").setParameter(1, beneficiaryID);
-    Integer totalAmount = (Integer) query.getSingleResult();
-    if (totalAmount != null) {
-        return totalAmount;
-    } else {
-        return 0;
-    }
-}
-
-public static int getTotalSuccessfulClaimAmountProcessedByAnInsuranceSurveyor(EntityManager entityManager, String insuranceSurveyorID) {
-    Query query = entityManager.createQuery("SELECT SUM(c.claimAmount) FROM Claim c WHERE c.status = 'APPROVED' AND c.insuranceSurveyorId = ?1").setParameter(1, insuranceSurveyorID);
-    Integer totalAmount = (Integer) query.getSingleResult();
-    if (totalAmount != null) {
-        return totalAmount;
-    } else {
-        return 0;
     }
 
-}
 
-public static int getTotalSuccessfulClaimAmountApprovedByAnInsuranceManager(EntityManager entityManager, String insuranceManagerID) {
-    Query query = entityManager.createQuery("SELECT SUM(c.claimAmount) FROM Claim c WHERE c.status = 'APPROVED' AND c.insuranceManagerId = ?1").setParameter(1, insuranceManagerID);
-    Integer totalAmount = (Integer) query.getSingleResult();
-    if (totalAmount != null) {
-        return totalAmount;
-    } else {
-        return 0;
+    public static int getTotalSuccessfulClaimAmountMadeByAPolicyOwner(EntityManager entityManager, String policyOwnerID) {
+        Query query = entityManager.createQuery("SELECT SUM(c.claimAmount) FROM Claim c WHERE c.status = 'APPROVED' AND c.policyOwnerId = ?1");
+        query.setParameter(1, policyOwnerID);
+        Integer totalAmount = (Integer) query.getSingleResult();
+        if (totalAmount != null) {
+            return totalAmount;
+        } else {
+            return 0;
+        }
     }
-}
+
+    public static int getTotalSuccessfulClaimAmountMadeByABeneficiary(EntityManager entityManager, String beneficiaryID) {
+        Query query = entityManager.createQuery("SELECT SUM(c.claimAmount) FROM Claim c WHERE c.status = 'APPROVED' AND c.insuredPersonId = ?1").setParameter(1, beneficiaryID);
+        Integer totalAmount = (Integer) query.getSingleResult();
+        if (totalAmount != null) {
+            return totalAmount;
+        } else {
+            return 0;
+        }
+    }
+
+    public static int getTotalSuccessfulClaimAmountProcessedByAnInsuranceSurveyor(EntityManager entityManager, String insuranceSurveyorID) {
+        Query query = entityManager.createQuery("SELECT SUM(c.claimAmount) FROM Claim c WHERE c.status = 'APPROVED' AND c.insuranceSurveyorId = ?1").setParameter(1, insuranceSurveyorID);
+        Integer totalAmount = (Integer) query.getSingleResult();
+        if (totalAmount != null) {
+            return totalAmount;
+        } else {
+            return 0;
+        }
+
+    }
+
+    public static int getTotalSuccessfulClaimAmountApprovedByAnInsuranceManager(EntityManager entityManager, String insuranceManagerID) {
+        Query query = entityManager.createQuery("SELECT SUM(c.claimAmount) FROM Claim c WHERE c.status = 'APPROVED' AND c.insuranceManagerId = ?1").setParameter(1, insuranceManagerID);
+        Integer totalAmount = (Integer) query.getSingleResult();
+        if (totalAmount != null) {
+            return totalAmount;
+        } else {
+            return 0;
+        }
+    }
 
 //public static int getTotalSuccessfulClaimAmountInATimeRange(EntityManager entityManager, Date startDate, Date endDate) {
 //
@@ -151,24 +147,61 @@ public static int getTotalSuccessfulClaimAmountApprovedByAnInsuranceManager(Enti
 
 // GET NUMBER OF SUCCESSFUL CLAIMS
 
-public static int getTotalNumberOfSuccessfulClaims(EntityManager entityManager) {
-    Query query = entityManager.createQuery("SELECT c FROM Claim c");
-    List<Claim> claims = query.getResultList();
-    return claims.size();
-}
+    public static int getTotalNumberOfSuccessfulClaims(EntityManager entityManager) {
+        Query query = entityManager.createQuery("SELECT c FROM Claim c");
+        List<Claim> claims = query.getResultList();
+        return claims.size();
+    }
 
-public static int getTotalNumberOfSuccessfulClaimsMadeByACustomer(EntityManager entityManager, String customerID) {
-    Query query = entityManager.createQuery("SELECT c FROM Claim c");
-    List<Claim> claims = query.getResultList();
-    return claims.size();
-}
+    public static int getTotalNumberOfSuccessfulClaimsMadeByACustomer(EntityManager entityManager, String customerID) {
+        Query query = entityManager.createQuery("SELECT c FROM Claim c");
+        List<Claim> claims = query.getResultList();
+        return claims.size();
+    }
 
 
-public static int getTotalNumberOfSuccessfulClaimsProcessedByAnEmployee(EntityManager entityManager, String employeeID) {
-    Query query = entityManager.createQuery("SELECT c FROM Claim c");
-    List<Claim> claims = query.getResultList();
-    return claims.size();
-}
+    public static int getTotalNumberOfSuccessfulClaimsProcessedByAnEmployee(EntityManager entityManager, String employeeID) {
+        Query query = entityManager.createQuery("SELECT c FROM Claim c");
+        List<Claim> claims = query.getResultList();
+        return claims.size();
+    }
+//get finished claim by employee
+
+
+    public static List<Claim> getFinishedClaimOfAnEmployee(EntityManager entityManager, String employeeID, String role) {
+        List<Claim> listOfFinishedClaim = new ArrayList<>();
+        if (role == "InsuranceManager") {
+            listOfFinishedClaim = getFinishedClaimOfAnInsuranceManager(entityManager, employeeID);
+
+        }
+        if (role == "InsuranceSurveyor") {
+            listOfFinishedClaim = getFinishedClaimOfAnInsuranceSurveyor(entityManager, employeeID);
+        }
+        return listOfFinishedClaim;
+
+    }
+
+    public static List<Claim> getFinishedClaimOfAnInsuranceManager(EntityManager entityManager, String insuranceManagerID) {
+
+        Query query = entityManager.createQuery("SELECT c FROM Claim c WHERE c.status = 'FINISHED' OR c.status = 'REJECTED'AND c.insuranceManagerId = ?1");
+        query.setParameter(1, insuranceManagerID);
+        List<Claim> claims = query.getResultList();
+        return claims;
+    }
+
+    public static List<Claim> getFinishedClaimOfAnInsuranceSurveyor(EntityManager entityManager, String insuranceSurveyorID) {
+        Query query = entityManager.createQuery("SELECT c FROM Claim c WHERE c.status = 'FINISHED' OR c.status = 'REJECTED'AND c.insuranceSurveyorId = ?1");
+        query.setParameter(1, insuranceSurveyorID);
+        List<Claim> claims = query.getResultList();
+        return claims;
+    }
+
+
+    //get number of finishedClaim (status = reject or approved)
+    public static int getNumberOfFinishedClaimsOfAnEmployee(EntityManager entityManager, String employeeID, String role) {
+         int numberOfFinishedClaims = getFinishedClaimOfAnEmployee(entityManager, employeeID, role).size();
+         return numberOfFinishedClaims;
+    }
 
 
 //public static int getTotalNumberOfSuccessfulClaimsInATimeRange(EntityManager entityManager, Date startDate, Date endDate) {
@@ -178,15 +211,13 @@ public static int getTotalNumberOfSuccessfulClaimsProcessedByAnEmployee(EntityMa
 //}
 
 
-
-
 // AVERAGE SUCCESSFUL CLAIM AMOUNT
 
-public static double getAverageSuccessfulClaimAmountPerClaim(EntityManager entityManager) {
+    public static double getAverageSuccessfulClaimAmountPerClaim(EntityManager entityManager) {
         int totalSuccessfulClaimAmount = getTotalSuccessfulClaimAmount(entityManager);
         int totalSuccessfulClaimsMade = getTotalNumberOfSuccessfulClaims(entityManager);
         return (totalSuccessfulClaimAmount / totalSuccessfulClaimsMade);
-}
+    }
 
 //
 //public static double getAverageSuccessfulClaimAmountInATimeRange(EntityManager entityManager, Date startDate, Date endDate) {

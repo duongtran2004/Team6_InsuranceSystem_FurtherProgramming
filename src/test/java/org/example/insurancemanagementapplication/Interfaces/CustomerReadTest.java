@@ -1,11 +1,12 @@
 package org.example.insurancemanagementapplication.Interfaces;
 
+import Entity.Dependant;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.List;
 
 class CustomerReadTest {
     EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
@@ -16,9 +17,18 @@ class CustomerReadTest {
 //
 //    }
 
+//    @Test
+//    void getPolicyHolderWithLoginCredential() {
+//        CustomerRead.getPolicyHolderWithLoginCredentials(entityManager,"swalhedd0@scribd.com","33902597", "PH5264972101");
+//    }
     @Test
-    void getPolicyHolderWithLoginCredential() {
-        CustomerRead.getPolicyHolderWithLoginCredentials(entityManager,"swalhedd0@scribd.com","33902597", "PH5264972101");
+    void getAllDependent(){
+        List<Dependant>  dependants = CustomerRead.getAllDependant(entityManager);
+        for(Dependant dependant : dependants){
+            System.out.println(dependant);
+        }
+
+
     }
 
 

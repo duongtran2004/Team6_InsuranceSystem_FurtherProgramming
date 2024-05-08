@@ -5,8 +5,8 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.Query;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author Luong Thanh Trung
@@ -253,6 +253,46 @@ public interface CustomerRead {
             return null; // Handle case where no matching policy owner is found
         }
     }
+
+    //ranking user
+
+    public static List<Customer> getAllCustomers (EntityManager entityManager){
+        List <Dependant> dependants = CustomerRead.getAllDependant(entityManager);
+        List<PolicyHolder> policyHolders = CustomerRead.getAllPolicyHolder(entityManager);
+        List<PolicyOwner> policyOwners = CustomerRead.getAllPolicyOwner(entityManager);
+        List<Customer> allCustomers = new ArrayList<>();
+        allCustomers.addAll(dependants);
+        allCustomers.addAll(policyHolders);
+        allCustomers.addAll(policyOwners);
+        return allCustomers;
+
+    }
+
+    public static Map<String, Integer> rankAllCustomerBySuccessfulClaimAmount(EntityManager entityManager) {
+        List<Customer> allCustomers = getAllCustomers(entityManager);
+
+        // Calculate the total successful claim amount for each customer
+        Map<String, Integer> totalClaimAmountMap = allCustomers.stream()
+                .collect(Collectors.toMap(
+                        customer -> customer.getId(),
+                        customer -> ClaimRead.getTotalSuccessfulClaimAmountMadeByACustomer(entityManager, customer.getId(), customer.getClass().toString())
+                ));
+
+        // Sort the customers based on their total successful claim amount
+        Map<String, Integer> rankedCustomers = totalClaimAmountMap.entrySet().stream()
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (oldValue, newValue) -> oldValue, // Keep existing values (not necessary here)
+                        LinkedHashMap::new // Preserve order
+                ));
+
+        return rankedCustomers;
+    }
+
+
+
 
 
 }

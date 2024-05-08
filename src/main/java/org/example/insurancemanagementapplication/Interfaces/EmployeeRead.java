@@ -6,7 +6,11 @@ import Entity.SystemAdmin;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author Luong Thanh Trung
@@ -104,6 +108,42 @@ public interface EmployeeRead {
 
     public static List<InsuranceSurveyor> getAllInsuranceSurveyorOfAnInsuranceManager(EntityManager entityManager, String insuranceManagerID) {
         return entityManager.createQuery("SELECT c FROM InsuranceSurveyor c WHERE c.insuranceManagerId = ?1").setParameter(1, insuranceManagerID).getResultList();
+    }
+
+
+//should I use map instead for this ranking method, if I want to display both user and their sucessful claim amount in the front-end ?
+
+    public static Map<Object, Integer> rankAllEmployeeByTotalFinishedClaims(EntityManager entityManager) {
+        List<Object> allEmployees = new ArrayList<>();
+        List<InsuranceManager> allInsuranceManagers = EmployeeRead.getAllInsuranceManager(entityManager);
+        List<InsuranceSurveyor> allInsuranceSurveyors = EmployeeRead.getAllInsuranceSurveyor(entityManager);
+        allEmployees.addAll(allInsuranceManagers);
+        allEmployees.addAll(allInsuranceSurveyors);
+
+        // Calculate the total finished claim count for each employee
+        Map<Object, Integer> totalFinishedClaimsMap = allEmployees.stream()
+                .collect(Collectors.toMap(
+                        employee -> employee,
+                        employee -> {
+                            if (employee instanceof InsuranceManager) {
+                                return ClaimRead.getTotalSuccessfulClaimAmountProcessedByAnEmployee(entityManager, ((InsuranceManager) employee).getId(), "InsuranceManager");
+                            } else if (employee instanceof InsuranceSurveyor) {
+                                return ClaimRead.getTotalSuccessfulClaimAmountProcessedByAnEmployee(entityManager, ((InsuranceSurveyor) employee).getId(), "InsuranceSurveyor");
+                            }
+                            return 0;
+                        }
+                ));
+        // Sort the employees based on their total finished claim count
+        Map<Object, Integer> rankedEmployees = totalFinishedClaimsMap.entrySet().stream()
+                .sorted((entry1, entry2) -> entry2.getValue().compareTo(entry1.getValue())) // Sort by value in descending order
+                .collect(Collectors.toMap(
+                        entry -> entry.getKey(), // Use lambda expression to get the key
+                        entry -> entry.getValue(), // Use lambda expression to get the value
+                        (oldValue, newValue) -> oldValue, // Keep existing values (not necessary here)
+                        LinkedHashMap::new // Preserve order
+                ));
+
+        return rankedEmployees;
     }
 
 
