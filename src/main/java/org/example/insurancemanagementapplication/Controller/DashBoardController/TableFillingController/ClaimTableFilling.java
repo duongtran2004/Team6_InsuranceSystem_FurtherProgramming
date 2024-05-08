@@ -75,10 +75,9 @@ public class ClaimTableFilling implements ClaimCreateRemove {
     @FXML
     protected  TableColumn<Claim, String> status;
     @FXML
-
     protected  TableColumn<Claim, Button> claimUpdateButton;
     @FXML
-    protected TableColumn<Claim, Button> removeClaimButton;
+    protected TableColumn<Claim, Button> claimRemoveButton;
     @FXML
     protected  TextField claimListSearchField;
     //User will select what sorting they would like to use
@@ -404,7 +403,7 @@ public class ClaimTableFilling implements ClaimCreateRemove {
         }
         if (user instanceof PolicyHolder || user instanceof PolicyOwner){
             //System Admins, Insurance Managers, and Insurance Surveyors are not allowed to remove Claims. So they do not have access to the removeClaim button
-            removeClaimButton.setCellValueFactory(new PropertyValueFactory<Claim, Button>("claimRemoveButton"));
+            claimRemoveButton.setCellValueFactory(new PropertyValueFactory<Claim, Button>("claimRemoveButton"));
         }
         claimTable.setItems(sortedClaimList);
     }
@@ -503,20 +502,13 @@ public class ClaimTableFilling implements ClaimCreateRemove {
         this.status = status;
     }
 
-    public TableColumn<Claim, Button> getClaimButton() {
-        return claimUpdateButton;
-    }
-
-    public void setClaimButton(TableColumn<Claim, Button> claimButton) {
-        this.claimUpdateButton = claimButton;
-    }
 
     public TableColumn<Claim, Button> getRemoveClaimButton() {
-        return removeClaimButton;
+        return claimRemoveButton;
     }
 
     public void setRemoveClaimButton(TableColumn<Claim, Button> removeClaimButton) {
-        this.removeClaimButton = removeClaimButton;
+        this.claimRemoveButton = removeClaimButton;
     }
 
     public TextField getClaimListSearchField() {
