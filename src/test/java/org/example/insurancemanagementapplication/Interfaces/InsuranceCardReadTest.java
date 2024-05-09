@@ -23,9 +23,11 @@ class InsuranceCardReadTest {
 //    }
 
     @Test
-    void getAllInsuranceCardsProcessByInsuranceSurveyor() {
-        List<InsuranceCard> insuranceCards = InsuranceCardRead.getAllInsuranceCardsProcessByInsuranceSurveyor(entityManager,"IM0000000001");
-        System.out.println(insuranceCards.toString());
+    void getAllInsuranceCardsTakeChargeByAnEmployee() {
+        List<InsuranceCard> insuranceCards = InsuranceCardRead.getAllInsuranceCardsTakeChargeByAnEmployee(entityManager,"IM7685824369", "InsuranceManager");
+        for (InsuranceCard insuranceCard : insuranceCards) {
+            System.out.println(insuranceCard);
+        }
     }
 
 //    @Test

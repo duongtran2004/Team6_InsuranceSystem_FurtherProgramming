@@ -12,7 +12,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageController_Claim;
+import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageControllerClaim;
 import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageController_Dependant;
 import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageController_PolicyHolder;
 import org.example.insurancemanagementapplication.Interfaces.CustomerCreateRemove;
@@ -146,7 +146,7 @@ public class PolicyHolderTableFilling extends InsuranceCardFillingTable{
                     //Create a ClaimCreationPage controller in creation mode by passing the policy holder object to the constructor
                     //Open a new scene in the existing stage by calling the showStage static method from the Repeated Code Class
                     buttonAddClaim.setOnAction(event -> {
-                        CreationPageController_Claim creationPageControllerClaim = new CreationPageController_Claim(entityManager, user, policyHolder);
+                        CreationPageControllerClaim creationPageControllerClaim = new CreationPageControllerClaim(entityManager, user, policyHolder);
                         StageBuilder.showStage((Stage) buttonAddClaim.getScene().getWindow(), creationPageControllerClaim, "ClaimCreationAndUpdatePage.fxml", "Claim Creation");
                     });
                     policyHolder.setAddClaimButton(buttonAddClaim);

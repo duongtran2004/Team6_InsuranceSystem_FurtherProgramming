@@ -12,7 +12,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageController_Claim;
+import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageControllerClaim;
 import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageController_Dependant;
 import org.example.insurancemanagementapplication.Interfaces.CustomerCreateRemove;
 import org.example.insurancemanagementapplication.Interfaces.CustomerRead;
@@ -163,7 +163,7 @@ public class DependantTableFilling extends ClaimTableFilling {
                     buttonAddClaim.setOnAction(event -> {
                         //Create a ClaimCreationPage controller in creation mode by passing the dependant object to the constructor
                         //Open a new scene in the existing stage by calling the showStage static method from the Repeated Code Class
-                        CreationPageController_Claim creationPageControllerClaim = new CreationPageController_Claim(entityManager, user, dependant);
+                        CreationPageControllerClaim creationPageControllerClaim = new CreationPageControllerClaim(entityManager, user, dependant);
                         StageBuilder.showStage((Stage) buttonUpdateInfo.getScene().getWindow(), creationPageControllerClaim, "ClaimCreationAndUpdatePage.fxml", "Claim Creation");
                     });
                     dependant.setAddClaimButton(buttonAddClaim);

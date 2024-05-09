@@ -18,7 +18,7 @@ import org.example.insurancemanagementapplication.Utility.InputValidator;
 import java.net.URL;
 import java.util.*;
 
-public class CreationPageController_Claim extends CreationPageController implements Initializable, Controller {
+public class CreationPageControllerClaim extends CreationPageController implements Initializable, Controller {
 
     private Beneficiaries beneficiary;
     private Claim claim;
@@ -268,12 +268,12 @@ public class CreationPageController_Claim extends CreationPageController impleme
 
 
 
-    public CreationPageController_Claim(EntityManager entityManager, User user, Beneficiaries beneficiary) {
+    public CreationPageControllerClaim(EntityManager entityManager, User user, Beneficiaries beneficiary) {
         super(entityManager, user);
         this.beneficiary = beneficiary;
     }
 
-    public CreationPageController_Claim(EntityManager entityManager, User user, Claim claim) {
+    public CreationPageControllerClaim(EntityManager entityManager, User user, Claim claim) {
         super(entityManager, user);
         this.claim = claim;
     }

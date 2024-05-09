@@ -4,10 +4,7 @@ import Entity.InsuranceManager;
 import jakarta.persistence.EntityManager;
 import javafx.fxml.Initializable;
 import org.example.insurancemanagementapplication.Controller.DashBoardController.TableFillingController.InsuranceSurveyorTableFilling;
-import org.example.insurancemanagementapplication.Interfaces.ClaimRead;
-import org.example.insurancemanagementapplication.Interfaces.Controller;
-import org.example.insurancemanagementapplication.Interfaces.CustomerRead;
-import org.example.insurancemanagementapplication.Interfaces.EmployeeRead;
+import org.example.insurancemanagementapplication.Interfaces.*;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -31,13 +28,20 @@ public class InsuranceManagerDashBoardController extends InsuranceSurveyorTableF
         userFillingData();
         //fill claim table
         fillingClaimTable(entityManager, user, ClaimRead.getAllClaimsProcessByAnInsuranceManager(entityManager, user.getId()));
+        //fill all the table of customers
+        // fill dependant table
+        fillingDependantTable(entityManager, user, CustomerRead.getAllDependantsTakeChargeByAnEmployee(entityManager, user.getId(), "InsuranceManager"));
+        // fill policy holder table
+        fillingPolicyHolderTable(entityManager, user, CustomerRead.getAllPolicyHoldersTakeChargeByAnEmployee(entityManager, user.getId(), "InsuranceManager"));
+        // fill policy owner table
+        fillingPolicyOwnerTable(entityManager, user, CustomerRead.getAllPolicyOwnersTakeChargeByAnEmployee(entityManager, user.getId(), "InsuranceManager"));
+        // fill insurance card table
+        fillingInsuranceCardTable(entityManager,user, InsuranceCardRead.getAllInsuranceCardsTakeChargeByAnEmployee(entityManager, user.getId(), "InsuranceManager"));
 
+        //fill employee table
         //fill insurance surveyor table
         fillingInsuranceSurveyorTable(entityManager, user, EmployeeRead.getAllInsuranceSurveyorOfAnInsuranceManager(entityManager, user.getId()));
-        //fill all the table of customers
-        fillingDependantTable(entityManager, user, CustomerRead.getAllDependantsTakeChargeByAnEmployee(entityManager, user.getId(), "InsuranceManager"));
-//        fillingPolicyHolderTable(entityManager, user, CustomerRead.getAllPolicyHoldersTakeChargeByAnEmployee(entityManager, user.getId()));
-        fillingPolicyOwnerTable(entityManager, user, CustomerRead.getAllPolicyOwnersTakeChargeByAnEmployee(entityManager, user.getId(), "InsuranceManager"));
+
 
     }
 

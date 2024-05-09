@@ -9,7 +9,7 @@ import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageController_Claim;
+import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageControllerClaim;
 import org.example.insurancemanagementapplication.Interfaces.ClaimCreateRemove;
 import org.example.insurancemanagementapplication.Interfaces.ClaimRead;
 
@@ -353,7 +353,7 @@ public class ClaimTableFilling implements ClaimCreateRemove {
                 //Binding a handler to the onClick event.
                 claimButton.setOnAction(event -> {
                     //Creating the Controller for Claim Creation Page in update mode by passing the claim into the constructor
-                    CreationPageController_Claim creationPageControllerClaim = new CreationPageController_Claim(entityManager, user, claim);
+                    CreationPageControllerClaim creationPageControllerClaim = new CreationPageControllerClaim(entityManager, user, claim);
                 });
                 claim.setClaimButton(claimButton);
             }

@@ -8,10 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import org.example.insurancemanagementapplication.Controller.DashBoardController.TableFillingController.PolicyHolderTableFilling;
-import org.example.insurancemanagementapplication.Interfaces.ClaimRead;
-import org.example.insurancemanagementapplication.Interfaces.Controller;
-import org.example.insurancemanagementapplication.Interfaces.CustomerCreateRemove;
-import org.example.insurancemanagementapplication.Interfaces.CustomerRead;
+import org.example.insurancemanagementapplication.Interfaces.*;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -33,10 +30,14 @@ public class PolicyOwnerDashBoardController extends PolicyHolderTableFilling imp
         //see the ClaimTableFilling Class
         userFillingData();
         //TODO Set action for the add policy holder  button. This button will create a Policy Holder CreationPage controller by passing in the policy owner object into the constructor.
+//create policyHolderCreationPageController Class => switch stage (as a controller for Pol
+
+
 //still miss to fix buttons
         fillingClaimTable(entityManager, user, ClaimRead.getAllClaimsFromBeneficiariesOfAPolicyOwner(entityManager, user.getId()));
         fillingDependantTable(entityManager, user, CustomerRead.getAllDependantsOfAPolicyOwner(entityManager, user.getId()));
         fillingPolicyHolderTable(entityManager, user, CustomerRead.getAllPolicyHoldersOfAPolicyOwner(entityManager, user.getId()));
+        fillingInsuranceCardTable(entityManager,user, InsuranceCardRead.getAllInsuranceCardsOfPolicyOwner(entityManager, user.getId());
     }
 
     public PolicyOwnerDashBoardController(PolicyOwner user, EntityManager entityManager) {
