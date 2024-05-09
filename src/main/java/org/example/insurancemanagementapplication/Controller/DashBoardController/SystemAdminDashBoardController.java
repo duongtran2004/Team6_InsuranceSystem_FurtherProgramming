@@ -88,7 +88,7 @@ public class SystemAdminDashBoardController extends InsuranceManagerTableFilling
         //Task: Create a separate thread to fill in the Dependant Table
         fillingDependantTable(entityManager, user, CustomerRead.getAllDependant(entityManager));
         //Task: Create a separate thread to fill in the Insurance Claim Table
-        fillingInsuranceCardTable(entityManager, user, CustomerRead.getAllInsuranceCard(entityManager));
+        fillingInsuranceCardTable(entityManager, user, InsuranceCardRead.getAllInsuranceCard(entityManager));
         //Task: Create a separate thread to fill in the Claim Table
         fillingClaimTable(entityManager, user, ClaimRead.getAllClaims(entityManager));
 

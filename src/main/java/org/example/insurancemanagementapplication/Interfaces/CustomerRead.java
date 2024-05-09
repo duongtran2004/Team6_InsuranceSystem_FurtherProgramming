@@ -33,11 +33,7 @@ public interface CustomerRead {
 
     } //unit testing for this method
 
-    public static List<InsuranceCard> getAllInsuranceCard(EntityManager entityManager) {
-        return entityManager.createQuery(
-                "SELECT c FROM InsuranceCard c").getResultList();
 
-    }
     public static List<Dependant> getAllDependantsOfAPolicyHolder(EntityManager entityManager, String policyHolderID) {
         return entityManager.createQuery(
                         "SELECT d FROM Beneficiaries d WHERE d.type LIKE ?1 AND d.policyHolderId = ?2 AND d.type = 'DE'")

@@ -129,4 +129,20 @@ public class InsuranceCard {
     public void setPolicyOwner(PolicyOwner policyOwner) {
         this.policyOwner = policyOwner;
     }
+
+    //this is for unit testing
+    @Override
+    public String toString() {
+        return "InsuranceCard{" +
+                "cardNumber='" + cardNumber + '\'' +
+                ", expirationDate=" + expirationDate +
+                ", removeButton=" + removeButton +
+                ", cardHolderId='" + cardHolderId + '\'' +
+                ", policyOwnerId='" + policyOwnerId + '\'' +
+                ", listOfBeneficiaries=" + listOfBeneficiaries +
+                ", listOfClaims=" + listOfClaims +
+                ", cardHolder=" + cardHolder +
+                ", policyOwner=" + policyOwner +
+                '}';
+    }
 }
