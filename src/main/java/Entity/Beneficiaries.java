@@ -15,6 +15,17 @@ import java.util.Collection;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "user_type", discriminatorType = DiscriminatorType.STRING)
 public class Beneficiaries extends Customer {
+
+    @Transient
+    private Button addClaim;
+
+    public Button getAddClaim() {
+        return addClaim;
+    }
+
+    public void setAddClaim(Button addClaim) {
+        this.addClaim = addClaim;
+    }
     @Transient
     private javafx.scene.control.Button addClaimButton;
     @Basic

@@ -14,5 +14,4 @@ import jakarta.persistence.Entity;
 public class Dependant extends Beneficiaries{
 
 
-
 }

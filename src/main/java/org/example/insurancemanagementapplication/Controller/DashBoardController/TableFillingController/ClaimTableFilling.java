@@ -348,6 +348,7 @@ public class ClaimTableFilling implements ClaimCreateRemove {
                 //If the user is other types of users, the button will have the "Update Claim" text
                 else {
                     claimButton.setText("Update Claim");
+                    claim.setClaimRemoveButton(buttonRemoveClaim);
                 }
                 //Binding a handler to the onClick event.
                 claimButton.setOnAction(event -> {

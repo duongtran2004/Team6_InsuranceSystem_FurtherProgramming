@@ -134,7 +134,7 @@ public class DependantTableFilling extends ClaimTableFilling {
             Button buttonAddClaim = new Button();
             Button buttonRemove = new Button();
             //Only system admin and policy holder and policy owner have access to the update info button, remove button
-            if (user instanceof PolicyOwner || user instanceof PolicyHolder) {
+            if (user instanceof SystemAdmin || user instanceof Customer) {
                 //MAKE BUTTON TO UPDATE INFO OF DEPENDENT OBJECT BECOME VISIBLE
                 buttonUpdateInfo.setText("Update Info");
                 //Create a CreationPageController for the Dependant in Update mode by passing in the dependant object to the constructor
@@ -159,6 +159,7 @@ public class DependantTableFilling extends ClaimTableFilling {
                 //Only policy holder and policy owner could create a new claim for a dependant
                 if (user instanceof PolicyHolder || user instanceof PolicyOwner) {
                     buttonAddClaim.setText("Add Claim");
+                    dependant.setAddClaim(buttonAddClaim);
                     buttonAddClaim.setOnAction(event -> {
                         //Create a ClaimCreationPage controller in creation mode by passing the dependant object to the constructor
                         //Open a new scene in the existing stage by calling the showStage static method from the Repeated Code Class

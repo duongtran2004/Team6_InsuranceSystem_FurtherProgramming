@@ -68,6 +68,9 @@ public class Claim {
     @Transient
     private javafx.scene.control.Button claimButton;
 
+    @Transient
+    private Button claimRemoveButton;
+
     public String getInsuredPersonId() {
         return insuredPersonId;
     }
@@ -114,6 +117,14 @@ public class Claim {
 
     public void setClaimButton(Button claimButton) {
         this.claimButton = claimButton;
+    }
+
+    public Button getClaimRemoveButton() {
+        return claimRemoveButton;
+    }
+
+    public void setClaimRemoveButton(Button claimRemoveButton) {
+        this.claimRemoveButton = claimRemoveButton;
     }
 
     @ManyToOne
