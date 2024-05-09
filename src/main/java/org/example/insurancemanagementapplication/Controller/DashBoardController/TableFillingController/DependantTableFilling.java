@@ -355,12 +355,12 @@ class DependantTableFillingThread extends Thread {
 
     //For Employee: Insurance Surveyor and Insurance Manager
 
-    public static void DependantTableFillingThreadForEmployee(EntityManager entityManager, User user) {
-
-        DependantTableFilling dependantTableFilling = new DependantTableFilling(entityManager, user);
-        dependantTableFilling.fillingDependantTable(entityManager, user, CustomerRead.getAllDependantsTakeChargeByAnEmployee(entityManager, user.getId()));
-
-    }
+//    public static void DependantTableFillingThreadForEmployee(EntityManager entityManager, User user) {
+//
+//        DependantTableFilling dependantTableFilling = new DependantTableFilling(entityManager, user);
+//        dependantTableFilling.fillingDependantTable(entityManager, user, CustomerRead.getAllDependantsTakeChargeByAnEmployee(entityManager, user.getId()));
+//
+//    }
 
 
     @Override

@@ -21,13 +21,21 @@ class CustomerReadTest {
 //    void getPolicyHolderWithLoginCredential() {
 //        CustomerRead.getPolicyHolderWithLoginCredentials(entityManager,"swalhedd0@scribd.com","33902597", "PH5264972101");
 //    }
+//    @Test
+//    void getAllDependent(){
+//        List<Dependant>  dependants = CustomerRead.getAllDependant(entityManager);
+//        for(Dependant dependant : dependants){
+//            System.out.println(dependant);
+//        }
+
     @Test
-    void getAllDependent(){
-        List<Dependant>  dependants = CustomerRead.getAllDependant(entityManager);
-        for(Dependant dependant : dependants){
+    void getAllDependantTakeChargeByAnInsuranceSurveyor() {
+        List<Dependant> dependants =
+                CustomerRead.getAllDependantsTakeChargeByAnInsuranceSurveyor(entityManager, "IS402665881");
+//        System.out.println(dependants);
+        for (Dependant dependant : dependants) {
             System.out.println(dependant);
         }
-
 
     }
 

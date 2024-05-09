@@ -24,6 +24,7 @@ public interface InsuranceCardRead {
 //Employee can only retrieve the insurance card that is related to the claims  they deal with
 
     // For insurance Surveyor
+
 //unit testing for this method
     public static List<InsuranceCard> getAllInsuranceCardsProcessByInsuranceSurveyor(EntityManager entityManager, String insuranceSurveyorID) {
         return entityManager.createQuery(

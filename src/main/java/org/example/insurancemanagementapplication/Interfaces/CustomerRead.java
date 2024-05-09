@@ -4,6 +4,7 @@ import Entity.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.Query;
+import Entity.Beneficiaries;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -58,6 +59,7 @@ public interface CustomerRead {
                 .setParameter(2, policyOwnerID)
                 .getResultList();
     }
+
     public static List<Beneficiaries> getAllBeneficiariesOfAPolicyOwner(EntityManager entityManager, String policyOwnerID) {
         return entityManager.createQuery(
                         "SELECT d FROM Beneficiaries d WHERE d.policyOwnerId = ?1")
@@ -66,40 +68,77 @@ public interface CustomerRead {
     }
 
 
+    public static List<Dependant> getAllDependantsTakeChargeByAnInsuranceSurveyor(EntityManager entityManager, String insuranceSurveyorID) {
 
-    public static List<Dependant> getAllDependantsTakeChargeByAnEmployee(EntityManager entityManager, String employeeID) {
-        // Get list of claims which the insurance surveyor is processing
-        List<Claim> claims = ClaimRead.getAllClaimsProcessByAnInsuranceSurveyor(entityManager, employeeID);
-        List<Dependant> dependants = new ArrayList<>(claims.size()); // Initialize the list to the size of claims
+        List<Dependant> dependants = new ArrayList<>();
+        Set<String> processedIds = new HashSet<>();
 
+        // Query to select claims associated with the given insurance surveyor id
+        String queryString = "SELECT c FROM Claim c WHERE c.insuranceSurveyorId = :surveyorId";
+
+        // Create a query
+        Query query = entityManager.createQuery(queryString);
+        query.setParameter("surveyorId", insuranceSurveyorID);
+
+        // Execute the query to get the claims
+        List<Claim> claims = query.getResultList();
+
+        // Iterate through each claim to retrieve the dependant objects
         for (Claim claim : claims) {
-            // Retrieve the dependant associated with the claim
-            Dependant dependant = entityManager.createQuery(
-                            "SELECT d FROM Beneficiaries d WHERE d.id = ?1 AND d.type = 'DE'", Dependant.class)
-                    .setParameter(1, claim.getInsuredPersonId())
-                    .getSingleResult();
-
-            dependants.add(dependant); // Add the dependant to the list
+            // Check if the insured person ID of the claim starts with "DE"
+            if (claim.getInsuredPersonId().startsWith("DE")) {
+                // Retrieve the beneficiary object (insured person)
+                Beneficiaries beneficiary = claim.getInsuredPerson();
+                if (beneficiary instanceof Dependant) {
+                    Dependant dependant = (Dependant) beneficiary;
+                    // Check if the ID has already been processed
+                    if (!processedIds.contains(dependant.getId())) {
+                        dependants.add(dependant);
+                        processedIds.add(dependant.getId());
+                    }
+                }
+            }
         }
         return dependants;
     }
 
-    public static List<PolicyHolder> getAllPolicyHoldersTakeChargeByAnEmployee(EntityManager entityManager, String employeeID) {
-        // Get list of claims which the insurance surveyor is processing
-        List<Claim> claims = ClaimRead.getAllClaimsProcessByAnInsuranceSurveyor(entityManager, employeeID);
-        List<PolicyHolder> policyHolders = new ArrayList<>(claims.size()); // Initialize the list to the size of claims
+    //unit testing for these methods
+    public static List<Dependant> getAllDependantsTakeChargeByAnInsuranceManager(EntityManager entityManager, String insuranceManagerID) {
+         List<Dependant> dependants = new ArrayList<>();
+        Set<String> processedIds = new HashSet<>();
 
+        // Query to select claims associated with the given insurance surveyor id
+        String queryString = "SELECT c FROM Claim c WHERE c.insuranceManagerId = :managerId";
+
+        // Create a query
+        Query query = entityManager.createQuery(queryString);
+        query.setParameter("managerId",insuranceManagerID);
+
+        // Execute the query to get the claims
+        List<Claim> claims = query.getResultList();
+
+        // Iterate through each claim to retrieve the dependant objects
         for (Claim claim : claims) {
-            // Retrieve the policyHolder associated with the claim
-            PolicyHolder policyHolder = entityManager.createQuery(
-                            "SELECT d FROM Beneficiaries d WHERE d.id = ?1 AND d.type = 'PH'", PolicyHolder.class)
-                    .setParameter(1, claim.getInsuredPersonId())
-                    .getSingleResult();
-
-            policyHolders.add(policyHolder); // Add the policy holder to the list
+            // Check if the insured person ID of the claim starts with "DE"
+            if (claim.getInsuredPersonId().startsWith("DE")) {
+                // Retrieve the beneficiary object (insured person)
+                Beneficiaries beneficiary = claim.getInsuredPerson();
+                if (beneficiary instanceof Dependant) {
+                    Dependant dependant = (Dependant) beneficiary;
+                    // Check if the ID has already been processed
+                    if (!processedIds.contains(dependant.getId())) {
+                        dependants.add(dependant);
+                        processedIds.add(dependant.getId());
+                    }
+                }
+            }
         }
-        return policyHolders;
+        return dependants;
     }
+
+    //maybe the same is wrong for policy holder ? => fix
+
+
 
     public static List<PolicyOwner> getAllPolicyOwnersTakeChargeByAnEmployee(EntityManager entityManager, String employeeID) {
         // Get list of claims which the insurance surveyor is processing
@@ -113,18 +152,10 @@ public interface CustomerRead {
                     .setParameter(1, claim.getInsuredPersonId())
                     .getSingleResult();
 
-           policyOwners.add(policyOwner); // Add the policy owner to the list
+            policyOwners.add(policyOwner); // Add the policy owner to the list
         }
         return policyOwners;
     }
-
-
-
-
-
-
-
-
 
 
 //this method is bugged
@@ -143,7 +174,7 @@ public interface CustomerRead {
 //            }
 //        }
 
-  //  }
+    //  }
     //write new methods for logins for each type of customer, as the old one does not work. remember to call them in login page controller
 
     public static SystemAdmin getSystemAdminWithCredential(EntityManager entityManager, String id, String email, String password) {
@@ -162,7 +193,7 @@ public interface CustomerRead {
 
         // Attempt casting
         Dependant dependant = (Dependant) result;
-       // System.out.println("Dependant: " + dependant.toString());
+        // System.out.println("Dependant: " + dependant.toString());
         return dependant;
 
     }
@@ -252,8 +283,8 @@ public interface CustomerRead {
 
     //ranking user
 
-    public static List<Customer> getAllCustomers (EntityManager entityManager){
-        List <Dependant> dependants = CustomerRead.getAllDependant(entityManager);
+    public static List<Customer> getAllCustomers(EntityManager entityManager) {
+        List<Dependant> dependants = CustomerRead.getAllDependant(entityManager);
         List<PolicyHolder> policyHolders = CustomerRead.getAllPolicyHolder(entityManager);
         List<PolicyOwner> policyOwners = CustomerRead.getAllPolicyOwner(entityManager);
         List<Customer> allCustomers = new ArrayList<>();
@@ -287,9 +318,6 @@ public interface CustomerRead {
 
         return rankedCustomers;
     }
-
-
-
 
 
 }
