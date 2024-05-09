@@ -25,4 +25,6 @@ public class DependantTableFillingThread extends Thread {
         DependantTableFilling dependantTableFilling = new DependantTableFilling(entityManager, user);
         dependantTableFilling.fillingDependantTable(entityManager, user, CustomerRead.getAllDependant(entityManager));
     }
+
+
 }

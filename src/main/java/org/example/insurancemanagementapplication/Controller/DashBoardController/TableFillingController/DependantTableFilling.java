@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageController_Claim;
 import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageController_Dependant;
 import org.example.insurancemanagementapplication.Interfaces.CustomerCreateRemove;
+import org.example.insurancemanagementapplication.Interfaces.CustomerRead;
 import org.example.insurancemanagementapplication.Utility.StageBuilder;
 
 import java.util.List;
@@ -322,3 +323,56 @@ public class DependantTableFilling extends ClaimTableFilling {
         this.dependantSearchField = dependantSearchField;
     }
 }
+
+//Inner Class for thread
+
+class DependantTableFillingThread extends Thread {
+    private EntityManager entityManager;
+    private User user;
+
+    public DependantTableFillingThread(EntityManager entityManager, User user) {
+        this.entityManager = entityManager;
+        this.user = user;
+    }
+    //No need to create thread method to fill dependant table for policy holder due to small data size
+
+    //For system admin
+    public static void DependantTableFillingThreadForSystemAdmin(EntityManager entityManager, User user) {
+
+        DependantTableFilling dependantTableFilling = new DependantTableFilling(entityManager, user);
+        dependantTableFilling.fillingDependantTable(entityManager, user, CustomerRead.getAllDependant(entityManager));
+
+    }
+
+    //For PolicyOwner
+    public static void DependantTableFillingThreadForPolicyOwner(EntityManager entityManager, User user) {
+
+        DependantTableFilling dependantTableFilling = new DependantTableFilling(entityManager, user);
+        dependantTableFilling.fillingDependantTable(entityManager, user, CustomerRead.getAllDependantsOfAPolicyOwner(entityManager, user.getId()));
+
+    }
+
+    //For Employee: Insurance Surveyor and Insurance Manager
+
+    public static void DependantTableFillingThreadForEmployee(EntityManager entityManager, User user) {
+
+        DependantTableFilling dependantTableFilling = new DependantTableFilling(entityManager, user);
+        dependantTableFilling.fillingDependantTable(entityManager, user, CustomerRead.getAllDependantsTakeChargeByAnEmployee(entityManager, user.getId()));
+
+    }
+
+
+    @Override
+    public void run() {
+        // Fill the table based on the specific logic
+        // For example:
+        // DependantTableFilling filling = new DependantTableFilling(entityManager, user);
+        // filling.fillingDependantTable(entityManager, user, dependants);
+        // Adjust the method call based on your actual implementation
+
+
+    }
+
+
+}
+

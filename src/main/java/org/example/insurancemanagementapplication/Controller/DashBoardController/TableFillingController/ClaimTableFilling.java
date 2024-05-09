@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageController_Claim;
 import org.example.insurancemanagementapplication.Interfaces.ClaimCreateRemove;
+import org.example.insurancemanagementapplication.Interfaces.ClaimRead;
 
 import java.sql.Date;
 import java.util.Comparator;
@@ -59,59 +60,59 @@ public class ClaimTableFilling implements ClaimCreateRemove {
     protected TableView<Claim> claimTable;
     //The table column containing claims' ids
     @FXML
-    protected  TableColumn<Claim, String> claimId;
+    protected TableColumn<Claim, String> claimId;
     @FXML
-    protected  TableColumn<Claim, Date> creationDate;
+    protected TableColumn<Claim, Date> creationDate;
     @FXML
-    protected  TableColumn<Claim, String> insuredPersonId;
+    protected TableColumn<Claim, String> insuredPersonId;
     @FXML
-    protected  TableColumn<Claim, String> cardNumberClaimTable;
+    protected TableColumn<Claim, String> cardNumberClaimTable;
     @FXML
-    protected  TableColumn<Claim, String> policyOwnerClaimTable;
+    protected TableColumn<Claim, String> policyOwnerClaimTable;
     @FXML
-    protected  TableColumn<Claim, Integer> claimAmount;
+    protected TableColumn<Claim, Integer> claimAmount;
     @FXML
-    protected  TableColumn<Claim, Date> settlementDate;
+    protected TableColumn<Claim, Date> settlementDate;
     @FXML
-    protected  TableColumn<Claim, String> status;
+    protected TableColumn<Claim, String> status;
     @FXML
-    protected  TableColumn<Claim, Button> claimButton;
+    protected TableColumn<Claim, Button> claimButton;
     @FXML
     protected TableColumn<Claim, Button> claimRemoveButton;
     @FXML
-    protected  TextField claimListSearchField;
+    protected TextField claimListSearchField;
     //User will select what sorting they would like to use
     @FXML
-    protected  ChoiceBox<String> sortList;
+    protected ChoiceBox<String> sortList;
     //User will select the status they want to see
     @FXML
-    protected  ChoiceBox<String> statusList;
+    protected ChoiceBox<String> statusList;
     //User will input the earliest settlement date they want to see
     @FXML
-    protected  DatePicker creationDateFrom;
+    protected DatePicker creationDateFrom;
 
     //User will input the latest settlement creation they want to see
     @FXML
-    protected  DatePicker creationDateTo;
+    protected DatePicker creationDateTo;
     //User will input the earliest settlement date they want to see
     @FXML
-    protected  DatePicker settlementDateFrom;
+    protected DatePicker settlementDateFrom;
     //User will input the latest settlement date they want to see
     @FXML
-    protected  DatePicker settlementDateTo;
+    protected DatePicker settlementDateTo;
     //User will input the min claim amount that they want to see
     @FXML
-    protected  TextField claimAmountFrom;
+    protected TextField claimAmountFrom;
     //User will input the max claim amount they want to see
     @FXML
-    protected  TextField claimAmountTo;
+    protected TextField claimAmountTo;
 
 
     /**
      * Filling the form on top of the dashboard with user's information. The fields are disabled unless the user is a system admin
      */
     //AKA: personal info bar at the top
-    public void userFillingData (){
+    public void userFillingData() {
         userIdField.setText(user.getId());
         userIdField.setDisable(true);
         fullNameField.setText(user.getFullName());
@@ -121,7 +122,7 @@ public class ClaimTableFilling implements ClaimCreateRemove {
         emailField.setText(user.getEmail());
         passwordField.setText(user.getPassword());
         passwordValidationField.setText(user.getPassword());
-        if (!(user instanceof SystemAdmin)){
+        if (!(user instanceof SystemAdmin)) {
             addressField.setDisable(true);
             phoneNumberField.setDisable(true);
             emailField.setDisable(true);
@@ -137,7 +138,7 @@ public class ClaimTableFilling implements ClaimCreateRemove {
     }
 
     //This method adds event listener to sorting choice boxes and fields that sort the claim tables when their values change.
-    public void sortingClaimTable(SortedList<Claim> sortedClaimList ){
+    public void sortingClaimTable(SortedList<Claim> sortedClaimList) {
 
         //Comparator class. An instance of this class will be used as a parameter of the sort Method to define the sorting factor. In this class, the sorting factor is the claim's creation date
         class ClaimCreationDateComparator implements Comparator<Claim> {
@@ -149,7 +150,7 @@ public class ClaimTableFilling implements ClaimCreateRemove {
             }
         }
         //Comparator class. An instance of this class will be used as a parameter of the sort Method to define the sorting factor. In this class, the sorting factor is the claim's settlement date
-        class ClaimSettlementDateComparator implements Comparator<Claim>{
+        class ClaimSettlementDateComparator implements Comparator<Claim> {
             @Override
             public int compare(Claim firstClaim, Claim secondClaim) {
                 long firstClaimTime = firstClaim.getSettlementDate().getTime();
@@ -159,7 +160,7 @@ public class ClaimTableFilling implements ClaimCreateRemove {
         }
 
         //Comparator class. An instance of this class will be used as a parameter of the sort Method to define the sorting factor. In this class, the sorting factor is the claim's claim amount
-        class ClaimAmountComparator implements Comparator<Claim>{
+        class ClaimAmountComparator implements Comparator<Claim> {
             @Override
             public int compare(Claim firstClaim, Claim secondClaim) {
                 return Float.compare(firstClaim.getClaimAmount(), secondClaim.getClaimAmount());
@@ -167,31 +168,25 @@ public class ClaimTableFilling implements ClaimCreateRemove {
         }
         //claimSorting choiceBox
         //add a listener to the sort list choice box. The listener will monitor the choice box's value to apply the correct sorting
-        sortList.valueProperty().addListener((observable, oldVal, newVal)->{
-            if (newVal.equals("Sort By Creation Date In Ascending Order")){
+        sortList.valueProperty().addListener((observable, oldVal, newVal) -> {
+            if (newVal.equals("Sort By Creation Date In Ascending Order")) {
                 ClaimCreationDateComparator claimCreationDateComparator = new ClaimCreationDateComparator();
                 sortedClaimList.sort(claimCreationDateComparator);
-            }
-            else if (newVal.equals("Sort By Creation Date In Descending Order")){
+            } else if (newVal.equals("Sort By Creation Date In Descending Order")) {
                 ClaimCreationDateComparator claimCreationDateComparator = new ClaimCreationDateComparator();
                 sortedClaimList.sort(claimCreationDateComparator);
                 sortedClaimList.reversed();
-            }
-            else if (newVal.equals("Sort By Settlement Date In Ascending Order")){
+            } else if (newVal.equals("Sort By Settlement Date In Ascending Order")) {
                 ClaimSettlementDateComparator claimSettlementDateComparator = new ClaimSettlementDateComparator();
                 sortedClaimList.sort(claimSettlementDateComparator);
-            }
-            else if (newVal.equals("Sort By Settlement Date In Descending Order")){
+            } else if (newVal.equals("Sort By Settlement Date In Descending Order")) {
                 ClaimSettlementDateComparator claimSettlementDateComparator = new ClaimSettlementDateComparator();
                 sortedClaimList.sort(claimSettlementDateComparator);
                 sortedClaimList.reversed();
-            }
-
-            else if (newVal.equals("Sort by Claim Amount In Ascending Order")){
+            } else if (newVal.equals("Sort by Claim Amount In Ascending Order")) {
                 ClaimAmountComparator claimAmountComparator = new ClaimAmountComparator();
                 sortedClaimList.sort(claimAmountComparator);
-            }
-            else if (newVal.equals("Sort by Claim Amount In Descending Order")){
+            } else if (newVal.equals("Sort by Claim Amount In Descending Order")) {
                 ClaimAmountComparator claimAmountComparator = new ClaimAmountComparator();
                 sortedClaimList.sort(claimAmountComparator);
                 sortedClaimList.reversed();
@@ -201,101 +196,89 @@ public class ClaimTableFilling implements ClaimCreateRemove {
     }
 
     //This method adds handlers to changes in filtering fields that filter the claim tables when their value changes.
-    public void filteringClaimTable(FilteredList<Claim> filteredClaimList){
+    public void filteringClaimTable(FilteredList<Claim> filteredClaimList) {
         //Add a handler to the search field
-        claimListSearchField.textProperty().addListener((observable, oldValue, newValue)->{
+        claimListSearchField.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredClaimList.setPredicate(claim -> {
                 String searchValue = newValue.toLowerCase();
-                if (newValue.isEmpty() || newValue.isBlank() || newValue == null){
+                if (newValue.isEmpty() || newValue.isBlank() || newValue == null) {
                     return true;
-                }
-                else if (claim.getClaimId().toLowerCase().contains(searchValue)){
+                } else if (claim.getClaimId().toLowerCase().contains(searchValue)) {
                     return true;
-                }
-                else if (claim.getInsuredPersonId().toLowerCase().contains(searchValue)){
+                } else if (claim.getInsuredPersonId().toLowerCase().contains(searchValue)) {
                     return true;
-                } else if (claim.getCardNumber().toLowerCase().contains(searchValue)){
+                } else if (claim.getCardNumber().toLowerCase().contains(searchValue)) {
                     return true;
-                } else if (claim.getPolicyOwnerId().toLowerCase().contains(searchValue)){
+                } else if (claim.getPolicyOwnerId().toLowerCase().contains(searchValue)) {
                     return true;
-                } else if (claim.getStatus().toLowerCase().contains(searchValue)){
+                } else if (claim.getStatus().toLowerCase().contains(searchValue)) {
                     return true;
-                } else{
+                } else {
                     return false;
                 }
             });
         });
         //Add a handler to the creationDateFrom field
-        creationDateFrom.valueProperty().addListener((observable, oldDate, newDate)->{
+        creationDateFrom.valueProperty().addListener((observable, oldDate, newDate) -> {
             filteredClaimList.setPredicate(claim -> {
-                if (newDate == null){
+                if (newDate == null) {
                     return true;
-                }
-                else if (!claim.getCreationDate().toLocalDate().isBefore(newDate)){
+                } else if (!claim.getCreationDate().toLocalDate().isBefore(newDate)) {
                     return true;
-                }
-                else {
+                } else {
                     return false;
                 }
             });
         });
         //Add a handler to the creationDateTo field
-        creationDateTo.valueProperty().addListener((observable, oldDate, newDate)->{
+        creationDateTo.valueProperty().addListener((observable, oldDate, newDate) -> {
             filteredClaimList.setPredicate(claim -> {
-                if (newDate == null){
+                if (newDate == null) {
                     return true;
-                }
-                else if (!claim.getCreationDate().toLocalDate().isAfter(newDate)){
+                } else if (!claim.getCreationDate().toLocalDate().isAfter(newDate)) {
                     return true;
-                }
-                else {
+                } else {
                     return false;
                 }
             });
         });
         //Add a handler to the settlementDateFrom field
-        settlementDateFrom.valueProperty().addListener((observable, oldDate, newDate)->{
+        settlementDateFrom.valueProperty().addListener((observable, oldDate, newDate) -> {
             filteredClaimList.setPredicate(claim -> {
-                if (newDate == null){
+                if (newDate == null) {
                     return true;
-                }
-                else if (!claim.getSettlementDate().toLocalDate().isBefore(newDate)){
+                } else if (!claim.getSettlementDate().toLocalDate().isBefore(newDate)) {
                     return true;
-                }
-                else {
+                } else {
                     return false;
                 }
             });
         });
         //Add a handler to the settlementDateTo field.
-        settlementDateTo.valueProperty().addListener((observable, oldDate, newDate)->{
+        settlementDateTo.valueProperty().addListener((observable, oldDate, newDate) -> {
             filteredClaimList.setPredicate(claim -> {
-                if (newDate == null){
+                if (newDate == null) {
                     return true;
-                }
-                else if (!claim.getSettlementDate().toLocalDate().isAfter(newDate)){
+                } else if (!claim.getSettlementDate().toLocalDate().isAfter(newDate)) {
                     return true;
-                }
-                else {
+                } else {
                     return false;
                 }
             });
         });
         //Add a handler to the claimAmountFrom field.
-        claimAmountFrom.textProperty().addListener((observable, oldValue, newValue)->{
+        claimAmountFrom.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredClaimList.setPredicate(claim -> {
-                if (newValue == null || newValue.isBlank() || newValue.isEmpty()){
+                if (newValue == null || newValue.isBlank() || newValue.isEmpty()) {
                     return true;
-                }
-                else {
-                    try{
-                        if (Float.parseFloat(newValue) <= claim.getClaimAmount()){
+                } else {
+                    try {
+                        if (Float.parseFloat(newValue) <= claim.getClaimAmount()) {
                             return true;
-                        }
-                        else {
+                        } else {
                             return false;
                         }
-                    } catch (NumberFormatException e){
+                    } catch (NumberFormatException e) {
                         return false;
                     }
                 }
@@ -303,20 +286,18 @@ public class ClaimTableFilling implements ClaimCreateRemove {
             });
         });
         //Add a handler to the claimAmountTo field
-        claimAmountTo.textProperty().addListener((observable, oldValue, newValue)->{
+        claimAmountTo.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredClaimList.setPredicate(claim -> {
-                if (newValue == null || newValue.isBlank() || newValue.isEmpty()){
+                if (newValue == null || newValue.isBlank() || newValue.isEmpty()) {
                     return true;
-                }
-                else {
-                    try{
-                        if (Float.parseFloat(newValue) >= claim.getClaimAmount()){
+                } else {
+                    try {
+                        if (Float.parseFloat(newValue) >= claim.getClaimAmount()) {
                             return true;
-                        }
-                        else {
+                        } else {
                             return false;
                         }
-                    } catch (NumberFormatException e){
+                    } catch (NumberFormatException e) {
                         return false;
                     }
                 }
@@ -324,15 +305,13 @@ public class ClaimTableFilling implements ClaimCreateRemove {
             });
         });
         //Add a handler to the statusList choice box
-        statusList.valueProperty().addListener((observable, oldVal, newVal)->{
+        statusList.valueProperty().addListener((observable, oldVal, newVal) -> {
             filteredClaimList.setPredicate(claim -> {
-                if (newVal == null){
+                if (newVal == null) {
                     return true;
-                }
-                else if (claim.getStatus().equals(newVal)){
+                } else if (claim.getStatus().equals(newVal)) {
                     return true;
-                }
-                else {
+                } else {
                     return false;
                 }
 
@@ -341,7 +320,7 @@ public class ClaimTableFilling implements ClaimCreateRemove {
     }
 
     //This method maps table's columns with entity's fields and fill the table up with data.
-    public void fillingClaimTable(EntityManager entityManager, User user, List<Claim> claims){
+    public void fillingClaimTable(EntityManager entityManager, User user, List<Claim> claims) {
         //Putting values into the statusList choice box
         String[] statusArray = {"NEW", "PROCESSING", "NEED INFO", "APPROVED", "REJECTED"};
         statusList.getItems().setAll(statusArray);
@@ -350,11 +329,11 @@ public class ClaimTableFilling implements ClaimCreateRemove {
         sortList.getItems().setAll(sortArray);
         ListIterator<Claim> claimListIterator = claims.listIterator();
         //Adding Claims to the claim observable list
-        while (claimListIterator.hasNext()){
+        while (claimListIterator.hasNext()) {
             Claim claim = claimListIterator.next();
 
             //Only non-dependant users get to perform actions on the claim table
-            if (!(user instanceof Dependant)){
+            if (!(user instanceof Dependant)) {
                 //Creating a button whose functionaility depends on the type of user.
                 Button claimButton = new Button();
                 //Creating a Button to remove a claim
@@ -363,7 +342,7 @@ public class ClaimTableFilling implements ClaimCreateRemove {
                     ClaimCreateRemove.removeClaim(entityManager, claim);
                 });
                 //If the user is a system admin the button will have "View Claim" text.
-                if (user instanceof SystemAdmin){
+                if (user instanceof SystemAdmin) {
                     claimButton.setText("View Claim");
                 }
                 //If the user is other types of users, the button will have the "Update Claim" text
@@ -397,32 +376,16 @@ public class ClaimTableFilling implements ClaimCreateRemove {
         claimAmount.setCellValueFactory(new PropertyValueFactory<Claim, Integer>("claimAmount"));
         settlementDate.setCellValueFactory(new PropertyValueFactory<Claim, Date>("settlementDate"));
         status.setCellValueFactory(new PropertyValueFactory<Claim, String>("status"));
-        if (!(user instanceof Dependant)){
+        if (!(user instanceof Dependant)) {
             //Dependants dont have access to the claim buttons. The claimButton attribute of the Claim entity is left out in the mapping if user is a dependant
             claimButton.setCellValueFactory(new PropertyValueFactory<Claim, Button>("claimButton"));
         }
-        if (user instanceof PolicyHolder || user instanceof PolicyOwner){
+        if (user instanceof PolicyHolder || user instanceof PolicyOwner) {
             //System Admins, Insurance Managers, and Insurance Surveyors are not allowed to remove Claims. So they do not have access to the removeClaim button
             claimRemoveButton.setCellValueFactory(new PropertyValueFactory<Claim, Button>("claimRemoveButton"));
         }
         claimTable.setItems(sortedClaimList);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     public ClaimTableFilling(EntityManager entityManager, SystemAdmin user) {
@@ -583,3 +546,55 @@ public class ClaimTableFilling implements ClaimCreateRemove {
         this.claimAmountTo = claimAmountTo;
     }
 }
+
+//Inner class for thread
+class ClaimTableFillingThread extends Thread {
+    private EntityManager entityManager;
+    private User user;
+
+    public ClaimTableFillingThread(EntityManager entityManager, User user) {
+        this.entityManager = entityManager;
+        this.user = user;
+    }
+
+    public static void claimTableFillingThreadForDependant(EntityManager entityManager, User user) {
+        ClaimTableFilling claimTableFilling = new ClaimTableFilling(entityManager, user);
+        claimTableFilling.fillingClaimTable(entityManager, user, ClaimRead.getAllClaimsFromABeneficiary(entityManager, user.getId()));
+    }
+
+    public static void claimTableFillingThreadForPolicyHolder(EntityManager entityManager, User user) {
+        ClaimTableFilling claimTableFilling = new ClaimTableFilling(entityManager, user);
+        claimTableFilling.fillingClaimTable(entityManager, user, ClaimRead.getAllClaimsFromABeneficiary(entityManager, user.getId()));
+    }
+
+    public static void claimTableFillingThreadForPolicyOwner(EntityManager entityManager, User user) {
+        ClaimTableFilling claimTableFilling = new ClaimTableFilling(entityManager, user);
+        claimTableFilling.fillingClaimTable(entityManager, user, ClaimRead.getAllClaimsFromBeneficiariesOfAPolicyOwner(entityManager, user.getId()));
+    }
+
+    public static void claimTableFillingThreadForInsuranceSurveyor(EntityManager entityManager, User user) {
+        ClaimTableFilling claimTableFilling = new ClaimTableFilling(entityManager, user);
+        claimTableFilling.fillingClaimTable(entityManager, user, ClaimRead.getAllClaimsProcessByAnInsuranceSurveyor(entityManager, user.getId()));
+    }
+
+    public static void claimTableFillingThreadForInsuranceManager(EntityManager entityManager, User user) {
+        ClaimTableFilling claimTableFilling = new ClaimTableFilling(entityManager, user);
+        claimTableFilling.fillingClaimTable(entityManager, user, ClaimRead.getAllClaimsProcessByAnInsuranceManager(entityManager, user.getId()));
+    }
+
+    public static void claimTableFillingThreadForSystemAdmin(EntityManager entityManager, User user) {
+        ClaimTableFilling claimTableFilling = new ClaimTableFilling(entityManager, user);
+        claimTableFilling.fillingClaimTable(entityManager, user, ClaimRead.getAllClaims(entityManager));
+    }
+
+    @Override
+    public void run() {
+        // Fill the table based on the specific logic
+        // For example:
+        // DependantTableFilling filling = new DependantTableFilling(entityManager, user);
+        // filling.fillingDependantTable(entityManager, user, dependants);
+        // Adjust the method call based on your actual implementation
+
+    }
+}
+
