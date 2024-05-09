@@ -335,15 +335,12 @@ class DependantTableFillingThread extends Thread {
         this.entityManager = entityManager;
         this.user = user;
     }
-    //No need to create thread method to fill dependant table for policy holder due to small data size
-
-    //For system admin
-    public static void DependantTableFillingThreadForSystemAdmin(EntityManager entityManager, User user) {
-
+    //For PolicyHolder
+    public static void DependantTableFillingThreadForPolicyHolder(EntityManager entityManager, User user) {
         DependantTableFilling dependantTableFilling = new DependantTableFilling(entityManager, user);
-        dependantTableFilling.fillingDependantTable(entityManager, user, CustomerRead.getAllDependant(entityManager));
-
+        dependantTableFilling.fillingDependantTable(entityManager, user, CustomerRead.getAllDependantsOfAPolicyHolder(entityManager, user.getId()));
     }
+
 
     //For PolicyOwner
     public static void DependantTableFillingThreadForPolicyOwner(EntityManager entityManager, User user) {
@@ -355,12 +352,20 @@ class DependantTableFillingThread extends Thread {
 
     //For Employee: Insurance Surveyor and Insurance Manager
 
-//    public static void DependantTableFillingThreadForEmployee(EntityManager entityManager, User user) {
-//
-//        DependantTableFilling dependantTableFilling = new DependantTableFilling(entityManager, user);
-//        dependantTableFilling.fillingDependantTable(entityManager, user, CustomerRead.getAllDependantsTakeChargeByAnEmployee(entityManager, user.getId()));
-//
-//    }
+    public static void DependantTableFillingThreadForEmployee(EntityManager entityManager, User user, String role) {
+
+        DependantTableFilling dependantTableFilling = new DependantTableFilling(entityManager, user);
+        dependantTableFilling.fillingDependantTable(entityManager, user, CustomerRead.getAllDependantsTakeChargeByAnEmployee(entityManager, user.getId(), role));
+
+    }
+
+    //For system admin
+    public static void DependantTableFillingThreadForSystemAdmin(EntityManager entityManager, User user) {
+
+        DependantTableFilling dependantTableFilling = new DependantTableFilling(entityManager, user);
+        dependantTableFilling.fillingDependantTable(entityManager, user, CustomerRead.getAllDependant(entityManager));
+
+    }
 
 
     @Override

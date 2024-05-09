@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageControllerPolicyHolder;
 import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageControllerPolicyOwner;
 import org.example.insurancemanagementapplication.Interfaces.CustomerCreateRemove;
+import org.example.insurancemanagementapplication.Interfaces.CustomerRead;
 import org.example.insurancemanagementapplication.Utility.StageBuilder;
 
 import java.util.List;
@@ -154,8 +155,41 @@ public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
 
     }
 
+}
+//Inner Class for thread
 
+ class PolicyOwnerTableFillingThread extends Thread {
+    private EntityManager entityManager;
+    private User user;
 
+    public PolicyOwnerTableFillingThread(EntityManager entityManager, User user) {
+        this.entityManager = entityManager;
+        this.user = user;
+    }
 
+    public static void policyOwnerTableFillingForInsuranceSurveyor(EntityManager entityManager, User user) {
+        PolicyOwnerTableFilling policyOwnerTableFilling = new PolicyOwnerTableFilling(entityManager, user);
 
+        policyOwnerTableFilling.fillingPolicyOwnerTable(entityManager, user, CustomerRead.getAllPolicyOwnersTakeChargeByAnEmployee(entityManager, user.getId(), "InsuranceSurveyor"));
+    }
+
+     public static void policyOwnerTableFillingForInsuranceManager(EntityManager entityManager, User user) {
+         PolicyOwnerTableFilling policyOwnerTableFilling = new PolicyOwnerTableFilling(entityManager, user);
+
+         policyOwnerTableFilling.fillingPolicyOwnerTable(entityManager, user, CustomerRead.getAllPolicyOwnersTakeChargeByAnEmployee(entityManager, user.getId(), "InsuranceManager"));
+     }
+
+    //For System Admin
+    public static void policyOwnerTableFillingForSystemAdmin(EntityManager entityManager, User user) {
+        PolicyOwnerTableFilling policyOwnerTableFilling = new PolicyOwnerTableFilling(entityManager, user);
+
+        policyOwnerTableFilling.fillingPolicyOwnerTable(entityManager, user, CustomerRead.getAllPolicyOwner(entityManager));
+    }
+
+    @Override
+    public void run() {
+        PolicyOwnerTableFilling policyOwnerTableFilling = new PolicyOwnerTableFilling(entityManager, user);
+
+        policyOwnerTableFilling.fillingPolicyOwnerTable(entityManager, user, CustomerRead.getAllPolicyOwner(entityManager));
+    }
 }

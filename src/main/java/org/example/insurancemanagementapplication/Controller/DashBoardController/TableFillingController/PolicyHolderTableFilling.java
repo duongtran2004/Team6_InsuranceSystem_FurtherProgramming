@@ -16,6 +16,7 @@ import org.example.insurancemanagementapplication.Controller.CreationPageControl
 import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageControllerDependant;
 import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageControllerPolicyHolder;
 import org.example.insurancemanagementapplication.Interfaces.CustomerCreateRemove;
+import org.example.insurancemanagementapplication.Interfaces.CustomerRead;
 import org.example.insurancemanagementapplication.Utility.StageBuilder;
 
 import java.util.List;
@@ -27,7 +28,7 @@ import java.util.ListIterator;
  * @created 01/05/2024 15:56
  * @project InsuranceManagementTeamProject
  */
-public class PolicyHolderTableFilling extends InsuranceCardFillingTable{
+public class PolicyHolderTableFilling extends InsuranceCardTableFilling {
     //TODO Create a thread that get all Policy Holders from the table  and check if new entries exist. If they do, append the new entries to the Observable List
     private ObservableList<PolicyHolder> policyHoldersObservableList = FXCollections.observableArrayList();
     @FXML
@@ -65,38 +66,31 @@ public class PolicyHolderTableFilling extends InsuranceCardFillingTable{
 
     /**
      * Attach an event listener to the policy holder search field that filter the policy holder table according to changes in this field
+     *
      * @param filteredPolicyHolderList
      */
-    public void filteringPolicyHolderTable(FilteredList<PolicyHolder> filteredPolicyHolderList){
-        policyHolderSearchField.textProperty().addListener((observable, oldValue, newValue)->{
+    public void filteringPolicyHolderTable(FilteredList<PolicyHolder> filteredPolicyHolderList) {
+        policyHolderSearchField.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredPolicyHolderList.setPredicate(policyHolder -> {
-                if (newValue.isEmpty() || newValue == null || newValue.isBlank()){
+                if (newValue.isEmpty() || newValue == null || newValue.isBlank()) {
                     return true;
                 }
                 String searchValue = newValue.toLowerCase();
-                if (policyHolder.getId().toLowerCase().contains(searchValue)){
+                if (policyHolder.getId().toLowerCase().contains(searchValue)) {
                     return true;
-                }
-                else if (policyHolder.getFullName().toLowerCase().contains(searchValue)){
+                } else if (policyHolder.getFullName().toLowerCase().contains(searchValue)) {
                     return true;
-                }
-                else if (policyHolder.getEmail().toLowerCase().contains(searchValue)){
+                } else if (policyHolder.getEmail().toLowerCase().contains(searchValue)) {
                     return true;
-                }
-                else if (policyHolder.getAddress().toLowerCase().contains(searchValue)){
+                } else if (policyHolder.getAddress().toLowerCase().contains(searchValue)) {
                     return true;
-                }
-                else if (policyHolder.getPhoneNumber().toLowerCase().contains(searchValue)){
+                } else if (policyHolder.getPhoneNumber().toLowerCase().contains(searchValue)) {
                     return true;
-                }
-                else if (policyHolder.getPolicyOwnerId().toLowerCase().contains(searchValue)){
+                } else if (policyHolder.getPolicyOwnerId().toLowerCase().contains(searchValue)) {
                     return true;
-                }
-                else if( policyHolder.getPolicyOwner().getFullName().toLowerCase().contains(searchValue)) {
+                } else if (policyHolder.getPolicyOwner().getFullName().toLowerCase().contains(searchValue)) {
                     return true;
-                }
-
-                else {
+                } else {
                     return false;
                 }
             });
@@ -105,14 +99,15 @@ public class PolicyHolderTableFilling extends InsuranceCardFillingTable{
 
     /**
      * Mapping the columns of the policy holder tables with Policy Holder entity. Fill up the policy holder tables with data from the database
+     *
      * @param entityManager
      * @param user
      * @param policyHolders
      */
-    public void fillingPolicyHolderTable(EntityManager entityManager, User user, List<PolicyHolder> policyHolders){
+    public void fillingPolicyHolderTable(EntityManager entityManager, User user, List<PolicyHolder> policyHolders) {
         ListIterator<PolicyHolder> policyHolderListIterator = policyHolders.listIterator();
         //Add policy holders to the observable list
-        while (policyHolderListIterator.hasNext()){
+        while (policyHolderListIterator.hasNext()) {
             PolicyHolder policyHolder = policyHolderListIterator.next();
             Button buttonUpdateInfo = new Button("Update Info");
             Button buttonAddDependant = new Button("Add Dependant");
@@ -120,7 +115,7 @@ public class PolicyHolderTableFilling extends InsuranceCardFillingTable{
             Button buttonAddClaim = new Button("Add Claim");
 
             //Only a system admin and a policy owner has access to the update info and remove and add dependant buttons
-            if (user instanceof SystemAdmin || user instanceof Customer){
+            if (user instanceof SystemAdmin || user instanceof Customer) {
                 //The Update Info Button will create a CreationPage Controller for the policy holder in update mode by passing in the policy holder object
                 //It will then open the Policy Holder Creation Page
                 buttonUpdateInfo.setOnAction(event -> {
@@ -131,18 +126,18 @@ public class PolicyHolderTableFilling extends InsuranceCardFillingTable{
                 //It will then open the Dependant Creation Form
                 buttonAddDependant.setOnAction(event -> {
                     CreationPageControllerDependant creationPageControllerDependant = new CreationPageControllerDependant(entityManager, user, policyHolder);
-                    StageBuilder.showStage((Stage) buttonAddDependant.getScene().getWindow(), creationPageControllerDependant, "DependantCreationAndUpdatePage.fxml", "Dependant Creation" );
+                    StageBuilder.showStage((Stage) buttonAddDependant.getScene().getWindow(), creationPageControllerDependant, "DependantCreationAndUpdatePage.fxml", "Dependant Creation");
                 });
                 //The remove button will remove its policy holder from the database
                 buttonRemove.setOnAction(event -> {
-                    CustomerCreateRemove.removePolicyHolder(entityManager, policyHolder );
+                    CustomerCreateRemove.removePolicyHolder(entityManager, policyHolder);
                 });
                 policyHolder.setRemoveButton(buttonRemove);
                 policyHolder.setAddDependantButton(buttonAddDependant);
                 policyHolder.setUpdateInfoButton(buttonUpdateInfo);
 
                 //Only a policy owner has access to the add claim button
-                if (user instanceof PolicyOwner){
+                if (user instanceof PolicyOwner) {
                     //Create a ClaimCreationPage controller in creation mode by passing the policy holder object to the constructor
                     //Open a new scene in the existing stage by calling the showStage static method from the Repeated Code Class
                     buttonAddClaim.setOnAction(event -> {
@@ -157,7 +152,6 @@ public class PolicyHolderTableFilling extends InsuranceCardFillingTable{
         }
 
 
-
         policyHolderId.setCellValueFactory(new PropertyValueFactory<PolicyHolder, String>("id"));
         policyHolderFullName.setCellValueFactory(new PropertyValueFactory<PolicyHolder, String>("fullName"));
         policyHolderAddress.setCellValueFactory(new PropertyValueFactory<PolicyHolder, String>("address"));
@@ -165,11 +159,11 @@ public class PolicyHolderTableFilling extends InsuranceCardFillingTable{
         policyOwnerHolderTable.setCellValueFactory(new PropertyValueFactory<PolicyHolder, String>("policyOwnerId"));
         cardNumberHolderTable.setCellValueFactory(new PropertyValueFactory<PolicyHolder, String>("cardNumber"));
         policyHolderPassword.setCellValueFactory(new PropertyValueFactory<PolicyHolder, String>("password"));
-        if (user instanceof SystemAdmin || user instanceof Customer){
+        if (user instanceof SystemAdmin || user instanceof Customer) {
             policyHolderUpdateInfoButton.setCellValueFactory(new PropertyValueFactory<PolicyHolder, Button>("updateInfoButton"));
             policyHolderAddDependantButton.setCellValueFactory(new PropertyValueFactory<PolicyHolder, Button>("addDependantButton"));
             policyHolderRemoveButton.setCellValueFactory(new PropertyValueFactory<PolicyHolder, Button>("removeButton"));
-            if (user instanceof Customer){
+            if (user instanceof Customer) {
                 policyHolderAddClaimButton.setCellValueFactory(new PropertyValueFactory<PolicyHolder, Button>("addClaimButton"));
             }
         }
@@ -177,20 +171,6 @@ public class PolicyHolderTableFilling extends InsuranceCardFillingTable{
         filteringPolicyHolderTable(filteredPolicyHolderList);
         policyHolderTable.setItems(filteredPolicyHolderList);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     public TableView<PolicyHolder> getPolicyHolderTable() {
@@ -304,4 +284,45 @@ public class PolicyHolderTableFilling extends InsuranceCardFillingTable{
     public void setPolicyHolderSearchField(TextField policyHolderSearchField) {
         this.policyHolderSearchField = policyHolderSearchField;
     }
+
+}
+
+//Inner Class For Thread
+
+class PolicyHolderTableFillingThread extends Thread {
+    private EntityManager entityManager;
+    private User user;
+
+    public PolicyHolderTableFillingThread(EntityManager entityManager, User user) {
+        this.entityManager = entityManager;
+        this.user = user;
+    }
+
+    public static void policyHolderTableFillingForPolicyOwner(EntityManager entityManager, User user) {
+        PolicyHolderTableFilling policyHolderTableFilling = new PolicyHolderTableFilling(entityManager, user);
+        policyHolderTableFilling.fillingPolicyHolderTable(entityManager, user, CustomerRead.getAllPolicyHoldersOfAPolicyOwner(entityManager, user.getId()));
+    }
+
+    public static void policyHolderTableFillingForInsuranceSurveyor(EntityManager entityManager, User user) {
+        PolicyHolderTableFilling policyHolderTableFilling = new PolicyHolderTableFilling(entityManager, user);
+        policyHolderTableFilling.fillingPolicyHolderTable(entityManager, user, CustomerRead.getAllPolicyHoldersTakeChargeByAnEmployee(entityManager, user.getId(), "InsuranceSurveyor"));
+    }
+
+    public static void policyHolderTableFillingForInsuranceManager(EntityManager entityManager, User user) {
+        PolicyHolderTableFilling policyHolderTableFilling = new PolicyHolderTableFilling(entityManager, user);
+        policyHolderTableFilling.fillingPolicyHolderTable(entityManager, user, CustomerRead.getAllPolicyHoldersTakeChargeByAnEmployee(entityManager, user.getId(), "InsuranceManager"));
+    }
+
+
+    public static void policyHolderTableFillingForSystemAdmin(EntityManager entityManager, User user) {
+        PolicyHolderTableFilling policyHolderTableFilling = new PolicyHolderTableFilling(entityManager, user);
+        policyHolderTableFilling.fillingPolicyHolderTable(entityManager, user, CustomerRead.getAllPolicyHolder(entityManager));
+    }
+
+    @Override
+    public void run() {
+
+    }
+
+
 }

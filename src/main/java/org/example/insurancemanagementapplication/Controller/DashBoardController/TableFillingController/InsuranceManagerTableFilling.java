@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageControllerInsuranceManager;
 import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageControllerInsuranceSurveyor;
 import org.example.insurancemanagementapplication.Interfaces.EmployeeCreateRemove;
+import org.example.insurancemanagementapplication.Interfaces.EmployeeRead;
 import org.example.insurancemanagementapplication.Utility.StageBuilder;
 
 import java.util.List;
@@ -51,52 +52,50 @@ public class InsuranceManagerTableFilling extends InsuranceSurveyorTableFilling 
     @FXML
     protected TableColumn<InsuranceManager, Button> managerRemoveButton;
     @FXML
-    protected TextField  insuranceManagerSearchField;
+    protected TextField insuranceManagerSearchField;
 
 
     /**
      * Attach an event listener to the manager search field that filter the insurance manager according to changes in this field
+     *
      * @param filteredManagerList
      */
-    public void filteringInsuranceManagerTable(FilteredList<InsuranceManager> filteredManagerList){
-        insuranceManagerSearchField.textProperty().addListener((observable, oldValue, newValue)->{
+    public void filteringInsuranceManagerTable(FilteredList<InsuranceManager> filteredManagerList) {
+        insuranceManagerSearchField.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredManagerList.setPredicate(insuranceManager -> {
-                if (newValue.isEmpty() || newValue == null || newValue.isBlank()){
+                if (newValue.isEmpty() || newValue == null || newValue.isBlank()) {
                     return true;
                 }
                 String searchValue = newValue.toLowerCase();
-                if (insuranceManager.getId().toLowerCase().contains(searchValue)){
+                if (insuranceManager.getId().toLowerCase().contains(searchValue)) {
                     return true;
-                }
-                else if (insuranceManager.getFullName().toLowerCase().contains(searchValue)){
+                } else if (insuranceManager.getFullName().toLowerCase().contains(searchValue)) {
                     return true;
-                }
-                else if (insuranceManager.getEmail().toLowerCase().contains(searchValue)){
+                } else if (insuranceManager.getEmail().toLowerCase().contains(searchValue)) {
                     return true;
-                }
-                else if (insuranceManager.getAddress().toLowerCase().contains(searchValue)){
+                } else if (insuranceManager.getAddress().toLowerCase().contains(searchValue)) {
                     return true;
-                }
-                else if (insuranceManager.getPhoneNumber().toLowerCase().contains(searchValue)){
+                } else if (insuranceManager.getPhoneNumber().toLowerCase().contains(searchValue)) {
                     return true;
-                }
-                else {
+                } else {
                     return false;
                 }
             });
 
         });
     }
+
     /**
      * Mapping the columns of the insurance manager tables with Insurance Manager entity. Fill up the Insurance Manager tables with data from the database
+     *
      * @param entityManager
      * @param user
      * @param insuranceManagers
      */
-    public void fillingInsuranceManagerTable(EntityManager entityManager, User user, List<InsuranceManager> insuranceManagers){
+    public void fillingInsuranceManagerTable(EntityManager entityManager, User user, List<InsuranceManager> insuranceManagers) {
         ListIterator<InsuranceManager> listIteratorInsuranceManager = insuranceManagers.listIterator();
         //adding insurance managers into the observable list
-        while (listIteratorInsuranceManager.hasNext()){
+        while (listIteratorInsuranceManager.hasNext()) {
             InsuranceManager insuranceManager = listIteratorInsuranceManager.next();
             Button buttonUpdateInfo = new Button("Update Info");
             insuranceManager.setUpdateInfoButton(buttonUpdateInfo);
@@ -111,9 +110,9 @@ public class InsuranceManagerTableFilling extends InsuranceSurveyorTableFilling 
             insuranceManager.setAddSurveyorButton(buttonAddSurveyor);
             //The addSurveyor button will create an Insurance Surveyor CreationPage Controller in creation mode by passing the insurance manage object
             //It will then open the Insurance Surveyor Creation Form
-            buttonAddSurveyor.setOnAction(event ->{
+            buttonAddSurveyor.setOnAction(event -> {
                 CreationPageControllerInsuranceSurveyor creationPageControllerInsuranceSurveyor = new CreationPageControllerInsuranceSurveyor(entityManager, user, insuranceManager);
-               StageBuilder.showStage((Stage) buttonAddSurveyor.getScene().getWindow(), creationPageControllerInsuranceSurveyor, "InsuranceSurveyorCreationPage.fxml", "Insurance Surveyor Creation");
+                StageBuilder.showStage((Stage) buttonAddSurveyor.getScene().getWindow(), creationPageControllerInsuranceSurveyor, "InsuranceSurveyorCreationPage.fxml", "Insurance Surveyor Creation");
             });
 
             //The remove button will remove its insurance manager from the database
@@ -133,12 +132,13 @@ public class InsuranceManagerTableFilling extends InsuranceSurveyorTableFilling 
         managerPassword.setCellValueFactory(new PropertyValueFactory<InsuranceManager, String>("password"));
         managerUpdateInfoButton.setCellValueFactory(new PropertyValueFactory<InsuranceManager, Button>("updateInfoButton"));
         managerAddSurveyorButton.setCellValueFactory(new PropertyValueFactory<InsuranceManager, Button>("addSurveyorButton"));
-        managerRemoveButton.setCellValueFactory(new PropertyValueFactory<InsuranceManager, Button>("removeButton") );
+        managerRemoveButton.setCellValueFactory(new PropertyValueFactory<InsuranceManager, Button>("removeButton"));
         FilteredList<InsuranceManager> filteredManagerList = new FilteredList<>(insuranceManagersObservableList, b -> true);
         filteringInsuranceManagerTable(filteredManagerList);
         managerTable.setItems(filteredManagerList);
     }
-    public InsuranceManagerTableFilling(EntityManager entityManager, User user){
+
+    public InsuranceManagerTableFilling(EntityManager entityManager, User user) {
         super(entityManager, user);
     }
 
@@ -229,5 +229,29 @@ public class InsuranceManagerTableFilling extends InsuranceSurveyorTableFilling 
 
     public void setInsuranceManagerSearchField(TextField insuranceManagerSearchField) {
         this.insuranceManagerSearchField = insuranceManagerSearchField;
+    }
+}
+
+//Inner class for thread
+class InsuranceManagerTableFillingThread extends Thread {
+
+    private EntityManager entityManager;
+    private User user;
+
+    public InsuranceManagerTableFillingThread(EntityManager entityManager, User user) {
+        this.entityManager = entityManager;
+        this.user = user;
+    }
+
+    public static void insuranceManagerTableFilling(EntityManager entityManager, User user) {
+        InsuranceManagerTableFilling insuranceManagerTableFilling = new InsuranceManagerTableFilling(entityManager, user);
+        insuranceManagerTableFilling.fillingInsuranceManagerTable(entityManager, user, EmployeeRead.getAllInsuranceManager(entityManager));
+
+
+    }
+
+    @Override
+    public void run() {
+
     }
 }

@@ -15,6 +15,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.example.insurancemanagementapplication.Interfaces.CustomerCreateRemove;
+import org.example.insurancemanagementapplication.Interfaces.InsuranceCardRead;
 
 import java.sql.Date;
 import java.util.List;
@@ -26,7 +27,7 @@ import java.util.ListIterator;
  * @created 01/05/2024 16:20
  * @project InsuranceManagementTeamProject
  */
-public class InsuranceCardFillingTable extends DependantTableFilling {
+public class InsuranceCardTableFilling extends DependantTableFilling {
 
     //TODO Create a thread that runs in a selected interval that get all Insurance Cards from the databse  and check if new entries exist. If they do, append the new entries to the Observable List
     private ObservableList<InsuranceCard> insuranceCardsObservableList = FXCollections.observableArrayList();
@@ -45,37 +46,33 @@ public class InsuranceCardFillingTable extends DependantTableFilling {
     @FXML
     protected TextField insuranceCardSearchField;
 
-    public InsuranceCardFillingTable(EntityManager entityManager, User user) {
+    public InsuranceCardTableFilling(EntityManager entityManager, User user) {
         super(entityManager, user);
     }
 
     /**
      * Attach an event listener to the insurance card search field that filter the insurance card table according to changes in this field
+     *
      * @param filteredInsuranceCardList
      */
-    public void filteringInsuranceCardTable(FilteredList<InsuranceCard> filteredInsuranceCardList){
-        insuranceCardSearchField.textProperty().addListener((observable, oldValue, newValue) ->{
+    public void filteringInsuranceCardTable(FilteredList<InsuranceCard> filteredInsuranceCardList) {
+        insuranceCardSearchField.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredInsuranceCardList.setPredicate(insuranceCard -> {
-                if (newValue.isBlank() || newValue.isEmpty() || newValue == null){
+                if (newValue.isBlank() || newValue.isEmpty() || newValue == null) {
                     return true;
                 }
                 String searchValue = newValue.toLowerCase();
-                if (insuranceCard.getCardNumber().toLowerCase().contains(searchValue)){
+                if (insuranceCard.getCardNumber().toLowerCase().contains(searchValue)) {
                     return true;
-                }
-                else if (insuranceCard.getCardHolderId().toLowerCase().contains(searchValue)){
+                } else if (insuranceCard.getCardHolderId().toLowerCase().contains(searchValue)) {
                     return true;
-                }
-                else if (insuranceCard.getPolicyOwnerId().toLowerCase().contains(searchValue)){
+                } else if (insuranceCard.getPolicyOwnerId().toLowerCase().contains(searchValue)) {
                     return true;
-                }
-                else if (insuranceCard.getCardHolder().getFullName().toLowerCase().contains(searchValue)){
+                } else if (insuranceCard.getCardHolder().getFullName().toLowerCase().contains(searchValue)) {
                     return true;
-                }
-                else if (insuranceCard.getPolicyOwner().getFullName().toLowerCase().contains(searchValue)){
+                } else if (insuranceCard.getPolicyOwner().getFullName().toLowerCase().contains(searchValue)) {
                     return true;
-                }
-                else {
+                } else {
                     return false;
                 }
             });
@@ -84,20 +81,21 @@ public class InsuranceCardFillingTable extends DependantTableFilling {
 
     /**
      * Mapping the columns of the insurance card tables with Insurance Card entity. Fill up the Insurance Card tables with data from the database
+     *
      * @param entityManager
      * @param user
      * @param insuranceCards
      */
-    public void fillingInsuranceCardTable(EntityManager entityManager, User user, List<InsuranceCard> insuranceCards){
+    public void fillingInsuranceCardTable(EntityManager entityManager, User user, List<InsuranceCard> insuranceCards) {
 
         ListIterator<InsuranceCard> insuranceCardListIterator = insuranceCards.listIterator();
         //Adding Insurance Cards to the insurance card observable list
-        while (insuranceCardListIterator.hasNext()){
+        while (insuranceCardListIterator.hasNext()) {
 
             InsuranceCard insuranceCard = insuranceCardListIterator.next();
             Button buttonRemove = new Button("Remove");
             //Only system admin and policy owner has access to this button
-            if (user instanceof SystemAdmin || user instanceof PolicyOwner){
+            if (user instanceof SystemAdmin || user instanceof PolicyOwner) {
                 buttonRemove.setOnAction(event -> {
                     CustomerCreateRemove.removeInsuranceCard(entityManager, insuranceCard);
                     //TODO Method needed to remove the insurance card
@@ -111,7 +109,7 @@ public class InsuranceCardFillingTable extends DependantTableFilling {
         cardHolderId.setCellValueFactory(new PropertyValueFactory<InsuranceCard, String>("cardHolder"));
         policyOwnerInsuranceCardTable.setCellValueFactory(new PropertyValueFactory<InsuranceCard, String>("policyOwner"));
         expiryDate.setCellValueFactory(new PropertyValueFactory<InsuranceCard, Date>("expirationDate"));
-        if (user instanceof SystemAdmin || user instanceof PolicyOwner){
+        if (user instanceof SystemAdmin || user instanceof PolicyOwner) {
             insuranceCardRemoveButton.setCellValueFactory(new PropertyValueFactory<InsuranceCard, Button>("removeButton"));
         }
         FilteredList<InsuranceCard> filteredInsuranceCardList = new FilteredList<>(insuranceCardsObservableList, b -> true);
@@ -119,21 +117,6 @@ public class InsuranceCardFillingTable extends DependantTableFilling {
         insuranceCardTable.setItems(filteredInsuranceCardList);
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     public TableView<InsuranceCard> getInsuranceCardTable() {
@@ -191,4 +174,36 @@ public class InsuranceCardFillingTable extends DependantTableFilling {
     public void setInsuranceCardSearchField(TextField insuranceCardSearchField) {
         this.insuranceCardSearchField = insuranceCardSearchField;
     }
+}
+
+//Inner Class for thread
+
+class InsuranceCardTableFillingThread extends Thread {
+    EntityManager entityManager;
+    User user;
+
+
+    public static void insuranceCardTableFillingForPolicyOwner(EntityManager entityManager, User user) {
+        InsuranceCardTableFilling insuranceCardTableFilling = new InsuranceCardTableFilling(entityManager, user);
+        insuranceCardTableFilling.fillingInsuranceCardTable(entityManager, user, InsuranceCardRead.getAllInsuranceCardsOfPolicyOwner(entityManager, user.getId()));
+    }
+
+
+    public static void insuranceCardTableFillingForInsuranceSurveyor(EntityManager entityManager, User user) {
+        InsuranceCardTableFilling insuranceCardTableFilling = new InsuranceCardTableFilling(entityManager, user);
+        insuranceCardTableFilling.fillingInsuranceCardTable(entityManager, user, InsuranceCardRead.getAllInsuranceCardsTakeChargeByAnEmployee(entityManager, user.getId(), "InsuranceSurveyor"));
+    }
+
+    public static void insuranceCardTableFillingForInsuranceManager(EntityManager entityManager, User user) {
+        InsuranceCardTableFilling insuranceCardTableFilling = new InsuranceCardTableFilling(entityManager, user);
+        insuranceCardTableFilling.fillingInsuranceCardTable(entityManager, user, InsuranceCardRead.getAllInsuranceCardsTakeChargeByAnEmployee(entityManager, user.getId(), "InsuranceManager"));
+    }
+
+
+    public static void insuranceCardTableFillingForSystemAdmin(EntityManager entityManager, User user) {
+        InsuranceCardTableFilling insuranceCardTableFilling = new InsuranceCardTableFilling(entityManager, user);
+        insuranceCardTableFilling.fillingInsuranceCardTable(entityManager, user, InsuranceCardRead.getAllInsuranceCard(entityManager));
+
+    }
+
 }

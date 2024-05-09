@@ -562,32 +562,32 @@ class ClaimTableFillingThread extends Thread {
         this.user = user;
     }
 
-    public static void claimTableFillingThreadForDependant(EntityManager entityManager, User user) {
+    public static void claimTableFillingForDependant(EntityManager entityManager, User user) {
         ClaimTableFilling claimTableFilling = new ClaimTableFilling(entityManager, user);
         claimTableFilling.fillingClaimTable(entityManager, user, ClaimRead.getAllClaimsFromABeneficiary(entityManager, user.getId()));
     }
 
-    public static void claimTableFillingThreadForPolicyHolder(EntityManager entityManager, User user) {
+    public static void claimTableFillingForPolicyHolder(EntityManager entityManager, User user) {
         ClaimTableFilling claimTableFilling = new ClaimTableFilling(entityManager, user);
         claimTableFilling.fillingClaimTable(entityManager, user, ClaimRead.getAllClaimsFromABeneficiary(entityManager, user.getId()));
     }
 
-    public static void claimTableFillingThreadForPolicyOwner(EntityManager entityManager, User user) {
+    public static void claimTableFillingForPolicyOwner(EntityManager entityManager, User user) {
         ClaimTableFilling claimTableFilling = new ClaimTableFilling(entityManager, user);
         claimTableFilling.fillingClaimTable(entityManager, user, ClaimRead.getAllClaimsFromBeneficiariesOfAPolicyOwner(entityManager, user.getId()));
     }
 
-    public static void claimTableFillingThreadForInsuranceSurveyor(EntityManager entityManager, User user) {
+    public static void claimTableFillingForInsuranceSurveyor(EntityManager entityManager, User user) {
         ClaimTableFilling claimTableFilling = new ClaimTableFilling(entityManager, user);
         claimTableFilling.fillingClaimTable(entityManager, user, ClaimRead.getAllClaimsProcessByAnInsuranceSurveyor(entityManager, user.getId()));
     }
 
-    public static void claimTableFillingThreadForInsuranceManager(EntityManager entityManager, User user) {
+    public static void claimTableFillingForInsuranceManager(EntityManager entityManager, User user) {
         ClaimTableFilling claimTableFilling = new ClaimTableFilling(entityManager, user);
         claimTableFilling.fillingClaimTable(entityManager, user, ClaimRead.getAllClaimsProcessByAnInsuranceManager(entityManager, user.getId()));
     }
 
-    public static void claimTableFillingThreadForSystemAdmin(EntityManager entityManager, User user) {
+    public static void claimTableFillingForSystemAdmin(EntityManager entityManager, User user) {
         ClaimTableFilling claimTableFilling = new ClaimTableFilling(entityManager, user);
         claimTableFilling.fillingClaimTable(entityManager, user, ClaimRead.getAllClaims(entityManager));
     }
