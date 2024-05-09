@@ -78,45 +78,37 @@ public class DependantTableFilling extends ClaimTableFilling {
     /**
      * This method attaches an event listener to the dependant search field. It will listen for change in value of this field and filter the dependant
      * table accordingly.
+     *
      * @param filteredDependantList
      */
     //AKA: FILTERING THE DEPENDENT TABLE BASED ON WHAT WE TYPE ON THE SEARCH FIELD
-    public void filteringDependantTable(FilteredList<Dependant> filteredDependantList){
-        dependantSearchField.textProperty().addListener((observable, oldValue, newValue)->{
+    public void filteringDependantTable(FilteredList<Dependant> filteredDependantList) {
+        dependantSearchField.textProperty().addListener((observable, oldValue, newValue) -> {
 
             filteredDependantList.setPredicate(dependant -> {
-                if (newValue.isEmpty() || newValue == null || newValue.isBlank()){
+                if (newValue.isEmpty() || newValue == null || newValue.isBlank()) {
                     return true;
                 }
                 String searchValue = newValue.toLowerCase();
-                if (dependant.getId().toLowerCase().contains(searchValue)){
+                if (dependant.getId().toLowerCase().contains(searchValue)) {
                     return true;
-                }
-                else if (dependant.getFullName().toLowerCase().contains(searchValue)){
+                } else if (dependant.getFullName().toLowerCase().contains(searchValue)) {
                     return true;
-                }
-                else if (dependant.getAddress().toLowerCase().contains(searchValue)){
+                } else if (dependant.getAddress().toLowerCase().contains(searchValue)) {
                     return true;
-                }
-                else if (dependant.getEmail().toLowerCase().contains(searchValue)){
+                } else if (dependant.getEmail().toLowerCase().contains(searchValue)) {
                     return true;
-                }
-                else if (dependant.getPhoneNumber().toLowerCase().contains(searchValue)){
+                } else if (dependant.getPhoneNumber().toLowerCase().contains(searchValue)) {
                     return true;
-                }
-                else if (dependant.getPolicyOwnerId().toLowerCase().contains(searchValue)){
+                } else if (dependant.getPolicyOwnerId().toLowerCase().contains(searchValue)) {
                     return true;
-                }
-                else if(dependant.getPolicyOwner().getFullName().toLowerCase().contains(searchValue)) {
+                } else if (dependant.getPolicyOwner().getFullName().toLowerCase().contains(searchValue)) {
                     return true;
-                }
-                else if (dependant.getPolicyHolderId().toLowerCase().contains(searchValue)){
+                } else if (dependant.getPolicyHolderId().toLowerCase().contains(searchValue)) {
                     return true;
-                }
-                else if(dependant.getPolicyHolder().getFullName().toLowerCase().contains(searchValue)) {
+                } else if (dependant.getPolicyHolder().getFullName().toLowerCase().contains(searchValue)) {
                     return true;
-                }
-                else {
+                } else {
                     return false;
                 }
             });
@@ -125,22 +117,23 @@ public class DependantTableFilling extends ClaimTableFilling {
 
     /**
      * This method maps columns of the dependant tables with the dependant entity. It will then fill up the table with data from the beneficiary database.
+     *
      * @param entityManager
      * @param user
      * @param dependants
      */
     //AKA: MAP: 1 COLUMNS IN DEPENDENT TABLE = 1 ATTRIBUTES OF DEPENDENT CLASS
-    public void fillingDependantTable(EntityManager entityManager, User user, List<Dependant> dependants){
+    public void fillingDependantTable(EntityManager entityManager, User user, List<Dependant> dependants) {
         ListIterator<Dependant> dependantListIterator = dependants.listIterator();
         //Adding dependants to the dependant observable list
-        while (dependantListIterator.hasNext()){
+        while (dependantListIterator.hasNext()) {
             Dependant dependant = dependantListIterator.next();
             //ADD NECESSARY BUTTONS BESIDE 1 ROW
             Button buttonUpdateInfo = new Button();
             Button buttonAddClaim = new Button();
             Button buttonRemove = new Button();
             //Only system admin and policy holder and policy owner have access to the update info button, remove button
-            if (user instanceof PolicyOwner || user instanceof PolicyHolder){
+            if (user instanceof PolicyOwner || user instanceof PolicyHolder) {
                 //MAKE BUTTON TO UPDATE INFO OF DEPENDENT OBJECT BECOME VISIBLE
                 buttonUpdateInfo.setText("Update Info");
                 //Create a CreationPageController for the Dependant in Update mode by passing in the dependant object to the constructor
@@ -155,7 +148,7 @@ public class DependantTableFilling extends ClaimTableFilling {
                 dependant.setRemoveButton(buttonRemove);
                 //Set action for the remove button. Clicking the button will remove its dependant
                 buttonRemove.setOnAction(event -> {
-                    CustomerCreateRemove.removeDependant(entityManager, dependant );
+                    CustomerCreateRemove.removeDependant(entityManager, dependant);
                 });
 
                 buttonUpdateInfo.setUserData(dependant); //built in method of javafx button class
@@ -163,7 +156,7 @@ public class DependantTableFilling extends ClaimTableFilling {
 
                 //MAKE BUTTON TO ADD CLAIMS FOR DEPENDENT OBJECT BECOME VISIBLE
                 //Only policy holder and policy owner could create a new claim for a dependant
-                if (user instanceof PolicyHolder || user instanceof PolicyOwner){
+                if (user instanceof PolicyHolder || user instanceof PolicyOwner) {
                     buttonAddClaim.setText("Add Claim");
                     buttonAddClaim.setOnAction(event -> {
                         //Create a ClaimCreationPage controller in creation mode by passing the dependant object to the constructor
@@ -174,11 +167,10 @@ public class DependantTableFilling extends ClaimTableFilling {
                     dependant.setAddClaimButton(buttonAddClaim);
                 }
 
-                dependantsObservableList.add(dependant);
 
             }
 
-
+            dependantsObservableList.add(dependant);
         }
         //set label for table's column
         dependantId.setCellValueFactory(new PropertyValueFactory<Dependant, String>("id"));
@@ -193,16 +185,16 @@ public class DependantTableFilling extends ClaimTableFilling {
 
         //CRUD for Dependent objects
 
-        if ((user instanceof PolicyOwner || user instanceof PolicyHolder)){
+        if ((user instanceof PolicyOwner || user instanceof PolicyHolder)) {
             //only PolicyOwner and PolicyHolder and update information of Dependent object
             dependantUpdateInfoButton.setCellValueFactory(new PropertyValueFactory<Dependant, Button>("updateInfoButton"));
         }
 
 
-        if (user instanceof SystemAdmin || user instanceof PolicyOwner){
+        if (user instanceof SystemAdmin || user instanceof PolicyOwner) {
             //only system admin and PolicyOwner  can create or remove Dependent objects
             dependantRemoveButton.setCellValueFactory(new PropertyValueFactory<Dependant, Button>("removeButton"));
-            if (user instanceof PolicyOwner || user instanceof PolicyHolder){
+            if (user instanceof PolicyOwner || user instanceof PolicyHolder) {
                 //only PolicyOwner and PolicyHolder can add claim for Dependent
                 dependantAddClaimButton.setCellValueFactory(new PropertyValueFactory<Dependant, Button>("addClaim"));
             }
@@ -216,17 +208,6 @@ public class DependantTableFilling extends ClaimTableFilling {
         filteringDependantTable(filteredDependantList);
         dependantTable.setItems(filteredDependantList);
     }
-
-
-
-
-
-
-
-
-
-
-
 
 
     public TableView<Dependant> getDependantTable() {
