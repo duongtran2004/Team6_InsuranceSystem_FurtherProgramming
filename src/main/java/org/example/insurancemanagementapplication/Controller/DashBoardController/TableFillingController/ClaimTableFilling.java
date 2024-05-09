@@ -9,9 +9,11 @@ import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageControllerClaim;
 import org.example.insurancemanagementapplication.Interfaces.ClaimCreateRemove;
 import org.example.insurancemanagementapplication.Interfaces.ClaimRead;
+import org.example.insurancemanagementapplication.Utility.StageBuilder;
 
 import java.sql.Date;
 import java.util.Comparator;
@@ -354,6 +356,8 @@ public class ClaimTableFilling implements ClaimCreateRemove {
                 claimButton.setOnAction(event -> {
                     //Creating the Controller for Claim Creation Page in update mode by passing the claim into the constructor
                     CreationPageControllerClaim creationPageControllerClaim = new CreationPageControllerClaim(entityManager, user, claim);
+
+                    StageBuilder.showStage((Stage) claimButton.getScene().getWindow(), creationPageControllerClaim, "ClaimCreationAndUpdatePage.fxml", "UpdateClaimAsAdmin");
                 });
                 claim.setClaimButton(claimButton);
             }
