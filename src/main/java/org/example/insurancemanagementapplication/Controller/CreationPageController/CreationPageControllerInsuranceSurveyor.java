@@ -24,7 +24,7 @@ import java.util.ResourceBundle;
  * @created 29/04/2024 11:48
  * @project InsuranceManagementTeamProject
  */
-public class CreationPageController_InsuranceSurveyor extends CreationPageController implements Initializable, EmployeeCreateRemove, EmployeeUpdate, Controller {
+public class CreationPageControllerInsuranceSurveyor extends CreationPageController implements Initializable, EmployeeCreateRemove, EmployeeUpdate, Controller {
     private InsuranceSurveyor insuranceSurveyor;
     private InsuranceManager manager;
     //This field will determine whether the application will update the Insurance Manager of the surveyor. True means Yes, False means No.
@@ -38,12 +38,12 @@ public class CreationPageController_InsuranceSurveyor extends CreationPageContro
     @FXML
     private Button managerReassignButton;
 
-    public CreationPageController_InsuranceSurveyor(EntityManager entityManager, User user, InsuranceSurveyor insuranceSurveyor) {
+    public CreationPageControllerInsuranceSurveyor(EntityManager entityManager, User user, InsuranceSurveyor insuranceSurveyor) {
         super(entityManager, user);
         this.insuranceSurveyor = insuranceSurveyor;
     }
 
-    public CreationPageController_InsuranceSurveyor(EntityManager entityManager, User user, InsuranceManager manager) {
+    public CreationPageControllerInsuranceSurveyor(EntityManager entityManager, User user, InsuranceManager manager) {
         super(entityManager, user);
         this.manager = manager;
     }

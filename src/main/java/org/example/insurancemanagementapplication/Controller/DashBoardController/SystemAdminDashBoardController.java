@@ -7,8 +7,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
-import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageController_InsuranceManager;
-import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageController_PolicyOwner;
+import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageControllerInsuranceManager;
+import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageControllerPolicyOwner;
 import org.example.insurancemanagementapplication.Controller.DashBoardController.TableFillingController.InsuranceManagerTableFilling;
 import org.example.insurancemanagementapplication.Interfaces.*;
 import org.example.insurancemanagementapplication.Utility.InputValidator;
@@ -62,7 +62,7 @@ public class SystemAdminDashBoardController extends InsuranceManagerTableFilling
 
         //Add handler to the addPolicyOwnerButton. this function creates a CreationPage Controller for Policy Owner and then transfer the user to the Policy Owner Creation Page
         addPolicyOwnerButton.setOnAction(event -> {
-            CreationPageController_PolicyOwner creationPageControllerPolicyOwner = new CreationPageController_PolicyOwner(entityManager, user);
+            CreationPageControllerPolicyOwner creationPageControllerPolicyOwner = new CreationPageControllerPolicyOwner(entityManager, user);
             //See the RepeatedCode class for this method
             StageBuilder.showStage((Stage) addPolicyOwnerButton.getScene().getWindow(), creationPageControllerPolicyOwner, "PolicyOwnerCreationPage.fxml", "Policy Owner Creation Page");
         });
@@ -70,7 +70,7 @@ public class SystemAdminDashBoardController extends InsuranceManagerTableFilling
         // ADD A NEW INSURANCE MANAGER USER
         //Add handler to the addManagerButton. this function creates a CreationPage Controller for Insurance Manager and then transfer the user to the Insurance Manager Creation Page
         addManagerButton.setOnAction(event -> {
-            CreationPageController_InsuranceManager creationPageControllerInsuranceManager = new CreationPageController_InsuranceManager(entityManager, user);
+            CreationPageControllerInsuranceManager creationPageControllerInsuranceManager = new CreationPageControllerInsuranceManager(entityManager, user);
             StageBuilder.showStage((Stage) addManagerButton.getScene().getWindow(), creationPageControllerInsuranceManager, "InsuranceManagerCreationPage.fxml", "Insurance Manager Creation Page");
         });
 

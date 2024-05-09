@@ -37,7 +37,7 @@ public class PolicyOwnerDashBoardController extends PolicyHolderTableFilling imp
         fillingClaimTable(entityManager, user, ClaimRead.getAllClaimsFromBeneficiariesOfAPolicyOwner(entityManager, user.getId()));
         fillingDependantTable(entityManager, user, CustomerRead.getAllDependantsOfAPolicyOwner(entityManager, user.getId()));
         fillingPolicyHolderTable(entityManager, user, CustomerRead.getAllPolicyHoldersOfAPolicyOwner(entityManager, user.getId()));
-        fillingInsuranceCardTable(entityManager,user, InsuranceCardRead.getAllInsuranceCardsOfPolicyOwner(entityManager, user.getId());
+        fillingInsuranceCardTable(entityManager,user, InsuranceCardRead.getAllInsuranceCardsOfPolicyOwner(entityManager, user.getId()));
     }
 
     public PolicyOwnerDashBoardController(PolicyOwner user, EntityManager entityManager) {

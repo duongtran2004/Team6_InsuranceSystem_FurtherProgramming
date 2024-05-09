@@ -19,13 +19,13 @@ import java.util.ResourceBundle;
  * @created 29/04/2024 08:53
  * @project InsuranceManagementTeamProject
  */
-public class CreationPageController_InsuranceManager extends CreationPageController implements EmployeeCreateRemove, EmployeeUpdate, Initializable, Controller {
+public class CreationPageControllerInsuranceManager extends CreationPageController implements EmployeeCreateRemove, EmployeeUpdate, Initializable, Controller {
 
-    public CreationPageController_InsuranceManager(EntityManager entityManager, User user) {
+    public CreationPageControllerInsuranceManager(EntityManager entityManager, User user) {
         super(entityManager, user);
     }
 
-    public CreationPageController_InsuranceManager(EntityManager entityManager, User user, InsuranceManager insuranceManager) {
+    public CreationPageControllerInsuranceManager(EntityManager entityManager, User user, InsuranceManager insuranceManager) {
         super(entityManager, user, insuranceManager);
 
     }

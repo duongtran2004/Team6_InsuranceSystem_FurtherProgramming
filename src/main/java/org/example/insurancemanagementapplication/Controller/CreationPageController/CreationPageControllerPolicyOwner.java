@@ -19,7 +19,7 @@ import java.util.ResourceBundle;
  * @created 29/04/2024 11:49
  * @project InsuranceManagementTeamProject
  */
-public class CreationPageController_PolicyOwner extends CreationPageController implements CustomerCreateRemove, CustomerUpdate, Initializable, Controller {
+public class CreationPageControllerPolicyOwner extends CreationPageController implements CustomerCreateRemove, CustomerUpdate, Initializable, Controller {
 
 
     @Override
@@ -49,11 +49,11 @@ public class CreationPageController_PolicyOwner extends CreationPageController i
 
     }
 
-    public CreationPageController_PolicyOwner(EntityManager entityManager, User user) {
+    public CreationPageControllerPolicyOwner(EntityManager entityManager, User user) {
         super(entityManager, user);
     }
 
-    public CreationPageController_PolicyOwner(EntityManager entityManager, User user, PolicyOwner policyOwner) {
+    public CreationPageControllerPolicyOwner(EntityManager entityManager, User user, PolicyOwner policyOwner) {
         super(entityManager, user, policyOwner);
 
     }

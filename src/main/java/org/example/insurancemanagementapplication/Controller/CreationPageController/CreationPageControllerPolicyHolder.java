@@ -24,7 +24,7 @@ import java.util.ResourceBundle;
  * @created 29/04/2024 11:50
  * @project InsuranceManagementTeamProject
  */
-public class CreationPageController_PolicyHolder extends CreationPageController implements CustomerCreateRemove, CustomerUpdate, Initializable, Controller {
+public class CreationPageControllerPolicyHolder extends CreationPageController implements CustomerCreateRemove, CustomerUpdate, Initializable, Controller {
 
     private PolicyOwner policyOwner;
     @FXML
@@ -77,13 +77,13 @@ public class CreationPageController_PolicyHolder extends CreationPageController 
     }
 
     //Calling this constructor when the controller is to be open in creation mode
-    public CreationPageController_PolicyHolder(EntityManager entityManager, User user, PolicyOwner policyOwner) {
+    public CreationPageControllerPolicyHolder(EntityManager entityManager, User user, PolicyOwner policyOwner) {
        super(entityManager, user);
         this.policyOwner = policyOwner;
     }
 
     //Call this constructor when the controller is to be open in update mode
-    public CreationPageController_PolicyHolder(EntityManager entityManager, User user, PolicyHolder policyHolder) {
+    public CreationPageControllerPolicyHolder(EntityManager entityManager, User user, PolicyHolder policyHolder) {
         super(entityManager, user, policyHolder);
     }
 }

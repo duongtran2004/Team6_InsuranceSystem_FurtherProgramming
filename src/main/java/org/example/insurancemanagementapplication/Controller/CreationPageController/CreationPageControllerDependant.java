@@ -20,7 +20,7 @@ import java.util.ResourceBundle;
  * @created 29/04/2024 11:50
  * @project InsuranceManagementTeamProject
  */
-public class CreationPageController_Dependant extends CreationPageController implements CustomerCreateRemove, CustomerUpdate, Initializable, Controller {
+public class CreationPageControllerDependant extends CreationPageController implements CustomerCreateRemove, CustomerUpdate, Initializable, Controller {
     private PolicyHolder policyHolder;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -49,13 +49,13 @@ public class CreationPageController_Dependant extends CreationPageController imp
 
     }
 
-    public CreationPageController_Dependant(EntityManager entityManager, User user, PolicyHolder policyHolder) {
+    public CreationPageControllerDependant(EntityManager entityManager, User user, PolicyHolder policyHolder) {
         super(entityManager, user);
         this.policyHolder = policyHolder;
     }
 
 
-    public CreationPageController_Dependant(EntityManager entityManager, User user, Dependant dependant) {
+    public CreationPageControllerDependant(EntityManager entityManager, User user, Dependant dependant) {
        super(entityManager, user, dependant);
 
     }

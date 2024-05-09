@@ -13,8 +13,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageControllerClaim;
-import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageController_Dependant;
-import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageController_PolicyHolder;
+import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageControllerDependant;
+import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageControllerPolicyHolder;
 import org.example.insurancemanagementapplication.Interfaces.CustomerCreateRemove;
 import org.example.insurancemanagementapplication.Utility.StageBuilder;
 
@@ -124,13 +124,13 @@ public class PolicyHolderTableFilling extends InsuranceCardFillingTable{
                 //The Update Info Button will create a CreationPage Controller for the policy holder in update mode by passing in the policy holder object
                 //It will then open the Policy Holder Creation Page
                 buttonUpdateInfo.setOnAction(event -> {
-                    CreationPageController_PolicyHolder creationPageControllerPolicyHolder = new CreationPageController_PolicyHolder(entityManager, user, policyHolder);
+                    CreationPageControllerPolicyHolder creationPageControllerPolicyHolder = new CreationPageControllerPolicyHolder(entityManager, user, policyHolder);
                     StageBuilder.showStage((Stage) buttonUpdateInfo.getScene().getWindow(), creationPageControllerPolicyHolder, "PolicyHolderCreationPage.fxml", "Policy Holder Update");
                 });
                 //The addDependant button will create a Dependant CreationPage Controller in creation mode by passing the policy holder object
                 //It will then open the Dependant Creation Form
                 buttonAddDependant.setOnAction(event -> {
-                    CreationPageController_Dependant creationPageControllerDependant = new CreationPageController_Dependant(entityManager, user, policyHolder);
+                    CreationPageControllerDependant creationPageControllerDependant = new CreationPageControllerDependant(entityManager, user, policyHolder);
                     StageBuilder.showStage((Stage) buttonAddDependant.getScene().getWindow(), creationPageControllerDependant, "DependantCreationAndUpdatePage.fxml", "Dependant Creation" );
                 });
                 //The remove button will remove its policy holder from the database
