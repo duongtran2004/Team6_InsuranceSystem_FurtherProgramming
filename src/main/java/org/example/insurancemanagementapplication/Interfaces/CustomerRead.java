@@ -151,30 +151,49 @@ public interface CustomerRead {
         }
         return policyHolders;
     }
-            // I
-
-
+    // I
 
 
     //maybe the same is wrong for policy holder ? => fix
 
 //get all policy holder take charge by an employee
 
-    public static List<PolicyOwner> getAllPolicyOwnersTakeChargeByAnEmployee(EntityManager entityManager, String employeeID) {
-        // Get list of claims which the insurance surveyor is processing
-        List<Claim> claims = ClaimRead.getAllClaimsProcessByAnInsuranceSurveyor(entityManager, employeeID);
-        List<PolicyOwner> policyOwners = new ArrayList<>(claims.size()); // Initialize the list to the size of claims
+    public static List<PolicyOwner> getAllPolicyOwnersTakeChargeByAnEmployee(EntityManager entityManager, String employeeID, String role) {
+        List<PolicyOwner> policyHolders = new ArrayList<>();
+        Set<String> processedIds = new HashSet<>();
 
-        for (Claim claim : claims) {
-            // Retrieve the policyHolder associated with the claim
-            PolicyOwner policyOwner = entityManager.createQuery(
-                            "SELECT d FROM Beneficiaries d WHERE d.id = ?1 AND d.type = 'PH'", PolicyOwner.class)
-                    .setParameter(1, claim.getInsuredPersonId())
-                    .getSingleResult();
-
-            policyOwners.add(policyOwner); // Add the policy owner to the list
+        String queryString;
+        if (role.equals("InsuranceSurveyor")) {
+            // Query for insurance surveyors
+            queryString = "SELECT c FROM Claim c WHERE c.insuranceSurveyorId = :employeeId";
+        } else if (role.equals("InsuranceManager")) {
+            // Query for insurance managers
+            queryString = "SELECT c FROM Claim c WHERE c.insuranceManagerId = :employeeId";
+        } else {//invalid role
+            return policyHolders;
         }
-        return policyOwners;
+
+        // Create a query
+        Query query = entityManager.createQuery(queryString);
+        query.setParameter("employeeId", employeeID);
+
+        // Execute the query to get the claims
+        List<Claim> claims = query.getResultList();
+
+        // Iterate through each claim to retrieve the dependant objects
+        for (Claim claim : claims) {
+            // Check if the insured person ID of the claim starts with "DE"
+            // Retrieve the policy owner object
+            PolicyOwner policyOwner = claim.getPolicyOwner();
+            // Check if the ID has already been processed
+            if (!processedIds.contains(policyOwner.getId())) {
+                policyHolders.add(policyOwner);
+                processedIds.add(policyOwner.getId());
+            }
+
+
+        }
+        return policyHolders;
     }
 
 

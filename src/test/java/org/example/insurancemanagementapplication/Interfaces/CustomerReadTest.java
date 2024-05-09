@@ -1,6 +1,6 @@
 package org.example.insurancemanagementapplication.Interfaces;
 
-import Entity.PolicyHolder;
+import Entity.PolicyOwner;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -38,14 +38,24 @@ class CustomerReadTest {
 //        }
 //
 //    }
+//    @Test
+//    void getAllPolicyHolderTakeChargeByAnEmployee(){
+//        List<PolicyHolder> policyHolders =
+//                CustomerRead.getAllPolicyHoldersTakeChargeByAnEmployee(entityManager,"IM17150987", "InsuranceManager");
+//    for (PolicyHolder policyHolder : policyHolders) {
+//        System.out.println(policyHolder);
+//    }
+//    }
+
     @Test
-    void getAllPolicyHolderTakeChargeByAnEmployee(){
-        List<PolicyHolder> policyHolders =
-                CustomerRead.getAllPolicyHoldersTakeChargeByAnEmployee(entityManager,"IM17150987", "InsuranceManager");
-    for (PolicyHolder policyHolder : policyHolders) {
-        System.out.println(policyHolder);
+    void  getAllPolicyOwnerTakeChargeByAnEmployee(){
+        List<PolicyOwner> policyOwners =
+                CustomerRead.getAllPolicyOwnersTakeChargeByAnEmployee(entityManager, "IM4719020624","InsuranceManager" );
+        for (PolicyOwner policyOwner : policyOwners) {
+            System.out.println(policyOwner);
+        }
     }
-    }
+
 
 
 
