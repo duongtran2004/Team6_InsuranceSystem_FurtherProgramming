@@ -30,6 +30,7 @@ public class CreationPageControllerPolicyHolder extends CreationPageController i
     @FXML
     private TextField lengthOfContractField;
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //See the CreationPageController class for this method
