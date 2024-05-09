@@ -68,17 +68,25 @@ public interface CustomerRead {
     }
 
 
-    public static List<Dependant> getAllDependantsTakeChargeByAnInsuranceSurveyor(EntityManager entityManager, String insuranceSurveyorID) {
-
+    public static List<Dependant> getAllDependantsTakeChargeByAnEmployee(EntityManager entityManager, String employeeID, String role) {
         List<Dependant> dependants = new ArrayList<>();
         Set<String> processedIds = new HashSet<>();
 
-        // Query to select claims associated with the given insurance surveyor id
-        String queryString = "SELECT c FROM Claim c WHERE c.insuranceSurveyorId = :surveyorId";
+        String queryString;
+        if (role.equals("InsuranceSurveyor")) {
+            // Query for insurance surveyors
+            queryString = "SELECT c FROM Claim c WHERE c.insuranceSurveyorId = :employeeId";
+        } else if (role.equals("InsuranceManager")) {
+            // Query for insurance managers
+            queryString = "SELECT c FROM Claim c WHERE c.insuranceManagerId = :employeeId";
+        } else {
+            // Invalid role
+            return dependants;
+        }
 
         // Create a query
         Query query = entityManager.createQuery(queryString);
-        query.setParameter("surveyorId", insuranceSurveyorID);
+        query.setParameter("employeeId", employeeID);
 
         // Execute the query to get the claims
         List<Claim> claims = query.getResultList();
@@ -102,17 +110,25 @@ public interface CustomerRead {
         return dependants;
     }
 
-    //unit testing for these methods
-    public static List<Dependant> getAllDependantsTakeChargeByAnInsuranceManager(EntityManager entityManager, String insuranceManagerID) {
-         List<Dependant> dependants = new ArrayList<>();
+
+    public static List<PolicyHolder> getAllPolicyHoldersTakeChargeByAnEmployee(EntityManager entityManager, String employeeID, String role) {
+        List<PolicyHolder> policyHolders = new ArrayList<>();
         Set<String> processedIds = new HashSet<>();
 
-        // Query to select claims associated with the given insurance surveyor id
-        String queryString = "SELECT c FROM Claim c WHERE c.insuranceManagerId = :managerId";
+        String queryString;
+        if (role.equals("InsuranceSurveyor")) {
+            // Query for insurance surveyors
+            queryString = "SELECT c FROM Claim c WHERE c.insuranceSurveyorId = :employeeId";
+        } else if (role.equals("InsuranceManager")) {
+            // Query for insurance managers
+            queryString = "SELECT c FROM Claim c WHERE c.insuranceManagerId = :employeeId";
+        } else {//invalid role
+            return policyHolders;
+        }
 
         // Create a query
         Query query = entityManager.createQuery(queryString);
-        query.setParameter("managerId",insuranceManagerID);
+        query.setParameter("employeeId", employeeID);
 
         // Execute the query to get the claims
         List<Claim> claims = query.getResultList();
@@ -120,25 +136,29 @@ public interface CustomerRead {
         // Iterate through each claim to retrieve the dependant objects
         for (Claim claim : claims) {
             // Check if the insured person ID of the claim starts with "DE"
-            if (claim.getInsuredPersonId().startsWith("DE")) {
+            if (claim.getInsuredPersonId().startsWith("PH")) {
                 // Retrieve the beneficiary object (insured person)
                 Beneficiaries beneficiary = claim.getInsuredPerson();
-                if (beneficiary instanceof Dependant) {
-                    Dependant dependant = (Dependant) beneficiary;
+                if (beneficiary instanceof PolicyHolder) {
+                    PolicyHolder policyHolder = (PolicyHolder) beneficiary;
                     // Check if the ID has already been processed
-                    if (!processedIds.contains(dependant.getId())) {
-                        dependants.add(dependant);
-                        processedIds.add(dependant.getId());
+                    if (!processedIds.contains(policyHolder.getId())) {
+                        policyHolders.add(policyHolder);
+                        processedIds.add(policyHolder.getId());
                     }
                 }
             }
         }
-        return dependants;
+        return policyHolders;
     }
+            // I
+
+
+
 
     //maybe the same is wrong for policy holder ? => fix
 
-
+//get all policy holder take charge by an employee
 
     public static List<PolicyOwner> getAllPolicyOwnersTakeChargeByAnEmployee(EntityManager entityManager, String employeeID) {
         // Get list of claims which the insurance surveyor is processing

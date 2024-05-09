@@ -25,8 +25,8 @@ public class InsuranceSurveyorDashBoardController extends PolicyOwnerTableFillin
         //see the ClaimTableFilling Class
         userFillingData();
         fillingClaimTable(entityManager, user, ClaimRead.getAllClaimsProcessByAnInsuranceSurveyor(entityManager, user.getId()));
-        fillingDependantTable(entityManager, user, CustomerRead.getAllDependantsTakeChargeByAnInsuranceManager(entityManager, user.getId()));
-        fillingPolicyHolderTable(entityManager, user, CustomerRead.getAllPolicyHoldersTakeChargeByAnEmployee(entityManager, user.getId()));
+        fillingDependantTable(entityManager, user, CustomerRead.getAllDependantsTakeChargeByAnEmployee(entityManager, user.getId(), "InsuranceSurveyor"));
+  fillingPolicyHolderTable(entityManager, user, CustomerRead.getAllPolicyHoldersTakeChargeByAnEmployee(entityManager, user.getId(), "InsuranceSurveyor"));
         fillingPolicyOwnerTable(entityManager, user, CustomerRead.getAllPolicyOwnersTakeChargeByAnEmployee(entityManager, user.getId()));
     }
 
