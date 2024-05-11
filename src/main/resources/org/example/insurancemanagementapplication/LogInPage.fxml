@@ -37,6 +37,7 @@
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -100,7 +101,6 @@
                   </Label>
                   <TextField id="userIdField" fx:id="userIdField" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" />
                   <TextField id="emailField" fx:id="emailField" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
-                  <TextField id="passwordField" fx:id="passwordField" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" />
                   <ChoiceBox id="roleSelectionBox" fx:id="roleSelectionBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                     <buttons>
@@ -112,6 +112,7 @@
                     </buttons>
                   </ButtonBar>
                   <Label fx:id="errorContainer" prefHeight="18.0" prefWidth="379.0" GridPane.rowIndex="4" />
+                  <PasswordField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                </children>
                <padding>
                   <Insets left="50.0" right="150.0" />

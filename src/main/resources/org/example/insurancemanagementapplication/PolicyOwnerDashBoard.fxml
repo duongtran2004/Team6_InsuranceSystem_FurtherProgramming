@@ -248,8 +248,8 @@
                                         <TableColumn fx:id="cardNumber" maxWidth="Infinity" minWidth="287.5" prefWidth="150.0" text="Card Number" />
                                         <TableColumn fx:id="cardHolderId" maxWidth="Infinity" minWidth="287.5" prefWidth="170.0" text="Card Holder ID" />
                                         <TableColumn fx:id="policyOwnerIDOfInsuranceCard" maxWidth="Infinity" minWidth="287.5" prefWidth="0.0" text="Policy Owner ID" />
-                                        <TableColumn fx:id="expiryDate" maxWidth="Infinity" minWidth="287.5" prefWidth="0.0" text="Expiry Date" />
-                                        <TableColumn fx:id="insuranceCardRemoveButton" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Remove" />
+                                        <TableColumn fx:id="expiryDate" maxWidth="Infinity" minWidth="287.5" prefWidth="491.20001220703125" text="Expiry Date" />
+                                        <TableColumn fx:id="insuranceCardRemoveButton" maxWidth="368.00007324218745" minWidth="100.0" prefWidth="166.39990234375" text="Remove" />
                                     </columns>
                                 </TableView>
                             </content>
@@ -293,9 +293,9 @@
                                         <TableColumn fx:id="policyOwnerClaimTable" maxWidth="Infinity" minWidth="150.0" prefWidth="150.0" text="Policy Owner ID" />
                                         <TableColumn fx:id="claimAmount" maxWidth="Infinity" minWidth="150.0" prefWidth="150.0" text="Claim Amount" />
                                         <TableColumn fx:id="settlementDate" maxWidth="Infinity" minWidth="170.0" prefWidth="170.0" text="Settlement Date" />
-                                        <TableColumn fx:id="status" maxWidth="Infinity" minWidth="60.0" prefWidth="60.0" text="Status" />
-                                        <TableColumn fx:id="claimButton" maxWidth="Infinity" minWidth="100.0" prefWidth="100.0" text="Update Claim" />
-                                        <TableColumn fx:id="claimRemoveButton" maxWidth="Infinity" minWidth="100.0" prefWidth="100.0" text="Remove Claim" />
+                                        <TableColumn fx:id="status" maxWidth="Infinity" minWidth="60.0" prefWidth="149.60009765625" text="Status" />
+                                        <TableColumn fx:id="claimButton" maxWidth="Infinity" minWidth="100.0" prefWidth="133.5999755859375" text="Update Claim" />
+                                        <TableColumn fx:id="claimRemoveButton" maxWidth="Infinity" minWidth="100.0" prefWidth="146.39990234375" text="Remove Claim" />
                                     </columns>
                                 </TableView>
                             </content>

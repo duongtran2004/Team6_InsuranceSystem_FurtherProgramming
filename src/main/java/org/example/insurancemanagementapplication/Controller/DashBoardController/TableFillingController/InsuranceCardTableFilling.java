@@ -42,8 +42,7 @@ public class InsuranceCardTableFilling extends DependantTableFilling {
     @FXML
     protected TableColumn<InsuranceCard, String> policyOwnerIDOfInsuranceCard;
 
-    @FXML
-    protected TableColumn<InsuranceCard, Button> insuranceCardUpdateButton; //currently is null
+
     @FXML
     protected TableColumn<InsuranceCard, Button> insuranceCardRemoveButton;
     @FXML
