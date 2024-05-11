@@ -129,17 +129,5 @@ public interface CustomerCreateRemove {
         return true;
     }
 
-    public static boolean removeInsuranceCard(EntityManager entityManager, InsuranceCard insuranceCard){
-        EntityTransaction transaction = entityManager.getTransaction();
-        try{
-            transaction.begin();
-            entityManager.remove(insuranceCard);
-            transaction.commit();
-        } finally {
-            if (transaction.isActive()){
-                transaction.rollback();
-            }
-        }
-        return true;
-    }
+
 }

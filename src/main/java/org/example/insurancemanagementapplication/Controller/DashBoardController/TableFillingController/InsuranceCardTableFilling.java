@@ -14,8 +14,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import org.example.insurancemanagementapplication.Interfaces.CustomerCreateRemove;
 import org.example.insurancemanagementapplication.Interfaces.InsuranceCardRead;
+import org.example.insurancemanagementapplication.Interfaces.InsuranceCreateAndRemove;
 
 import java.sql.Date;
 import java.util.List;
@@ -40,7 +40,10 @@ public class InsuranceCardTableFilling extends DependantTableFilling {
     @FXML
     protected TableColumn<InsuranceCard, String> cardHolderId;
     @FXML
-    protected TableColumn<InsuranceCard, String> policyOwnerInsuranceCardTable;
+    protected TableColumn<InsuranceCard, String> policyOwnerIDOfInsuranceCard;
+
+    @FXML
+    protected TableColumn<InsuranceCard, Button> insuranceCardUpdateButton; //currently is null
     @FXML
     protected TableColumn<InsuranceCard, Button> insuranceCardRemoveButton;
     @FXML
@@ -93,21 +96,23 @@ public class InsuranceCardTableFilling extends DependantTableFilling {
         while (insuranceCardListIterator.hasNext()) {
 
             InsuranceCard insuranceCard = insuranceCardListIterator.next();
-            Button buttonRemove = new Button("Remove");
-            //Only system admin and policy owner has access to this button
+
+
+            //Only system admin and policy owner has access to the remove button
             if (user instanceof SystemAdmin || user instanceof PolicyOwner) {
+                Button buttonRemove = new Button("Remove");
                 buttonRemove.setOnAction(event -> {
-                    CustomerCreateRemove.removeInsuranceCard(entityManager, insuranceCard);
-                    //TODO Method needed to remove the insurance card
-                    //TODO Before we remove the insurance card, we need to update the insurance card field of all of its beneficiaries
+                   InsuranceCreateAndRemove.removeInsuranceCard(entityManager, insuranceCard);
+
                 });
                 insuranceCard.setRemoveButton(buttonRemove);
             }
+
             insuranceCardsObservableList.add(insuranceCard);
         }
         cardNumber.setCellValueFactory(new PropertyValueFactory<InsuranceCard, String>("cardNumber"));
-        cardHolderId.setCellValueFactory(new PropertyValueFactory<InsuranceCard, String>("cardHolder"));
-        policyOwnerInsuranceCardTable.setCellValueFactory(new PropertyValueFactory<InsuranceCard, String>("policyOwner"));
+        cardHolderId.setCellValueFactory(new PropertyValueFactory<InsuranceCard, String>("cardHolderId"));
+        policyOwnerIDOfInsuranceCard.setCellValueFactory(new PropertyValueFactory<InsuranceCard, String>("policyOwnerId"));
         expiryDate.setCellValueFactory(new PropertyValueFactory<InsuranceCard, Date>("expirationDate"));
         if (user instanceof SystemAdmin || user instanceof PolicyOwner) {
             insuranceCardRemoveButton.setCellValueFactory(new PropertyValueFactory<InsuranceCard, Button>("removeButton"));
@@ -151,12 +156,12 @@ public class InsuranceCardTableFilling extends DependantTableFilling {
         this.cardHolderId = cardHolderId;
     }
 
-    public TableColumn<InsuranceCard, String> getPolicyOwnerInsuranceCardTable() {
-        return policyOwnerInsuranceCardTable;
+    public TableColumn<InsuranceCard, String> getPolicyOwnerIDOfInsuranceCard() {
+        return policyOwnerIDOfInsuranceCard;
     }
 
-    public void setPolicyOwnerInsuranceCardTable(TableColumn<InsuranceCard, String> policyOwnerInsuranceCardTable) {
-        this.policyOwnerInsuranceCardTable = policyOwnerInsuranceCardTable;
+    public void setPolicyOwnerIDOfInsuranceCard(TableColumn<InsuranceCard, String> policyOwnerIDOfInsuranceCard) {
+        this.policyOwnerIDOfInsuranceCard = policyOwnerIDOfInsuranceCard;
     }
 
     public TableColumn<InsuranceCard, Button> getInsuranceCardRemoveButton() {

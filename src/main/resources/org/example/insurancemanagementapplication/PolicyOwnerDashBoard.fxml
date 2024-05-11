@@ -247,7 +247,7 @@
                                     <columns>
                                         <TableColumn fx:id="cardNumber" maxWidth="Infinity" minWidth="287.5" prefWidth="150.0" text="Card Number" />
                                         <TableColumn fx:id="cardHolderId" maxWidth="Infinity" minWidth="287.5" prefWidth="170.0" text="Card Holder ID" />
-                                        <TableColumn fx:id="policyOwnerInsuranceCardTable" maxWidth="Infinity" minWidth="287.5" prefWidth="0.0" text="Policy Owner ID" />
+                                        <TableColumn fx:id="policyOwnerIDOfInsuranceCard" maxWidth="Infinity" minWidth="287.5" prefWidth="0.0" text="Policy Owner ID" />
                                         <TableColumn fx:id="expiryDate" maxWidth="Infinity" minWidth="287.5" prefWidth="0.0" text="Expiry Date" />
                                         <TableColumn fx:id="insuranceCardRemoveButton" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Remove" />
                                     </columns>
@@ -381,7 +381,7 @@
                                     </HBox.margin>
                                 </Label>
                                 <DatePicker fx:id="creationDateTo" />
-                        <Button fx:id="clearCreationDateButton" mnemonicParsing="false"  text="Clear Creation Date " />
+                        <Button fx:id="clearCreationDateButton" mnemonicParsing="false" text="Clear Creation Date " />
                             </children>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
