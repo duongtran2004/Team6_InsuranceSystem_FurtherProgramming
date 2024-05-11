@@ -38,14 +38,14 @@ public interface YearlyRateCalculation {
     public static String dividePolicyOwnerIntoPHYearlyRateLevel (int beneficiariesCount){
         String level = "";
 
-        if (beneficiariesCount < 10){
+        if (beneficiariesCount < 5){
             level = "D";
         }
-        else if (beneficiariesCount < 20){
+        else if (beneficiariesCount < 10){
             level = "C";
 
         }
-        else if (beneficiariesCount < 40){
+        else if (beneficiariesCount < 20){
             level = "B";
         }
         else {

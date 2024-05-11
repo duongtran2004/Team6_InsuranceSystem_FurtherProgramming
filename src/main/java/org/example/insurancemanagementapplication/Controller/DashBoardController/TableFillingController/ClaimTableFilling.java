@@ -110,9 +110,7 @@ public class ClaimTableFilling implements ClaimCreateRemove {
     @FXML
     protected TextField claimAmountTo;
 
-    //For Policy Owner to see total yearly rate
-    @FXML
-    protected TextField totalYearlyRateLabel;
+
 
 
     /**
@@ -136,11 +134,10 @@ public class ClaimTableFilling implements ClaimCreateRemove {
             passwordField.setDisable(true);
             passwordValidationField.setDisable(true);
         }
-        if (user instanceof PolicyOwner) {
-            int yearlyRate = YearlyRateCalculation.calculateYearlyRateOfAPolicyOwner(entityManager, user.getId());
-            totalYearlyRateLabel.setText(String.valueOf(yearlyRate));
 
-        }
+
+
+
     }
 
     //constructor

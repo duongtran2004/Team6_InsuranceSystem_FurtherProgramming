@@ -7,6 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageControllerPolicyHolder;
 import org.example.insurancemanagementapplication.Controller.DashBoardController.TableFillingController.PolicyHolderTableFilling;
@@ -27,12 +28,19 @@ public class PolicyOwnerDashBoardController extends PolicyHolderTableFilling imp
     @FXML
     private javafx.scene.control.Button addPolicyHolderButton;
     private ObservableList<Claim> claimObservableList = FXCollections.observableArrayList();
+    //For Policy Owner to see total yearly rate
+    @FXML
+    protected Label totalYearlyRateLabel;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //fill table
         //see the ClaimTableFilling Class
         userFillingData();
+
+        int yearlyRate = YearlyRateCalculation.calculateYearlyRateOfAPolicyOwner(entityManager, user.getId());
+        totalYearlyRateLabel.setText(String.valueOf(yearlyRate));
 
         fillingClaimTable(entityManager, user, ClaimRead.getAllClaimsFromBeneficiariesOfAPolicyOwner(entityManager, user.getId()));
         fillingDependantTable(entityManager, user, CustomerRead.getAllDependantsOfAPolicyOwner(entityManager, user.getId()));
