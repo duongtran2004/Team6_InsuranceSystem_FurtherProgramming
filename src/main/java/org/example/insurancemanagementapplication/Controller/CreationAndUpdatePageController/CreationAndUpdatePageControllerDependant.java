@@ -4,7 +4,9 @@ import Entity.Dependant;
 import Entity.PolicyHolder;
 import Entity.User;
 import jakarta.persistence.EntityManager;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import org.example.insurancemanagementapplication.Interfaces.Controller;
 import org.example.insurancemanagementapplication.Interfaces.CustomerCreateRemove;
 import org.example.insurancemanagementapplication.Interfaces.CustomerUpdate;
@@ -21,13 +23,20 @@ import java.util.ResourceBundle;
  * @project InsuranceManagementTeamProject
  */
 public class CreationAndUpdatePageControllerDependant extends CreationAndUpdatePageController implements CustomerCreateRemove, CustomerUpdate, Initializable, Controller {
+
     private PolicyHolder policyHolder;
+
+    @FXML
+    private Label pageTittleLabel;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //See the CreationAndUpdatePageController class for this method
         setActionReturnButton();
         //When the controller is in update mode
+
         if (selectedUser != null) {
+            changePageTittleInUpdateMode(" DEPENDANT UPDATE PAGE ");
             //See the CreationAndUpdatePageController class for this method
             fillingFormAuto();
             //See the CrationPageController class for this method
@@ -37,7 +46,7 @@ public class CreationAndUpdatePageControllerDependant extends CreationAndUpdateP
         else {
             submitButton.setOnAction(event -> {
                 String message = InputValidator.validatingUser("Dependant", entityManager, fullNameField.getText(), emailField.getText(), passwordField.getText(), phoneNumberField.getText(), addressField.getText(), passwordValidationField.getText());
-                if (message.equals("Success")){
+                if (message.equals("Success")) {
                     //See the RepeatedCode class for this method
                     //This method generates an ID.
                     String id = IDGenerator.generateId("DE");
@@ -56,7 +65,7 @@ public class CreationAndUpdatePageControllerDependant extends CreationAndUpdateP
 
 
     public CreationAndUpdatePageControllerDependant(EntityManager entityManager, User user, Dependant dependant) {
-       super(entityManager, user, dependant);
+        super(entityManager, user, dependant);
 
     }
 

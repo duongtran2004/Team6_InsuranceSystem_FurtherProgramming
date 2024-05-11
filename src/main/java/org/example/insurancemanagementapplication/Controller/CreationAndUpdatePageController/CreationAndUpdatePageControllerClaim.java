@@ -57,6 +57,7 @@ public class CreationAndUpdatePageControllerClaim extends CreationAndUpdatePageC
     private Button uploadDocumentButton;
     @FXML
     private Button viewDocumentButton;
+    @FXML private Label pageTittleLabel;
 
 
     @Override
@@ -121,6 +122,7 @@ public class CreationAndUpdatePageControllerClaim extends CreationAndUpdatePageC
     //This method is called when the user is an insurance surveyor and the claim attribute of the object is not null
     public void updateModeInsuranceSurveyor() {
         //disable necessary fields
+        changePageTittleInUpdateMode("CLAIM UPDATE PAGE");
         bankAccountNameField.setDisable(true);
         bankAccountNumberField.setDisable(true);
         bankNameField.setDisable(true);
@@ -142,6 +144,7 @@ public class CreationAndUpdatePageControllerClaim extends CreationAndUpdatePageC
 
     //This method is called when the user is an insurance manager and the claim attribute of the object is not null
     public void updateModeInsuranceManager() {
+        changePageTittleInUpdateMode("CLAIM UPDATE PAGE");
         bankAccountNameField.setDisable(true);
         bankAccountNumberField.setDisable(true);
         bankNameField.setDisable(true);
@@ -230,6 +233,7 @@ public class CreationAndUpdatePageControllerClaim extends CreationAndUpdatePageC
 
     //This method is called when the user is either an owner or a holder, and the claim attribute of the object is not null
     public void updateModeCustomer() {
+        changePageTittleInUpdateMode("CLAIM UPDATE PAGE");
         //disable necessary fields
         statusChoiceBox.setDisable(true);
         claimAmountField.setDisable(true);

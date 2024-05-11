@@ -3,7 +3,9 @@ package org.example.insurancemanagementapplication.Controller.CreationAndUpdateP
 import Entity.InsuranceManager;
 import Entity.User;
 import jakarta.persistence.EntityManager;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import org.example.insurancemanagementapplication.Interfaces.Controller;
 import org.example.insurancemanagementapplication.Interfaces.EmployeeCreateRemove;
 import org.example.insurancemanagementapplication.Interfaces.EmployeeUpdate;
@@ -21,6 +23,9 @@ import java.util.ResourceBundle;
  */
 public class CreationAndUpdatePageControllerInsuranceManager extends CreationAndUpdatePageController implements EmployeeCreateRemove, EmployeeUpdate, Initializable, Controller {
 
+    @FXML
+    private Label pageTittleLabel;
+
     public CreationAndUpdatePageControllerInsuranceManager(EntityManager entityManager, User user) {
         super(entityManager, user);
     }
@@ -35,7 +40,8 @@ public class CreationAndUpdatePageControllerInsuranceManager extends CreationAnd
         //See the CreationAndUpdatePageController Class for this method
         setActionReturnButton();
         //When the controller is in update mode
-        if (selectedUser != null){
+        if (selectedUser != null) {
+            changePageTittleInUpdateMode("INSURANCE MANAGER UPDATE PAGE");
             //See the CreationAndUpdatePageController class for this method
             fillingFormAuto();
             //See the CreationAndUpdatePageController class for this method
@@ -45,7 +51,7 @@ public class CreationAndUpdatePageControllerInsuranceManager extends CreationAnd
         else {
             submitButton.setOnAction(event -> {
                 String message = InputValidator.validatingUser("Insurance Manager", entityManager, fullNameField.getText(), emailField.getText(), passwordField.getText(), phoneNumberField.getText(), addressField.getText(), passwordValidationField.getText());
-                if (message.equals("Success")){
+                if (message.equals("Success")) {
                     //See the RepeatedCode class for this method
                     //This method generates an id.
                     String id = IDGenerator.generateId("IM");

@@ -25,6 +25,8 @@ public abstract class CreationAndUpdatePageController {
     protected EntityManager entityManager;
     protected User selectedUser;
     @FXML
+    protected Label pageTitleLabel;
+    @FXML
     protected TextField fullNameField;
     @FXML
     protected TextField addressField;
@@ -54,11 +56,15 @@ public abstract class CreationAndUpdatePageController {
         this.user = user;
         this.entityManager = entityManager;
     }
+    public void  changePageTittleInUpdateMode (String newTittle){
+        pageTitleLabel.setText(newTittle);
+    }
 
     /**
      * This method automatically fill form when the controller is in update mode
      */
     public void fillingFormAuto(){
+
         fullNameField.setDisable(true);
         fullNameField.setText(selectedUser.getFullName());
         addressField.setText(selectedUser.getAddress());

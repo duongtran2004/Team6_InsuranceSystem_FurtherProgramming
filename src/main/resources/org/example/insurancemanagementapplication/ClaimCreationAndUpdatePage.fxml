@@ -63,7 +63,7 @@
                   </HBox>
                </children>
             </GridPane>
-            <Label layoutX="82.0" layoutY="7.0" prefHeight="17.0" prefWidth="322.0" text="CLAIM CREATION PAGE" />
+            <Label fx:id="pageTittleLabel" layoutX="82.0" layoutY="7.0" prefHeight="17.0" prefWidth="322.0" text="CLAIM CREATION PAGE" />
          </children>
       </Pane>
    </children>

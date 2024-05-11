@@ -7,6 +7,7 @@ import jakarta.persistence.EntityManager;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import org.example.insurancemanagementapplication.Interfaces.Controller;
 import org.example.insurancemanagementapplication.Interfaces.EmployeeRead;
@@ -38,6 +39,9 @@ public class CreationAndUpdatePageControllerInsuranceSurveyor extends CreationAn
     @FXML
     private Button managerReassignButton;
 
+    @FXML
+    private Label pageTittleLabel;
+
     public CreationAndUpdatePageControllerInsuranceSurveyor(EntityManager entityManager, User user, InsuranceSurveyor insuranceSurveyor) {
         super(entityManager, user);
         this.insuranceSurveyor = insuranceSurveyor;
@@ -59,6 +63,7 @@ public class CreationAndUpdatePageControllerInsuranceSurveyor extends CreationAn
 
         //When the controller is in update mode
         if (insuranceSurveyor != null){
+            changePageTittleInUpdateMode("INSURANCE SURVEYOR UPDATE PAGE");
             managerReassignButton.setDisable(false);
             managerIdField.setText(insuranceSurveyor.getInsuranceManagerId());
             //see the CreationAndUpdatePageController class for this method
