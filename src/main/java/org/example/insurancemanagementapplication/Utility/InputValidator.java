@@ -15,8 +15,8 @@ public class InputValidator {
         return password.matches(pattern);
     }
 
-    public static boolean passwordValidator(String password, String passwordValidator){
-        if (passwordValidator.equals(password)){
+    public static boolean passwordValidator(String password, String passwordValidator) {
+        if (passwordValidator.equals(password)) {
             return true;
         }
         return false;
@@ -112,13 +112,13 @@ public class InputValidator {
     }
 
 
-
     public static boolean checkIfSystemAdminAlreadyExist(EntityManager entityManager, String fullName, String email, String password, String phoneNumber, String address) {
         if ((EmployeeRead.getSystemAdminByCredential(entityManager, fullName, email, password, phoneNumber, address)) != null) {
             return true;
         }
         return false;
     }
+
     public static boolean validateBankingInfo(EntityManager entityManager, String bankName, String bankAccountName, String bankAccountNumber) {
         String message = "";
         if (!validateNonEmptyString(bankName)) {
@@ -138,7 +138,8 @@ public class InputValidator {
         String message = "";
         if (!validateBankingInfo(entityManager, bankName, accountName, accountNumber)) {
             return message = "Invalid Banking Information, no fields should be empty";
-        } return  message = "Success";
+        }
+        return message = "Success";
 
     }
 //ClaimUpdateValidator: overloading methods
@@ -153,8 +154,7 @@ public class InputValidator {
         }
         if (!validateNonEmptyString(String.valueOf(claimAmount))) {
             return message = "Invalid Claim Amount, must not be empty";
-        }
-        else {
+        } else {
             return message = "Success";
         }
     }
@@ -162,42 +162,35 @@ public class InputValidator {
     //ClaimUpdateValidator for PolicyHolder and PolicyOwner
     public static String ClaimUpdateValidator(EntityManager entityManager, String bankName, String accountName, String accountNumber) {
         String message = "";
-       if (!validateBankingInfo(entityManager, bankName, accountName, accountNumber)){
-           return message = "Invalid Banking Information, no fields should be empty";
+        if (!validateBankingInfo(entityManager, bankName, accountName, accountNumber)) {
+            return message = "Invalid Banking Information, no fields should be empty";
         } else {
             return message = "Success";
         }
     }
 
-//overloading method
-    public static String validatingUser(String email, String password, String phoneNumber, String address, String passwordValidator){
+    //overloading method
+    public static String validatingUser(String email, String password, String phoneNumber, String address, String passwordValidator) {
         if (!validateNonEmptyString(email)) {
             return "Invalid email, cannot be empty";
-        }
-        else if (!validateEmailFormat(email)) {
+        } else if (!validateEmailFormat(email)) {
             return "Invalid email format";
-        }
-        else if (!validateNonEmptyString(password)) {
+        } else if (!validateNonEmptyString(password)) {
             return "Invalid password, cannot be empty";
-        }
-        else if (validatePasswordFormat(password)) {
+        } else if (validatePasswordFormat(password)) {
             return "Invalid password format";
-        }
-        else if (!validateNonEmptyString(phoneNumber)) {
+        } else if (!validateNonEmptyString(phoneNumber)) {
             return "Invalid phone number, cannot be empty";
-        }
-        else if (validatePhoneFormat(phoneNumber)) {
+        } else if (!validateNonEmptyString(address)) {
             return "Invalid address format";
-        }
-        else if (passwordValidator(passwordValidator, password)){
+        } else if (passwordValidator(passwordValidator, password)) {
             return "Passwords do not match.";
-        }
-        else {
+        } else {
             return "Success";
         }
     }
 
-//overloading method
+    //overloading method
     public static String validatingUser(String role, EntityManager entityManager, String fullName, String email, String password, String phoneNumber, String address, String passwordValidator) {
 //        boolean allInfoValid = true;
 //        boolean userExists = false;
@@ -225,7 +218,7 @@ public class InputValidator {
         if (validatePhoneFormat(phoneNumber)) {
             return "Invalid address format";
         }
-        if (passwordValidator(passwordValidator, password)){
+        if (passwordValidator(passwordValidator, password)) {
             return "Passwords do not match.";
         }
 
