@@ -1,4 +1,4 @@
-package org.example.insurancemanagementapplication.Controller.CreationPageController;
+package org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController;
 
 import Entity.*;
 import jakarta.persistence.EntityManager;
@@ -18,7 +18,7 @@ import org.example.insurancemanagementapplication.Utility.InputValidator;
 import java.net.URL;
 import java.util.*;
 
-public class CreationPageControllerClaim extends CreationPageController implements Initializable, Controller {
+public class CreationAndUpdatePageControllerClaim extends CreationAndUpdatePageController implements Initializable, Controller {
 
     private Beneficiaries beneficiary;
     private Claim claim;
@@ -57,9 +57,6 @@ public class CreationPageControllerClaim extends CreationPageController implemen
     private Button viewDocumentButton;
 
 
-
-
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setActionReturnButton();
@@ -88,8 +85,13 @@ public class CreationPageControllerClaim extends CreationPageController implemen
                 updateModeCustomer();
             }
 
-
+            //VIEW ONLY CASE: FOR SYSTEM ADMIN
+            if (user instanceof SystemAdmin) {
+                viewModeSystemAdmin();
             }
+
+
+        }
         //2nd case: Create claim => If claim does NOT exist
 
         if (claim == null) {
@@ -97,8 +99,24 @@ public class CreationPageControllerClaim extends CreationPageController implemen
         }
     }
 
+    public void viewModeSystemAdmin() {
+        //disable necessary fields and hide necessary buttons
+        bankAccountNameField.setDisable(true);
+        bankAccountNumberField.setDisable(true);
+        bankNameField.setDisable(true);
+        claimAmountField.setDisable(true);
+        cardNumberField.setDisable(true);
+        insuranceSurveyorIdField.setDisable(true);
+        insuranceManagerIdField.setDisable(true);
+        statusChoiceBox.setDisable(true);
+
+        submitButton.setDisable(true);
+        updloadDocumentButton.setDisable(true);
+
+    }
+
     //This method is called when the user is an insurance surveyor and the claim attribute of the object is not null
-    public void updateModeInsuranceSurveyor(){
+    public void updateModeInsuranceSurveyor() {
         //disable necessary fields
         bankAccountNameField.setDisable(true);
         bankAccountNumberField.setDisable(true);
@@ -118,8 +136,9 @@ public class CreationPageControllerClaim extends CreationPageController implemen
             ClaimUpdate.updateClaim(entityManager, claim, statusChoiceBox.getValue());
         });
     }
+
     //This method is called when the user is an insurance manager and the claim attribute of the object is not null
-    public void updateModeInsuranceManager(){
+    public void updateModeInsuranceManager() {
         bankAccountNameField.setDisable(true);
         bankAccountNumberField.setDisable(true);
         bankNameField.setDisable(true);
@@ -129,21 +148,19 @@ public class CreationPageControllerClaim extends CreationPageController implemen
         //set Array String for status choice box
 
 
-
         // If user is a manager and the selected claim has "NEW" status, the only option in the choice box will be "NEW", and the insurance surveyor field will not be disabled
-        if (claim.getStatus().equals("NEW")){
+        if (claim.getStatus().equals("NEW")) {
             String[] status = {"NEW"};
             statusChoiceBox.getItems().addAll(status);
             String insuranceSurveyorID = insuranceSurveyorIdField.getText();
             //Define handler for the submit button in case the claim's status is "NEW". The manager could only update the claim's Insurance Surveyor in this case
             submitButton.setOnAction(event -> {
                 ArrayList<InsuranceSurveyor> insuranceSurveyors = (ArrayList<InsuranceSurveyor>) ((InsuranceManager) user).getListOfSurveyors();
-                for (int i = 0; i < insuranceSurveyors.size(); i++){
-                    if (insuranceSurveyors.get(i).getId().equals(insuranceSurveyorID)){
+                for (int i = 0; i < insuranceSurveyors.size(); i++) {
+                    if (insuranceSurveyors.get(i).getId().equals(insuranceSurveyorID)) {
                         ClaimUpdate.updateClaim(entityManager, claim, insuranceSurveyors.get(i).getId());
                         break;
-                    }
-                    else {
+                    } else {
                         errorContainer.setText("Insurance Surveyor either does not exist or not belong to you");
                     }
                 }
@@ -155,21 +172,20 @@ public class CreationPageControllerClaim extends CreationPageController implemen
         else {
             insuranceSurveyorIdField.setDisable(true);
             //If the selected claim has "NEED INFO" status, the manager cannot select any other option. The submit button will also be disabled in this case
-            if (claim.getStatus().equals("NEED INFO")){
+            if (claim.getStatus().equals("NEED INFO")) {
                 String[] status = {"NEED INFO"};
                 statusChoiceBox.getItems().addAll(status);
                 submitButton.setDisable(true);
             }
             //If the selected claim has "PROCESSING" status, the manager can select either "APPROVED" or "REJECTED"
-            else if (claim.getStatus().equals("PROCESSING")){
+            else if (claim.getStatus().equals("PROCESSING")) {
                 String[] status = {"APPROVED", "REJECTED"};
                 statusChoiceBox.getItems().addAll(status);
                 //Monitoring for changes in the choice box's value. If the new value is "APPROVED", manager will have access to the claimAmountField
-                statusChoiceBox.valueProperty().addListener((observable, oldVal, newVal)->{
-                    if (newVal.equals("APPROVED")){
+                statusChoiceBox.valueProperty().addListener((observable, oldVal, newVal) -> {
+                    if (newVal.equals("APPROVED")) {
                         claimAmountField.setDisable(false);
-                    }
-                    else {
+                    } else {
                         claimAmountField.setDisable(true);
                     }
                 });
@@ -187,22 +203,20 @@ public class CreationPageControllerClaim extends CreationPageController implemen
                 Date date = new Date();
                 java.sql.Date settlementDate = new java.sql.Date(date.getTime());
                 //get claimAmount from TextField
-                if (status.equals("APPROVED")){
+                if (status.equals("APPROVED")) {
                     String stringClaimAmount = claimAmountField.getText();
                     int claimAmount = Integer.parseInt(stringClaimAmount);
                     String message = InputValidator.ClaimUpdateValidator(entityManager, claimAmount, (InsuranceManager) user);
-                    if (message.equals("Success")){
+                    if (message.equals("Success")) {
                         //If the message is "Success", update the claim in the database
                         //Selecting "APPROVED" will update claim's amount, claim's settlement date, and claim's status
                         ClaimUpdate.updateClaim(entityManager, claim, claimAmount, settlementDate, statusChoiceBox.getValue());
-                    }
-                    else {
+                    } else {
                         errorContainer.setText(message);
                     }
                     //input validator for claim amount
 
-                }
-                else {
+                } else {
                     //Selecting "REJECTED" will update claim's settlement date, and claim's status
                     ClaimUpdate.updateClaim(entityManager, claim, settlementDate, statusChoiceBox.getValue());
                 }
@@ -210,8 +224,9 @@ public class CreationPageControllerClaim extends CreationPageController implemen
             });
         }
     }
+
     //This method is called when the user is either an owner or a holder, and the claim attribute of the object is not null
-    public void updateModeCustomer(){
+    public void updateModeCustomer() {
         //disable necessary fields
         statusChoiceBox.setDisable(true);
         claimAmountField.setDisable(true);
@@ -232,8 +247,9 @@ public class CreationPageControllerClaim extends CreationPageController implemen
             }
         });
     }
+
     //This method is called when the claim attribute of the object is null
-    public void creteMode(){
+    public void creteMode() {
         //no need to set the condition if user is instance of policyHolder or policyOwner (Front-end logic handled that)
         //disable necessary fields
         statusChoiceBox.setDisable(true);
@@ -265,19 +281,15 @@ public class CreationPageControllerClaim extends CreationPageController implemen
     }
 
 
-
-
-
-    public CreationPageControllerClaim(EntityManager entityManager, User user, Beneficiaries beneficiary) {
+    public CreationAndUpdatePageControllerClaim(EntityManager entityManager, User user, Beneficiaries beneficiary) {
         super(entityManager, user);
         this.beneficiary = beneficiary;
     }
 
-    public CreationPageControllerClaim(EntityManager entityManager, User user, Claim claim) {
+    public CreationAndUpdatePageControllerClaim(EntityManager entityManager, User user, Claim claim) {
         super(entityManager, user);
         this.claim = claim;
     }
-
 
 
     //        public static void initializeUpdateCases () {

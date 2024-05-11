@@ -1,4 +1,4 @@
-package org.example.insurancemanagementapplication.Controller.CreationPageController;
+package org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController;
 
 import Entity.InsuranceManager;
 import Entity.User;
@@ -19,26 +19,26 @@ import java.util.ResourceBundle;
  * @created 29/04/2024 08:53
  * @project InsuranceManagementTeamProject
  */
-public class CreationPageControllerInsuranceManager extends CreationPageController implements EmployeeCreateRemove, EmployeeUpdate, Initializable, Controller {
+public class CreationAndUpdatePageControllerInsuranceManager extends CreationAndUpdatePageController implements EmployeeCreateRemove, EmployeeUpdate, Initializable, Controller {
 
-    public CreationPageControllerInsuranceManager(EntityManager entityManager, User user) {
+    public CreationAndUpdatePageControllerInsuranceManager(EntityManager entityManager, User user) {
         super(entityManager, user);
     }
 
-    public CreationPageControllerInsuranceManager(EntityManager entityManager, User user, InsuranceManager insuranceManager) {
+    public CreationAndUpdatePageControllerInsuranceManager(EntityManager entityManager, User user, InsuranceManager insuranceManager) {
         super(entityManager, user, insuranceManager);
 
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //See the CreationPageController Class for this method
+        //See the CreationAndUpdatePageController Class for this method
         setActionReturnButton();
         //When the controller is in update mode
         if (selectedUser != null){
-            //See the CreationPageController class for this method
+            //See the CreationAndUpdatePageController class for this method
             fillingFormAuto();
-            //See the CreationPageController class for this method
+            //See the CreationAndUpdatePageController class for this method
             setHandlerForSubmitButtonInUserUpdateMode();
         }
         //When the controller is in creation mode

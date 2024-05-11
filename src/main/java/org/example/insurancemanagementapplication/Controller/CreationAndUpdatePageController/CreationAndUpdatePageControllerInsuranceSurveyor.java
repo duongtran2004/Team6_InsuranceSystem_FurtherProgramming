@@ -1,4 +1,4 @@
-package org.example.insurancemanagementapplication.Controller.CreationPageController;
+package org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController;
 
 import Entity.InsuranceManager;
 import Entity.InsuranceSurveyor;
@@ -24,7 +24,7 @@ import java.util.ResourceBundle;
  * @created 29/04/2024 11:48
  * @project InsuranceManagementTeamProject
  */
-public class CreationPageControllerInsuranceSurveyor extends CreationPageController implements Initializable, EmployeeCreateRemove, EmployeeUpdate, Controller {
+public class CreationAndUpdatePageControllerInsuranceSurveyor extends CreationAndUpdatePageController implements Initializable, EmployeeCreateRemove, EmployeeUpdate, Controller {
     private InsuranceSurveyor insuranceSurveyor;
     private InsuranceManager manager;
     //This field will determine whether the application will update the Insurance Manager of the surveyor. True means Yes, False means No.
@@ -38,19 +38,19 @@ public class CreationPageControllerInsuranceSurveyor extends CreationPageControl
     @FXML
     private Button managerReassignButton;
 
-    public CreationPageControllerInsuranceSurveyor(EntityManager entityManager, User user, InsuranceSurveyor insuranceSurveyor) {
+    public CreationAndUpdatePageControllerInsuranceSurveyor(EntityManager entityManager, User user, InsuranceSurveyor insuranceSurveyor) {
         super(entityManager, user);
         this.insuranceSurveyor = insuranceSurveyor;
     }
 
-    public CreationPageControllerInsuranceSurveyor(EntityManager entityManager, User user, InsuranceManager manager) {
+    public CreationAndUpdatePageControllerInsuranceSurveyor(EntityManager entityManager, User user, InsuranceManager manager) {
         super(entityManager, user);
         this.manager = manager;
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //See the CreationPageController class for this method
+        //See the CreationAndUpdatePageController class for this method
         setActionReturnButton();
 
         managerIdField.setDisable(true);
@@ -61,7 +61,7 @@ public class CreationPageControllerInsuranceSurveyor extends CreationPageControl
         if (insuranceSurveyor != null){
             managerReassignButton.setDisable(false);
             managerIdField.setText(insuranceSurveyor.getInsuranceManagerId());
-            //see the CreationPageController class for this method
+            //see the CreationAndUpdatePageController class for this method
             fillingFormAuto();
 
             //Setting handler for the managerReassignButton. It will first change the current boolean value of the managerReassign Field to the opposite value. Based on the new boolean value, the managerId field is either disabled or enabled

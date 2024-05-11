@@ -1,4 +1,4 @@
-package org.example.insurancemanagementapplication.Controller.CreationPageController;
+package org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController;
 
 import Entity.Dependant;
 import Entity.PolicyHolder;
@@ -20,15 +20,15 @@ import java.util.ResourceBundle;
  * @created 29/04/2024 11:50
  * @project InsuranceManagementTeamProject
  */
-public class CreationPageControllerDependant extends CreationPageController implements CustomerCreateRemove, CustomerUpdate, Initializable, Controller {
+public class CreationAndUpdatePageControllerDependant extends CreationAndUpdatePageController implements CustomerCreateRemove, CustomerUpdate, Initializable, Controller {
     private PolicyHolder policyHolder;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //See the CreationPageController class for this method
+        //See the CreationAndUpdatePageController class for this method
         setActionReturnButton();
         //When the controller is in update mode
         if (selectedUser != null) {
-            //See the CreationPageController class for this method
+            //See the CreationAndUpdatePageController class for this method
             fillingFormAuto();
             //See the CrationPageController class for this method
             setHandlerForSubmitButtonInUserUpdateMode();
@@ -49,13 +49,13 @@ public class CreationPageControllerDependant extends CreationPageController impl
 
     }
 
-    public CreationPageControllerDependant(EntityManager entityManager, User user, PolicyHolder policyHolder) {
+    public CreationAndUpdatePageControllerDependant(EntityManager entityManager, User user, PolicyHolder policyHolder) {
         super(entityManager, user);
         this.policyHolder = policyHolder;
     }
 
 
-    public CreationPageControllerDependant(EntityManager entityManager, User user, Dependant dependant) {
+    public CreationAndUpdatePageControllerDependant(EntityManager entityManager, User user, Dependant dependant) {
        super(entityManager, user, dependant);
 
     }

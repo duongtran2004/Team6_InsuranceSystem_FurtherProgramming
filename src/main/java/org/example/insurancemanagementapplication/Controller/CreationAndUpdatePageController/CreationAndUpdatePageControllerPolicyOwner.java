@@ -1,4 +1,4 @@
-package org.example.insurancemanagementapplication.Controller.CreationPageController;
+package org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController;
 
 import Entity.PolicyOwner;
 import Entity.User;
@@ -19,16 +19,16 @@ import java.util.ResourceBundle;
  * @created 29/04/2024 11:49
  * @project InsuranceManagementTeamProject
  */
-public class CreationPageControllerPolicyOwner extends CreationPageController implements CustomerCreateRemove, CustomerUpdate, Initializable, Controller {
+public class CreationAndUpdatePageControllerPolicyOwner extends CreationAndUpdatePageController implements CustomerCreateRemove, CustomerUpdate, Initializable, Controller {
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //See the CreationPageController class
+        //See the CreationAndUpdatePageController class
         setActionReturnButton();
         //When the controller is in update mode
         if (selectedUser != null){
-            //See the CreationPageController class
+            //See the CreationAndUpdatePageController class
             fillingFormAuto();
             //See the CreationPage Controller Class
             setHandlerForSubmitButtonInUserUpdateMode();
@@ -49,11 +49,11 @@ public class CreationPageControllerPolicyOwner extends CreationPageController im
 
     }
 
-    public CreationPageControllerPolicyOwner(EntityManager entityManager, User user) {
+    public CreationAndUpdatePageControllerPolicyOwner(EntityManager entityManager, User user) {
         super(entityManager, user);
     }
 
-    public CreationPageControllerPolicyOwner(EntityManager entityManager, User user, PolicyOwner policyOwner) {
+    public CreationAndUpdatePageControllerPolicyOwner(EntityManager entityManager, User user, PolicyOwner policyOwner) {
         super(entityManager, user, policyOwner);
 
     }

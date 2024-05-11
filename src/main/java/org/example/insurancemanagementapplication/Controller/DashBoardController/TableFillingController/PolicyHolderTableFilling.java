@@ -12,9 +12,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageControllerClaim;
-import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageControllerDependant;
-import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageControllerPolicyHolder;
+import org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController.CreationAndUpdatePageControllerClaim;
+import org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController.CreationAndUpdatePageControllerDependant;
+import org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController.CreationAndUpdatePageControllerPolicyHolder;
 import org.example.insurancemanagementapplication.Interfaces.CustomerCreateRemove;
 import org.example.insurancemanagementapplication.Interfaces.CustomerRead;
 import org.example.insurancemanagementapplication.Utility.StageBuilder;
@@ -119,13 +119,13 @@ public class PolicyHolderTableFilling extends InsuranceCardTableFilling {
                 //The Update Info Button will create a CreationPage Controller for the policy holder in update mode by passing in the policy holder object
                 //It will then open the Policy Holder Creation Page
                 buttonUpdateInfo.setOnAction(event -> {
-                    CreationPageControllerPolicyHolder creationPageControllerPolicyHolder = new CreationPageControllerPolicyHolder(entityManager, user, policyHolder);
+                    CreationAndUpdatePageControllerPolicyHolder creationPageControllerPolicyHolder = new CreationAndUpdatePageControllerPolicyHolder(entityManager, user, policyHolder);
                     StageBuilder.showStage((Stage) buttonUpdateInfo.getScene().getWindow(), creationPageControllerPolicyHolder, "PolicyHolderCreationPage.fxml", "Policy Holder Update");
                 });
                 //The addDependant button will create a Dependant CreationPage Controller in creation mode by passing the policy holder object
                 //It will then open the Dependant Creation Form
                 buttonAddDependant.setOnAction(event -> {
-                    CreationPageControllerDependant creationPageControllerDependant = new CreationPageControllerDependant(entityManager, user, policyHolder);
+                    CreationAndUpdatePageControllerDependant creationPageControllerDependant = new CreationAndUpdatePageControllerDependant(entityManager, user, policyHolder);
                     StageBuilder.showStage((Stage) buttonAddDependant.getScene().getWindow(), creationPageControllerDependant, "DependantCreationAndUpdatePage.fxml", "Dependant Creation");
                 });
                 //The remove button will remove its policy holder from the database
@@ -141,7 +141,7 @@ public class PolicyHolderTableFilling extends InsuranceCardTableFilling {
                     //Create a ClaimCreationPage controller in creation mode by passing the policy holder object to the constructor
                     //Open a new scene in the existing stage by calling the showStage static method from the Repeated Code Class
                     buttonAddClaim.setOnAction(event -> {
-                        CreationPageControllerClaim creationPageControllerClaim = new CreationPageControllerClaim(entityManager, user, policyHolder);
+                        CreationAndUpdatePageControllerClaim creationPageControllerClaim = new CreationAndUpdatePageControllerClaim(entityManager, user, policyHolder);
                         StageBuilder.showStage((Stage) buttonAddClaim.getScene().getWindow(), creationPageControllerClaim, "ClaimCreationAndUpdatePage.fxml", "Claim Creation");
                     });
                     policyHolder.setAddClaimButton(buttonAddClaim);

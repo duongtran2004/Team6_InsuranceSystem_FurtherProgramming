@@ -14,7 +14,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageControllerInsuranceSurveyor;
+import org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController.CreationAndUpdatePageControllerInsuranceSurveyor;
 import org.example.insurancemanagementapplication.Interfaces.EmployeeCreateRemove;
 import org.example.insurancemanagementapplication.Interfaces.EmployeeRead;
 import org.example.insurancemanagementapplication.Utility.StageBuilder;
@@ -110,7 +110,7 @@ public class InsuranceSurveyorTableFilling extends PolicyOwnerTableFilling {
                 //The Update Info Button will create a CreationPage Controller for the Insurance Surveyor in update mode by passing in the insurance surveyor object
                 //It will then open the Insurance Surveyor Creation Page
                 buttonUpdateInfo.setOnAction(event -> {
-                    CreationPageControllerInsuranceSurveyor creationPageControllerInsuranceSurveyor = new CreationPageControllerInsuranceSurveyor(entityManager, user, insuranceSurveyor);
+                    CreationAndUpdatePageControllerInsuranceSurveyor creationPageControllerInsuranceSurveyor = new CreationAndUpdatePageControllerInsuranceSurveyor(entityManager, user, insuranceSurveyor);
                     StageBuilder.showStage((Stage) buttonUpdateInfo.getScene().getWindow(), creationPageControllerInsuranceSurveyor, "InsuranceSurveyorCreationPage.fxml", "Insurance Surveyor Update");
 
 

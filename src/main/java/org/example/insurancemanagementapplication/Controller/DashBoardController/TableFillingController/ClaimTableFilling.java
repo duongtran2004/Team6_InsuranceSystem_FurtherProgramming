@@ -10,10 +10,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageControllerClaim;
+import org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController.CreationAndUpdatePageControllerClaim;
 import org.example.insurancemanagementapplication.Interfaces.ClaimCreateRemove;
 import org.example.insurancemanagementapplication.Interfaces.ClaimRead;
-import org.example.insurancemanagementapplication.Interfaces.YearlyRateCalculation;
 import org.example.insurancemanagementapplication.Utility.StageBuilder;
 
 import java.sql.Date;
@@ -109,6 +108,7 @@ public class ClaimTableFilling implements ClaimCreateRemove {
     //User will input the max claim amount they want to see
     @FXML
     protected TextField claimAmountTo;
+
 
 
 
@@ -353,6 +353,7 @@ public class ClaimTableFilling implements ClaimCreateRemove {
                 //If the user is a system admin the button will have "View Claim" text.
                 if (user instanceof SystemAdmin) {
                     claimButton.setText("View Claim");
+                    //disable all textfield
                 }
                 //If the user is other types of users, the button will have the "Update Claim" text
                 else {
@@ -362,7 +363,7 @@ public class ClaimTableFilling implements ClaimCreateRemove {
                 //Binding a handler to the onClick event.
                 claimButton.setOnAction(event -> {
                     //Creating the Controller for Claim Creation Page in update mode by passing the claim into the constructor
-                    CreationPageControllerClaim creationPageControllerClaim = new CreationPageControllerClaim(entityManager, user, claim);
+                    CreationAndUpdatePageControllerClaim creationPageControllerClaim = new CreationAndUpdatePageControllerClaim(entityManager, user, claim);
 
                     StageBuilder.showStage((Stage) claimButton.getScene().getWindow(), creationPageControllerClaim, "ClaimCreationAndUpdatePage.fxml", "UpdateClaimAsAdmin");
                 });

@@ -12,8 +12,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageControllerClaim;
-import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageControllerDependant;
+import org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController.CreationAndUpdatePageControllerClaim;
+import org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController.CreationAndUpdatePageControllerDependant;
 import org.example.insurancemanagementapplication.Interfaces.CustomerCreateRemove;
 import org.example.insurancemanagementapplication.Interfaces.CustomerRead;
 import org.example.insurancemanagementapplication.Utility.StageBuilder;
@@ -137,10 +137,10 @@ public class DependantTableFilling extends ClaimTableFilling {
             if (user instanceof SystemAdmin || user instanceof Customer) {
                 //MAKE BUTTON TO UPDATE INFO OF DEPENDENT OBJECT BECOME VISIBLE
                 buttonUpdateInfo.setText("Update Info");
-                //Create a CreationPageController for the Dependant in Update mode by passing in the dependant object to the constructor
+                //Create a CreationAndUpdatePageController for the Dependant in Update mode by passing in the dependant object to the constructor
                 //Open a new scene on the existing stage by calling the showStage static method from the Repeated Code Class
                 buttonUpdateInfo.setOnAction(event -> {
-                    CreationPageControllerDependant creationPageControllerDependant = new CreationPageControllerDependant(entityManager, user, dependant);
+                    CreationAndUpdatePageControllerDependant creationPageControllerDependant = new CreationAndUpdatePageControllerDependant(entityManager, user, dependant);
                     StageBuilder.showStage((Stage) buttonUpdateInfo.getScene().getWindow(), creationPageControllerDependant, "DependantCreationAndUpdatePage.fxml", "Dependant Update");
 
                 });
@@ -163,7 +163,7 @@ public class DependantTableFilling extends ClaimTableFilling {
                     buttonAddClaim.setOnAction(event -> {
                         //Create a ClaimCreationPage controller in creation mode by passing the dependant object to the constructor
                         //Open a new scene in the existing stage by calling the showStage static method from the Repeated Code Class
-                        CreationPageControllerClaim creationPageControllerClaim = new CreationPageControllerClaim(entityManager, user, dependant);
+                        CreationAndUpdatePageControllerClaim creationPageControllerClaim = new CreationAndUpdatePageControllerClaim(entityManager, user, dependant);
                         StageBuilder.showStage((Stage) buttonUpdateInfo.getScene().getWindow(), creationPageControllerClaim, "ClaimCreationAndUpdatePage.fxml", "Claim Creation");
                     });
                     dependant.setAddClaimButton(buttonAddClaim);

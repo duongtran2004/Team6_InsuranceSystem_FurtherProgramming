@@ -1,4 +1,4 @@
-package org.example.insurancemanagementapplication.Controller.CreationPageController;
+package org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController;
 
 import Entity.InsuranceCard;
 import Entity.PolicyHolder;
@@ -24,7 +24,7 @@ import java.util.ResourceBundle;
  * @created 29/04/2024 11:50
  * @project InsuranceManagementTeamProject
  */
-public class CreationPageControllerPolicyHolder extends CreationPageController implements CustomerCreateRemove, CustomerUpdate, Initializable, Controller {
+public class CreationAndUpdatePageControllerPolicyHolder extends CreationAndUpdatePageController implements CustomerCreateRemove, CustomerUpdate, Initializable, Controller {
 
     private PolicyOwner policyOwner;
     @FXML
@@ -33,14 +33,14 @@ public class CreationPageControllerPolicyHolder extends CreationPageController i
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //See the CreationPageController class for this method
+        //See the CreationAndUpdatePageController class for this method
         setActionReturnButton();
         //when the controller is in update mode
         if (selectedUser != null){
             lengthOfContractField.setDisable(true);
-            //See the CreationPageController class for this method
+            //See the CreationAndUpdatePageController class for this method
             fillingFormAuto();
-            //See the CreationPageController class for this method
+            //See the CreationAndUpdatePageController class for this method
             setHandlerForSubmitButtonInUserUpdateMode();
 
         }
@@ -78,13 +78,13 @@ public class CreationPageControllerPolicyHolder extends CreationPageController i
     }
 
     //Calling this constructor when the controller is to be open in creation mode
-    public CreationPageControllerPolicyHolder(EntityManager entityManager, User user, PolicyOwner policyOwner) {
+    public CreationAndUpdatePageControllerPolicyHolder(EntityManager entityManager, User user, PolicyOwner policyOwner) {
        super(entityManager, user);
         this.policyOwner = policyOwner;
     }
 
     //Call this constructor when the controller is to be open in update mode
-    public CreationPageControllerPolicyHolder(EntityManager entityManager, User user, PolicyHolder policyHolder) {
+    public CreationAndUpdatePageControllerPolicyHolder(EntityManager entityManager, User user, PolicyHolder policyHolder) {
         super(entityManager, user, policyHolder);
     }
 }

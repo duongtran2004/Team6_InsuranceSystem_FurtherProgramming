@@ -13,8 +13,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageControllerInsuranceManager;
-import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageControllerInsuranceSurveyor;
+import org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController.CreationAndUpdatePageControllerInsuranceManager;
+import org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController.CreationAndUpdatePageControllerInsuranceSurveyor;
 import org.example.insurancemanagementapplication.Interfaces.EmployeeCreateRemove;
 import org.example.insurancemanagementapplication.Interfaces.EmployeeRead;
 import org.example.insurancemanagementapplication.Utility.StageBuilder;
@@ -102,7 +102,7 @@ public class InsuranceManagerTableFilling extends InsuranceSurveyorTableFilling 
             //The update info button on each row will create a CreationPage Controller in update mode for the corresponding insurance manager by passing in the insurance manager object
             //It will then open the Insurance Manager Creation Form
             buttonUpdateInfo.setOnAction(event -> {
-                CreationPageControllerInsuranceManager insuranceManagerCreationPageController = new CreationPageControllerInsuranceManager(entityManager, user, insuranceManager);
+                CreationAndUpdatePageControllerInsuranceManager insuranceManagerCreationPageController = new CreationAndUpdatePageControllerInsuranceManager(entityManager, user, insuranceManager);
                 StageBuilder.showStage((Stage) buttonUpdateInfo.getScene().getWindow(), insuranceManagerCreationPageController, "InsuranceManagerCreationPage.fxml", "Insurance Manager Update");
             });
 
@@ -111,7 +111,7 @@ public class InsuranceManagerTableFilling extends InsuranceSurveyorTableFilling 
             //The addSurveyor button will create an Insurance Surveyor CreationPage Controller in creation mode by passing the insurance manage object
             //It will then open the Insurance Surveyor Creation Form
             buttonAddSurveyor.setOnAction(event -> {
-                CreationPageControllerInsuranceSurveyor creationPageControllerInsuranceSurveyor = new CreationPageControllerInsuranceSurveyor(entityManager, user, insuranceManager);
+                CreationAndUpdatePageControllerInsuranceSurveyor creationPageControllerInsuranceSurveyor = new CreationAndUpdatePageControllerInsuranceSurveyor(entityManager, user, insuranceManager);
                 StageBuilder.showStage((Stage) buttonAddSurveyor.getScene().getWindow(), creationPageControllerInsuranceSurveyor, "InsuranceSurveyorCreationPage.fxml", "Insurance Surveyor Creation");
             });
 

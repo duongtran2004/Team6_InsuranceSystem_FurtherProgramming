@@ -1,4 +1,4 @@
-package org.example.insurancemanagementapplication.Controller.CreationPageController;
+package org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController;
 
 import Entity.*;
 import jakarta.persistence.EntityManager;
@@ -19,7 +19,7 @@ import org.example.insurancemanagementapplication.Utility.StageBuilder;
  * @created 03/05/2024 09:57
  * @project InsuranceManagementTeamProject
  */
-public abstract class CreationPageController {
+public abstract class CreationAndUpdatePageController {
     protected User user;
 
     protected EntityManager entityManager;
@@ -44,13 +44,13 @@ public abstract class CreationPageController {
 
 
 
-    public CreationPageController(EntityManager entityManager, User user, User selectedUser) {
+    public CreationAndUpdatePageController(EntityManager entityManager, User user, User selectedUser) {
         this.user = user;
         this.entityManager = entityManager;
         this.selectedUser = selectedUser;
     }
 
-    public CreationPageController(EntityManager entityManager, User user) {
+    public CreationAndUpdatePageController(EntityManager entityManager, User user) {
         this.user = user;
         this.entityManager = entityManager;
     }

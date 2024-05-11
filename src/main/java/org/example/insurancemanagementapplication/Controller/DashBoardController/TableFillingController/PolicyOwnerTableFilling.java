@@ -14,8 +14,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageControllerPolicyHolder;
-import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageControllerPolicyOwner;
+import org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController.CreationAndUpdatePageControllerPolicyHolder;
+import org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController.CreationAndUpdatePageControllerPolicyOwner;
 import org.example.insurancemanagementapplication.Interfaces.CustomerCreateRemove;
 import org.example.insurancemanagementapplication.Interfaces.CustomerRead;
 import org.example.insurancemanagementapplication.Interfaces.YearlyRateCalculation;
@@ -114,7 +114,7 @@ public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
                 //The Update Info Button will create a CreationPage Controller for the policy owner in update mode by passing in the policy owner object
                 //It will then open the Policy Owner Creation Page
                 buttonUpdateInfo.setOnAction(event -> {
-                    CreationPageControllerPolicyOwner creationPageControllerPolicyOwner = new CreationPageControllerPolicyOwner(entityManager, user, policyOwner);
+                    CreationAndUpdatePageControllerPolicyOwner creationPageControllerPolicyOwner = new CreationAndUpdatePageControllerPolicyOwner(entityManager, user, policyOwner);
                     StageBuilder.showStage((Stage) buttonUpdateInfo.getScene().getWindow(), creationPageControllerPolicyOwner, "PolicyOwnerCreationPage.fxml", "Policy Owner Update");
 
                 });
@@ -123,7 +123,7 @@ public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
                 //The addPolicyHolder button will create a Policy Holder CreationPage Controller in creation mode by passing the policy owner object
                 //It will then open the Policy Holder Creation Form
                 buttonAddPolicy.setOnAction(event -> {
-                    CreationPageControllerPolicyHolder creationPageControllerPolicyHolder = new CreationPageControllerPolicyHolder(entityManager, user, policyOwner);
+                    CreationAndUpdatePageControllerPolicyHolder creationPageControllerPolicyHolder = new CreationAndUpdatePageControllerPolicyHolder(entityManager, user, policyOwner);
                     StageBuilder.showStage((Stage) buttonAddPolicy.getScene().getWindow(), creationPageControllerPolicyHolder, "PolicyHolderCreationPage.fxml", "Policy Creation");
 
                 });
