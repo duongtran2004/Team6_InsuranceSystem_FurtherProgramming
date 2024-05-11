@@ -5,10 +5,14 @@ import jakarta.persistence.EntityManager;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.stage.Stage;
 import org.example.insurancemanagementapplication.Controller.DashBoardController.TableFillingController.ClaimTableFilling;
+import org.example.insurancemanagementapplication.Controller.LogInPageController;
 import org.example.insurancemanagementapplication.Interfaces.ClaimRead;
 import org.example.insurancemanagementapplication.Interfaces.Controller;
+import org.example.insurancemanagementapplication.Utility.StageBuilder;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -30,6 +34,15 @@ public class DependantDashBoardController extends ClaimTableFilling implements I
     @FXML
     protected Button
             clearClaimAmountButton;
+    @FXML
+    protected Button logOutButton;
+
+    protected void handleLogOutButton() throws IOException {
+//Set the current user to null
+        user = null;
+        StageBuilder.showStage((Stage) logOutButton.getScene().getWindow(), new LogInPageController(entityManager), "LogInPage.fxml", "Login Page");
+
+    }
 
     // Event handler for clearing the creation date filter
     protected void handleClearCreationDateButton() {
@@ -57,8 +70,17 @@ public class DependantDashBoardController extends ClaimTableFilling implements I
         claimAmountTo.clear();
         fillingClaimTable(entityManager, user, ClaimRead.getAllClaims(entityManager));
     }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        logOutButton.setOnAction(event -> {
+            try {
+                handleLogOutButton();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
 
         clearCreationDateButton.setOnAction(event -> handleClearCreationDateButton());
         clearSettlementDateButton.setOnAction(event -> handleClearSettlementDateButton());
@@ -69,7 +91,7 @@ public class DependantDashBoardController extends ClaimTableFilling implements I
         //Put this method call in a thread
 
         //Fill claim table
-        fillingClaimTable(entityManager, user, ClaimRead.getAllClaimsFromABeneficiary(entityManager,user.getId()));
+        fillingClaimTable(entityManager, user, ClaimRead.getAllClaimsFromABeneficiary(entityManager, user.getId()));
         //only get the claim related to that user
 
     }

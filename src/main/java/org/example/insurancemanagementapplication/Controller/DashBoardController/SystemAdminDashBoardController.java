@@ -10,10 +10,12 @@ import javafx.stage.Stage;
 import org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController.CreationAndUpdatePageControllerInsuranceManager;
 import org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController.CreationAndUpdatePageControllerPolicyOwner;
 import org.example.insurancemanagementapplication.Controller.DashBoardController.TableFillingController.InsuranceManagerTableFilling;
+import org.example.insurancemanagementapplication.Controller.LogInPageController;
 import org.example.insurancemanagementapplication.Interfaces.*;
 import org.example.insurancemanagementapplication.Utility.InputValidator;
 import org.example.insurancemanagementapplication.Utility.StageBuilder;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -46,6 +48,16 @@ public class SystemAdminDashBoardController extends InsuranceManagerTableFilling
     @FXML
     protected Button
             clearClaimAmountButton;
+//    private LogInPageController logInPageController;
+    @FXML
+    protected Button logOutButton;
+
+    protected void handleLogOutButton() throws IOException {
+//Set the current user to null
+        user = null;
+        StageBuilder.showStage((Stage) logOutButton.getScene().getWindow(), new LogInPageController(entityManager), "LogInPage.fxml", "Login Page");
+
+    }
 
     // Event handler for clearing the creation date filter
     protected void handleClearCreationDateButton() {
@@ -80,7 +92,10 @@ public class SystemAdminDashBoardController extends InsuranceManagerTableFilling
 
     public SystemAdminDashBoardController(EntityManager entityManager, User user) {
         super(entityManager, user);
+
     }
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -88,6 +103,13 @@ public class SystemAdminDashBoardController extends InsuranceManagerTableFilling
         clearCreationDateButton.setOnAction(event -> handleClearCreationDateButton());
         clearSettlementDateButton.setOnAction(event -> handleClearSettlementDateButton());
         clearClaimAmountButton.setOnAction(event -> handleClearClaimAmountButton());
+        logOutButton.setOnAction(event -> {
+            try {
+                handleLogOutButton();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
         //UPDATE INFO
         //See the ClaimTableFilling Class for this method
         //automatically fill the top form with current user info

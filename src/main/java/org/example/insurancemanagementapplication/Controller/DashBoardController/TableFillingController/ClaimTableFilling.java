@@ -35,7 +35,7 @@ import java.util.ListIterator;
 
 public class ClaimTableFilling implements ClaimCreateRemove {
     protected final EntityManager entityManager;
-    protected final User user;
+    protected User user;
     //TODO Create a thread that runs in a selected interval that get all claims from the database and check if new entries exist. If they do, append the new entries to the Observable List
     private ObservableList<Claim> claimObservableList = FXCollections.observableArrayList();
 

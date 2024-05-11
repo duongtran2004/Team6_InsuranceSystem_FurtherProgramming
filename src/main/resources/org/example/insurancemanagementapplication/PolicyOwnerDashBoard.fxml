@@ -38,7 +38,14 @@
             <children>
                 <HBox maxHeight="287.5" minHeight="287.5" minWidth="1150.0" prefHeight="287.5" prefWidth="1150.0" GridPane.hgrow="ALWAYS" GridPane.vgrow="NEVER">
                     <children>
-                        <Pane maxHeight="275.0" maxWidth="Infinity" minHeight="275.0" minWidth="150.0" prefHeight="275.0" prefWidth="150.0" HBox.hgrow="ALWAYS" />
+                        <Pane maxHeight="275.0" maxWidth="Infinity" minHeight="275.0" minWidth="150.0" prefHeight="275.0" prefWidth="150.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Button fx:id="logOutButton" layoutX="-8.0" layoutY="238.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="188.0" text="Log Out">
+                           <font>
+                              <Font name="Helvetica Neue Bold" size="16.0" />
+                           </font>
+                        </Button>
+                     </children></Pane>
                         <GridPane maxHeight="275.0" maxWidth="850.0" minHeight="275.0" minWidth="850.0" prefHeight="275.0" prefWidth="850.0" style="-fx-background-color: rgb(233, 229, 229);" HBox.hgrow="NEVER">
                             <columnConstraints>
                                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="421.0" minWidth="10.0" prefWidth="204.0" />
@@ -374,7 +381,7 @@
                                     </HBox.margin>
                                 </Label>
                                 <DatePicker fx:id="creationDateTo" />
-                        <Button fx:id="clearCreationDateButton" mnemonicParsing="false" onAction="#handleClearCreationDateButton" text="Clear Creation Date " />
+                        <Button fx:id="clearCreationDateButton" mnemonicParsing="false"  text="Clear Creation Date " />
                             </children>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">

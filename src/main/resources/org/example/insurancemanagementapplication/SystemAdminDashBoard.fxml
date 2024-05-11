@@ -535,7 +535,7 @@
                            </HBox.margin>
                         </Label>
                         <DatePicker fx:id="creationDateTo" />
-                        <Button fx:id="clearCreationDateButton" mnemonicParsing="false" onAction="#handleClearCreationDateButton" text="Clear Creation Date " />
+                        <Button fx:id="clearCreationDateButton" mnemonicParsing="false"  text="Clear Creation Date " />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">

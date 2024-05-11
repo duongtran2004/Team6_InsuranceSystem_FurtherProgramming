@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.example.insurancemanagementapplication.Controller.DashBoardController.*;
+import org.example.insurancemanagementapplication.Interfaces.Controller;
 import org.example.insurancemanagementapplication.Interfaces.CustomerRead;
 import org.example.insurancemanagementapplication.Interfaces.EmployeeRead;
 import org.example.insurancemanagementapplication.MainEntryPoint;
@@ -26,7 +27,7 @@ import java.util.ResourceBundle;
  * @created 27/04/2024 04:50
  * @project InsuranceManagementTeamProject
  */
-public class LogInPageController implements Initializable, CustomerRead, EmployeeRead {
+public class LogInPageController implements Controller,Initializable, CustomerRead, EmployeeRead {
     EntityManager entityManager;
 
     public LogInPageController(EntityManager entityManager) {

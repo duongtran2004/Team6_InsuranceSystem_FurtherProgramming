@@ -5,11 +5,15 @@ import jakarta.persistence.EntityManager;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.stage.Stage;
 import org.example.insurancemanagementapplication.Controller.DashBoardController.TableFillingController.DependantTableFilling;
+import org.example.insurancemanagementapplication.Controller.LogInPageController;
 import org.example.insurancemanagementapplication.Interfaces.ClaimRead;
 import org.example.insurancemanagementapplication.Interfaces.Controller;
 import org.example.insurancemanagementapplication.Interfaces.CustomerRead;
+import org.example.insurancemanagementapplication.Utility.StageBuilder;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -32,6 +36,15 @@ public class PolicyHolderDashBoardController extends DependantTableFilling imple
     @FXML
     protected Button
             clearClaimAmountButton;
+    @FXML
+    protected Button logOutButton;
+
+    protected void handleLogOutButton() throws IOException {
+//Set the current user to null
+        user = null;
+        StageBuilder.showStage((Stage) logOutButton.getScene().getWindow(), new LogInPageController(entityManager), "LogInPage.fxml", "Login Page");
+
+    }
 
     // Event handler for clearing the creation date filter
     protected void handleClearCreationDateButton() {
@@ -61,6 +74,13 @@ public class PolicyHolderDashBoardController extends DependantTableFilling imple
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        logOutButton.setOnAction(event -> {
+            try {
+                handleLogOutButton();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
         clearCreationDateButton.setOnAction(event -> handleClearCreationDateButton());
         clearSettlementDateButton.setOnAction(event -> handleClearSettlementDateButton());
