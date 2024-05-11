@@ -103,7 +103,7 @@ public class InsuranceManagerTableFilling extends InsuranceSurveyorTableFilling 
             //It will then open the Insurance Manager Creation Form
             buttonUpdateInfo.setOnAction(event -> {
                 CreationAndUpdatePageControllerInsuranceManager insuranceManagerCreationPageController = new CreationAndUpdatePageControllerInsuranceManager(entityManager, user, insuranceManager);
-                StageBuilder.showStage((Stage) buttonUpdateInfo.getScene().getWindow(), insuranceManagerCreationPageController, "InsuranceManagerCreationPage.fxml", "Insurance Manager Update");
+                StageBuilder.showStage((Stage) buttonUpdateInfo.getScene().getWindow(), insuranceManagerCreationPageController, "InsuranceManagerCreationAndUpdatePage.fxml", "Insurance Manager Update");
             });
 
             Button buttonAddSurveyor = new Button("Add Surveyor");
@@ -112,7 +112,7 @@ public class InsuranceManagerTableFilling extends InsuranceSurveyorTableFilling 
             //It will then open the Insurance Surveyor Creation Form
             buttonAddSurveyor.setOnAction(event -> {
                 CreationAndUpdatePageControllerInsuranceSurveyor creationPageControllerInsuranceSurveyor = new CreationAndUpdatePageControllerInsuranceSurveyor(entityManager, user, insuranceManager);
-                StageBuilder.showStage((Stage) buttonAddSurveyor.getScene().getWindow(), creationPageControllerInsuranceSurveyor, "InsuranceSurveyorCreationPage.fxml", "Insurance Surveyor Creation");
+                StageBuilder.showStage((Stage) buttonAddSurveyor.getScene().getWindow(), creationPageControllerInsuranceSurveyor, "InsuranceSurveyorCreationAndUpdatePage.fxml", "Insurance Surveyor Creation");
             });
 
             //The remove button will remove its insurance manager from the database

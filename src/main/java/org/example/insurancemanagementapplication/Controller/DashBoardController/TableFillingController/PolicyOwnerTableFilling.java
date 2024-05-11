@@ -115,7 +115,7 @@ public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
                 //It will then open the Policy Owner Creation Page
                 buttonUpdateInfo.setOnAction(event -> {
                     CreationAndUpdatePageControllerPolicyOwner creationPageControllerPolicyOwner = new CreationAndUpdatePageControllerPolicyOwner(entityManager, user, policyOwner);
-                    StageBuilder.showStage((Stage) buttonUpdateInfo.getScene().getWindow(), creationPageControllerPolicyOwner, "PolicyOwnerCreationPage.fxml", "Policy Owner Update");
+                    StageBuilder.showStage((Stage) buttonUpdateInfo.getScene().getWindow(), creationPageControllerPolicyOwner, "PolicyOwnerCreationAndUpdatePage.fxml", "Policy Owner Update");
 
                 });
 
@@ -124,7 +124,7 @@ public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
                 //It will then open the Policy Holder Creation Form
                 buttonAddPolicy.setOnAction(event -> {
                     CreationAndUpdatePageControllerPolicyHolder creationPageControllerPolicyHolder = new CreationAndUpdatePageControllerPolicyHolder(entityManager, user, policyOwner);
-                    StageBuilder.showStage((Stage) buttonAddPolicy.getScene().getWindow(), creationPageControllerPolicyHolder, "PolicyHolderCreationPage.fxml", "Policy Creation");
+                    StageBuilder.showStage((Stage) buttonAddPolicy.getScene().getWindow(), creationPageControllerPolicyHolder, "PolicyHolderCreationAndUpdatePage.fxml", "Policy Creation");
 
                 });
 

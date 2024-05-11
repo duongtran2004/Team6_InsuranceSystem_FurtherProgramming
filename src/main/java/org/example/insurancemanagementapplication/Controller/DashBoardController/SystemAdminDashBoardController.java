@@ -130,14 +130,14 @@ public class SystemAdminDashBoardController extends InsuranceManagerTableFilling
         addPolicyOwnerButton.setOnAction(event -> {
             CreationAndUpdatePageControllerPolicyOwner creationPageControllerPolicyOwner = new CreationAndUpdatePageControllerPolicyOwner(entityManager, user);
             //See the RepeatedCode class for this method
-            StageBuilder.showStage((Stage) addPolicyOwnerButton.getScene().getWindow(), creationPageControllerPolicyOwner, "PolicyOwnerCreationPage.fxml", "Policy Owner Creation Page");
+            StageBuilder.showStage((Stage) addPolicyOwnerButton.getScene().getWindow(), creationPageControllerPolicyOwner, "PolicyOwnerCreationAndUpdatePage.fxml", "Policy Owner Creation Page");
         });
 
         // ADD A NEW INSURANCE MANAGER USER
         //Add handler to the addManagerButton. this function creates a CreationPage Controller for Insurance Manager and then transfer the user to the Insurance Manager Creation Page
         addManagerButton.setOnAction(event -> {
             CreationAndUpdatePageControllerInsuranceManager creationPageControllerInsuranceManager = new CreationAndUpdatePageControllerInsuranceManager(entityManager, user);
-            StageBuilder.showStage((Stage) addManagerButton.getScene().getWindow(), creationPageControllerInsuranceManager, "InsuranceManagerCreationPage.fxml", "Insurance Manager Creation Page");
+            StageBuilder.showStage((Stage) addManagerButton.getScene().getWindow(), creationPageControllerInsuranceManager, "InsuranceManagerCreationAndUpdatePage.fxml", "Insurance Manager Creation Page");
         });
 
         //FILL ALL THE NECESSARY TABLE (CALL METHODS IN TABLE FILLING CLASS)

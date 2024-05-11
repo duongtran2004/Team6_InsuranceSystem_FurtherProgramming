@@ -120,7 +120,7 @@ public class PolicyHolderTableFilling extends InsuranceCardTableFilling {
                 //It will then open the Policy Holder Creation Page
                 buttonUpdateInfo.setOnAction(event -> {
                     CreationAndUpdatePageControllerPolicyHolder creationPageControllerPolicyHolder = new CreationAndUpdatePageControllerPolicyHolder(entityManager, user, policyHolder);
-                    StageBuilder.showStage((Stage) buttonUpdateInfo.getScene().getWindow(), creationPageControllerPolicyHolder, "PolicyHolderCreationPage.fxml", "Policy Holder Update");
+                    StageBuilder.showStage((Stage) buttonUpdateInfo.getScene().getWindow(), creationPageControllerPolicyHolder, "PolicyHolderCreationAndUpdatePage.fxml", "Policy Holder Update");
                 });
                 //The addDependant button will create a Dependant CreationPage Controller in creation mode by passing the policy holder object
                 //It will then open the Dependant Creation Form

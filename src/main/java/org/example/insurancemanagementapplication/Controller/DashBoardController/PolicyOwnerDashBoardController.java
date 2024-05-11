@@ -111,7 +111,7 @@ public class PolicyOwnerDashBoardController extends PolicyHolderTableFilling imp
         //event handling for button
         addPolicyHolderButton.setOnAction(event -> {
             CreationAndUpdatePageControllerPolicyHolder creationPageControllerPolicyHolder = new CreationAndUpdatePageControllerPolicyHolder(entityManager, user, (PolicyOwner) user);
-            StageBuilder.showStage((Stage) addPolicyHolderButton.getScene().getWindow(), creationPageControllerPolicyHolder, "PolicyHolderCreationPage.fxml", "PolicyHolderCreationPage");
+            StageBuilder.showStage((Stage) addPolicyHolderButton.getScene().getWindow(), creationPageControllerPolicyHolder, "PolicyHolderCreationAndUpdatePage.fxml", "PolicyHolderCreationPage");
         });
     }
 
