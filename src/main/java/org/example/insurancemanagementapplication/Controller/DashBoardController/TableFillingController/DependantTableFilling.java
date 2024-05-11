@@ -178,6 +178,7 @@ public class DependantTableFilling extends ClaimTableFilling {
         dependantId.setCellValueFactory(new PropertyValueFactory<Dependant, String>("id"));
         dependantFullName.setCellValueFactory(new PropertyValueFactory<Dependant, String>("fullName"));
         dependantAddress.setCellValueFactory(new PropertyValueFactory<Dependant, String>("address"));
+        dependantPhoneNumber.setCellValueFactory(new PropertyValueFactory<Dependant, String>("phoneNumber"));
         dependantEmail.setCellValueFactory(new PropertyValueFactory<Dependant, String>("email"));
         dependantPassword.setCellValueFactory(new PropertyValueFactory<Dependant, String>("password"));
         policyOwnerDependantTable.setCellValueFactory(new PropertyValueFactory<Dependant, String>("policyOwnerId"));

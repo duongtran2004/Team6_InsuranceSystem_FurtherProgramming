@@ -131,6 +131,7 @@ public class InsuranceSurveyorTableFilling extends PolicyOwnerTableFilling {
         surveyorId.setCellValueFactory(new PropertyValueFactory<InsuranceSurveyor, String>("id"));
         surveyorFullName.setCellValueFactory(new PropertyValueFactory<InsuranceSurveyor, String>("fullName"));
         surveyorAddress.setCellValueFactory(new PropertyValueFactory<InsuranceSurveyor, String>("address"));
+        surveyorPhoneNumber.setCellValueFactory(new PropertyValueFactory<InsuranceSurveyor, String>("phoneNumber"));
         surveyorEmail.setCellValueFactory(new PropertyValueFactory<InsuranceSurveyor, String>("email"));
         surveyorPassword.setCellValueFactory(new PropertyValueFactory<InsuranceSurveyor, String>("password"));
         manager.setCellValueFactory(new PropertyValueFactory<InsuranceSurveyor, String>("insuranceManagerId"));

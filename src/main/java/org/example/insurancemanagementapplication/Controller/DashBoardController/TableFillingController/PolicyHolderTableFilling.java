@@ -155,6 +155,7 @@ public class PolicyHolderTableFilling extends InsuranceCardTableFilling {
         policyHolderId.setCellValueFactory(new PropertyValueFactory<PolicyHolder, String>("id"));
         policyHolderFullName.setCellValueFactory(new PropertyValueFactory<PolicyHolder, String>("fullName"));
         policyHolderAddress.setCellValueFactory(new PropertyValueFactory<PolicyHolder, String>("address"));
+        policyHolderPhoneNumber.setCellValueFactory(new PropertyValueFactory<PolicyHolder, String>("phoneNumber"));
         policyHolderEmail.setCellValueFactory(new PropertyValueFactory<PolicyHolder, String>("email"));
         policyOwnerHolderTable.setCellValueFactory(new PropertyValueFactory<PolicyHolder, String>("policyOwnerId"));
         cardNumberHolderTable.setCellValueFactory(new PropertyValueFactory<PolicyHolder, String>("cardNumber"));
