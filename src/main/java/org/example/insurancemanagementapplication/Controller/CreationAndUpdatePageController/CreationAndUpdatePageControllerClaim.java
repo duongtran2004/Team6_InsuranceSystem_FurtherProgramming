@@ -36,9 +36,11 @@ public class CreationAndUpdatePageControllerClaim extends CreationAndUpdatePageC
     @FXML
     private TextField claimAmountField;
     @FXML
-    private TextField insuranceSurveyorIdField;
+    private TextField insuredPersonIDField;
     @FXML
-    private TextField insuranceManagerIdField;
+    private TextField insuranceSurveyorIDField;
+    @FXML
+    private TextField insuranceManagerIDField;
     @FXML
     private TextField cardNumberField;
 
@@ -52,7 +54,7 @@ public class CreationAndUpdatePageControllerClaim extends CreationAndUpdatePageC
     @FXML
     private ChoiceBox<String> statusChoiceBox;
     @FXML
-    private Button updloadDocumentButton;
+    private Button uploadDocumentButton;
     @FXML
     private Button viewDocumentButton;
 
@@ -106,12 +108,13 @@ public class CreationAndUpdatePageControllerClaim extends CreationAndUpdatePageC
         bankNameField.setDisable(true);
         claimAmountField.setDisable(true);
         cardNumberField.setDisable(true);
-        insuranceSurveyorIdField.setDisable(true);
-        insuranceManagerIdField.setDisable(true);
+        insuranceSurveyorIDField.setDisable(true);
+        insuredPersonIDField.setDisable(true);
+        insuranceManagerIDField.setDisable(true);
         statusChoiceBox.setDisable(true);
 
         submitButton.setDisable(true);
-        updloadDocumentButton.setDisable(true);
+        uploadDocumentButton.setDisable(true);
 
     }
 
@@ -124,8 +127,8 @@ public class CreationAndUpdatePageControllerClaim extends CreationAndUpdatePageC
         claimAmountField.setDisable(true);
         cardNumberField.setDisable(true);
         //set disable for insurance manager and insurance surveyor field
-        insuranceSurveyorIdField.setDisable(true);
-        insuranceManagerIdField.setDisable(true);
+        insuranceSurveyorIDField.setDisable(true);
+        insuranceManagerIDField.setDisable(true);
 
         //set Array String for status choice box
         String[] Status = {"NEED INF", "PROCESSING"};
@@ -142,7 +145,7 @@ public class CreationAndUpdatePageControllerClaim extends CreationAndUpdatePageC
         bankAccountNameField.setDisable(true);
         bankAccountNumberField.setDisable(true);
         bankNameField.setDisable(true);
-        insuranceManagerIdField.setDisable(true);
+        insuranceManagerIDField.setDisable(true);
         cardNumberField.setDisable(true);
         claimAmountField.setDisable(true);
         //set Array String for status choice box
@@ -152,7 +155,7 @@ public class CreationAndUpdatePageControllerClaim extends CreationAndUpdatePageC
         if (claim.getStatus().equals("NEW")) {
             String[] status = {"NEW"};
             statusChoiceBox.getItems().addAll(status);
-            String insuranceSurveyorID = insuranceSurveyorIdField.getText();
+            String insuranceSurveyorID = insuranceSurveyorIDField.getText();
             //Define handler for the submit button in case the claim's status is "NEW". The manager could only update the claim's Insurance Surveyor in this case
             submitButton.setOnAction(event -> {
                 ArrayList<InsuranceSurveyor> insuranceSurveyors = (ArrayList<InsuranceSurveyor>) ((InsuranceManager) user).getListOfSurveyors();
@@ -170,7 +173,7 @@ public class CreationAndUpdatePageControllerClaim extends CreationAndUpdatePageC
 
         //If user is a manager and the selected claim has one of the statuses, the insurance surveyor field will be disabled
         else {
-            insuranceSurveyorIdField.setDisable(true);
+            insuranceSurveyorIDField.setDisable(true);
             //If the selected claim has "NEED INFO" status, the manager cannot select any other option. The submit button will also be disabled in this case
             if (claim.getStatus().equals("NEED INFO")) {
                 String[] status = {"NEED INFO"};
@@ -230,8 +233,8 @@ public class CreationAndUpdatePageControllerClaim extends CreationAndUpdatePageC
         //disable necessary fields
         statusChoiceBox.setDisable(true);
         claimAmountField.setDisable(true);
-        insuranceManagerIdField.setDisable(true);
-        insuranceSurveyorIdField.setDisable(true);
+        insuranceManagerIDField.setDisable(true);
+        insuranceSurveyorIDField.setDisable(true);
         cardNumberField.setDisable(true);
         //not allowed to update insured person id
         //After use clicked on submit button
@@ -254,8 +257,8 @@ public class CreationAndUpdatePageControllerClaim extends CreationAndUpdatePageC
         //disable necessary fields
         statusChoiceBox.setDisable(true);
         claimAmountField.setDisable(true);
-        insuranceManagerIdField.setDisable(true);
-        insuranceSurveyorIdField.setDisable(true);
+        insuranceManagerIDField.setDisable(true);
+        insuranceSurveyorIDField.setDisable(true);
         cardNumberField.setDisable(true);
         submitButton.setOnAction(event -> {
             //read text fields => store to variables
