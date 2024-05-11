@@ -187,7 +187,7 @@ public class DependantTableFilling extends ClaimTableFilling {
 
         //CRUD for Dependent objects
 
-        if ((user instanceof PolicyOwner || user instanceof PolicyHolder)) {
+        if ((user instanceof PolicyOwner || user instanceof PolicyHolder || user instanceof SystemAdmin)) {
             //only PolicyOwner and PolicyHolder and update information of Dependent object
             dependantUpdateInfoButton.setCellValueFactory(new PropertyValueFactory<Dependant, Button>("updateInfoButton"));
         }
@@ -335,6 +335,7 @@ class DependantTableFillingThread extends Thread {
         this.entityManager = entityManager;
         this.user = user;
     }
+
     //For PolicyHolder
     public static void DependantTableFillingThreadForPolicyHolder(EntityManager entityManager, User user) {
         DependantTableFilling dependantTableFilling = new DependantTableFilling(entityManager, user);
