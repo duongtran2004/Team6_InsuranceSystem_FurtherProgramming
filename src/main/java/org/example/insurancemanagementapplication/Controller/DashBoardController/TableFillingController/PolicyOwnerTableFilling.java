@@ -18,6 +18,7 @@ import org.example.insurancemanagementapplication.Controller.CreationPageControl
 import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageControllerPolicyOwner;
 import org.example.insurancemanagementapplication.Interfaces.CustomerCreateRemove;
 import org.example.insurancemanagementapplication.Interfaces.CustomerRead;
+import org.example.insurancemanagementapplication.Interfaces.YearlyRateCalculation;
 import org.example.insurancemanagementapplication.Utility.StageBuilder;
 
 import java.util.List;
@@ -54,6 +55,8 @@ public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
     protected TableColumn<PolicyOwner, Button> policyOwnerRemoveButton;
     @FXML
     protected TextField policyOwnerSearchField;
+        @FXML
+        protected TableColumn<PolicyOwner, Integer> policyOwnerTotalYearlyRate;
 
     public PolicyOwnerTableFilling(EntityManager entityManager, User user) {
         super(entityManager, user);
@@ -131,6 +134,10 @@ public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
                     CustomerCreateRemove.removePolicyOwner(entityManager, policyOwner );
                 });
                 policyOwner.setAddPolicyButton(buttonAddPolicy);
+
+                // Calculate the total yearly rate for the policy owner
+                int yearlyRate = YearlyRateCalculation.calculateYearlyRateOfAPolicyOwner(entityManager, policyOwner.getId());
+                policyOwner.setTotalYearlyRate(yearlyRate);
             }
 
             policyOwnersObservableList.add(policyOwner);
@@ -144,10 +151,13 @@ public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
         policyOwnerEmail.setCellValueFactory(new PropertyValueFactory<PolicyOwner, String>("email"));
         policyOwnerPassword.setCellValueFactory(new PropertyValueFactory<PolicyOwner, String>("password"));
         policyOwnerPhoneNumber.setCellValueFactory(new PropertyValueFactory<PolicyOwner, String>("phoneNumber"));
+
         if (user instanceof SystemAdmin){
+            policyOwnerTotalYearlyRate.setCellValueFactory(new PropertyValueFactory<>("totalYearlyRate"));
             policyOwnerUpdateInfoButton.setCellValueFactory(new PropertyValueFactory<PolicyOwner, Button>("updateInfoButton"));
             policyOwnerAddPolicyButton.setCellValueFactory(new PropertyValueFactory<PolicyOwner, Button>("addPolicyButton"));
             policyOwnerRemoveButton.setCellValueFactory(new PropertyValueFactory<PolicyOwner, Button>("removeButton"));
+
         }
         FilteredList<PolicyOwner> filteredPolicyOwnerList = new FilteredList<>(policyOwnersObservableList, b -> true);
         filteringPolicyOwnerTable(filteredPolicyOwnerList);

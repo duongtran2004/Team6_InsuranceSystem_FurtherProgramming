@@ -100,14 +100,24 @@
                                   <PasswordField fx:id="passwordValidationField" minWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                         <PasswordField fx:id="passwordField" minWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                         <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
-                          <buttons>
-                            <Button fx:id="addPolicyHolderButton" mnemonicParsing="false" text="Add Policy Holder">
+                           <buttons>
+                              <Label fx:id="totalYearlyRateLabel" alignment="CENTER" prefHeight="30.0" prefWidth="574.0">
                                  <font>
                                     <Font name="Helvetica Neue Bold" size="16.0" />
                                  </font>
-                              </Button>
-                          </buttons>
+                              </Label>
+                           </buttons>
                         </ButtonBar>
+                      <Button fx:id="addPolicyHolderButton" alignment="CENTER_RIGHT" contentDisplay="CENTER" mnemonicParsing="false" text="Add Policy Holder" GridPane.columnIndex="1" GridPane.rowIndex="8">
+                           <font>
+                              <Font name="Helvetica Neue Bold" size="16.0" />
+                           </font>
+                        </Button>
+                        <Label alignment="CENTER" prefHeight="36.0" prefWidth="204.0" text="Total Yearly Rate" GridPane.rowIndex="7">
+                           <font>
+                              <Font name="Helvetica Neue Bold" size="16.0" />
+                           </font>
+                        </Label>
                             </children>
                             <padding>
                                 <Insets right="75.0" top="10.0" />

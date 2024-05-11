@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import org.example.insurancemanagementapplication.Controller.CreationPageController.CreationPageControllerClaim;
 import org.example.insurancemanagementapplication.Interfaces.ClaimCreateRemove;
 import org.example.insurancemanagementapplication.Interfaces.ClaimRead;
+import org.example.insurancemanagementapplication.Interfaces.YearlyRateCalculation;
 import org.example.insurancemanagementapplication.Utility.StageBuilder;
 
 import java.sql.Date;
@@ -109,6 +110,10 @@ public class ClaimTableFilling implements ClaimCreateRemove {
     @FXML
     protected TextField claimAmountTo;
 
+    //For Policy Owner to see total yearly rate
+    @FXML
+    protected TextField totalYearlyRateLabel;
+
 
     /**
      * Filling the form on top of the dashboard with user's information. The fields are disabled unless the user is a system admin
@@ -130,6 +135,11 @@ public class ClaimTableFilling implements ClaimCreateRemove {
             emailField.setDisable(true);
             passwordField.setDisable(true);
             passwordValidationField.setDisable(true);
+        }
+        if (user instanceof PolicyOwner) {
+            int yearlyRate = YearlyRateCalculation.calculateYearlyRateOfAPolicyOwner(entityManager, user.getId());
+            totalYearlyRateLabel.setText(String.valueOf(yearlyRate));
+
         }
     }
 

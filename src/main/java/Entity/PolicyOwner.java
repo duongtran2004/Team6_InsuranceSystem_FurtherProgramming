@@ -1,6 +1,9 @@
 package Entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import javafx.scene.control.Button;
 
 import java.util.Collection;
@@ -28,6 +31,9 @@ public class PolicyOwner extends Customer {
     private Collection<Claim> listOfClaims;
     @OneToMany(mappedBy = "policyOwner")
     private Collection<InsuranceCard> listOfInsuranceCards;
+
+    @Transient
+    private int totalYearlyRate;
 
     public Button getAddPolicyButton() {
         return addPolicyButton;
@@ -60,12 +66,12 @@ public class PolicyOwner extends Customer {
     public void setListOfInsuranceCards(Collection<InsuranceCard> listOfInsuranceCards) {
         this.listOfInsuranceCards = listOfInsuranceCards;
     }
-//
-//    public int getYearlyRate() {
-//        return yearlyRate;
-//    }
-//
-//    public void setYearlyRate(int yearlyRate) {
-//        this.yearlyRate = yearlyRate;
-//    }
+
+    public int getTotalYearlyRate() {
+        return totalYearlyRate;
+    }
+
+    public void setTotalYearlyRate(int totalYearlyRate) {
+        this.totalYearlyRate = totalYearlyRate;
+    }
 }
