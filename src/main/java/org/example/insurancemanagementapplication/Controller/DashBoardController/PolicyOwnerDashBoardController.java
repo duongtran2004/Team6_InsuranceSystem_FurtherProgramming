@@ -7,6 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController.CreationAndUpdatePageControllerPolicyHolder;
@@ -31,10 +32,52 @@ public class PolicyOwnerDashBoardController extends PolicyHolderTableFilling imp
     //For Policy Owner to see total yearly rate
     @FXML
     protected Label totalYearlyRateLabel;
+    //Cancel choices button
+    @FXML
+    protected Button
+            clearCreationDateButton;
+    @FXML
+    protected Button
+            clearSettlementDateButton;
+
+    @FXML
+    protected Button
+            clearClaimAmountButton;
+
+    // Event handler for clearing the creation date filter
+    protected void handleClearCreationDateButton() {
+        creationDateFrom.setValue(null);
+        creationDateFrom.getEditor().clear();
+        creationDateTo.setValue(null);
+        creationDateTo.getEditor().clear();
+        fillingClaimTable(entityManager, user, ClaimRead.getAllClaims(entityManager)); //refill claim table
+    }
+
+    // Event handler for clearing the settlement date filter
+
+    protected void handleClearSettlementDateButton() {
+        settlementDateFrom.setValue(null);
+        settlementDateFrom.getEditor().clear();
+        settlementDateTo.setValue(null);
+        settlementDateTo.getEditor().clear();
+        fillingClaimTable(entityManager, user, ClaimRead.getAllClaims(entityManager));
+    }
+
+    // Event handler for clearing the claim amount filter
+
+    protected void handleClearClaimAmountButton() {
+        claimAmountFrom.clear();
+        claimAmountTo.clear();
+        fillingClaimTable(entityManager, user, ClaimRead.getAllClaims(entityManager));
+    }
+
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        clearCreationDateButton.setOnAction(event -> handleClearCreationDateButton());
+        clearSettlementDateButton.setOnAction(event -> handleClearSettlementDateButton());
+        clearClaimAmountButton.setOnAction(event -> handleClearClaimAmountButton());
         //fill table
         //see the ClaimTableFilling Class
         userFillingData();

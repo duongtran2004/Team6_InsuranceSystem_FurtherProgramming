@@ -374,6 +374,7 @@
                                     </HBox.margin>
                                 </Label>
                                 <DatePicker fx:id="creationDateTo" />
+                        <Button fx:id="clearCreationDateButton" mnemonicParsing="false" onAction="#handleClearCreationDateButton" text="Clear Creation Date " />
                             </children>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
@@ -400,6 +401,7 @@
                                     </HBox.margin>
                                 </Label>
                                 <DatePicker fx:id="settlementDateTo" />
+                        <Button fx:id="clearSettlementDateButton" mnemonicParsing="false" text="Clear Settlement Date" />
                             </children>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
@@ -426,6 +428,7 @@
                                     </HBox.margin>
                                 </Label>
                                 <TextField fx:id="claimAmountTo" prefHeight="25.0" prefWidth="185.0" />
+                        <Button fx:id="clearClaimAmountButton" mnemonicParsing="false" text="Clear Claim Amount" />
                             </children>
                         </HBox>
                     </children>

@@ -113,6 +113,8 @@ public class ClaimTableFilling implements ClaimCreateRemove {
 
 
 
+
+
     /**
      * Filling the form on top of the dashboard with user's information. The fields are disabled unless the user is a system admin
      */
@@ -134,8 +136,6 @@ public class ClaimTableFilling implements ClaimCreateRemove {
             passwordField.setDisable(true);
             passwordValidationField.setDisable(true);
         }
-
-
 
 
     }
@@ -178,28 +178,32 @@ public class ClaimTableFilling implements ClaimCreateRemove {
         //claimSorting choiceBox
         //add a listener to the sort list choice box. The listener will monitor the choice box's value to apply the correct sorting
         sortList.valueProperty().addListener((observable, oldVal, newVal) -> {
-            if (newVal.equals("Sort By Creation Date In Ascending Order")) {
-                ClaimCreationDateComparator claimCreationDateComparator = new ClaimCreationDateComparator();
-                sortedClaimList.sort(claimCreationDateComparator);
-            } else if (newVal.equals("Sort By Creation Date In Descending Order")) {
-                ClaimCreationDateComparator claimCreationDateComparator = new ClaimCreationDateComparator();
-                sortedClaimList.sort(claimCreationDateComparator);
-                sortedClaimList.reversed();
-            } else if (newVal.equals("Sort By Settlement Date In Ascending Order")) {
-                ClaimSettlementDateComparator claimSettlementDateComparator = new ClaimSettlementDateComparator();
-                sortedClaimList.sort(claimSettlementDateComparator);
-            } else if (newVal.equals("Sort By Settlement Date In Descending Order")) {
-                ClaimSettlementDateComparator claimSettlementDateComparator = new ClaimSettlementDateComparator();
-                sortedClaimList.sort(claimSettlementDateComparator);
-                sortedClaimList.reversed();
-            } else if (newVal.equals("Sort by Claim Amount In Ascending Order")) {
-                ClaimAmountComparator claimAmountComparator = new ClaimAmountComparator();
-                sortedClaimList.sort(claimAmountComparator);
-            } else if (newVal.equals("Sort by Claim Amount In Descending Order")) {
-                ClaimAmountComparator claimAmountComparator = new ClaimAmountComparator();
-                sortedClaimList.sort(claimAmountComparator);
-                sortedClaimList.reversed();
+            //only change the observable list if other options except "NONE
+            if (!(newVal.equals("NONE"))) {
+                if (newVal.equals("Sort By Creation Date In Ascending Order")) {
+                    ClaimCreationDateComparator claimCreationDateComparator = new ClaimCreationDateComparator();
+                    sortedClaimList.sort(claimCreationDateComparator);
+                } else if (newVal.equals("Sort By Creation Date In Descending Order")) {
+                    ClaimCreationDateComparator claimCreationDateComparator = new ClaimCreationDateComparator();
+                    sortedClaimList.sort(claimCreationDateComparator);
+                    sortedClaimList.reversed();
+                } else if (newVal.equals("Sort By Settlement Date In Ascending Order")) {
+                    ClaimSettlementDateComparator claimSettlementDateComparator = new ClaimSettlementDateComparator();
+                    sortedClaimList.sort(claimSettlementDateComparator);
+                } else if (newVal.equals("Sort By Settlement Date In Descending Order")) {
+                    ClaimSettlementDateComparator claimSettlementDateComparator = new ClaimSettlementDateComparator();
+                    sortedClaimList.sort(claimSettlementDateComparator);
+                    sortedClaimList.reversed();
+                } else if (newVal.equals("Sort by Claim Amount In Ascending Order")) {
+                    ClaimAmountComparator claimAmountComparator = new ClaimAmountComparator();
+                    sortedClaimList.sort(claimAmountComparator);
+                } else if (newVal.equals("Sort by Claim Amount In Descending Order")) {
+                    ClaimAmountComparator claimAmountComparator = new ClaimAmountComparator();
+                    sortedClaimList.sort(claimAmountComparator);
+                    sortedClaimList.reversed();
+                }
             }
+
 
         });
     }
@@ -316,7 +320,7 @@ public class ClaimTableFilling implements ClaimCreateRemove {
         //Add a handler to the statusList choice box
         statusList.valueProperty().addListener((observable, oldVal, newVal) -> {
             filteredClaimList.setPredicate(claim -> {
-                if (newVal == null) {
+                if (newVal == null || newVal.equals("NONE")) {
                     return true;
                 } else if (claim.getStatus().equals(newVal)) {
                     return true;
@@ -331,10 +335,10 @@ public class ClaimTableFilling implements ClaimCreateRemove {
     //This method maps table's columns with entity's fields and fill the table up with data.
     public void fillingClaimTable(EntityManager entityManager, User user, List<Claim> claims) {
         //Putting values into the statusList choice box
-        String[] statusArray = {"NEW", "PROCESSING", "NEED INFO", "APPROVED", "REJECTED"};
+        String[] statusArray = {"NEW", "PROCESSING", "NEED INFO", "APPROVED", "REJECTED", "NONE"};
         statusList.getItems().setAll(statusArray);
         //Putting values into the sortList choice box
-        String[] sortArray = {"Sort By Creation Date In Ascending Order", "Sort By Creation Date In Descending Order", "Sort By Settlement Date In Ascending Order", "Sort By Settlement Date In Descending Order", "Sort by Claim Amount In Ascending Order", "Sort by Claim Amount In Descending Order"};
+        String[] sortArray = {"Sort By Creation Date In Ascending Order", "Sort By Creation Date In Descending Order", "Sort By Settlement Date In Ascending Order", "Sort By Settlement Date In Descending Order", "Sort by Claim Amount In Ascending Order", "Sort by Claim Amount In Descending Order", "NONE"};
         sortList.getItems().setAll(sortArray);
         ListIterator<Claim> claimListIterator = claims.listIterator();
         //Adding Claims to the claim observable list
@@ -558,6 +562,8 @@ public class ClaimTableFilling implements ClaimCreateRemove {
     public void setClaimAmountTo(TextField claimAmountTo) {
         this.claimAmountTo = claimAmountTo;
     }
+
+
 }
 
 //Inner class for thread
