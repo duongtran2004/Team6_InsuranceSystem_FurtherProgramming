@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="2550.0" maxWidth="Infinity" minHeight="450.0" minWidth="800.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="2950.0" maxWidth="Infinity" minHeight="450.0" minWidth="800.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
     <padding>
         <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
     </padding>
@@ -28,6 +28,7 @@
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints maxHeight="300.0" minHeight="300.0" prefHeight="300.0" vgrow="NEVER" />
+            <RowConstraints maxHeight="400.0" minHeight="400.0" prefHeight="400.0" vgrow="NEVER" />
                 <RowConstraints maxHeight="200.0" minHeight="200.0" prefHeight="200.0" vgrow="NEVER" />
                 <RowConstraints maxHeight="400.0" minHeight="400.0" prefHeight="400.0" vgrow="NEVER" />
                 <RowConstraints maxHeight="400.0" minHeight="400.0" prefHeight="400.0" vgrow="NEVER" />
@@ -116,7 +117,7 @@
                         <Insets bottom="12.5" />
                     </GridPane.margin>
                 </HBox>
-                <GridPane maxHeight="400.0" maxWidth="Infinity" minHeight="400.0" minWidth="1150.0" GridPane.rowIndex="3">
+                <GridPane maxHeight="400.0" maxWidth="Infinity" minHeight="400.0" minWidth="1150.0" GridPane.rowIndex="4">
                     <columnConstraints>
                         <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
@@ -126,7 +127,7 @@
                         <RowConstraints maxHeight="325.0" minHeight="325.0" prefHeight="325.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <ScrollPane fitToWidth="true" maxHeight="325" maxWidth="Infinity" prefHeight="200.0" prefWidth="200.0" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
+                        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" maxHeight="325" maxWidth="Infinity" prefHeight="200.0" prefWidth="200.0" vbarPolicy="NEVER" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
                             <content>
                                 <TableView fx:id="policyOwnerTable" maxHeight="Infinity" maxWidth="Infinity" minHeight="325.0" minWidth="1150.0" prefHeight="325.0" prefWidth="1600.0">
                                     <columns>
@@ -160,7 +161,7 @@
                         </Label>
                     </children>
                 </GridPane>
-                <GridPane maxHeight="400.0" maxWidth="Infinity" minHeight="400.0" minWidth="1150.0" GridPane.rowIndex="4">
+                <GridPane maxHeight="400.0" maxWidth="Infinity" minHeight="400.0" minWidth="1150.0" GridPane.rowIndex="5">
                     <columnConstraints>
                         <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
@@ -170,7 +171,7 @@
                         <RowConstraints maxHeight="325.0" minHeight="325.0" prefHeight="325.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <ScrollPane fitToWidth="true" maxHeight="325" maxWidth="Infinity" prefHeight="200.0" prefWidth="200.0" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
+                        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" maxHeight="325" maxWidth="Infinity" prefHeight="200.0" prefWidth="200.0" vbarPolicy="NEVER" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
                             <content>
                                 <TableView fx:id="policyHolderTable" maxHeight="Infinity" maxWidth="Infinity" minHeight="325.0" minWidth="1150.0" prefHeight="325.0" prefWidth="1600.0">
                                     <columns>
@@ -206,7 +207,7 @@
                         </Label>
                     </children>
                 </GridPane>
-                <GridPane maxHeight="400.0" maxWidth="Infinity" minHeight="400.0" minWidth="1150.0" GridPane.rowIndex="5">
+                <GridPane maxHeight="400.0" maxWidth="Infinity" minHeight="400.0" minWidth="1150.0" GridPane.rowIndex="6">
                     <columnConstraints>
                         <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
@@ -216,7 +217,7 @@
                         <RowConstraints maxHeight="325.0" minHeight="325.0" prefHeight="325.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <ScrollPane fitToWidth="true" maxHeight="325" maxWidth="Infinity" prefHeight="200.0" prefWidth="200.0" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
+                        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" maxHeight="325" maxWidth="Infinity" prefHeight="200.0" prefWidth="200.0" vbarPolicy="NEVER" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
                             <content>
                                 <TableView fx:id="dependantTable" maxHeight="Infinity" maxWidth="Infinity" minHeight="325.0" minWidth="1150.0" prefHeight="325.0" prefWidth="1600.0">
                                     <columns>
@@ -253,7 +254,7 @@
                         </Label>
                     </children>
                 </GridPane>
-                <GridPane maxHeight="400.0" maxWidth="Infinity" minHeight="400.0" minWidth="1150.0" GridPane.rowIndex="6">
+                <GridPane maxHeight="400.0" maxWidth="Infinity" minHeight="400.0" minWidth="1150.0" GridPane.rowIndex="7">
                     <columnConstraints>
                         <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
@@ -264,7 +265,7 @@
                         <RowConstraints />
                     </rowConstraints>
                     <children>
-                        <ScrollPane fitToWidth="true" maxHeight="325" maxWidth="Infinity" prefHeight="200.0" prefWidth="200.0" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
+                        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" maxHeight="325" maxWidth="Infinity" prefHeight="200.0" prefWidth="200.0" vbarPolicy="NEVER" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
                             <content>
                                 <TableView fx:id="insuraceCardTable" maxHeight="Infinity" maxWidth="Infinity" minHeight="325.0" minWidth="1150.0" prefHeight="325.0" prefWidth="1600.0">
                                     <columns>
@@ -297,7 +298,7 @@
                     </children>
 
                 </GridPane>
-                <GridPane maxHeight="400.0" maxWidth="Infinity" minHeight="400.0" minWidth="1150.0" GridPane.rowIndex="2">
+                <GridPane maxHeight="400.0" maxWidth="Infinity" minHeight="400.0" minWidth="1150.0" GridPane.rowIndex="3">
                     <columnConstraints>
                         <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
@@ -307,7 +308,7 @@
                         <RowConstraints maxHeight="325.0" minHeight="325.0" prefHeight="325.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <ScrollPane fitToWidth="true" maxHeight="325" maxWidth="Infinity" prefHeight="200.0" prefWidth="200.0" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
+                        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" maxHeight="325" maxWidth="Infinity" prefHeight="200.0" prefWidth="200.0" vbarPolicy="NEVER" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
                             <content>
                                 <TableView fx:id="claimTable" maxHeight="Infinity" maxWidth="Infinity" minHeight="325.0" minWidth="1150.0" prefHeight="325.0" prefWidth="1600.0">
                                     <columns>
@@ -344,7 +345,7 @@
                         </Label>
                     </children>
                 </GridPane>
-                <GridPane style="-fx-background-color: rgb(233, 229, 229);" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
+                <GridPane style="-fx-background-color: rgb(233, 229, 229);" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2">
                     <columnConstraints>
                         <ColumnConstraints hgrow="NEVER" maxWidth="769.0" minWidth="10.0" prefWidth="297.0" />
                         <ColumnConstraints hgrow="ALWAYS" maxWidth="1367.0" minWidth="10.0" prefWidth="1253.0" />
@@ -469,6 +470,46 @@
                     <padding>
                         <Insets left="20.0" />
                     </padding>
+                </GridPane>
+
+                <GridPane maxHeight="400.0" maxWidth="Infinity" minHeight="400.0" minWidth="1150.0" GridPane.rowIndex="1">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="325.0" minHeight="325.0" prefHeight="325.0" vgrow="SOMETIMES" />
+                        <RowConstraints />
+                    </rowConstraints>
+                    <children>
+                        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" maxHeight="325" maxWidth="Infinity" prefHeight="200.0" prefWidth="200.0" vbarPolicy="NEVER" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
+                            <content>
+                                <TableView fx:id="actionHistoryTable" maxHeight="Infinity" maxWidth="Infinity" minHeight="325.0" minWidth="1150.0" prefHeight="325.0" prefWidth="1600.0">
+                                    <columns>
+                                        <TableColumn fx:id="actionId" maxWidth="130.0" minWidth="130.0" prefWidth="130.0" text="Action ID" />
+                                        <TableColumn fx:id="actionDescription" maxWidth="1242.0" minWidth="100.0" prefWidth="1242.0" text="Action Description" />
+                                        <TableColumn fx:id="time" maxWidth="130.0" minWidth="130.0" prefWidth="130.0" text="Time" />
+                                    </columns>
+                                </TableView>
+                            </content>
+                        </ScrollPane>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
+                            <children>
+                                <Label minWidth="150.0" prefHeight="20.0" prefWidth="148.0" text="Search Box" HBox.hgrow="NEVER">
+                                    <font>
+                                        <Font name="Helvetica Neue Bold" size="16.0" />
+                                    </font>
+                                </Label>
+                                <TextField fx:id="actionSearchField" prefHeight="25.0" prefWidth="1474.0" HBox.hgrow="ALWAYS" />
+                            </children>
+                        </HBox>
+                        <Label alignment="CENTER" maxWidth="Infinity" prefHeight="31.0" prefWidth="1536.0" text="History" GridPane.hgrow="ALWAYS">
+                            <font>
+                                <Font name="Helvetica Neue Bold" size="16.0" />
+                            </font>
+                        </Label>
+                    </children>
                 </GridPane>
 
             </children>

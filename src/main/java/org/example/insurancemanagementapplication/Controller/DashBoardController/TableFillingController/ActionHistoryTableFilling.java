@@ -34,7 +34,7 @@ public class ActionHistoryTableFilling {
 
     //constructor
 
-    public ActionHistoryTableFilling(User user) {
+    public void ActionHistoryTableFilling(User user) {
         this.user = user;
     }
 
