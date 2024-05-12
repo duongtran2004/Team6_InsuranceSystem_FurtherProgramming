@@ -8,18 +8,31 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import org.example.insurancemanagementapplication.Interfaces.*;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.Stage;
+import org.example.insurancemanagementapplication.Interfaces.ClaimCreateRemove;
+import org.example.insurancemanagementapplication.Interfaces.ClaimUpdate;
+import org.example.insurancemanagementapplication.Interfaces.Controller;
+import org.example.insurancemanagementapplication.Interfaces.EmployeeRead;
 import org.example.insurancemanagementapplication.Utility.IDGenerator;
 import org.example.insurancemanagementapplication.Utility.InputValidator;
 
+import javax.swing.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.URL;
-import java.util.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.ResourceBundle;
 
 public class CreationAndUpdatePageControllerClaim extends CreationAndUpdatePageController implements Initializable, Controller {
 
     private Beneficiaries beneficiary;
     private Claim claim;
-
+    private boolean updateFile;
 
     //create first, update later
     //import necessary FXML
@@ -32,16 +45,13 @@ public class CreationAndUpdatePageControllerClaim extends CreationAndUpdatePageC
     private TextField bankNameField;
     @FXML
     private TextField claimAmountField;
-    @FXML
-    private TextField insuredPersonIDField;
+
     @FXML
     private TextField insuranceSurveyorIDField;
-    @FXML
-    private TextField insuranceManagerIDField;
-    @FXML
-    private TextField cardNumberField;
 
 
+    @FXML
+    private Label filePathLabel;
     @FXML
     private Label errorContainer;
     @FXML
@@ -54,11 +64,79 @@ public class CreationAndUpdatePageControllerClaim extends CreationAndUpdatePageC
     private Button uploadDocumentButton;
     @FXML
     private Button viewDocumentButton;
-    @FXML private Label pageTittleLabel;
+    @FXML
+    private Label pageTittleLabel;
+    @FXML
+    private Button updateDocumentButton;
 
+
+    //for file upload
+    private byte[] file;
+
+
+    public String FolderChooser() {
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        directoryChooser.setTitle("Select a Folder");
+        File newDirectory = directoryChooser.showDialog((Stage) viewDocumentButton.getScene().getWindow());
+
+        if (newDirectory != null) {
+            String fileName = "claim" + claim.getClaimId() + "document.jpg";
+            String filePath = newDirectory.getAbsolutePath() + File.separator + fileName;
+            return filePath;
+        }
+        return null;
+
+    }
+
+    public void downloadDocument(String filePath) {
+        byte[] cover = claim.getDocumentFile();
+
+        try (FileOutputStream fos
+                     = new FileOutputStream(filePath)) {
+            fos.write(cover);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        updateDocumentButton.setOnAction(event -> {
+            updateFile = !updateFile;
+            if (updateFile) {
+                uploadDocumentButton.setDisable(false);
+                file = claim.getDocumentFile();
+            }
+            else {
+                uploadDocumentButton.setDisable(true);
+
+            }
+        });
+
+        viewDocumentButton.setOnAction(event -> {
+            String filePath = FolderChooser();
+            if (filePath != null) {
+                downloadDocument(filePath);
+            }
+        });
+        uploadDocumentButton.setOnAction(event -> {
+            JFileChooser jFileChooser = new JFileChooser();
+            int response = jFileChooser.showOpenDialog(null);
+
+            if (response == JFileChooser.APPROVE_OPTION) {
+                File uploadedfile = new File(jFileChooser.getSelectedFile().getAbsolutePath());
+                filePathLabel.setText(uploadedfile.getAbsolutePath());
+                try {
+                    file = Files.readAllBytes(Path.of(uploadedfile.getPath()));
+
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
+            }
+
+        });
         setActionReturnButton();
         //1st case: Update Claim
         if (claim != null) {//=> If claim exist
@@ -95,7 +173,7 @@ public class CreationAndUpdatePageControllerClaim extends CreationAndUpdatePageC
         //2nd case: Create claim => If claim does NOT exist
 
         if (claim == null) {
-            creteMode();
+            createMode();
         }
     }
 
@@ -105,14 +183,14 @@ public class CreationAndUpdatePageControllerClaim extends CreationAndUpdatePageC
         bankAccountNumberField.setDisable(true);
         bankNameField.setDisable(true);
         claimAmountField.setDisable(true);
-        cardNumberField.setDisable(true);
+
         insuranceSurveyorIDField.setDisable(true);
-        insuredPersonIDField.setDisable(true);
-        insuranceManagerIDField.setDisable(true);
+
         statusChoiceBox.setDisable(true);
 
         submitButton.setDisable(true);
         uploadDocumentButton.setDisable(true);
+        updateDocumentButton.setDisable(true);
 
     }
 
@@ -124,10 +202,12 @@ public class CreationAndUpdatePageControllerClaim extends CreationAndUpdatePageC
         bankAccountNumberField.setDisable(true);
         bankNameField.setDisable(true);
         claimAmountField.setDisable(true);
-        cardNumberField.setDisable(true);
+        uploadDocumentButton.setDisable(true);
+        updateDocumentButton.setDisable(true);
+
         //set disable for insurance manager and insurance surveyor field
         insuranceSurveyorIDField.setDisable(true);
-        insuranceManagerIDField.setDisable(true);
+
 
         //set Array String for status choice box
         String[] Status = {"NEED INF", "PROCESSING"};
@@ -145,8 +225,10 @@ public class CreationAndUpdatePageControllerClaim extends CreationAndUpdatePageC
         bankAccountNameField.setDisable(true);
         bankAccountNumberField.setDisable(true);
         bankNameField.setDisable(true);
-        insuranceManagerIDField.setDisable(true);
-        cardNumberField.setDisable(true);
+        uploadDocumentButton.setDisable(true);
+        updateDocumentButton.setDisable(true);
+
+
         claimAmountField.setDisable(true);
         //set Array String for status choice box
 
@@ -234,9 +316,8 @@ public class CreationAndUpdatePageControllerClaim extends CreationAndUpdatePageC
         //disable necessary fields
         statusChoiceBox.setDisable(true);
         claimAmountField.setDisable(true);
-        insuranceManagerIDField.setDisable(true);
+
         insuranceSurveyorIDField.setDisable(true);
-        cardNumberField.setDisable(true);
         //not allowed to update insured person id
         //After use clicked on submit button
         submitButton.setOnAction(event -> {
@@ -247,20 +328,26 @@ public class CreationAndUpdatePageControllerClaim extends CreationAndUpdatePageC
             // input validator for Claim's Field
             errorContainer.setText(InputValidator.ClaimUpdateValidator(entityManager, bankName, bankAccountName, bankAccountNumber));
             if (errorContainer.getText().equals("Success")) {
-                ClaimUpdate.updateClaim(entityManager, claim, bankName, bankAccountName, bankAccountNumber);
+                if (updateFile){
+                    ClaimUpdate.updateClaim(entityManager, claim, statusChoiceBox.getValue());
+
+                }else {ClaimUpdate.updateClaim(entityManager, claim, bankName, bankAccountName, bankAccountNumber, file);}
+
             }
         });
     }
 
     //This method is called when the claim attribute of the object is null
-    public void creteMode() {
+    public void createMode() {
         //no need to set the condition if user is instance of policyHolder or policyOwner (Front-end logic handled that)
         //disable necessary fields
+        updateDocumentButton.setDisable(true);
+        viewDocumentButton.setDisable(true);
         statusChoiceBox.setDisable(true);
         claimAmountField.setDisable(true);
-        insuranceManagerIDField.setDisable(true);
+
         insuranceSurveyorIDField.setDisable(true);
-        cardNumberField.setDisable(true);
+
         submitButton.setOnAction(event -> {
             //read text fields => store to variables
             String bankAccountName = bankAccountNameField.getText();
@@ -269,14 +356,15 @@ public class CreationAndUpdatePageControllerClaim extends CreationAndUpdatePageC
             // input validator for Claim's Field
             errorContainer.setText(InputValidator.ClaimUpdateValidator(entityManager, bankName, bankAccountName, bankAccountNumber));
             if (errorContainer.getText().equals("Success")) {
-                List<InsuranceManager> insuranceManagers = EmployeeRead.getAllInsuranceManager(entityManager);
-                Random random = new Random();
-                int randomIndex = random.nextInt(0, insuranceManagers.size());
-                InsuranceManager randomManager = insuranceManagers.get(randomIndex);
+
                 Date today = new Date();
                 java.sql.Date sqlToday = new java.sql.Date(today.getTime());
                 String claimId = IDGenerator.generateId("C");
-                ClaimCreateRemove.createClaim(entityManager, claimId, sqlToday, beneficiary, beneficiary.getPolicyOwner(), beneficiary.getInsuranceCard(), randomManager, bankName, bankAccountName, bankAccountNumber);
+                InsuranceManager insuranceManager = EmployeeRead.findRandomInsuranceManager(entityManager);
+                System.out.println(insuranceManager);
+                ClaimCreateRemove.createClaim(entityManager, claimId, sqlToday, beneficiary, beneficiary.getPolicyOwner(), beneficiary.getInsuranceCard(), insuranceManager, bankName, bankAccountName, bankAccountNumber, file);
+
+
 // call method to write action history  to file right here
 
             }

@@ -34,6 +34,24 @@ public interface ClaimUpdate {
         }
         return true;
     }
+
+    static boolean updateClaim(EntityManager entityManager, Claim claim, String bankName, String bankAccountName, String accountNumber, byte[] file) {
+        EntityTransaction transaction = entityManager.getTransaction();
+        try {
+            transaction.begin();
+            entityManager.persist(claim);
+            claim.setBankName(bankName);
+            claim.setBankAccountName(bankAccountName);
+            claim.setBankAccountNumber(accountNumber);
+            claim.setDocumentFile(file);
+            transaction.commit();
+        } finally {
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+        }
+        return true;
+    }
 //update claim for insurance surveyor
     static boolean updateClaim(EntityManager entityManager, Claim claim,String status) {
         EntityTransaction transaction = entityManager.getTransaction();
@@ -49,6 +67,9 @@ public interface ClaimUpdate {
         }
         return true;
     }
+    //method overload to update file as well
+
+
 
     //update claim for insurance manager
     static boolean updateClaim(EntityManager entityManager, Claim claim, InsuranceSurveyor insuranceSurveyor){

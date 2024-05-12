@@ -24,6 +24,11 @@ public interface EmployeeRead {
                 "SELECT e FROM InsuranceManager e").getResultList();
 
     }
+    public static InsuranceManager findRandomInsuranceManager(EntityManager entityManager){
+        String query = "SELECT c FROM InsuranceManager c ORDER BY random() LIMIT 1";
+        return  (InsuranceManager) entityManager.createQuery(query).getSingleResult();
+
+    }
 
     public static List<InsuranceSurveyor> getAllInsuranceSurveyor(EntityManager entityManager) {
         return entityManager.createQuery(

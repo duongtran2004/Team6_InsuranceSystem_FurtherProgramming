@@ -2,8 +2,10 @@ package Entity;
 
 import jakarta.persistence.*;
 import javafx.scene.control.Button;
+import org.hibernate.annotations.JdbcTypeCode;
 
 import java.sql.Date;
+import java.sql.Types;
 import java.util.Objects;
 
 /**
@@ -62,8 +64,11 @@ public class Claim {
     @Column(name = "bank_account_number")
     private String bankAccountNumber;
 
-    //@Column(name = "document_image")
-    //private byte[] documentImage;
+
+    @Basic
+    @JdbcTypeCode(Types.BINARY)
+    @Column(name = "document_file")
+    private byte[] documentFile;
 
     @Transient
     private javafx.scene.control.Button claimButton;
@@ -127,20 +132,28 @@ public class Claim {
         this.claimRemoveButton = claimRemoveButton;
     }
 
+    public byte[] getDocumentFile() {
+        return documentFile;
+    }
+
+    public void setDocumentFile(byte[] documentFile) {
+        this.documentFile = documentFile;
+    }
+
     @ManyToOne
-    @JoinColumn(name = "insured_person_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "insured_person_id", referencedColumnName = "id", nullable = true)
     private Beneficiaries insuredPerson;
     @ManyToOne
-    @JoinColumn(name = "policy_owner_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "policy_owner_id", referencedColumnName = "id", nullable = true)
     private PolicyOwner policyOwner;
     @ManyToOne
-    @JoinColumn(name = "card_number", referencedColumnName = "card_number", nullable = false)
+    @JoinColumn(name = "card_number", referencedColumnName = "card_number", nullable = true)
     private InsuranceCard insuranceCard;
     @ManyToOne
-    @JoinColumn(name = "insurance_surveyor_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "insurance_surveyor_id", referencedColumnName = "id", nullable = true)
     private InsuranceSurveyor insuranceSurveyor;
     @ManyToOne
-    @JoinColumn(name = "insurance_manager_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "insurance_manager_id", referencedColumnName = "id", nullable = true)
     private InsuranceManager insuranceManager;
 
     public String getClaimId() {
@@ -260,7 +273,6 @@ public class Claim {
         this.insuranceManager = insuranceManager;
     }
 //toString method for unit testing
-
 
 
 }

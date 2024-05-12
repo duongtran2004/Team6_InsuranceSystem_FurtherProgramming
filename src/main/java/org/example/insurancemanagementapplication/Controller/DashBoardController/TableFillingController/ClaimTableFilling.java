@@ -185,19 +185,19 @@ public class ClaimTableFilling extends ActionHistoryTableFilling implements Clai
             if (!(newVal.equals("NONE"))) {
                 if (newVal.equals("Sort By Creation Date In Ascending Order")) {
                     ClaimCreationDateComparator claimCreationDateComparator = new ClaimCreationDateComparator();
-                    sortedClaimList.   sort(claimCreationDateComparator); //line 187
+                    sortedClaimList.setComparator(claimCreationDateComparator);
                 } else if (newVal.equals("Sort By Creation Date In Descending Order")) {
                     ClaimCreationDateComparator claimCreationDateComparator = new ClaimCreationDateComparator();
                     sortedClaimList.setComparator(claimCreationDateComparator.reversed());
                 } else if (newVal.equals("Sort By Settlement Date In Ascending Order")) {
                     ClaimSettlementDateComparator claimSettlementDateComparator = new ClaimSettlementDateComparator();
-                    sortedClaimList.sort(claimSettlementDateComparator);
+                    sortedClaimList.setComparator(claimSettlementDateComparator);
                 } else if (newVal.equals("Sort By Settlement Date In Descending Order")) {
                     ClaimSettlementDateComparator claimSettlementDateComparator = new ClaimSettlementDateComparator();
                     sortedClaimList.setComparator(claimSettlementDateComparator.reversed());
                 } else if (newVal.equals("Sort by Claim Amount In Ascending Order")) {
                     ClaimAmountComparator claimAmountComparator = new ClaimAmountComparator();
-                    sortedClaimList.sort(claimAmountComparator);
+                    sortedClaimList.setComparator(claimAmountComparator);
                 } else if (newVal.equals("Sort by Claim Amount In Descending Order")) {
                     ClaimAmountComparator claimAmountComparator = new ClaimAmountComparator();
                     sortedClaimList.setComparator(claimAmountComparator.reversed());
