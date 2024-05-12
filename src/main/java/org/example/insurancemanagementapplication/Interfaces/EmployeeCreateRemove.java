@@ -14,7 +14,7 @@ import java.util.Random;
  * @project InsuranceManagementTeamProject
  */
 public interface EmployeeCreateRemove {
-    public static boolean createInsuranceManager(EntityManager entityManager, String Id,  String fullName, String address, String phoneNumber, String email, String password){
+    public static boolean createInsuranceManager(EntityManager entityManager, String id,  String fullName, String address, String phoneNumber, String email, String password){
         EntityTransaction transaction = entityManager.getTransaction();
         try{
             transaction.begin();
@@ -24,7 +24,6 @@ public interface EmployeeCreateRemove {
             insuranceManager.setAddress(address);
             insuranceManager.setEmail(email);
             insuranceManager.setPassword(password);
-            String id = "IM";
             insuranceManager.setId(id);
             entityManager.persist(insuranceManager);
             transaction.commit();
@@ -39,7 +38,7 @@ public interface EmployeeCreateRemove {
         return true;
     }
 
-    public static boolean createInsuranceSurveyor(EntityManager entityManager, String Id,  String fullName, String address, String phoneNumber, String email, String password, InsuranceManager insuranceManager){
+    public static boolean createInsuranceSurveyor(EntityManager entityManager, String id,  String fullName, String address, String phoneNumber, String email, String password, InsuranceManager insuranceManager){
         EntityTransaction transaction = entityManager.getTransaction();
         try{
             transaction.begin();
@@ -49,7 +48,6 @@ public interface EmployeeCreateRemove {
             insuranceSurveyor.setAddress(address);
             insuranceSurveyor.setEmail(email);
             insuranceSurveyor.setPassword(password);
-            String id = "IM";
             Random random = new Random();
             for (int i = 0; i < 8; i++){
                 id = id + random.nextInt(0, 10);

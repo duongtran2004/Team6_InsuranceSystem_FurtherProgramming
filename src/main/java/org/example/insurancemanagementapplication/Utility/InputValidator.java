@@ -10,9 +10,28 @@ import java.util.regex.Pattern;
 
 public class InputValidator {
     public static boolean validatePasswordFormat(String password) {
-        // Password format: 1 uppercase, 1 special character, more than 8 characters
-        String pattern = "^(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
-        return password.matches(pattern);
+        // Check if password has at least 1 uppercase letter and more than 8 characters
+        boolean hasUppercase = false;
+        boolean isLongEnough = false;
+
+        // Iterate through each character in the password
+        for (char c : password.toCharArray()) {
+            // Check if the character is uppercase
+            if (Character.isUpperCase(c)) {
+                hasUppercase = true;
+            }
+            // Check if the password length is more than 8 characters
+            if (password.length() > 8) {
+                isLongEnough = true;
+            }
+            // If both conditions are met, break out of the loop
+            if (hasUppercase && isLongEnough) {
+                break;
+            }
+        }
+
+        // Return true if password meets both conditions, false otherwise
+        return hasUppercase && isLongEnough;
     }
 
     public static boolean passwordValidator(String password, String passwordValidator) {
@@ -170,6 +189,7 @@ public class InputValidator {
     }
 
     //overloading method
+    //for login page
     public static String validatingUser(String email, String password, String phoneNumber, String address, String passwordValidator) {
         if (!validateNonEmptyString(email)) {
             return "Invalid email, cannot be empty";
@@ -177,13 +197,13 @@ public class InputValidator {
             return "Invalid email format";
         } else if (!validateNonEmptyString(password)) {
             return "Invalid password, cannot be empty";
-        } else if (validatePasswordFormat(password)) {
+        } else if (!validatePasswordFormat(password)) {
             return "Invalid password format";
         } else if (!validateNonEmptyString(phoneNumber)) {
             return "Invalid phone number, cannot be empty";
         } else if (!validateNonEmptyString(address)) {
             return "Invalid address format";
-        } else if (passwordValidator(passwordValidator, password)) {
+        } else if (!passwordValidator(passwordValidator, password)) {
             return "Passwords do not match.";
         } else {
             return "Success";
@@ -191,6 +211,7 @@ public class InputValidator {
     }
 
     //overloading method
+    //for creation and update page
     public static String validatingUser(String role, EntityManager entityManager, String fullName, String email, String password, String phoneNumber, String address, String passwordValidator) {
 //        boolean allInfoValid = true;
 //        boolean userExists = false;
@@ -209,16 +230,19 @@ public class InputValidator {
         if (!validateNonEmptyString(password)) {
             return "Invalid password, cannot be empty";
         }
-        if (validatePasswordFormat(password)) {
+        if (!validatePasswordFormat(password)) {
             return "Invalid password format";
         }
         if (!validateNonEmptyString(phoneNumber)) {
             return "Invalid phone number, cannot be empty";
         }
-        if (validatePhoneFormat(phoneNumber)) {
-            return "Invalid address format";
+        if (!validatePhoneFormat(phoneNumber)) {
+            return "Invalid phone format";
         }
-        if (passwordValidator(passwordValidator, password)) {
+        if (!validateNonEmptyString(address)) {
+            return "Invalid address, cannot be empty";
+        }
+        if (!passwordValidator(passwordValidator, password)) {
             return "Passwords do not match.";
         }
 

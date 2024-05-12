@@ -99,7 +99,7 @@ public class DependantDashBoardController extends ClaimTableFilling implements I
 
     //constructor
     public DependantDashBoardController(Dependant user, EntityManager entityManager) {
-        super(entityManager, user);
+        super(user, entityManager);
     }
 
 

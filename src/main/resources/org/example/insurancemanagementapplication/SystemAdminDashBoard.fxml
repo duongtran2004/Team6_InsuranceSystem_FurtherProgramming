@@ -31,6 +31,8 @@
             <rowConstraints>
                 <RowConstraints maxHeight="300.0" minHeight="300.0" prefHeight="300.0" vgrow="NEVER" />
             <RowConstraints maxHeight="200.0" minHeight="200.0" prefHeight="200.0" vgrow="NEVER" />
+            <RowConstraints maxHeight="400.0" minHeight="32.0" prefHeight="36.800048828125" vgrow="NEVER" />
+            <RowConstraints maxHeight="768.0" minHeight="400.0" prefHeight="763.199951171875" vgrow="NEVER" />
             <RowConstraints maxHeight="400.0" minHeight="400.0" prefHeight="400.0" vgrow="NEVER" />
                 <RowConstraints maxHeight="400.0" minHeight="400.0" prefHeight="400.0" vgrow="NEVER" />
                 <RowConstraints maxHeight="400.0" minHeight="400.0" prefHeight="400.0" vgrow="NEVER" />
@@ -140,7 +142,7 @@
                         <Insets bottom="12.5" />
                     </GridPane.margin>
                 </HBox>
-            <GridPane maxHeight="400.0" maxWidth="Infinity" minHeight="400.0" minWidth="1150.0" GridPane.rowIndex="3">
+            <GridPane maxHeight="400.0" maxWidth="Infinity" minHeight="400.0" minWidth="1150.0" GridPane.rowIndex="5">
               <columnConstraints>
                 <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
@@ -188,7 +190,7 @@
                   <ScrollBar opacity="0.31" />
                </children>
             </GridPane>
-                <GridPane alignment="BOTTOM_CENTER" maxHeight="400.0" maxWidth="Infinity" minHeight="400.0" minWidth="1150.0" GridPane.rowIndex="4">
+                <GridPane alignment="BOTTOM_CENTER" maxHeight="400.0" maxWidth="Infinity" minHeight="400.0" minWidth="1150.0" GridPane.rowIndex="6">
                     <columnConstraints>
                         <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
@@ -235,7 +237,7 @@
                         </Label>
                     </children>
                 </GridPane>
-                  <GridPane maxHeight="400.0" maxWidth="Infinity" minHeight="400.0" minWidth="1150.0" GridPane.rowIndex="5">
+                  <GridPane maxHeight="400.0" maxWidth="Infinity" minHeight="400.0" minWidth="1150.0" GridPane.rowIndex="7">
                       <columnConstraints>
                           <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
                       </columnConstraints>
@@ -283,7 +285,7 @@
                           </Label>
                       </children>
                   </GridPane>
-                <GridPane maxHeight="400.0" maxWidth="Infinity" minHeight="400.0" minWidth="1150.0" GridPane.rowIndex="6">
+                <GridPane maxHeight="400.0" maxWidth="Infinity" minHeight="400.0" minWidth="1150.0" GridPane.rowIndex="8">
                     <columnConstraints>
                         <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
@@ -332,7 +334,7 @@
                         </Label>
                     </children>
                 </GridPane>
-                <GridPane maxHeight="400.0" maxWidth="Infinity" minHeight="400.0" minWidth="1150.0" GridPane.rowIndex="7">
+                <GridPane maxHeight="400.0" maxWidth="Infinity" minHeight="400.0" minWidth="1150.0" GridPane.rowIndex="9">
                     <columnConstraints>
                         <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
@@ -381,7 +383,7 @@
                         </Label>
                     </children>
                 </GridPane>
-                <GridPane maxHeight="400.0" maxWidth="Infinity" minHeight="400.0" minWidth="1150.0" GridPane.rowIndex="8">
+                <GridPane maxHeight="400.0" maxWidth="Infinity" minHeight="400.0" minWidth="1150.0" GridPane.rowIndex="10">
                     <columnConstraints>
                         <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
@@ -427,7 +429,7 @@
                     </children>
 
                 </GridPane>
-                <GridPane maxHeight="400.0" maxWidth="Infinity" minHeight="400.0" minWidth="1500.0" GridPane.rowIndex="2">
+                <GridPane maxHeight="400.0" maxWidth="Infinity" minHeight="400.0" minWidth="1500.0" GridPane.rowIndex="4">
                     <columnConstraints>
                         <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
@@ -484,8 +486,32 @@
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>
+                     <graphic>
+                        <Label alignment="CENTER" maxWidth="Infinity" prefHeight="31.0" prefWidth="1536.0" text="Claims List">
+                           <font>
+                              <Font name="Helvetica Neue Bold" size="16.0" />
+                           </font>
+                        </Label>
+                     </graphic>
                         </Label>
                   <HBox prefHeight="100.0" prefWidth="200.0" />
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label minWidth="150.0" prefHeight="20.0" prefWidth="148.0" text="Search Box" HBox.hgrow="NEVER">
+                           <font>
+                              <Font name="Helvetica Neue Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="claimListSearchField1" prefHeight="25.0" prefWidth="1474.0" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </TextField>
+                     </children>
+                     <opaqueInsets>
+                        <Insets bottom="100.0" />
+                     </opaqueInsets>
+                  </HBox>
                     </children>
                 </GridPane>
             <GridPane style="-fx-background-color: rgb(233, 229, 229);" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
@@ -614,7 +640,18 @@
                   <Insets left="20.0" />
                </padding>
             </GridPane>
-            <ScrollBar orientation="VERTICAL" />
+            <TableView fx:id="actionHistoryTable" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
+              <columns>
+                <TableColumn fx:id="actionId" prefWidth="260.00002098083496" text="Action ID" />
+                <TableColumn fx:id="actionDescription" prefWidth="714.3999328613281" text="Action Description" />
+                  <TableColumn fx:id="time" prefWidth="524.800048828125" text="Time" />
+              </columns>
+            </TableView>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="1714.0" text="Action History" GridPane.rowIndex="2">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Label>
 
             </children>
         </GridPane>

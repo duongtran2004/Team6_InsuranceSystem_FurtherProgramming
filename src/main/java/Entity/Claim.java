@@ -259,4 +259,8 @@ public class Claim {
     public void setInsuranceManager(InsuranceManager insuranceManager) {
         this.insuranceManager = insuranceManager;
     }
+//toString method for unit testing
+
+
+
 }

@@ -138,6 +138,8 @@ public class SystemAdminDashBoardController extends InsuranceManagerTableFilling
         addManagerButton.setOnAction(event -> {
             CreationAndUpdatePageControllerInsuranceManager creationPageControllerInsuranceManager = new CreationAndUpdatePageControllerInsuranceManager(entityManager, user);
             StageBuilder.showStage((Stage) addManagerButton.getScene().getWindow(), creationPageControllerInsuranceManager, "InsuranceManagerCreationAndUpdatePage.fxml", "Insurance Manager Creation Page");
+
+
         });
 
         //FILL ALL THE NECESSARY TABLE (CALL METHODS IN TABLE FILLING CLASS)
@@ -157,6 +159,7 @@ public class SystemAdminDashBoardController extends InsuranceManagerTableFilling
         fillingInsuranceCardTable(entityManager, user, InsuranceCardRead.getAllInsuranceCard(entityManager));
         //Task: Create a separate thread to fill in the Claim Table
         fillingClaimTable(entityManager, user, ClaimRead.getAllClaims(entityManager));
+        fillingActionHistoryTable(user);
 
     }
 

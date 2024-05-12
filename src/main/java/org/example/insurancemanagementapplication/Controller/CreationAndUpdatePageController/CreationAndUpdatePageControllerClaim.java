@@ -8,10 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import org.example.insurancemanagementapplication.Interfaces.ClaimCreateRemove;
-import org.example.insurancemanagementapplication.Interfaces.ClaimUpdate;
-import org.example.insurancemanagementapplication.Interfaces.Controller;
-import org.example.insurancemanagementapplication.Interfaces.EmployeeRead;
+import org.example.insurancemanagementapplication.Interfaces.*;
 import org.example.insurancemanagementapplication.Utility.IDGenerator;
 import org.example.insurancemanagementapplication.Utility.InputValidator;
 
@@ -280,6 +277,7 @@ public class CreationAndUpdatePageControllerClaim extends CreationAndUpdatePageC
                 java.sql.Date sqlToday = new java.sql.Date(today.getTime());
                 String claimId = IDGenerator.generateId("C");
                 ClaimCreateRemove.createClaim(entityManager, claimId, sqlToday, beneficiary, beneficiary.getPolicyOwner(), beneficiary.getInsuranceCard(), randomManager, bankName, bankAccountName, bankAccountNumber);
+// call method to write action history  to file right here
 
             }
 

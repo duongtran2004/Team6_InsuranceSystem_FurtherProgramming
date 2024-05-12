@@ -73,7 +73,7 @@ public class DependantTableFilling extends ClaimTableFilling {
     protected TextField dependantSearchField;
 
     public DependantTableFilling(EntityManager entityManager, User user) {
-        super(entityManager, user);
+        super(user, entityManager);
     }
 
     /**

@@ -8,7 +8,7 @@ import jakarta.persistence.Query;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface ClaimRead {
+public interface    ClaimRead {
 
     /**
      * @author Luong Thanh Trung

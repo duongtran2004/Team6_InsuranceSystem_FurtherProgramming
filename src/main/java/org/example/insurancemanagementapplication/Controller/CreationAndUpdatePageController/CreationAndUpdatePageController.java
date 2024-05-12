@@ -5,6 +5,7 @@ import jakarta.persistence.EntityManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.example.insurancemanagementapplication.Controller.DashBoardController.*;
@@ -35,9 +36,9 @@ public abstract class CreationAndUpdatePageController {
     @FXML
     protected TextField emailField;
     @FXML
-    protected TextField passwordField;
+    protected PasswordField passwordField;
     @FXML
-    protected TextField passwordValidationField;
+    protected PasswordField  passwordValidationField;
     @FXML
     protected Label errorContainer;
     @FXML Button submitButton;

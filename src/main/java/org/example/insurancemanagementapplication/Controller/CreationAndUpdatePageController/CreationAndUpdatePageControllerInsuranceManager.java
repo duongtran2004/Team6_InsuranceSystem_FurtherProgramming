@@ -1,11 +1,13 @@
 package org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController;
 
+import Entity.ActionHistory;
 import Entity.InsuranceManager;
 import Entity.User;
 import jakarta.persistence.EntityManager;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import org.example.insurancemanagementapplication.Interfaces.ActionHistoryCreate;
 import org.example.insurancemanagementapplication.Interfaces.Controller;
 import org.example.insurancemanagementapplication.Interfaces.EmployeeCreateRemove;
 import org.example.insurancemanagementapplication.Interfaces.EmployeeUpdate;
@@ -50,12 +52,25 @@ public class CreationAndUpdatePageControllerInsuranceManager extends CreationAnd
         //When the controller is in creation mode
         else {
             submitButton.setOnAction(event -> {
+                System.out.println(
+                        passwordField.getText()
+                );
+                System.out.println(
+                        passwordValidationField.getText()
+                );
                 String message = InputValidator.validatingUser("Insurance Manager", entityManager, fullNameField.getText(), emailField.getText(), passwordField.getText(), phoneNumberField.getText(), addressField.getText(), passwordValidationField.getText());
+                System.out.println(message);
                 if (message.equals("Success")) {
+
                     //See the RepeatedCode class for this method
                     //This method generates an id.
                     String id = IDGenerator.generateId("IM");
                     EmployeeCreateRemove.createInsuranceManager(entityManager, id, fullNameField.getText(), addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText());
+
+                    //record action history
+                    ActionHistory actionHistory =
+                            ActionHistoryCreate.createActionHistoryObject("CREATE", "Insurance Manager", id);
+                    ActionHistoryCreate.writeToActionHistoryObjectToFile(user.getId(), actionHistory);
                 }
             });
         }
