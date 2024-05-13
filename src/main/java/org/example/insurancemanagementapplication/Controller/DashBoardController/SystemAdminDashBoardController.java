@@ -165,7 +165,7 @@ public class SystemAdminDashBoardController extends InsuranceManagerTableFilling
         PolicyHolderTableFillingThread policyHolderTableFillingThread = new PolicyHolderTableFillingThread(CustomerRead.getAllPolicyHolder(entityManager), this);
         policyHolderTableFillingThread.start();
 
-        PolicyOwnerTableFillingThread policyOwnerTableFillingThread = new PolicyOwnerTableFillingThread(CustomerRead.getAllPolicyHolder(entityManager), this);
+        PolicyOwnerTableFillingThread policyOwnerTableFillingThread = new PolicyOwnerTableFillingThread(CustomerRead.getAllPolicyOwner(entityManager), this);
         policyOwnerTableFillingThread.start();
 
         InsuranceCardTableFillingThread insuranceCardTableFillingThread = new InsuranceCardTableFillingThread(InsuranceCardRead.getAllInsuranceCard(entityManager), this);

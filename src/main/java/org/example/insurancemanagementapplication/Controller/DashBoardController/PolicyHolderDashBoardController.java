@@ -8,6 +8,8 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import org.example.insurancemanagementapplication.Controller.DashBoardController.TableFillingController.DependantTableFilling;
 import org.example.insurancemanagementapplication.Controller.LogInPageController;
+import org.example.insurancemanagementapplication.Controller.Threads.ClaimTableFillingThread;
+import org.example.insurancemanagementapplication.Controller.Threads.DependantTableFillingThread;
 import org.example.insurancemanagementapplication.Interfaces.ClaimRead;
 import org.example.insurancemanagementapplication.Interfaces.Controller;
 import org.example.insurancemanagementapplication.Interfaces.CustomerRead;
@@ -72,6 +74,7 @@ public class PolicyHolderDashBoardController extends DependantTableFilling imple
         claimAmountTo.clear();
         fillingClaimTable(entityManager, user, ClaimRead.getAllClaims(entityManager));
     }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         logOutButton.setOnAction(event -> {
@@ -87,14 +90,20 @@ public class PolicyHolderDashBoardController extends DependantTableFilling imple
         clearClaimAmountButton.setOnAction(event -> handleClearClaimAmountButton());
         //See the ClaimTableFilling class
         userFillingData();
+        //FILLING TABLE USING THREADS
+        ClaimTableFillingThread claimTableFillingThread = new ClaimTableFillingThread(ClaimRead.getAllClaimsFromABeneficiary(entityManager, user.getId()), this);
+        claimTableFillingThread.start();
+
+        DependantTableFillingThread dependantTableFillingThread = new DependantTableFillingThread(CustomerRead.getAllDependantsOfAPolicyHolder(entityManager, user.getId()), this);
+        dependantTableFillingThread.start();
+
+//        //fill claim table
+//        fillingClaimTable(entityManager, user, ClaimRead.getAllClaimsFromABeneficiary(entityManager,user.getId()));
+//        //fill dependent table
+//        fillingDependantTable(entityManager,user, CustomerRead.getAllDependantsOfAPolicyHolder(entityManager, user.getId()));
 
 
-        //fill claim table
-        fillingClaimTable(entityManager, user, ClaimRead.getAllClaimsFromABeneficiary(entityManager,user.getId()));
-
-
-        //fill dependent table
-        fillingDependantTable(entityManager,user, CustomerRead.getAllDependantsOfAPolicyHolder(entityManager, user.getId()));
+        fillingActionHistoryTable(user);
     }
 
     public PolicyHolderDashBoardController(PolicyHolder user, EntityManager entityManager) {

@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import org.example.insurancemanagementapplication.Controller.DashBoardController.TableFillingController.InsuranceSurveyorTableFilling;
 import org.example.insurancemanagementapplication.Controller.LogInPageController;
+import org.example.insurancemanagementapplication.Controller.Threads.*;
 import org.example.insurancemanagementapplication.Interfaces.*;
 import org.example.insurancemanagementapplication.Utility.StageBuilder;
 
@@ -27,6 +28,7 @@ public class InsuranceManagerDashBoardController extends InsuranceSurveyorTableF
     public InsuranceManagerDashBoardController(InsuranceManager user, EntityManager entityManager) {
         super(entityManager, user);
     }
+
     //Cancel choices button
     @FXML
     protected Button
@@ -75,6 +77,7 @@ public class InsuranceManagerDashBoardController extends InsuranceSurveyorTableF
         claimAmountTo.clear();
         fillingClaimTable(entityManager, user, ClaimRead.getAllClaims(entityManager));
     }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -91,21 +94,42 @@ public class InsuranceManagerDashBoardController extends InsuranceSurveyorTableF
         clearClaimAmountButton.setOnAction(event -> handleClearClaimAmountButton());
         //see the ClaimTableFilling Class
         userFillingData();
-        //fill claim table
-        fillingClaimTable(entityManager, user, ClaimRead.getAllClaimsProcessByAnInsuranceManager(entityManager, user.getId()));
-        //fill all the table of customers
-        // fill dependant table
-        fillingDependantTable(entityManager, user, CustomerRead.getAllDependantsTakeChargeByAnEmployee(entityManager, user.getId(), "InsuranceManager"));
-        // fill policy holder table
-        fillingPolicyHolderTable(entityManager, user, CustomerRead.getAllPolicyHoldersTakeChargeByAnEmployee(entityManager, user.getId(), "InsuranceManager"));
-        // fill policy owner table
-        fillingPolicyOwnerTable(entityManager, user, CustomerRead.getAllPolicyOwnersTakeChargeByAnEmployee(entityManager, user.getId(), "InsuranceManager"));
-        // fill insurance card table
-        fillingInsuranceCardTable(entityManager,user, InsuranceCardRead.getAllInsuranceCardsTakeChargeByAnEmployee(entityManager, user.getId(), "InsuranceManager"));
+        fillingActionHistoryTable(user);
+        //USE THREADS TO FILL TABLES
 
-        //fill employee table
-        //fill insurance surveyor table
-        fillingInsuranceSurveyorTable(entityManager, user, EmployeeRead.getAllInsuranceSurveyorOfAnInsuranceManager(entityManager, user.getId()));
+
+        ClaimTableFillingThread claimTableFillingThread = new ClaimTableFillingThread(ClaimRead.getAllClaimsProcessByAnInsuranceManager(entityManager, user.getId()), this);
+        claimTableFillingThread.start();
+
+        DependantTableFillingThread dependantTableFillingThread = new DependantTableFillingThread(CustomerRead.getAllDependantsTakeChargeByAnEmployee(entityManager, user.getId(), "InsuranceManager"), this);
+        dependantTableFillingThread.start();
+
+        PolicyHolderTableFillingThread policyHolderTableFillingThread = new PolicyHolderTableFillingThread(CustomerRead.getAllPolicyHoldersTakeChargeByAnEmployee(entityManager, user.getId(), "InsuranceManager"), this);
+        policyHolderTableFillingThread.start();
+
+        PolicyOwnerTableFillingThread policyOwnerTableFillingThread = new PolicyOwnerTableFillingThread(CustomerRead.getAllPolicyOwnersTakeChargeByAnEmployee(entityManager, user.getId(), "InsuranceManager"), this);
+        policyOwnerTableFillingThread.start();
+
+        InsuranceCardTableFillingThread insuranceCardTableFillingThread = new InsuranceCardTableFillingThread(InsuranceCardRead.getAllInsuranceCardsTakeChargeByAnEmployee(entityManager, user.getId(), "InsuranceManager"), this);
+        insuranceCardTableFillingThread.start();
+
+        InsuranceSurveyorTableFillingThread insuranceSurveyorTableFillingThread = new InsuranceSurveyorTableFillingThread(EmployeeRead.getAllInsuranceSurveyorOfAnInsuranceManager(entityManager, user.getId()), this);
+        insuranceSurveyorTableFillingThread.start();
+//        //fill claim table
+//        fillingClaimTable(entityManager, user, ClaimRead.getAllClaimsProcessByAnInsuranceManager(entityManager, user.getId()));
+//        //fill all the table of customers
+//        // fill dependant table
+//        fillingDependantTable(entityManager, user, CustomerRead.getAllDependantsTakeChargeByAnEmployee(entityManager, user.getId(), "InsuranceManager"));
+//        // fill policy holder table
+//        fillingPolicyHolderTable(entityManager, user, CustomerRead.getAllPolicyHoldersTakeChargeByAnEmployee(entityManager, user.getId(), "InsuranceManager"));
+//        // fill policy owner table
+//        fillingPolicyOwnerTable(entityManager, user, CustomerRead.getAllPolicyOwnersTakeChargeByAnEmployee(entityManager, user.getId(), "InsuranceManager"));
+//        // fill insurance card table
+//        fillingInsuranceCardTable(entityManager,user, InsuranceCardRead.getAllInsuranceCardsTakeChargeByAnEmployee(entityManager, user.getId(), "InsuranceManager"));
+//
+//        //fill employee table
+//        //fill insurance surveyor table
+//        fillingInsuranceSurveyorTable(entityManager, user, EmployeeRead.getAllInsuranceSurveyorOfAnInsuranceManager(entityManager, user.getId()));
 
 
     }

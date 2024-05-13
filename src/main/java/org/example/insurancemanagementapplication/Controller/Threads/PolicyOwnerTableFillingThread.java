@@ -1,22 +1,22 @@
 package org.example.insurancemanagementapplication.Controller.Threads;
 
-import Entity.PolicyHolder;
-import org.example.insurancemanagementapplication.Controller.DashBoardController.TableFillingController.PolicyHolderTableFilling;
+import Entity.PolicyOwner;
+import org.example.insurancemanagementapplication.Controller.DashBoardController.TableFillingController.PolicyOwnerTableFilling;
 
 import java.util.List;
 
 public class PolicyOwnerTableFillingThread extends Thread {
-    protected List<PolicyHolder> policyHolderList;
-    protected PolicyHolderTableFilling policyHolderTableFilling;
+    protected List<PolicyOwner> policyOwnerList;
+    protected PolicyOwnerTableFilling policyOwnerTableFilling;
 
 
-    public PolicyOwnerTableFillingThread(List<PolicyHolder> policyHolderList, PolicyHolderTableFilling policyHolderTableFilling) {
-        this.policyHolderList = policyHolderList;
-        this.policyHolderTableFilling = policyHolderTableFilling;
+    public PolicyOwnerTableFillingThread(List<PolicyOwner> policyOwnerList, PolicyOwnerTableFilling policyOwnerTableFilling) {
+        this.policyOwnerList = policyOwnerList;
+        this.policyOwnerTableFilling = policyOwnerTableFilling;
     }
 
     public void policyOwnerTableFilling() {
-        policyHolderTableFilling.fillingPolicyHolderTable(policyHolderTableFilling.getEntityManager(), policyHolderTableFilling.getUser(), policyHolderList);
+        policyOwnerTableFilling.fillingPolicyOwnerTable(policyOwnerTableFilling.getEntityManager(), policyOwnerTableFilling.getUser(), policyOwnerList);
     }
 
     @Override

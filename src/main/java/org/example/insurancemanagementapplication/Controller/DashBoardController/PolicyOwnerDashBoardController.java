@@ -13,6 +13,10 @@ import javafx.stage.Stage;
 import org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController.CreationAndUpdatePageControllerPolicyHolder;
 import org.example.insurancemanagementapplication.Controller.DashBoardController.TableFillingController.PolicyHolderTableFilling;
 import org.example.insurancemanagementapplication.Controller.LogInPageController;
+import org.example.insurancemanagementapplication.Controller.Threads.ClaimTableFillingThread;
+import org.example.insurancemanagementapplication.Controller.Threads.DependantTableFillingThread;
+import org.example.insurancemanagementapplication.Controller.Threads.InsuranceCardTableFillingThread;
+import org.example.insurancemanagementapplication.Controller.Threads.PolicyHolderTableFillingThread;
 import org.example.insurancemanagementapplication.Interfaces.*;
 import org.example.insurancemanagementapplication.Utility.StageBuilder;
 
@@ -46,7 +50,7 @@ public class PolicyOwnerDashBoardController extends PolicyHolderTableFilling imp
     protected Button
             clearClaimAmountButton;
     @FXML
-     protected Button logOutButton;
+    protected Button logOutButton;
     private LogInPageController logInPageController;
 
     protected void handleLogOutButton() throws IOException {
@@ -84,7 +88,6 @@ public class PolicyOwnerDashBoardController extends PolicyHolderTableFilling imp
     }
 
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         logOutButton.setOnAction(event -> {
@@ -104,15 +107,34 @@ public class PolicyOwnerDashBoardController extends PolicyHolderTableFilling imp
         int yearlyRate = YearlyRateCalculation.calculateYearlyRateOfAPolicyOwner(entityManager, user.getId());
         totalYearlyRateLabel.setText(String.valueOf(yearlyRate));
 
-        fillingClaimTable(entityManager, user, ClaimRead.getAllClaimsFromBeneficiariesOfAPolicyOwner(entityManager, user.getId()));
-        fillingDependantTable(entityManager, user, CustomerRead.getAllDependantsOfAPolicyOwner(entityManager, user.getId()));
-        fillingPolicyHolderTable(entityManager, user, CustomerRead.getAllPolicyHoldersOfAPolicyOwner(entityManager, user.getId()));
-        fillingInsuranceCardTable(entityManager, user, InsuranceCardRead.getAllInsuranceCardsOfPolicyOwner(entityManager, user.getId()));
         //event handling for button
         addPolicyHolderButton.setOnAction(event -> {
             CreationAndUpdatePageControllerPolicyHolder creationPageControllerPolicyHolder = new CreationAndUpdatePageControllerPolicyHolder(entityManager, user, (PolicyOwner) user);
             StageBuilder.showStage((Stage) addPolicyHolderButton.getScene().getWindow(), creationPageControllerPolicyHolder, "PolicyHolderCreationAndUpdatePage.fxml", "PolicyHolderCreationPage");
         });
+
+        //TABLE FILLING: NOW USING THREADS
+
+
+        ClaimTableFillingThread claimTableFillingThread = new ClaimTableFillingThread(ClaimRead.getAllClaimsFromBeneficiariesOfAPolicyOwner(entityManager, user.getId()), this);
+        claimTableFillingThread.start();
+
+        DependantTableFillingThread dependantTableFillingThread = new DependantTableFillingThread(CustomerRead.getAllDependantsOfAPolicyOwner(entityManager, user.getId()), this);
+        dependantTableFillingThread.start();
+
+        PolicyHolderTableFillingThread policyHolderTableFillingThread = new PolicyHolderTableFillingThread(CustomerRead.getAllPolicyHoldersOfAPolicyOwner(entityManager, user.getId()), this);
+        policyHolderTableFillingThread.start();
+
+        InsuranceCardTableFillingThread insuranceCardTableFillingThread = new InsuranceCardTableFillingThread(InsuranceCardRead.getAllInsuranceCardsOfPolicyOwner(entityManager, user.getId()), this);
+        insuranceCardTableFillingThread.start();
+
+//        fillingClaimTable(entityManager, user, ClaimRead.getAllClaimsFromBeneficiariesOfAPolicyOwner(entityManager, user.getId()));
+//        fillingDependantTable(entityManager, user, CustomerRead.getAllDependantsOfAPolicyOwner(entityManager, user.getId()));
+//        fillingPolicyHolderTable(entityManager, user, CustomerRead.getAllPolicyHoldersOfAPolicyOwner(entityManager, user.getId()));
+//        fillingInsuranceCardTable(entityManager, user, InsuranceCardRead.getAllInsuranceCardsOfPolicyOwner(entityManager, user.getId()));
+
+
+        fillingActionHistoryTable(user);
     }
 
     public PolicyOwnerDashBoardController(PolicyOwner user, EntityManager entityManager) {

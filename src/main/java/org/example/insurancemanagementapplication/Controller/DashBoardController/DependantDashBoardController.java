@@ -88,11 +88,12 @@ public class DependantDashBoardController extends ClaimTableFilling implements I
         //See the ClaimTableFilling class
         //aka fill the top form's default input as user's info
         userFillingData();
-        //Put this method call in a thread
 
-        //Fill claim table
+
+        //Fill claim table, no need to use thread. //only get the claim related to that user
         fillingClaimTable(entityManager, user, ClaimRead.getAllClaimsFromABeneficiary(entityManager, user.getId()));
-        //only get the claim related to that user
+        fillingActionHistoryTable(user);
+
 
     }
 
