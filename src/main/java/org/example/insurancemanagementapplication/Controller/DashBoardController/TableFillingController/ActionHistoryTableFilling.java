@@ -32,11 +32,14 @@ public class ActionHistoryTableFilling {
     @FXML
     protected TableColumn<ActionHistory, Timestamp> time;
 
+
     //constructor
 
-    public void ActionHistoryTableFilling(User user) {
+
+    public ActionHistoryTableFilling(User user) {
         this.user = user;
     }
+
 
     //main method to fill the actionHistoryTable
 
@@ -61,5 +64,9 @@ public class ActionHistoryTableFilling {
 
 
 
+    }
+
+    public User getUser() {
+        return user;
     }
 }

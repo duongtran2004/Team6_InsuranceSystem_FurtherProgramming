@@ -16,7 +16,6 @@ import javafx.stage.Stage;
 import org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController.CreationAndUpdatePageControllerInsuranceManager;
 import org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController.CreationAndUpdatePageControllerInsuranceSurveyor;
 import org.example.insurancemanagementapplication.Interfaces.EmployeeCreateRemove;
-import org.example.insurancemanagementapplication.Interfaces.EmployeeRead;
 import org.example.insurancemanagementapplication.Utility.StageBuilder;
 
 import java.util.List;
@@ -232,26 +231,3 @@ public class InsuranceManagerTableFilling extends InsuranceSurveyorTableFilling 
     }
 }
 
-//Inner class for thread
-class InsuranceManagerTableFillingThread extends Thread {
-
-    private EntityManager entityManager;
-    private User user;
-
-    public InsuranceManagerTableFillingThread(EntityManager entityManager, User user) {
-        this.entityManager = entityManager;
-        this.user = user;
-    }
-
-    public static void insuranceManagerTableFilling(EntityManager entityManager, User user) {
-        InsuranceManagerTableFilling insuranceManagerTableFilling = new InsuranceManagerTableFilling(entityManager, user);
-        insuranceManagerTableFilling.fillingInsuranceManagerTable(entityManager, user, EmployeeRead.getAllInsuranceManager(entityManager));
-
-
-    }
-
-    @Override
-    public void run() {
-
-    }
-}

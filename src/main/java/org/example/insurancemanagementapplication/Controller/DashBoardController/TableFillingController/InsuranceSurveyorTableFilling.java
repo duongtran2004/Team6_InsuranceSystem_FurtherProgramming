@@ -16,7 +16,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController.CreationAndUpdatePageControllerInsuranceSurveyor;
 import org.example.insurancemanagementapplication.Interfaces.EmployeeCreateRemove;
-import org.example.insurancemanagementapplication.Interfaces.EmployeeRead;
 import org.example.insurancemanagementapplication.Utility.StageBuilder;
 
 import java.util.List;
@@ -148,29 +147,3 @@ public class InsuranceSurveyorTableFilling extends PolicyOwnerTableFilling {
 }
 //Inner Class for thread
 
-class InsuranceSurveyorTableFillingThread extends Thread {
-
-    private EntityManager entityManager;
-    private User user;
-
-    public InsuranceSurveyorTableFillingThread(EntityManager entityManager, User user) {
-        this.entityManager = entityManager;
-        this.user = user;
-    }
-
-    public static void insuranceSurveyorTableFillingThreadForInsuranceManager(EntityManager entityManager, User user) {
-        InsuranceSurveyorTableFilling insuranceSurveyorTableFilling = new InsuranceSurveyorTableFilling(entityManager, user);
-        insuranceSurveyorTableFilling.fillingInsuranceSurveyorTable(entityManager, user, EmployeeRead.getAllInsuranceSurveyorOfAnInsuranceManager(entityManager, user.getId()));
-    }
-
-    public static void insuranceSurveyorTableFillingThreadForSystemAdmin(EntityManager entityManager, User user) {
-        InsuranceSurveyorTableFilling insuranceSurveyorTableFilling = new InsuranceSurveyorTableFilling(entityManager, user);
-        insuranceSurveyorTableFilling.fillingInsuranceSurveyorTable(entityManager, user, EmployeeRead.getAllInsuranceSurveyor(entityManager));
-
-    }
-
-    @Override
-    public void run() {
-
-    }
-}

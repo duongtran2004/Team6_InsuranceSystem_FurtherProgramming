@@ -12,7 +12,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController.CreationAndUpdatePageControllerClaim;
 import org.example.insurancemanagementapplication.Interfaces.ClaimCreateRemove;
-import org.example.insurancemanagementapplication.Interfaces.ClaimRead;
 import org.example.insurancemanagementapplication.Utility.StageBuilder;
 
 import java.sql.Date;
@@ -560,56 +559,12 @@ public class ClaimTableFilling extends ActionHistoryTableFilling implements Clai
         this.claimAmountTo = claimAmountTo;
     }
 
+    public EntityManager getEntityManager() {
+        return entityManager;
+    }
+
 
 }
 
-//Inner class for thread
-class ClaimTableFillingThread extends Thread {
-    private EntityManager entityManager;
-    private User user;
 
-    public ClaimTableFillingThread(EntityManager entityManager, User user) {
-        this.entityManager = entityManager;
-        this.user = user;
-    }
 
-    public static void claimTableFillingForDependant(EntityManager entityManager, User user) {
-        ClaimTableFilling claimTableFilling = new ClaimTableFilling(user, entityManager);
-        claimTableFilling.fillingClaimTable(entityManager, user, ClaimRead.getAllClaimsFromABeneficiary(entityManager, user.getId()));
-    }
-
-    public static void claimTableFillingForPolicyHolder(EntityManager entityManager, User user) {
-        ClaimTableFilling claimTableFilling = new ClaimTableFilling(user, entityManager);
-        claimTableFilling.fillingClaimTable(entityManager, user, ClaimRead.getAllClaimsFromABeneficiary(entityManager, user.getId()));
-    }
-
-    public static void claimTableFillingForPolicyOwner(EntityManager entityManager, User user) {
-        ClaimTableFilling claimTableFilling = new ClaimTableFilling(user, entityManager);
-        claimTableFilling.fillingClaimTable(entityManager, user, ClaimRead.getAllClaimsFromBeneficiariesOfAPolicyOwner(entityManager, user.getId()));
-    }
-
-    public static void claimTableFillingForInsuranceSurveyor(EntityManager entityManager, User user) {
-        ClaimTableFilling claimTableFilling = new ClaimTableFilling(user, entityManager);
-        claimTableFilling.fillingClaimTable(entityManager, user, ClaimRead.getAllClaimsProcessByAnInsuranceSurveyor(entityManager, user.getId()));
-    }
-
-    public static void claimTableFillingForInsuranceManager(EntityManager entityManager, User user) {
-        ClaimTableFilling claimTableFilling = new ClaimTableFilling(user, entityManager);
-        claimTableFilling.fillingClaimTable(entityManager, user, ClaimRead.getAllClaimsProcessByAnInsuranceManager(entityManager, user.getId()));
-    }
-
-    public static void claimTableFillingForSystemAdmin(EntityManager entityManager, User user) {
-        ClaimTableFilling claimTableFilling = new ClaimTableFilling(user, entityManager);
-        claimTableFilling.fillingClaimTable(entityManager, user, ClaimRead.getAllClaims(entityManager));
-    }
-
-    @Override
-    public void run() {
-        // Fill the table based on the specific logic
-        // For example:
-        // DependantTableFilling filling = new DependantTableFilling(entityManager, user);
-        // filling.fillingDependantTable(entityManager, user, dependants);
-        // Adjust the method call based on your actual implementation
-
-    }
-}

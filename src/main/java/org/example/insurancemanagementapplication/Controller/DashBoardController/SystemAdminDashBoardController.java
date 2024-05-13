@@ -9,8 +9,10 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController.CreationAndUpdatePageControllerInsuranceManager;
 import org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController.CreationAndUpdatePageControllerPolicyOwner;
+import org.example.insurancemanagementapplication.Controller.DashBoardController.TableFillingController.ClaimTableFilling;
 import org.example.insurancemanagementapplication.Controller.DashBoardController.TableFillingController.InsuranceManagerTableFilling;
 import org.example.insurancemanagementapplication.Controller.LogInPageController;
+import org.example.insurancemanagementapplication.Controller.Threads.*;
 import org.example.insurancemanagementapplication.Interfaces.*;
 import org.example.insurancemanagementapplication.Utility.InputValidator;
 import org.example.insurancemanagementapplication.Utility.StageBuilder;
@@ -48,7 +50,7 @@ public class SystemAdminDashBoardController extends InsuranceManagerTableFilling
     @FXML
     protected Button
             clearClaimAmountButton;
-//    private LogInPageController logInPageController;
+    //    private LogInPageController logInPageController;
     @FXML
     protected Button logOutButton;
 
@@ -96,7 +98,6 @@ public class SystemAdminDashBoardController extends InsuranceManagerTableFilling
     }
 
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -113,6 +114,8 @@ public class SystemAdminDashBoardController extends InsuranceManagerTableFilling
         //UPDATE INFO
         //See the ClaimTableFilling Class for this method
         //automatically fill the top form with current user info
+
+        System.out.println("User: " + user);
         userFillingData();
         //
         updateInfoButton.setOnAction(event -> {
@@ -145,21 +148,44 @@ public class SystemAdminDashBoardController extends InsuranceManagerTableFilling
         //FILL ALL THE NECESSARY TABLE (CALL METHODS IN TABLE FILLING CLASS)
         //METHOD FROM TABLE FILLING CLASS CALLS "READ ALL" METHODS IN READ INTERFACES (PASS ENTITY MANAGER AS ARGUMENT)
 
-        //Task: Create a separate thread to fill in Insurance Manager Table
-        fillingInsuranceManagerTable(entityManager, user, EmployeeRead.getAllInsuranceManager(entityManager));
-        //Task: Create a separate thread to fill in the Insurance Surveyor Table
-        fillingInsuranceSurveyorTable(entityManager, user, EmployeeRead.getAllInsuranceSurveyor(entityManager));
-        //Task: Create a separate thread to fill in the Policy Owner Table
-        fillingPolicyOwnerTable(entityManager, user, CustomerRead.getAllPolicyOwner(entityManager));
-        //Task: Create a separate thread to fill in the Policy Holder Table
-        fillingPolicyHolderTable(entityManager, user, CustomerRead.getAllPolicyHolder(entityManager));
-        //Task: Create a separate thread to fill in the Dependant Table
-        fillingDependantTable(entityManager, user, CustomerRead.getAllDependant(entityManager));
-        //Task: Create a separate thread to fill in the Insurance Claim Table
-        fillingInsuranceCardTable(entityManager, user, InsuranceCardRead.getAllInsuranceCard(entityManager));
-        //Task: Create a separate thread to fill in the Claim Table
-        fillingClaimTable(entityManager, user, ClaimRead.getAllClaims(entityManager));
-        fillingActionHistoryTable(user);
+//using thread
+
+        ClaimTableFillingThread claimTableFillingThread = new ClaimTableFillingThread(ClaimRead.getAllClaims(entityManager), this);
+        claimTableFillingThread.start();
+
+        DependantTableFillingThread dependantTableFillingThread = new DependantTableFillingThread(CustomerRead.getAllDependant(entityManager), this);
+        dependantTableFillingThread.start();
+
+        InsuranceManagerTableFillingThread insuranceManagerTableFillingThread = new InsuranceManagerTableFillingThread(EmployeeRead.getAllInsuranceManager(entityManager), this);
+        insuranceManagerTableFillingThread.start();
+
+        InsuranceSurveyorTableFillingThread insuranceSurveyorTableFillingThread = new InsuranceSurveyorTableFillingThread(EmployeeRead.getAllInsuranceSurveyor(entityManager), this);
+        insuranceSurveyorTableFillingThread.start();
+
+        PolicyHolderTableFillingThread policyHolderTableFillingThread = new PolicyHolderTableFillingThread(CustomerRead.getAllPolicyHolder(entityManager), this);
+        policyHolderTableFillingThread.start();
+
+        PolicyOwnerTableFillingThread policyOwnerTableFillingThread = new PolicyOwnerTableFillingThread(CustomerRead.getAllPolicyHolder(entityManager), this);
+        policyOwnerTableFillingThread.start();
+
+        InsuranceCardTableFillingThread insuranceCardTableFillingThread = new InsuranceCardTableFillingThread(InsuranceCardRead.getAllInsuranceCard(entityManager), this);
+        insuranceCardTableFillingThread.start();
+
+
+//        fillingInsuranceManagerTable(entityManager, user, EmployeeRead.getAllInsuranceManager(entityManager));
+//        //Task: Create a separate thread to fill in the Insurance Surveyor Table
+//        fillingInsuranceSurveyorTable(entityManager, user, EmployeeRead.getAllInsuranceSurveyor(entityManager));
+//        //Task: Create a separate thread to fill in the Policy Owner Table
+//        fillingPolicyOwnerTable(entityManager, user, CustomerRead.getAllPolicyOwner(entityManager));
+//        //Task: Create a separate thread to fill in the Policy Holder Table
+//        fillingPolicyHolderTable(entityManager, user, CustomerRead.getAllPolicyHolder(entityManager));
+//        //Task: Create a separate thread to fill in the Dependant Table
+//        fillingDependantTable(entityManager, user, CustomerRead.getAllDependant(entityManager));
+//        //Task: Create a separate thread to fill in the Insurance Claim Table
+//        fillingInsuranceCardTable(entityManager, user, InsuranceCardRead.getAllInsuranceCard(entityManager));
+//        //Task: Create a separate thread to fill in the Claim Table
+//        fillingClaimTable(entityManager, user, ClaimRead.getAllClaims(entityManager));
+//        fillingActionHistoryTable(user);
 
     }
 
@@ -168,5 +194,10 @@ public class SystemAdminDashBoardController extends InsuranceManagerTableFilling
         return entityManager;
     }
 
+    class SystemAdminClaimTableFilling extends Thread {
+        ClaimTableFilling claimTableFilling = new ClaimTableFilling(user, entityManager);
+
+
+    }
 
 }

@@ -16,7 +16,6 @@ import org.example.insurancemanagementapplication.Controller.CreationAndUpdatePa
 import org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController.CreationAndUpdatePageControllerDependant;
 import org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController.CreationAndUpdatePageControllerPolicyHolder;
 import org.example.insurancemanagementapplication.Interfaces.CustomerCreateRemove;
-import org.example.insurancemanagementapplication.Interfaces.CustomerRead;
 import org.example.insurancemanagementapplication.Utility.StageBuilder;
 
 import java.util.List;
@@ -290,40 +289,3 @@ public class PolicyHolderTableFilling extends InsuranceCardTableFilling {
 
 //Inner Class For Thread
 
-class PolicyHolderTableFillingThread extends Thread {
-    private EntityManager entityManager;
-    private User user;
-
-    public PolicyHolderTableFillingThread(EntityManager entityManager, User user) {
-        this.entityManager = entityManager;
-        this.user = user;
-    }
-
-    public static void policyHolderTableFillingForPolicyOwner(EntityManager entityManager, User user) {
-        PolicyHolderTableFilling policyHolderTableFilling = new PolicyHolderTableFilling(entityManager, user);
-        policyHolderTableFilling.fillingPolicyHolderTable(entityManager, user, CustomerRead.getAllPolicyHoldersOfAPolicyOwner(entityManager, user.getId()));
-    }
-
-    public static void policyHolderTableFillingForInsuranceSurveyor(EntityManager entityManager, User user) {
-        PolicyHolderTableFilling policyHolderTableFilling = new PolicyHolderTableFilling(entityManager, user);
-        policyHolderTableFilling.fillingPolicyHolderTable(entityManager, user, CustomerRead.getAllPolicyHoldersTakeChargeByAnEmployee(entityManager, user.getId(), "InsuranceSurveyor"));
-    }
-
-    public static void policyHolderTableFillingForInsuranceManager(EntityManager entityManager, User user) {
-        PolicyHolderTableFilling policyHolderTableFilling = new PolicyHolderTableFilling(entityManager, user);
-        policyHolderTableFilling.fillingPolicyHolderTable(entityManager, user, CustomerRead.getAllPolicyHoldersTakeChargeByAnEmployee(entityManager, user.getId(), "InsuranceManager"));
-    }
-
-
-    public static void policyHolderTableFillingForSystemAdmin(EntityManager entityManager, User user) {
-        PolicyHolderTableFilling policyHolderTableFilling = new PolicyHolderTableFilling(entityManager, user);
-        policyHolderTableFilling.fillingPolicyHolderTable(entityManager, user, CustomerRead.getAllPolicyHolder(entityManager));
-    }
-
-    @Override
-    public void run() {
-
-    }
-
-
-}

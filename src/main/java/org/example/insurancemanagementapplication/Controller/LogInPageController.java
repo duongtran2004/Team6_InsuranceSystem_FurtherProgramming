@@ -68,6 +68,7 @@ public class LogInPageController implements Controller, Initializable, CustomerR
 //            try {
             if (role.equals("System Admin")) {
                 SystemAdmin systemAdmin = EmployeeRead.getSystemAdminWithCredential(entityManager, userId, email, password);
+                System.out.println("System Admin: " + systemAdmin);
                 if (systemAdmin != null) {
                     FXMLLoader fxmlLoader = new FXMLLoader(MainEntryPoint.class.getResource("SystemAdminDashBoard.fxml"));
                     SystemAdminDashBoardController dashBoardControllerSystemAdmin = new SystemAdminDashBoardController(entityManager, systemAdmin);

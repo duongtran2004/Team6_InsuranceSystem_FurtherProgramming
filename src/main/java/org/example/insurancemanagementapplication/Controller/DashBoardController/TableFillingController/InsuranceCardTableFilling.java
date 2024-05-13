@@ -14,7 +14,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import org.example.insurancemanagementapplication.Interfaces.InsuranceCardRead;
 import org.example.insurancemanagementapplication.Interfaces.InsuranceCreateAndRemove;
 
 import java.sql.Date;
@@ -182,32 +181,3 @@ public class InsuranceCardTableFilling extends DependantTableFilling {
 
 //Inner Class for thread
 
-class InsuranceCardTableFillingThread extends Thread {
-    EntityManager entityManager;
-    User user;
-
-
-    public static void insuranceCardTableFillingForPolicyOwner(EntityManager entityManager, User user) {
-        InsuranceCardTableFilling insuranceCardTableFilling = new InsuranceCardTableFilling(entityManager, user);
-        insuranceCardTableFilling.fillingInsuranceCardTable(entityManager, user, InsuranceCardRead.getAllInsuranceCardsOfPolicyOwner(entityManager, user.getId()));
-    }
-
-
-    public static void insuranceCardTableFillingForInsuranceSurveyor(EntityManager entityManager, User user) {
-        InsuranceCardTableFilling insuranceCardTableFilling = new InsuranceCardTableFilling(entityManager, user);
-        insuranceCardTableFilling.fillingInsuranceCardTable(entityManager, user, InsuranceCardRead.getAllInsuranceCardsTakeChargeByAnEmployee(entityManager, user.getId(), "InsuranceSurveyor"));
-    }
-
-    public static void insuranceCardTableFillingForInsuranceManager(EntityManager entityManager, User user) {
-        InsuranceCardTableFilling insuranceCardTableFilling = new InsuranceCardTableFilling(entityManager, user);
-        insuranceCardTableFilling.fillingInsuranceCardTable(entityManager, user, InsuranceCardRead.getAllInsuranceCardsTakeChargeByAnEmployee(entityManager, user.getId(), "InsuranceManager"));
-    }
-
-
-    public static void insuranceCardTableFillingForSystemAdmin(EntityManager entityManager, User user) {
-        InsuranceCardTableFilling insuranceCardTableFilling = new InsuranceCardTableFilling(entityManager, user);
-        insuranceCardTableFilling.fillingInsuranceCardTable(entityManager, user, InsuranceCardRead.getAllInsuranceCard(entityManager));
-
-    }
-
-}
