@@ -149,7 +149,7 @@
                     <children>
                         <ScrollPane fitToWidth="true" hbarPolicy="NEVER" maxHeight="325" maxWidth="Infinity" prefHeight="200.0" prefWidth="200.0" vbarPolicy="NEVER" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
                             <content>
-                                <TableView fx:id="policyHolderTable" maxHeight="Infinity" maxWidth="Infinity" minHeight="325.0" minWidth="1150.0" prefHeight="325.0" prefWidth="1600.0">
+                                <TableView fx:id="policyHolderTable" maxHeight="Infinity" maxWidth="Infinity" minHeight="325.0" minWidth="1600.0" prefHeight="325.0" prefWidth="1600.0">
                                     <columns>
                                         <TableColumn fx:id="policyHolderId" maxWidth="130.0" minWidth="130.0" prefWidth="130.0" text="Policy Holder ID" />
                                         <TableColumn fx:id="policyHolderFullName" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" text="Full Name" />
@@ -196,7 +196,7 @@
                     <children>
                         <ScrollPane fitToWidth="true" hbarPolicy="NEVER" maxHeight="325" maxWidth="Infinity" prefHeight="200.0" prefWidth="200.0" vbarPolicy="NEVER" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
                             <content>
-                                <TableView fx:id="dependantTable" maxHeight="Infinity" maxWidth="Infinity" minHeight="325.0" minWidth="1150.0" prefHeight="326.0" prefWidth="1642.0">
+                                <TableView fx:id="dependantTable" maxHeight="Infinity" maxWidth="Infinity" minHeight="325.0" minWidth="1600.0" prefHeight="326.0" prefWidth="1642.0">
                                     <columns>
                                         <TableColumn fx:id="dependantId" maxWidth="130.0" minWidth="130.0" prefWidth="-1.0" text="Dependant ID" />
                                         <TableColumn fx:id="dependantFullName" maxWidth="150.0" minWidth="150.0" prefWidth="-1.0" text="Full Name" />
@@ -244,7 +244,7 @@
                     <children>
                         <ScrollPane fitToWidth="true" hbarPolicy="NEVER" maxHeight="325" maxWidth="Infinity" prefHeight="200.0" prefWidth="200.0" vbarPolicy="NEVER" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
                             <content>
-                                <TableView fx:id="insuranceCardTable" maxHeight="Infinity" maxWidth="Infinity" minHeight="325.0" minWidth="1150.0" prefHeight="325.0" prefWidth="1600.0">
+                                <TableView fx:id="insuranceCardTable" maxHeight="Infinity" maxWidth="Infinity" minHeight="325.0" minWidth="1600.0" prefHeight="325.0" prefWidth="1600.0">
                                     <columns>
                                         <TableColumn fx:id="cardNumber" maxWidth="Infinity" minWidth="287.5" prefWidth="150.0" text="Card Number" />
                                         <TableColumn fx:id="cardHolderId" maxWidth="Infinity" minWidth="287.5" prefWidth="170.0" text="Card Holder ID" />
@@ -458,7 +458,7 @@
                     <children>
                         <ScrollPane fitToWidth="true" hbarPolicy="NEVER" maxHeight="325" maxWidth="Infinity" prefHeight="200.0" prefWidth="200.0" vbarPolicy="NEVER" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
                             <content>
-                                <TableView fx:id="actionHistoryTable" maxHeight="Infinity" maxWidth="Infinity" minHeight="325.0" minWidth="1150.0" prefHeight="325.0" prefWidth="1600.0">
+                                <TableView fx:id="actionHistoryTable" maxHeight="Infinity" maxWidth="Infinity" minHeight="325.0" minWidth="1600.0" prefHeight="325.0" prefWidth="1600.0">
                                     <columns>
                                         <TableColumn fx:id="actionId" maxWidth="130.0" minWidth="130.0" prefWidth="130.0" text="Action ID" />
                                         <TableColumn fx:id="actionDescription" maxWidth="1242.0" minWidth="100.0" prefWidth="1242.0" text="Action Description" />

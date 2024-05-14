@@ -61,14 +61,19 @@ public class UserInactivityHandler extends ActionHistoryTableFilling {
                     refreshAlert.setTitle("Refresh Alert");
                     refreshAlert.setHeaderText(null);
                     refreshAlert.setContentText("Please click on the refresh button to reload the dashboard and continue using other features. Otherwise you will be logout in next 15 minutes.");
+                    // Set the size of the dialog window
+                    Stage stage = (Stage) refreshAlert.getDialogPane().getScene().getWindow();
+                    stage.setWidth(700); // Set the width
+                    stage.setHeight(400); // Set the height
                     refreshAlert.show();
-
+                    refreshCountDownTimer.cancel();
 
                     startAFKCountDown();
                 });
             }
         };
         refreshCountDownTimer.schedule(pauseUserToForceRefresh, 120 * 10 * 1000); //120 seconds = 2 minutes
+//        refreshCountDownTimer.schedule(pauseUserToForceRefresh,  10 * 1000); //10 seconds just for testing
     }
 
     private void startAFKCountDown() {
@@ -92,6 +97,7 @@ public class UserInactivityHandler extends ActionHistoryTableFilling {
                         logoutAlert.setTitle("Logout Alert");
                         logoutAlert.setHeaderText(null);
                         logoutAlert.setContentText("You have been logged out due to inactivity.");
+                        AFKCountDownTimer.cancel();
                         logoutAlert.show();
 
                     } else {
@@ -101,6 +107,8 @@ public class UserInactivityHandler extends ActionHistoryTableFilling {
             }
         };
         AFKCountDownTimer.schedule(forceLogOut, 900 * 10 * 1000); // 900 seconds = 15 min
+
+//        AFKCountDownTimer.schedule(forceLogOut,   10 * 1000); // 10 seconds just for testing
     }
 
     public void cancelTimers() {

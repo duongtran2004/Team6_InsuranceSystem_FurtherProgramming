@@ -158,7 +158,7 @@
                <children>
                   <ScrollPane fitToWidth="true" maxHeight="325" prefHeight="200.0" prefWidth="200.0" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
                      <content>
-                        <TableView fx:id="managerTable" maxHeight="Infinity" maxWidth="Infinity" minHeight="325.0" minWidth="1150.0" prefHeight="325.0" prefWidth="1600.0">
+                        <TableView fx:id="managerTable" maxHeight="Infinity" maxWidth="Infinity" minHeight="325.0" minWidth="1500.0">
                           <columns>
                             <TableColumn fx:id="managerId" maxWidth="130.0" minWidth="130.0" prefWidth="130.0" text="Manager ID" />
                             <TableColumn fx:id="managerFullName" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" text="Full Name" />
@@ -206,7 +206,7 @@
                     <children>
                         <ScrollPane fitToWidth="true" maxHeight="325" maxWidth="Infinity" prefHeight="200.0" prefWidth="200.0" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
                             <content>
-                                <TableView fx:id="surveyorTable" maxHeight="Infinity" maxWidth="Infinity" minHeight="325.0" minWidth="1150.0" prefHeight="325.0" prefWidth="1600.0">
+                                <TableView fx:id="surveyorTable" maxHeight="Infinity" maxWidth="Infinity" minHeight="325.0" minWidth="1500.0">
                                     <columns>
                                         <TableColumn fx:id="surveyorId" maxWidth="130.0" minWidth="130.0" prefWidth="130.0" text="Surveyor ID" />
                                         <TableColumn fx:id="surveyorFullName" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" text="Full Name" />
@@ -253,7 +253,7 @@
                       <children>
                           <ScrollPane fitToWidth="true" maxHeight="325" maxWidth="Infinity" prefHeight="200.0" prefWidth="200.0" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
                               <content>
-                                  <TableView fx:id="policyOwnerTable" maxHeight="Infinity" maxWidth="Infinity" minHeight="325.0" minWidth="1150.0" prefHeight="325.0" prefWidth="1600.0">
+                                  <TableView fx:id="policyOwnerTable" maxHeight="Infinity" maxWidth="Infinity" minHeight="325.0" minWidth="1500.0">
                                       <columns>
                                           <TableColumn fx:id="policyOwnerId" maxWidth="130.0" minWidth="130.0" prefWidth="130.0" text="Policy Owner Id" />
                                           <TableColumn fx:id="policyOwnerFullName" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" text="Full Name" />
@@ -301,7 +301,7 @@
                     <children>
                         <ScrollPane fitToWidth="true" maxHeight="325" maxWidth="Infinity" prefHeight="200.0" prefWidth="200.0" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
                             <content>
-                                <TableView fx:id="policyHolderTable" maxHeight="Infinity" maxWidth="Infinity" minHeight="325.0" minWidth="1150.0" prefHeight="325.0" prefWidth="1600.0">
+                                <TableView fx:id="policyHolderTable" maxHeight="Infinity" maxWidth="Infinity" minHeight="325.0" minWidth="1600.0">
                                     <columns>
                                         <TableColumn fx:id="policyHolderId" maxWidth="130.0" minWidth="130.0" prefWidth="130.0" text="Policy Holder ID" />
                                         <TableColumn fx:id="policyHolderFullName" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" text="Full Name" />
@@ -350,7 +350,7 @@
                     <children>
                         <ScrollPane fitToWidth="true" maxHeight="325" maxWidth="Infinity" prefHeight="200.0" prefWidth="200.0" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
                             <content>
-                                <TableView fx:id="dependantTable" maxHeight="Infinity" maxWidth="Infinity" minHeight="325.0" minWidth="1150.0" prefHeight="325.0" prefWidth="1600.0">
+                                <TableView fx:id="dependantTable" maxHeight="Infinity" maxWidth="Infinity" minHeight="325.0" minWidth="1500.0">
                                     <columns>
                                         <TableColumn fx:id="dependantId" maxWidth="130.0" minWidth="103.99999314546585" prefWidth="110.39998704195023" text="Dependant ID" />
                                         <TableColumn fx:id="dependantFullName" maxWidth="176.800048828125" minWidth="150.0" prefWidth="160.00003051757812" text="Full Name" />
@@ -400,7 +400,7 @@
                     <children>
                         <ScrollPane fitToWidth="true" maxHeight="325" maxWidth="Infinity" prefHeight="200.0" prefWidth="200.0" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
                             <content>
-                                <TableView fx:id="insuranceCardTable" maxHeight="Infinity" maxWidth="Infinity" minHeight="325.0" minWidth="1150.0" prefHeight="325.0" prefWidth="1600.0">
+                                <TableView fx:id="insuranceCardTable" maxHeight="Infinity" maxWidth="Infinity" minHeight="325.0" minWidth="1500.0">
                                     <columns>
                                         <TableColumn fx:id="cardNumber" maxWidth="Infinity" minWidth="287.5" prefWidth="150.0" text="Card Number" />
                                         <TableColumn fx:id="cardHolderId" maxWidth="Infinity" minWidth="227.20001220703125" prefWidth="227.20001220703125" text="Card Holder ID" />
@@ -445,7 +445,7 @@
                     <children>
                         <ScrollPane fitToWidth="true" maxHeight="325" maxWidth="Infinity" prefHeight="200.0" prefWidth="200.0" GridPane.hgrow="NEVER" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
                             <content>
-                                <TableView fx:id="claimTable" maxHeight="Infinity" maxWidth="Infinity" minHeight="319.0" minWidth="1150.0" prefHeight="319.0" prefWidth="1534.0">
+                                <TableView fx:id="claimTable" maxHeight="Infinity" maxWidth="Infinity" minHeight="319.0" minWidth="1500.0">
                                     <columns>
                                         <TableColumn fx:id="claimId" maxWidth="Infinity" minWidth="150.0" prefWidth="150.0" text="Claim ID" />
                                         <TableColumn fx:id="creationDate" maxWidth="Infinity" minWidth="170.0" prefWidth="170.0" text="Creation Date" />
@@ -656,7 +656,7 @@
                <children>
                   <ScrollPane fitToWidth="true" hbarPolicy="NEVER" maxHeight="325" maxWidth="Infinity" prefHeight="200.0" prefWidth="200.0" vbarPolicy="NEVER" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
                      <content>
-                        <TableView fx:id="actionHistoryTable" maxHeight="Infinity" maxWidth="Infinity" minHeight="325.0" minWidth="1150.0" prefHeight="325.0" prefWidth="1600.0">
+                        <TableView fx:id="actionHistoryTable" maxHeight="Infinity" maxWidth="Infinity" minHeight="325.0" minWidth="1500.0" prefHeight="325.0" prefWidth="1600.0">
                            <columns>
                               <TableColumn fx:id="actionId" maxWidth="130.0" minWidth="130.0" prefWidth="130.0" text="Action ID" />
                               <TableColumn fx:id="actionDescription" maxWidth="1242.0" minWidth="100.0" prefWidth="1242.0" text="Action Description" />
