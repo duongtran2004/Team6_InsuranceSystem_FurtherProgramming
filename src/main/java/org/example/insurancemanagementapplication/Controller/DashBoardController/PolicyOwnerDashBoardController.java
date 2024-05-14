@@ -3,6 +3,8 @@ package org.example.insurancemanagementapplication.Controller.DashBoardControlle
 import Entity.Claim;
 import Entity.PolicyOwner;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -22,6 +24,7 @@ import org.example.insurancemanagementapplication.Utility.StageBuilder;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -115,18 +118,29 @@ public class PolicyOwnerDashBoardController extends PolicyHolderTableFilling imp
 
         //TABLE FILLING: NOW USING THREADS
 
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
 
-        ClaimTableFillingThread claimTableFillingThread = new ClaimTableFillingThread(ClaimRead.getAllClaimsFromBeneficiariesOfAPolicyOwner(entityManager, user.getId()), this);
+        PolicyOwner policyOwner = (PolicyOwner) user;
+        ClaimTableFillingThread claimTableFillingThread = new ClaimTableFillingThread((List<Claim>) policyOwner.getListOfClaims(), this);
         claimTableFillingThread.start();
 
-        DependantTableFillingThread dependantTableFillingThread = new DependantTableFillingThread(CustomerRead.getAllDependantsOfAPolicyOwner(entityManager, user.getId()), this);
+
+        EntityManager entityManagerDependant = entityManagerFactory.createEntityManager();
+        DependantTableFillingThread dependantTableFillingThread = new DependantTableFillingThread(CustomerRead.getAllDependantsOfAPolicyOwner(entityManagerDependant, user.getId()), this);
         dependantTableFillingThread.start();
+        entityManagerDependant.close();
 
-        PolicyHolderTableFillingThread policyHolderTableFillingThread = new PolicyHolderTableFillingThread(CustomerRead.getAllPolicyHoldersOfAPolicyOwner(entityManager, user.getId()), this);
+        EntityManager entityManagerPolicyHolder = entityManagerFactory.createEntityManager();
+        PolicyHolderTableFillingThread policyHolderTableFillingThread = new PolicyHolderTableFillingThread(CustomerRead.getAllPolicyHoldersOfAPolicyOwner(entityManagerPolicyHolder, user.getId()), this);
         policyHolderTableFillingThread.start();
+        entityManagerPolicyHolder.close();
 
-        InsuranceCardTableFillingThread insuranceCardTableFillingThread = new InsuranceCardTableFillingThread(InsuranceCardRead.getAllInsuranceCardsOfPolicyOwner(entityManager, user.getId()), this);
+
+        EntityManager entityManagerInsuranceCard = entityManagerFactory.createEntityManager();
+        InsuranceCardTableFillingThread insuranceCardTableFillingThread = new InsuranceCardTableFillingThread(InsuranceCardRead.getAllInsuranceCardsOfPolicyOwner(entityManagerInsuranceCard, user.getId()), this);
         insuranceCardTableFillingThread.start();
+        entityManagerInsuranceCard.close();
+        entityManagerFactory.close();
 
 //        fillingClaimTable(entityManager, user, ClaimRead.getAllClaimsFromBeneficiariesOfAPolicyOwner(entityManager, user.getId()));
 //        fillingDependantTable(entityManager, user, CustomerRead.getAllDependantsOfAPolicyOwner(entityManager, user.getId()));

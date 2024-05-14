@@ -8,8 +8,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class InsuranceCardReadTest {
     EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
     EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -22,12 +20,21 @@ class InsuranceCardReadTest {
 //    void getAllInsuranceCardsOfPolicyOwner() {
 //    }
 
+//    @Test
+//    void getAllInsuranceCardsTakeChargeByAnEmployee() {
+//        List<InsuranceCard> insuranceCards = InsuranceCardRead.getAllInsuranceCardsTakeChargeByAnEmployee(entityManager,"IM7685824369", "InsuranceManager");
+//        for (InsuranceCard insuranceCard : insuranceCards) {
+//            System.out.println(insuranceCard);
+//        }
+//    }
     @Test
-    void getAllInsuranceCardsTakeChargeByAnEmployee() {
-        List<InsuranceCard> insuranceCards = InsuranceCardRead.getAllInsuranceCardsTakeChargeByAnEmployee(entityManager,"IM7685824369", "InsuranceManager");
-        for (InsuranceCard insuranceCard : insuranceCards) {
+    void  getALlInsuranceCards() {
+        List<InsuranceCard> insuranceCardList =
+        InsuranceCardRead.getAllInsuranceCard(entityManager);
+        for (InsuranceCard insuranceCard : insuranceCardList) {
             System.out.println(insuranceCard);
         }
+
     }
 
 //    @Test

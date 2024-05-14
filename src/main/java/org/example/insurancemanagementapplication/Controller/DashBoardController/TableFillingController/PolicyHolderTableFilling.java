@@ -112,6 +112,10 @@ public class PolicyHolderTableFilling extends InsuranceCardTableFilling {
             Button buttonAddDependant = new Button("Add Dependant");
             Button buttonRemove = new Button("Remove");
             Button buttonAddClaim = new Button("Add Claim");
+            buttonList.add(buttonAddDependant);
+            buttonList.add(buttonRemove);
+            buttonList.add(buttonAddClaim);
+            buttonList.add(buttonUpdateInfo);
 
             //Only a system admin and a policy owner has access to the update info and remove and add dependant buttons
             if (user instanceof SystemAdmin || user instanceof Customer) {

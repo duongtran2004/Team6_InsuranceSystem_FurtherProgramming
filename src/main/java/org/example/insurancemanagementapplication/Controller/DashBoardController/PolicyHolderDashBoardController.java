@@ -1,7 +1,10 @@
 package org.example.insurancemanagementapplication.Controller.DashBoardController;
 
+import Entity.Claim;
 import Entity.PolicyHolder;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -17,6 +20,7 @@ import org.example.insurancemanagementapplication.Utility.StageBuilder;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -91,11 +95,17 @@ public class PolicyHolderDashBoardController extends DependantTableFilling imple
         //See the ClaimTableFilling class
         userFillingData();
         //FILLING TABLE USING THREADS
-        ClaimTableFillingThread claimTableFillingThread = new ClaimTableFillingThread(ClaimRead.getAllClaimsFromABeneficiary(entityManager, user.getId()), this);
+
+        PolicyHolder policyHolder = (PolicyHolder) user;
+        ClaimTableFillingThread claimTableFillingThread = new ClaimTableFillingThread((List<Claim>) policyHolder.getListOfClaims(), this);
         claimTableFillingThread.start();
 
-        DependantTableFillingThread dependantTableFillingThread = new DependantTableFillingThread(CustomerRead.getAllDependantsOfAPolicyHolder(entityManager, user.getId()), this);
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
+        EntityManager entityManagerDependant = entityManagerFactory.createEntityManager();
+        DependantTableFillingThread dependantTableFillingThread = new DependantTableFillingThread(CustomerRead.getAllDependantsOfAPolicyHolder(entityManagerDependant, user.getId()), this);
         dependantTableFillingThread.start();
+        entityManagerDependant.close();
+        entityManagerFactory.close();
 
 //        //fill claim table
 //        fillingClaimTable(entityManager, user, ClaimRead.getAllClaimsFromABeneficiary(entityManager,user.getId()));

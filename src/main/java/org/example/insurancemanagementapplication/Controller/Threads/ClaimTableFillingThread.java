@@ -8,7 +8,6 @@ import java.util.List;
 //Inner class for thread
 public  class ClaimTableFillingThread extends Thread {
     protected List<Claim> claimList;
-
     protected ClaimTableFilling claimTableFilling;
 
     public ClaimTableFillingThread(List<Claim> claimList, ClaimTableFilling claimTableFilling) {

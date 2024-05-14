@@ -108,6 +108,9 @@ public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
             Button buttonUpdateInfo = new Button("Update Info");
             Button buttonAddPolicy = new Button("Add Policy");
             Button buttonRemove = new Button("Remove");
+            buttonList.add(buttonAddPolicy);
+            buttonList.add(buttonUpdateInfo);
+            buttonList.add(buttonRemove);
             //Only a system admin has access to the update info, add policy, and remove button
             if (user instanceof SystemAdmin){
                 //The Update Info Button will create a CreationPage Controller for the policy owner in update mode by passing in the policy owner object

@@ -104,6 +104,7 @@ public class InsuranceSurveyorTableFilling extends PolicyOwnerTableFilling {
         while (listIteratorInsuranceSurveyor.hasNext()) {
             InsuranceSurveyor insuranceSurveyor = listIteratorInsuranceSurveyor.next();
             Button buttonUpdateInfo = new Button("Update Info");
+            buttonList.add(buttonUpdateInfo);
             //Only System admin has access to the update info button and the remove button
             if (user instanceof SystemAdmin) {
                 //The Update Info Button will create a CreationPage Controller for the Insurance Surveyor in update mode by passing in the insurance surveyor object
@@ -118,6 +119,7 @@ public class InsuranceSurveyorTableFilling extends PolicyOwnerTableFilling {
                 insuranceSurveyor.setUpdateInfoButton(buttonUpdateInfo);
                 //The remove button will remove its Insurance Surveyor from the database
                 Button buttonRemove = new Button("Remove");
+                buttonList.add(buttonRemove);
                 insuranceSurveyor.setRemoveButton(buttonRemove);
                 buttonRemove.setOnAction(event -> {
                     EmployeeCreateRemove.removeInsuranceSurveyor(entityManager, insuranceSurveyor);

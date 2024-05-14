@@ -49,4 +49,5 @@ public class InsuranceManager extends User {
     public void setListOfSurveyors(Collection<InsuranceSurveyor> listOfSurveyors) {
         this.listOfSurveyors = listOfSurveyors;
     }
+
 }

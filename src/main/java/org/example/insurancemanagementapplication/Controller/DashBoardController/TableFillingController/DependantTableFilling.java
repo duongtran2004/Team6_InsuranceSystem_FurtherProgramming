@@ -132,6 +132,9 @@ public class DependantTableFilling extends ClaimTableFilling {
             Button buttonUpdateInfo = new Button();
             Button buttonAddClaim = new Button();
             Button buttonRemove = new Button();
+            buttonList.add(buttonAddClaim);
+            buttonList.add(buttonRemove);
+            buttonList.add(buttonUpdateInfo);
             //Only system admin and policy holder and policy owner have access to the update info button, remove button
             if (user instanceof SystemAdmin || user instanceof Customer) {
                 //MAKE BUTTON TO UPDATE INFO OF DEPENDENT OBJECT BECOME VISIBLE

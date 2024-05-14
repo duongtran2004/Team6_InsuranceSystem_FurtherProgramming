@@ -97,6 +97,7 @@ public class InsuranceManagerTableFilling extends InsuranceSurveyorTableFilling 
         while (listIteratorInsuranceManager.hasNext()) {
             InsuranceManager insuranceManager = listIteratorInsuranceManager.next();
             Button buttonUpdateInfo = new Button("Update Info");
+            buttonList.add(buttonUpdateInfo);
             insuranceManager.setUpdateInfoButton(buttonUpdateInfo);
             //The update info button on each row will create a CreationPage Controller in update mode for the corresponding insurance manager by passing in the insurance manager object
             //It will then open the Insurance Manager Creation Form
@@ -106,6 +107,7 @@ public class InsuranceManagerTableFilling extends InsuranceSurveyorTableFilling 
             });
 
             Button buttonAddSurveyor = new Button("Add Surveyor");
+            buttonList.add(buttonAddSurveyor);
             insuranceManager.setAddSurveyorButton(buttonAddSurveyor);
             //The addSurveyor button will create an Insurance Surveyor CreationPage Controller in creation mode by passing the insurance manage object
             //It will then open the Insurance Surveyor Creation Form
@@ -116,6 +118,7 @@ public class InsuranceManagerTableFilling extends InsuranceSurveyorTableFilling 
 
             //The remove button will remove its insurance manager from the database
             Button buttonRemove = new Button("Remove");
+            buttonList.add(buttonRemove);
             insuranceManager.setRemoveButton(buttonRemove);
             buttonRemove.setOnAction(event -> {
                 EmployeeCreateRemove.removeInsuranceManager(entityManager, insuranceManager);

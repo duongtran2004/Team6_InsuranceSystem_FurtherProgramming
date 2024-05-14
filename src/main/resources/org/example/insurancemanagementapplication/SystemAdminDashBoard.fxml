@@ -45,7 +45,12 @@
                     <children>
                         <Pane maxHeight="275.0" maxWidth="Infinity" minHeight="275.0" minWidth="150.0" prefHeight="275.0" prefWidth="150.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Button fx:id="logOutButton" layoutY="238.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="188.0" text="Log Out">
+                        <Button fx:id="logOutButton" layoutY="185.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="188.0" text="Log Out">
+                           <font>
+                              <Font name="Helvetica Neue Bold" size="16.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="refreshButton" layoutY="238.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="188.0" text="Refresh DashBoard">
                            <font>
                               <Font name="Helvetica Neue Bold" size="16.0" />
                            </font>

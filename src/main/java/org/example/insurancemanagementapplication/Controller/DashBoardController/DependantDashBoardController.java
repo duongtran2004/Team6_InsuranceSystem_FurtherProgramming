@@ -1,5 +1,6 @@
 package org.example.insurancemanagementapplication.Controller.DashBoardController;
 
+import Entity.Claim;
 import Entity.Dependant;
 import jakarta.persistence.EntityManager;
 import javafx.fxml.FXML;
@@ -14,6 +15,7 @@ import org.example.insurancemanagementapplication.Utility.StageBuilder;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -91,7 +93,8 @@ public class DependantDashBoardController extends ClaimTableFilling implements I
 
 
         //Fill claim table, no need to use thread. //only get the claim related to that user
-        fillingClaimTable(entityManager, user, ClaimRead.getAllClaimsFromABeneficiary(entityManager, user.getId()));
+        Dependant dependant = (Dependant) user;
+        fillingClaimTable(entityManager, user, (List<Claim>) dependant.getListOfClaims());
         fillingActionHistoryTable(user);
 
 

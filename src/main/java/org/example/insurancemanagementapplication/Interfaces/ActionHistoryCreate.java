@@ -13,17 +13,17 @@ public interface ActionHistoryCreate {
 
     //This class is to create ActionHistory Objects, then write to file using Serialization
 
-    static void createActionHistoryFileIfEmpty(String userId) {
+    static void createActionHistoryFileIfEmpty(String userId)  {
         // Define the file name based on the userId
         String fileName = userId + "_action_history.txt";
-        String filePath = "src\\main\\java\\ActionHistoryFiles" + "\\" + fileName;
+        String filePath = "src/main/resources/org/example/insurancemanagementapplication/ActionHistoryFiles" + "\\" + fileName;
 
 
         // Create a File object with the file path
         File file = new File(filePath);
 
         // Check if the file exists
-        if (!file.exists()) {
+        if (!file.exists()) { //how to: the system cannot find the path specifie
             try {
                 // Create a new file
                 if (file.createNewFile()) {

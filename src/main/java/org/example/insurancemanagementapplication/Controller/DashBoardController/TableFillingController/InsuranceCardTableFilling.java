@@ -99,6 +99,7 @@ public class InsuranceCardTableFilling extends DependantTableFilling {
             //Only system admin and policy owner has access to the remove button
             if (user instanceof SystemAdmin || user instanceof PolicyOwner) {
                 Button buttonRemove = new Button("Remove");
+                buttonList.add(buttonRemove);
                 buttonRemove.setOnAction(event -> {
                    InsuranceCreateAndRemove.removeInsuranceCard(entityManager, insuranceCard);
 

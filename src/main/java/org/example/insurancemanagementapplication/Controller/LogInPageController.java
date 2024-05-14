@@ -70,13 +70,18 @@ public class LogInPageController implements Controller, Initializable, CustomerR
                 SystemAdmin systemAdmin = EmployeeRead.getSystemAdminWithCredential(entityManager, userId, email, password);
                 System.out.println("System Admin: " + systemAdmin);
                 if (systemAdmin != null) {
+
                     FXMLLoader fxmlLoader = new FXMLLoader(MainEntryPoint.class.getResource("SystemAdminDashBoard.fxml"));
                     SystemAdminDashBoardController dashBoardControllerSystemAdmin = new SystemAdminDashBoardController(entityManager, systemAdmin);
                     fxmlLoader.setController(dashBoardControllerSystemAdmin);
+
+
+
                     try {
                         Scene scene = new Scene(fxmlLoader.load());
                         stage.setScene(scene);
                         stage.show();
+
 
                     } catch (IOException e) {
                         throw new RuntimeException(e);
@@ -165,15 +170,13 @@ public class LogInPageController implements Controller, Initializable, CustomerR
                     }
                 }
             }
-//comment out for debugging in console, then remember to put it back
-//            }catch (NoResultException noResultException){
-//                errorContainer.setText("User Not Found. Please Try Again");
-//            }
 
         });
 
 
     }
+
+
 
 
 }

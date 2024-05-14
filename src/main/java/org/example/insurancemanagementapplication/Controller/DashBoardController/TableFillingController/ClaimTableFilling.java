@@ -15,6 +15,7 @@ import org.example.insurancemanagementapplication.Interfaces.ClaimCreateRemove;
 import org.example.insurancemanagementapplication.Utility.StageBuilder;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.ListIterator;
@@ -33,7 +34,11 @@ import java.util.ListIterator;
  */
 
 public class ClaimTableFilling extends ActionHistoryTableFilling implements ClaimCreateRemove {
-    protected final EntityManager entityManager;
+    public final EntityManager entityManager;
+
+
+
+        public List<Button> buttonList = new ArrayList<>();
 
     private ObservableList<Claim> claimObservableList = FXCollections.observableArrayList();
 
@@ -350,6 +355,8 @@ public class ClaimTableFilling extends ActionHistoryTableFilling implements Clai
                 Button claimButton = new Button();
                 //Creating a Button to remove a claim
                 Button buttonRemoveClaim = new Button("Remove");
+                buttonList.add(claimButton);
+                buttonList.add(buttonRemoveClaim);
                 buttonRemoveClaim.setOnAction(event -> {
                     ClaimCreateRemove.removeClaim(entityManager, claim);
                 });
@@ -401,6 +408,7 @@ public class ClaimTableFilling extends ActionHistoryTableFilling implements Clai
             claimRemoveButton.setCellValueFactory(new PropertyValueFactory<Claim, Button>("claimRemoveButton"));
         }
         claimTable.setItems(sortedClaimList);
+
     }
 
 
@@ -561,6 +569,9 @@ public class ClaimTableFilling extends ActionHistoryTableFilling implements Clai
 
     public EntityManager getEntityManager() {
         return entityManager;
+    }
+    public List<Button> getButtonList() {
+        return buttonList;
     }
 
 
