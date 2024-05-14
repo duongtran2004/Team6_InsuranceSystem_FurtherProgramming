@@ -11,14 +11,12 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController.CreationAndUpdatePageControllerClaim;
+import org.example.insurancemanagementapplication.Controller.Threads.UserInactivityHandler;
 import org.example.insurancemanagementapplication.Interfaces.ClaimCreateRemove;
 import org.example.insurancemanagementapplication.Utility.StageBuilder;
 
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.*;
 
 /**
  * @author Luong Thanh Trung
@@ -35,10 +33,13 @@ import java.util.ListIterator;
 
 public class ClaimTableFilling extends ActionHistoryTableFilling implements ClaimCreateRemove {
     public final EntityManager entityManager;
+    protected Timer AFKCountDownTimer = new Timer();
+    protected Timer refreshCountDownTimer = new Timer();
+    protected UserInactivityHandler userInactivityHandler; // Declare UserInactivityHandler instance
 
 
 
-        public List<Button> buttonList = new ArrayList<>();
+    public List<Button> buttonList = new ArrayList<>();
 
     private ObservableList<Claim> claimObservableList = FXCollections.observableArrayList();
 

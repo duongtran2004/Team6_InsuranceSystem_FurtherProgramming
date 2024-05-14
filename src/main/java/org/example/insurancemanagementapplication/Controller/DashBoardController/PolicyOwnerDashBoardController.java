@@ -15,10 +15,7 @@ import javafx.stage.Stage;
 import org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController.CreationAndUpdatePageControllerPolicyHolder;
 import org.example.insurancemanagementapplication.Controller.DashBoardController.TableFillingController.PolicyHolderTableFilling;
 import org.example.insurancemanagementapplication.Controller.LogInPageController;
-import org.example.insurancemanagementapplication.Controller.Threads.ClaimTableFillingThread;
-import org.example.insurancemanagementapplication.Controller.Threads.DependantTableFillingThread;
-import org.example.insurancemanagementapplication.Controller.Threads.InsuranceCardTableFillingThread;
-import org.example.insurancemanagementapplication.Controller.Threads.PolicyHolderTableFillingThread;
+import org.example.insurancemanagementapplication.Controller.Threads.*;
 import org.example.insurancemanagementapplication.Interfaces.*;
 import org.example.insurancemanagementapplication.Utility.StageBuilder;
 
@@ -149,6 +146,12 @@ public class PolicyOwnerDashBoardController extends PolicyHolderTableFilling imp
 
 
         fillingActionHistoryTable(user);
+        // Initialize UserInactivityHandler
+        userInactivityHandler = new UserInactivityHandler(user, refreshCountDownTimer, AFKCountDownTimer, buttonList);
+        userInactivityHandler.initialize(buttonList);
+
+        // Start the refresh countdown timer
+        userInactivityHandler.startRefreshCountDown();
     }
 
     public PolicyOwnerDashBoardController(PolicyOwner user, EntityManager entityManager) {

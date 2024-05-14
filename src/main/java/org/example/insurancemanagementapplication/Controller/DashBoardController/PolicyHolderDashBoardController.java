@@ -13,6 +13,7 @@ import org.example.insurancemanagementapplication.Controller.DashBoardController
 import org.example.insurancemanagementapplication.Controller.LogInPageController;
 import org.example.insurancemanagementapplication.Controller.Threads.ClaimTableFillingThread;
 import org.example.insurancemanagementapplication.Controller.Threads.DependantTableFillingThread;
+import org.example.insurancemanagementapplication.Controller.Threads.UserInactivityHandler;
 import org.example.insurancemanagementapplication.Interfaces.ClaimRead;
 import org.example.insurancemanagementapplication.Interfaces.Controller;
 import org.example.insurancemanagementapplication.Interfaces.CustomerRead;
@@ -107,13 +108,15 @@ public class PolicyHolderDashBoardController extends DependantTableFilling imple
         entityManagerDependant.close();
         entityManagerFactory.close();
 
-//        //fill claim table
-//        fillingClaimTable(entityManager, user, ClaimRead.getAllClaimsFromABeneficiary(entityManager,user.getId()));
-//        //fill dependent table
-//        fillingDependantTable(entityManager,user, CustomerRead.getAllDependantsOfAPolicyHolder(entityManager, user.getId()));
-
 
         fillingActionHistoryTable(user);
+
+        // Initialize UserInactivityHandler
+        userInactivityHandler = new UserInactivityHandler(user, refreshCountDownTimer, AFKCountDownTimer, buttonList);
+        userInactivityHandler.initialize(buttonList);
+
+        // Start the refresh countdown timer
+        userInactivityHandler.startRefreshCountDown();
     }
 
     public PolicyHolderDashBoardController(PolicyHolder user, EntityManager entityManager) {

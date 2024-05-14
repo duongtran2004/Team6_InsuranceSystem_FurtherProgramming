@@ -134,22 +134,16 @@ public class InsuranceManagerDashBoardController extends InsuranceSurveyorTableF
         InsuranceSurveyorTableFillingThread insuranceSurveyorTableFillingThread = new InsuranceSurveyorTableFillingThread(EmployeeRead.getAllInsuranceSurveyorOfAnInsuranceManager(entityManager, user.getId()), this);
         insuranceSurveyorTableFillingThread.start();
         entityManagerInsuranceSurveyor.close();
-//        //fill claim table
-//        fillingClaimTable(entityManager, user, ClaimRead.getAllClaimsProcessByAnInsuranceManager(entityManager, user.getId()));
-//        //fill all the table of customers
-//        // fill dependant table
-//        fillingDependantTable(entityManager, user, CustomerRead.getAllDependantsTakeChargeByAnEmployee(entityManager, user.getId(), "InsuranceManager"));
-//        // fill policy holder table
-//        fillingPolicyHolderTable(entityManager, user, CustomerRead.getAllPolicyHoldersTakeChargeByAnEmployee(entityManager, user.getId(), "InsuranceManager"));
-//        // fill policy owner table
-//        fillingPolicyOwnerTable(entityManager, user, CustomerRead.getAllPolicyOwnersTakeChargeByAnEmployee(entityManager, user.getId(), "InsuranceManager"));
-//        // fill insurance card table
-//        fillingInsuranceCardTable(entityManager,user, InsuranceCardRead.getAllInsuranceCardsTakeChargeByAnEmployee(entityManager, user.getId(), "InsuranceManager"));
-//
-//        //fill employee table
-//        //fill insurance surveyor table
-//        fillingInsuranceSurveyorTable(entityManager, user, EmployeeRead.getAllInsuranceSurveyorOfAnInsuranceManager(entityManager, user.getId()));
 
+        fillingActionHistoryTable(user);
+
+
+        // Initialize UserInactivityHandler
+        userInactivityHandler = new UserInactivityHandler(user, refreshCountDownTimer, AFKCountDownTimer, buttonList);
+        userInactivityHandler.initialize(buttonList);
+
+        // Start the refresh countdown timer
+        userInactivityHandler.startRefreshCountDown();
 
     }
 

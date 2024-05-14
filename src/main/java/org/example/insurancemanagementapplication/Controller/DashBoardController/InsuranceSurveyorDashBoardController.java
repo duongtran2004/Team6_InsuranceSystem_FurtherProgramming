@@ -128,14 +128,15 @@ public class InsuranceSurveyorDashBoardController extends PolicyOwnerTableFillin
         entityManagerFactory.close();
 
 
-        //        fillingClaimTable(entityManager, user, ClaimRead.getAllClaimsProcessByAnInsuranceSurveyor(entityManager, user.getId()));
-//        fillingDependantTable(entityManager, user, CustomerRead.getAllDependantsTakeChargeByAnEmployee(entityManager, user.getId(), "InsuranceSurveyor"));
-//        fillingPolicyHolderTable(entityManager, user, CustomerRead.getAllPolicyHoldersTakeChargeByAnEmployee(entityManager, user.getId(), "InsuranceSurveyor"));
-//        fillingPolicyOwnerTable(entityManager, user, CustomerRead.getAllPolicyOwnersTakeChargeByAnEmployee(entityManager, user.getId(), "InsuranceSurveyor"));
-//        fillingInsuranceCardTable(entityManager,user, InsuranceCardRead.getAllInsuranceCardsTakeChargeByAnEmployee(entityManager, user.getId(), "InsuranceSurveyor"));
-
 
         fillingActionHistoryTable(user);
+
+        // Initialize UserInactivityHandler
+        userInactivityHandler = new UserInactivityHandler(user, refreshCountDownTimer, AFKCountDownTimer, buttonList);
+        userInactivityHandler.initialize(buttonList);
+
+        // Start the refresh countdown timer
+        userInactivityHandler.startRefreshCountDown();
     }
 
     public InsuranceSurveyorDashBoardController(InsuranceSurveyor user, EntityManager entityManager) {

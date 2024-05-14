@@ -22,7 +22,6 @@ import org.example.insurancemanagementapplication.Utility.StageBuilder;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.Timer;
 
 /**
  * @author Luong Thanh Trung
@@ -32,10 +31,8 @@ import java.util.Timer;
  */
 public class SystemAdminDashBoardController extends InsuranceManagerTableFilling implements ClaimRead, EmployeeCreateRemove, CustomerCreateRemove, Initializable, EmployeeRead, Controller {
 
-    private Timer AFKCountDownTimer = new Timer();
-    private Timer refreshCountDownTimer = new Timer();
-    private UserInactivityHandler userInactivityHandler; // Declare UserInactivityHandler instance
-    //do we even need constructor for SADashBoard ?
+
+
 
 
     //import necessary FXML controller object for the creation and update form at the top

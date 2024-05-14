@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import org.example.insurancemanagementapplication.Controller.DashBoardController.TableFillingController.ClaimTableFilling;
 import org.example.insurancemanagementapplication.Controller.LogInPageController;
+import org.example.insurancemanagementapplication.Controller.Threads.UserInactivityHandler;
 import org.example.insurancemanagementapplication.Interfaces.ClaimRead;
 import org.example.insurancemanagementapplication.Interfaces.Controller;
 import org.example.insurancemanagementapplication.Utility.StageBuilder;
@@ -95,6 +96,13 @@ public class DependantDashBoardController extends ClaimTableFilling implements I
         //Fill claim table, no need to use thread. //only get the claim related to that user
         Dependant dependant = (Dependant) user;
         fillingClaimTable(entityManager, user, (List<Claim>) dependant.getListOfClaims());
+
+        // Initialize UserInactivityHandler
+        userInactivityHandler = new UserInactivityHandler(user, refreshCountDownTimer, AFKCountDownTimer, buttonList);
+        userInactivityHandler.initialize(buttonList);
+
+        // Start the refresh countdown timer
+        userInactivityHandler.startRefreshCountDown();
         fillingActionHistoryTable(user);
 
 
