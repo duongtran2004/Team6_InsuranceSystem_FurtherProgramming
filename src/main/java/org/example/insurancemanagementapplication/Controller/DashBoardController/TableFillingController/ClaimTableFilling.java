@@ -469,10 +469,10 @@ public class ClaimTableFilling extends ActionHistoryTableFilling implements Clai
 
     public void setTextToClaimLabels(Claim claim) {
         if (user instanceof SystemAdmin) { //only system admin can do this feature
-            modifiedTotalSuccessfulClaimAmount = originalTotalSuccessfulClaimAmount - claim.getClaimAmount(); //filter out claims that is un-satisfied with sorting conditions
+            modifiedTotalSuccessfulClaimAmount = modifiedTotalSuccessfulClaimAmount - claim.getClaimAmount(); //filter out claims that is un-satisfied with sorting conditions
 
             if (!claim.getStatus().equals("APPROVED")) {
-                modifiedTotalSuccessfulClaims = originalTotalSuccessfulClaims - 1; //filter out claims that is un-satisfied with sorting conditions
+                modifiedTotalSuccessfulClaims = modifiedTotalSuccessfulClaims - 1; //filter out claims that is un-satisfied with sorting conditions
             }
             System.out.println("modifiedTotalSuccessfulClaim"+ modifiedTotalSuccessfulClaims);
             System.out.println("modifiedTotalSuccessfulClaimAmount"+ modifiedTotalSuccessfulClaimAmount);

@@ -80,6 +80,10 @@ public class MainEntryPoint extends Application {
         stage.setWidth(800); // Set width to 800 pixels
         stage.setHeight(600); // Set height to 600 pixels
         stage.setScene(scene);
+        stage.setOnCloseRequest(windowEvent -> {
+            entityManager.close();
+            entityManagerFactory.close();
+        });
         stage.show();
     }
 
