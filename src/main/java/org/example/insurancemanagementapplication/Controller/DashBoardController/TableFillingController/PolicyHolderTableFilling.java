@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController.CreationAndUpdatePageControllerClaim;
 import org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController.CreationAndUpdatePageControllerDependant;
 import org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController.CreationAndUpdatePageControllerPolicyHolder;
+import org.example.insurancemanagementapplication.Interfaces.ClaimRead;
 import org.example.insurancemanagementapplication.Interfaces.CustomerCreateRemove;
 import org.example.insurancemanagementapplication.Utility.StageBuilder;
 
@@ -58,6 +59,8 @@ public class PolicyHolderTableFilling extends InsuranceCardTableFilling {
     protected TableColumn<PolicyHolder, Button> policyHolderRemoveButton;
     @FXML
     protected TextField policyHolderSearchField;
+    @FXML
+    private TableColumn<PolicyHolder, Integer> totalSuccessfulClaimAmountPolicyHolderColumn;
 
     public PolicyHolderTableFilling(EntityManager entityManager, User user) {
         super(entityManager, user);
@@ -108,6 +111,8 @@ public class PolicyHolderTableFilling extends InsuranceCardTableFilling {
         //Add policy holders to the observable list
         while (policyHolderListIterator.hasNext()) {
             PolicyHolder policyHolder = policyHolderListIterator.next();
+            //setter
+            policyHolder.setTotalSuccessfulClaimAmount(ClaimRead.getTotalSuccessfulClaimAmountMadeByABeneficiary((Beneficiaries) policyHolder));
             Button buttonUpdateInfo = new Button("Update Info");
             Button buttonAddDependant = new Button("Add Dependant");
             Button buttonRemove = new Button("Remove");
@@ -163,6 +168,10 @@ public class PolicyHolderTableFilling extends InsuranceCardTableFilling {
         policyOwnerHolderTable.setCellValueFactory(new PropertyValueFactory<PolicyHolder, String>("policyOwnerId"));
         cardNumberHolderTable.setCellValueFactory(new PropertyValueFactory<PolicyHolder, String>("cardNumber"));
         policyHolderPassword.setCellValueFactory(new PropertyValueFactory<PolicyHolder, String>("password"));
+        if (user instanceof SystemAdmin) {
+            totalSuccessfulClaimAmountPolicyHolderColumn.setCellValueFactory(new PropertyValueFactory<PolicyHolder, Integer>("totalSuccessfulClaimAmount"));
+        }
+
         if (user instanceof SystemAdmin || user instanceof Customer) {
             policyHolderUpdateInfoButton.setCellValueFactory(new PropertyValueFactory<PolicyHolder, Button>("updateInfoButton"));
             policyHolderAddDependantButton.setCellValueFactory(new PropertyValueFactory<PolicyHolder, Button>("addDependantButton"));

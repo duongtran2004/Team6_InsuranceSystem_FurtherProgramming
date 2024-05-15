@@ -50,6 +50,7 @@ public class SystemAdminDashBoardController extends InsuranceManagerTableFilling
     protected Button refreshButton;
 
 
+
     // Method to handle the RefreshButton click event
     public void handleRefreshButton() {
 

@@ -14,6 +14,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController.CreationAndUpdatePageControllerClaim;
 import org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController.CreationAndUpdatePageControllerDependant;
+import org.example.insurancemanagementapplication.Interfaces.ClaimRead;
 import org.example.insurancemanagementapplication.Interfaces.CustomerCreateRemove;
 import org.example.insurancemanagementapplication.Utility.StageBuilder;
 
@@ -70,6 +71,9 @@ public class DependantTableFilling extends ClaimTableFilling {
     protected TableColumn<Dependant, String> policyHolderDependantTable;
     @FXML
     protected TextField dependantSearchField;
+
+    @FXML
+    private TableColumn<Dependant, Integer> totalSuccessfulClaimAmountDependantColumn;
 
     public DependantTableFilling(EntityManager entityManager, User user) {
         super(user, entityManager);
@@ -128,6 +132,9 @@ public class DependantTableFilling extends ClaimTableFilling {
         //Adding dependants to the dependant observable list
         while (dependantListIterator.hasNext()) {
             Dependant dependant = dependantListIterator.next();
+            //setter
+            dependant.setTotalSuccessfulClaimAmount(ClaimRead.getTotalSuccessfulClaimAmountMadeByABeneficiary((Beneficiaries) dependant));
+
             //ADD NECESSARY BUTTONS BESIDE 1 ROW
             Button buttonUpdateInfo = new Button();
             Button buttonAddClaim = new Button();
@@ -186,9 +193,12 @@ public class DependantTableFilling extends ClaimTableFilling {
         policyOwnerDependantTable.setCellValueFactory(new PropertyValueFactory<Dependant, String>("policyOwnerId"));
         cardNumberDependantTable.setCellValueFactory(new PropertyValueFactory<Dependant, String>("cardNumber"));
         policyHolderDependantTable.setCellValueFactory(new PropertyValueFactory<Dependant, String>("policyHolderId"));
+        if (user instanceof SystemAdmin) {
+            totalSuccessfulClaimAmountDependantColumn.setCellValueFactory(new PropertyValueFactory<Dependant, Integer>("totalSuccessfulClaimAmount"));
+        }
 
 
-        //CRUD for Dependent objects
+        //CRUD for Dependent objects8
 
         if ((user instanceof PolicyOwner || user instanceof PolicyHolder || user instanceof SystemAdmin)) {
             //only PolicyOwner and PolicyHolder and update information of Dependent object

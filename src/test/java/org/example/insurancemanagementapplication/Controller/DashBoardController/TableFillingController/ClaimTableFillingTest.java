@@ -68,7 +68,8 @@ class ClaimTableFillingTest {
         claim1.setClaimAmount(100);
 
         Claim claim2 = new Claim();
-        claim2.setStatus("REJECTED");
+        claim2.setStatus("APPROVED");
+        claim2.setClaimAmount(200);
 
 
         List<Claim> claimList = new ArrayList<>();
@@ -79,20 +80,28 @@ class ClaimTableFillingTest {
 
         //add them into a collection
         //sample attributes
-        int originalTotalSuccessfulClaimAmount = 13;
+        int originalTotalSuccessfulClaims = 1;
 
+        int originalTotalSuccessfulClaimAmount = 100;
+        int modifiedTotalSuccessfulClaimAmount = originalTotalSuccessfulClaimAmount;
+        int modifiedTotalSuccessfulClaims = originalTotalSuccessfulClaims;
 
-        int modifiedTotalSuccessfulClaimAmount;
+        for (Claim claim : claimList) {
+            modifiedTotalSuccessfulClaimAmount = originalTotalSuccessfulClaimAmount - claim.getClaimAmount(); //filter out claims that is un-satisfied with sorting conditions
 
-        modifiedTotalSuccessfulClaimAmount = originalTotalSuccessfulClaimAmount - claim.getClaimAmount(); //filter out claims that is un-satisfied with sorting conditions
+            if (!claim.getStatus().equals("APPROVED")) {
+                modifiedTotalSuccessfulClaims = originalTotalSuccessfulClaims - 1; //filter out claims that is un-satisfied with sorting conditions
+            }
 
-        if (!claim.getStatus().equals("APPROVED")) {
-            modifiedTotalSuccessfulClaims = originalTotalSuccessfulClaims - 1; //filter out claims that is un-satisfied with sorting conditions
         }
+
 
         //print result to check
 
         System.out.println( "modified total successful claim amount"+ modifiedTotalSuccessfulClaimAmount);
+
+        System.out.println( "modified total successful claims"+ modifiedTotalSuccessfulClaims);
+
 
 
     }

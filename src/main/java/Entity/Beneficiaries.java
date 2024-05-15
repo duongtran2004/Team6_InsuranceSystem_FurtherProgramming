@@ -16,6 +16,7 @@ import java.util.Collection;
 @DiscriminatorColumn(name = "user_type", discriminatorType = DiscriminatorType.STRING)
 public class Beneficiaries extends Customer {
 
+
     @Transient
     private Button addClaim;
 
@@ -55,6 +56,8 @@ public class Beneficiaries extends Customer {
     private InsuranceCard insuranceCard;
     @OneToMany(mappedBy = "insuredPerson")
     private Collection<Claim> listOfClaims;
+
+
 
     public String getPolicyOwnerId() {
         return policyOwnerId;

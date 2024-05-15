@@ -468,10 +468,10 @@ public class ClaimTableFilling extends ActionHistoryTableFilling implements Clai
     //helper method to update and set text to labels in claim filtering
 
     public void setTextToClaimLabels(Claim claim) {
-        if (user instanceof SystemAdmin) { //only system admin can do this feature
+        if (user instanceof SystemAdmin) { //only system admin can do this feature //need condition if = true, need 1 more boolean
             modifiedTotalSuccessfulClaimAmount = modifiedTotalSuccessfulClaimAmount - claim.getClaimAmount(); //filter out claims that is un-satisfied with sorting conditions
 
-            if (!claim.getStatus().equals("APPROVED")) {
+            if (claim.getStatus().equals("APPROVED")) {
                 modifiedTotalSuccessfulClaims = modifiedTotalSuccessfulClaims - 1; //filter out claims that is un-satisfied with sorting conditions
             }
             System.out.println("modifiedTotalSuccessfulClaim"+ modifiedTotalSuccessfulClaims);

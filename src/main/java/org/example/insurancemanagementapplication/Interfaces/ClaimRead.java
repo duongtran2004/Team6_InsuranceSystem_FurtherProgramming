@@ -2,6 +2,7 @@ package org.example.insurancemanagementapplication.Interfaces;
 
 import Entity.Beneficiaries;
 import Entity.Claim;
+import Entity.PolicyOwner;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 
@@ -72,18 +73,6 @@ public interface    ClaimRead {
         }
     }
 
-    public static int getTotalSuccessfulClaimAmountMadeByACustomer(EntityManager entityManager, String customerID, String role) {
-        int totalAmount = 0;
-        if (role == "Dependant" || role == "PolicyHolder") {
-            totalAmount = getTotalSuccessfulClaimAmountMadeByABeneficiary(entityManager, customerID);
-        }
-        if (role == "PolicyOwner") {
-            totalAmount = getTotalSuccessfulClaimAmountMadeByAPolicyOwner(entityManager, customerID);
-        }
-
-        return totalAmount;
-    }
-
 
     public static int getTotalSuccessfulClaimAmountProcessedByAnEmployee(EntityManager entityManager, String employeeID, String role) {
         int totalAmount = 0;
@@ -98,26 +87,30 @@ public interface    ClaimRead {
     }
 
 
-    public static int getTotalSuccessfulClaimAmountMadeByAPolicyOwner(EntityManager entityManager, String policyOwnerID) {
-        Query query = entityManager.createQuery("SELECT SUM(c.claimAmount) FROM Claim c WHERE c.status = 'APPROVED' AND c.policyOwnerId = ?1");
-        query.setParameter(1, policyOwnerID);
-        Integer totalAmount = (Integer) query.getSingleResult();
-        if (totalAmount != null) {
-            return totalAmount;
-        } else {
-            return 0;
+
+
+    public static int getTotalSuccessfulClaimAmountMadeByABeneficiary (Beneficiaries beneficiary) {
+        int totalAmount = 0;
+        for (Claim claim : beneficiary.getListOfClaims()) {
+            if (claim.getStatus().equals("APPROVED")) {
+                totalAmount = totalAmount+  claim.getClaimAmount();
+            }
         }
+        return totalAmount;
     }
 
-    public static int getTotalSuccessfulClaimAmountMadeByABeneficiary(EntityManager entityManager, String beneficiaryID) {
-        Query query = entityManager.createQuery("SELECT SUM(c.claimAmount) FROM Claim c WHERE c.status = 'APPROVED' AND c.insuredPersonId = ?1").setParameter(1, beneficiaryID);
-        Integer totalAmount = (Integer) query.getSingleResult();
-        if (totalAmount != null) {
-            return totalAmount;
-        } else {
-            return 0;
+    public static int getTotalSuccessfulClaimAmountMadeByAPolicyOwner(PolicyOwner policyOwner) {
+        int totalAmount = 0;
+        for (Claim claim : policyOwner.getListOfClaims()) {
+            if (claim.getStatus().equals("APPROVED")) {
+                totalAmount = totalAmount + claim.getClaimAmount();
+            }
         }
+        return totalAmount;
     }
+
+
+
 
     public static int getTotalSuccessfulClaimAmountProcessedByAnInsuranceSurveyor(EntityManager entityManager, String insuranceSurveyorID) {
         Query query = entityManager.createQuery("SELECT SUM(c.claimAmount) FROM Claim c WHERE c.status = 'APPROVED' AND c.insuranceSurveyorId = ?1").setParameter(1, insuranceSurveyorID);

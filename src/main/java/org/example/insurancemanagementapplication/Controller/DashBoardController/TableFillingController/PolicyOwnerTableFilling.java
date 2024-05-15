@@ -16,6 +16,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController.CreationAndUpdatePageControllerPolicyHolder;
 import org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController.CreationAndUpdatePageControllerPolicyOwner;
+import org.example.insurancemanagementapplication.Interfaces.ClaimRead;
 import org.example.insurancemanagementapplication.Interfaces.CustomerCreateRemove;
 import org.example.insurancemanagementapplication.Interfaces.YearlyRateCalculation;
 import org.example.insurancemanagementapplication.Utility.StageBuilder;
@@ -54,40 +55,38 @@ public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
     protected TableColumn<PolicyOwner, Button> policyOwnerRemoveButton;
     @FXML
     protected TextField policyOwnerSearchField;
-        @FXML
-        protected TableColumn<PolicyOwner, Integer> policyOwnerTotalYearlyRate;
+    @FXML
+    protected TableColumn<PolicyOwner, Integer> policyOwnerTotalYearlyRate;
+    @FXML
+    private TableColumn<PolicyOwner, Integer> totalSuccessfulClaimAmountPolicyOwnerColumn;
 
     public PolicyOwnerTableFilling(EntityManager entityManager, User user) {
         super(entityManager, user);
     }
+
     /**
      * Attach an event listener to the policy owner search field that filter the policy owner table according to changes in this field
+     *
      * @param filteredPolicyOwnerList
      */
-    public void filteringPolicyOwnerTable(FilteredList<PolicyOwner> filteredPolicyOwnerList){
-        policyOwnerSearchField.textProperty().addListener((observable, oldValue, newValue)->{
+    public void filteringPolicyOwnerTable(FilteredList<PolicyOwner> filteredPolicyOwnerList) {
+        policyOwnerSearchField.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredPolicyOwnerList.setPredicate(policyOwner -> {
-                if (newValue.isEmpty() || newValue == null || newValue.isBlank()){
+                if (newValue.isEmpty() || newValue == null || newValue.isBlank()) {
                     return true;
                 }
                 String searchValue = newValue.toLowerCase();
-                if (policyOwner.getId().toLowerCase().contains(searchValue)){
+                if (policyOwner.getId().toLowerCase().contains(searchValue)) {
                     return true;
-                }
-                else if (policyOwner.getFullName().toLowerCase().contains(searchValue)){
+                } else if (policyOwner.getFullName().toLowerCase().contains(searchValue)) {
                     return true;
-                }
-                else if (policyOwner.getEmail().toLowerCase().contains(searchValue)){
+                } else if (policyOwner.getEmail().toLowerCase().contains(searchValue)) {
                     return true;
-                }
-                else if (policyOwner.getAddress().toLowerCase().contains(searchValue)){
+                } else if (policyOwner.getAddress().toLowerCase().contains(searchValue)) {
                     return true;
-                }
-                else if (policyOwner.getPhoneNumber().toLowerCase().contains(searchValue)){
+                } else if (policyOwner.getPhoneNumber().toLowerCase().contains(searchValue)) {
                     return true;
-                }
-
-                else {
+                } else {
                     return false;
                 }
             });
@@ -96,15 +95,17 @@ public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
 
     /**
      * Mapping the columns of the policy owner tables with Policy Owner entity. Fill up the policy owner tables with data from the database
+     *
      * @param entityManager
      * @param user
      * @param policyOwners
      */
-    public void fillingPolicyOwnerTable(EntityManager entityManager, User user, List<PolicyOwner> policyOwners){
+    public void fillingPolicyOwnerTable(EntityManager entityManager, User user, List<PolicyOwner> policyOwners) {
         ListIterator<PolicyOwner> policyOwnerListIterator = policyOwners.listIterator();
         //Add policy owners to the observable list
-        while (policyOwnerListIterator.hasNext()){
+        while (policyOwnerListIterator.hasNext()) {
             PolicyOwner policyOwner = policyOwnerListIterator.next();
+            policyOwner.setTotalSuccessfulClaimAmount(ClaimRead.getTotalSuccessfulClaimAmountMadeByAPolicyOwner(policyOwner));
             Button buttonUpdateInfo = new Button("Update Info");
             Button buttonAddPolicy = new Button("Add Policy");
             Button buttonRemove = new Button("Remove");
@@ -112,7 +113,7 @@ public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
             buttonList.add(buttonUpdateInfo);
             buttonList.add(buttonRemove);
             //Only a system admin has access to the update info, add policy, and remove button
-            if (user instanceof SystemAdmin){
+            if (user instanceof SystemAdmin) {
                 //The Update Info Button will create a CreationPage Controller for the policy owner in update mode by passing in the policy owner object
                 //It will then open the Policy Owner Creation Page
                 buttonUpdateInfo.setOnAction(event -> {
@@ -133,7 +134,7 @@ public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
                 //The remove button will remove its policy owner button from the database
                 policyOwner.setRemoveButton(buttonRemove);
                 buttonRemove.setOnAction(event -> {
-                    CustomerCreateRemove.removePolicyOwner(entityManager, policyOwner );
+                    CustomerCreateRemove.removePolicyOwner(entityManager, policyOwner);
                 });
                 policyOwner.setAddPolicyButton(buttonAddPolicy);
 
@@ -146,7 +147,6 @@ public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
         }
 
 
-
         policyOwnerId.setCellValueFactory(new PropertyValueFactory<PolicyOwner, String>("id"));
         policyOwnerFullName.setCellValueFactory(new PropertyValueFactory<PolicyOwner, String>("fullName"));
         policyOwnerAddress.setCellValueFactory(new PropertyValueFactory<PolicyOwner, String>("address"));
@@ -154,11 +154,12 @@ public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
         policyOwnerPassword.setCellValueFactory(new PropertyValueFactory<PolicyOwner, String>("password"));
         policyOwnerPhoneNumber.setCellValueFactory(new PropertyValueFactory<PolicyOwner, String>("phoneNumber"));
 
-        if (user instanceof SystemAdmin){
+        if (user instanceof SystemAdmin) {
             policyOwnerTotalYearlyRate.setCellValueFactory(new PropertyValueFactory<>("totalYearlyRate"));
             policyOwnerUpdateInfoButton.setCellValueFactory(new PropertyValueFactory<PolicyOwner, Button>("updateInfoButton"));
             policyOwnerAddPolicyButton.setCellValueFactory(new PropertyValueFactory<PolicyOwner, Button>("addPolicyButton"));
             policyOwnerRemoveButton.setCellValueFactory(new PropertyValueFactory<PolicyOwner, Button>("removeButton"));
+            totalSuccessfulClaimAmountPolicyOwnerColumn.setCellValueFactory(new PropertyValueFactory<PolicyOwner, Integer>("totalSuccessfulClaimAmount"));
 
         }
         FilteredList<PolicyOwner> filteredPolicyOwnerList = new FilteredList<>(policyOwnersObservableList, b -> true);
