@@ -35,9 +35,6 @@ public class PolicyOwner extends Customer {
     @Transient
     private int totalYearlyRate;
 
-    @Transient
-    private int totalSuccessfulClaimAmount;
-
 
     public Button getAddPolicyButton() {
         return addPolicyButton;

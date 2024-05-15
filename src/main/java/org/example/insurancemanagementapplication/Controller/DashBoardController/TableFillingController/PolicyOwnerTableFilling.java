@@ -105,7 +105,8 @@ public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
         //Add policy owners to the observable list
         while (policyOwnerListIterator.hasNext()) {
             PolicyOwner policyOwner = policyOwnerListIterator.next();
-            policyOwner.setTotalSuccessfulClaimAmount(ClaimRead.getTotalSuccessfulClaimAmountMadeByAPolicyOwner(policyOwner));
+            policyOwner.setTotalSuccessfulClaimAmount(ClaimRead.getTotalSuccessfulClaimAmountMadeByAPolicyOwner(entityManager,policyOwner));
+            System.out.println("\"PO's id \" + policyOwner.getId(), Claim amount " + policyOwner.getTotalSuccessfulClaimAmount());
             Button buttonUpdateInfo = new Button("Update Info");
             Button buttonAddPolicy = new Button("Add Policy");
             Button buttonRemove = new Button("Remove");

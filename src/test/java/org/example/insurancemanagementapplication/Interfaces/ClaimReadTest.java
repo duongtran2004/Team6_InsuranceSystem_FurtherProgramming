@@ -1,18 +1,17 @@
 package org.example.insurancemanagementapplication.Interfaces;
 
-import Entity.Claim;
+import Entity.PolicyOwner;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import org.junit.jupiter.api.Test;
 
-import java.io.FileOutputStream;
-
 class ClaimReadTest {
     EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
     EntityManager entityManager = entityManagerFactory.createEntityManager();
+    /*
     @Test
-    public void downloadDocument  () {
+     void downloadDocument  () {
         Claim claim = entityManager.find(Claim.class, "F44453446");
         byte[] cover = claim.getDocumentFile();
 
@@ -22,6 +21,15 @@ class ClaimReadTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }*/
+
+    @Test
+    void getTotalSuccessfulClaimAmountOfAPolicyOwner(){
+        PolicyOwner policyOwner = entityManager.find(PolicyOwner.class, "PO6173753721");
+        int amount = ClaimRead.getTotalSuccessfulClaimAmountMadeByAPolicyOwner(policyOwner);
+        System.out.println("List of claims: " + policyOwner.getListOfClaims());
+        System.out.println(amount);
+
     }
 
 }

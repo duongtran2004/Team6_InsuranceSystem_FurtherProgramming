@@ -47,15 +47,21 @@ class CustomerReadTest {
 //    }
 //    }
 
+//    @Test
+//    void  getAllPolicyOwnerTakeChargeByAnEmployee(){
+//        List<PolicyOwner> policyOwners =
+//                CustomerRead.getAllPolicyOwnersTakeChargeByAnEmployee(entityManager, "IM4719020624","InsuranceManager" );
+//        for (PolicyOwner policyOwner : policyOwners) {
+//            System.out.println(policyOwner);
+//        }
+//    }
     @Test
-    void  getAllPolicyOwnerTakeChargeByAnEmployee(){
-        List<PolicyOwner> policyOwners =
-                CustomerRead.getAllPolicyOwnersTakeChargeByAnEmployee(entityManager, "IM4719020624","InsuranceManager" );
-        for (PolicyOwner policyOwner : policyOwners) {
-            System.out.println(policyOwner);
+    void getAllPOandPrintAlClaims(){
+        List<PolicyOwner> policyOwnerList = CustomerRead.getAllPolicyOwner(entityManager);
+        for(PolicyOwner policyOwner : policyOwnerList){
+            System.out.println(policyOwner.getListOfClaims());
         }
     }
-
 
 
 
