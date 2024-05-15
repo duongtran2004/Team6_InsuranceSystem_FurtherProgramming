@@ -7,7 +7,6 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.ScrollBar?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -176,22 +175,37 @@
                         </TableView>
                      </content>
                   </ScrollPane>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
+                  <Label alignment="BOTTOM_CENTER" maxWidth="Infinity" prefHeight="0.0" prefWidth="1536.0" text="Insurance Managers List" GridPane.hgrow="ALWAYS">
+                     <font>
+                        <Font name="Helvetica Neue Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
                      <children>
                         <Label minWidth="150.0" prefHeight="20.0" prefWidth="148.0" text="Search Box" HBox.hgrow="NEVER">
                            <font>
                               <Font name="Helvetica Neue Bold" size="16.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="insuranceManagerSearchField" prefHeight="25.0" prefWidth="1474.0" HBox.hgrow="ALWAYS" />
+                        <TextField fx:id="insuranceManagerSearchBox" maxWidth="500.0" minWidth="500.0" prefHeight="25.0" prefWidth="1117.0" HBox.hgrow="ALWAYS">
+                           <padding>
+                              <Insets right="30.0" />
+                           </padding>
+                           <HBox.margin>
+                              <Insets right="30.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <Label text="Sort By">
+                           <font>
+                              <Font name="Helvetica Neue Bold" size="16.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="30.0" />
+                           </HBox.margin>
+                        </Label>
+                        <ChoiceBox fx:id="insuranceManagerSortBox" prefWidth="150.0" />
                      </children>
                   </HBox>
-                  <Label alignment="BOTTOM_CENTER" maxWidth="Infinity" prefHeight="0.0" prefWidth="1536.0" text="Insurance Managers List" GridPane.hgrow="ALWAYS">
-                     <font>
-                        <Font name="Helvetica Neue Bold" size="16.0" />
-                     </font>
-                  </Label>
-                  <ScrollBar opacity="0.31" />
                </children>
             </GridPane>
                 <GridPane alignment="BOTTOM_CENTER" maxHeight="400.0" maxWidth="Infinity" minHeight="400.0" minWidth="1150.0" GridPane.rowIndex="5">
@@ -231,7 +245,22 @@
                                         <Font name="Helvetica Neue Bold" size="16.0" />
                                     </font>
                                 </Label>
-                                <TextField fx:id="insuranceSurveyorSearchField" prefHeight="25.0" prefWidth="1474.0" HBox.hgrow="ALWAYS" />
+                                <TextField fx:id="insuranceSurveyorSearchField" maxWidth="500.0" minWidth="500.0" prefHeight="25.0" prefWidth="1117.0" HBox.hgrow="ALWAYS">
+                           <padding>
+                              <Insets right="30.0" />
+                           </padding>
+                           <HBox.margin>
+                              <Insets right="30.0" />
+                           </HBox.margin></TextField>
+                        <Label text="Sort By">
+                           <font>
+                              <Font name="Helvetica Neue Bold" size="16.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="30.0" />
+                           </HBox.margin>
+                        </Label>
+                        <ChoiceBox fx:id="insuranceSurveyorSortBox" prefWidth="150.0" />
                             </children>
                         </HBox>
                         <Label alignment="CENTER" maxWidth="Infinity" prefHeight="31.0" prefWidth="1536.0" text="Insurance Surveyor List" GridPane.hgrow="ALWAYS">
@@ -273,21 +302,37 @@
                                   </TableView>
                               </content>
                           </ScrollPane>
-                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
-                              <children>
-                                  <Label minWidth="150.0" prefHeight="20.0" prefWidth="148.0" text="Search Box" HBox.hgrow="NEVER">
-                                      <font>
-                                          <Font name="Helvetica Neue Bold" size="16.0" />
-                                      </font>
-                                  </Label>
-                                  <TextField fx:id="policyOwnerSearchField" prefHeight="25.0" prefWidth="1474.0" HBox.hgrow="ALWAYS" />
-                              </children>
-                          </HBox>
                           <Label alignment="CENTER" maxWidth="Infinity" prefHeight="31.0" prefWidth="1536.0" text="Policy Owner List" GridPane.hgrow="ALWAYS">
                               <font>
                                   <Font name="Helvetica Neue Bold" size="16.0" />
                               </font>
                           </Label>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
+                     <children>
+                        <Label minWidth="150.0" prefHeight="20.0" prefWidth="148.0" text="Search Box" HBox.hgrow="NEVER">
+                           <font>
+                              <Font name="Helvetica Neue Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="policyOwnerSearchField" maxWidth="500.0" minWidth="500.0" prefHeight="25.0" prefWidth="1117.0" HBox.hgrow="ALWAYS">
+                           <padding>
+                              <Insets right="30.0" />
+                           </padding>
+                           <HBox.margin>
+                              <Insets right="30.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <Label text="Sort By">
+                           <font>
+                              <Font name="Helvetica Neue Bold" size="16.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="30.0" />
+                           </HBox.margin>
+                        </Label>
+                        <ChoiceBox fx:id="policyOwnerSortBox" prefWidth="150.0" />
+                     </children>
+                  </HBox>
                       </children>
                   </GridPane>
                 <GridPane maxHeight="400.0" maxWidth="Infinity" minHeight="400.0" minWidth="1150.0" GridPane.rowIndex="7">
@@ -323,21 +368,37 @@
                                 </TableView>
                             </content>
                         </ScrollPane>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
-                            <children>
-                                <Label prefHeight="20.0" prefWidth="148.0" text="Search Box" HBox.hgrow="NEVER">
-                                    <font>
-                                        <Font name="Helvetica Neue Bold" size="16.0" />
-                                    </font>
-                                </Label>
-                                <TextField fx:id="policyHolderSearchField" prefHeight="25.0" prefWidth="1474.0" HBox.hgrow="ALWAYS" />
-                            </children>
-                        </HBox>
                         <Label alignment="CENTER" maxWidth="Infinity" prefHeight="108.0" prefWidth="1560.0" text="Policy Holder List">
                             <font>
                                 <Font name="Helvetica Neue Bold" size="16.0" />
                             </font>
                         </Label>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
+                     <children>
+                        <Label minWidth="150.0" prefHeight="20.0" prefWidth="148.0" text="Search Box" HBox.hgrow="NEVER">
+                           <font>
+                              <Font name="Helvetica Neue Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="policyHolderSearchField" maxWidth="500.0" minWidth="500.0" prefHeight="25.0" prefWidth="1117.0" HBox.hgrow="ALWAYS">
+                           <padding>
+                              <Insets right="30.0" />
+                           </padding>
+                           <HBox.margin>
+                              <Insets right="30.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <Label text="Sort By">
+                           <font>
+                              <Font name="Helvetica Neue Bold" size="16.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="30.0" />
+                           </HBox.margin>
+                        </Label>
+                        <ChoiceBox fx:id="policyHolderSearchField" prefWidth="150.0" />
+                     </children>
+                  </HBox>
                     </children>
                 </GridPane>
                 <GridPane maxHeight="400.0" maxWidth="Infinity" minHeight="400.0" minWidth="1150.0" GridPane.rowIndex="8">
@@ -373,21 +434,37 @@
                                 </TableView>
                             </content>
                         </ScrollPane>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
-                            <children>
-                                <Label minWidth="150.0" prefHeight="20.0" prefWidth="148.0" text="Search Box" HBox.hgrow="NEVER">
-                                    <font>
-                                        <Font name="Helvetica Neue Bold" size="16.0" />
-                                    </font>
-                                </Label>
-                                <TextField fx:id="dependantSearchField" prefHeight="25.0" prefWidth="1474.0" HBox.hgrow="ALWAYS" />
-                            </children>
-                        </HBox>
                         <Label alignment="CENTER" maxWidth="Infinity" prefHeight="31.0" prefWidth="1536.0" text="Dependant List" GridPane.hgrow="ALWAYS">
                             <font>
                                 <Font name="Helvetica Neue Bold" size="16.0" />
                             </font>
                         </Label>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
+                     <children>
+                        <Label minWidth="150.0" prefHeight="20.0" prefWidth="148.0" text="Search Box" HBox.hgrow="NEVER">
+                           <font>
+                              <Font name="Helvetica Neue Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="dependantSearchField" maxWidth="500.0" minWidth="500.0" prefHeight="25.0" prefWidth="1117.0" HBox.hgrow="ALWAYS">
+                           <padding>
+                              <Insets right="30.0" />
+                           </padding>
+                           <HBox.margin>
+                              <Insets right="30.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <Label text="Sort By">
+                           <font>
+                              <Font name="Helvetica Neue Bold" size="16.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="30.0" />
+                           </HBox.margin>
+                        </Label>
+                        <ChoiceBox fx:id="dependantSortBox" prefWidth="150.0" />
+                     </children>
+                  </HBox>
                     </children>
                 </GridPane>
                 <GridPane maxHeight="400.0" maxWidth="Infinity" minHeight="400.0" minWidth="1150.0" GridPane.rowIndex="9">
@@ -417,21 +494,21 @@
                                 </TableView>
                             </content>
                         </ScrollPane>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
-                            <children>
-                                <Label minWidth="150.0" prefHeight="20.0" prefWidth="148.0" text="Search Box" HBox.hgrow="NEVER">
-                                    <font>
-                                        <Font name="Helvetica Neue Bold" size="16.0" />
-                                    </font>
-                                </Label>
-                                <TextField fx:id="insuranceCardSearchField" prefHeight="25.0" prefWidth="1474.0" HBox.hgrow="ALWAYS" />
-                            </children>
-                        </HBox>
                         <Label alignment="CENTER" maxWidth="Infinity" prefHeight="31.0" prefWidth="1536.0" text="Insurance Cards List" GridPane.hgrow="ALWAYS">
                             <font>
                                 <Font name="Helvetica Neue Bold" size="16.0" />
                             </font>
                         </Label>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
+                     <children>
+                        <Label minWidth="150.0" prefHeight="20.0" prefWidth="148.0" text="Search Box" HBox.hgrow="NEVER">
+                           <font>
+                              <Font name="Helvetica Neue Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="actionSearchField1" prefHeight="25.0" prefWidth="1474.0" HBox.hgrow="ALWAYS" />
+                     </children>
+                  </HBox>
                     </children>
 
                 </GridPane>
@@ -448,7 +525,7 @@
                     <children>
                         <ScrollPane fitToWidth="true" maxHeight="325" maxWidth="Infinity" prefHeight="200.0" prefWidth="200.0" GridPane.hgrow="NEVER" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
                             <content>
-                                <TableView fx:id="claimTable" maxHeight="Infinity" maxWidth="Infinity" minHeight="319.0" minWidth="1500.0">
+                                <TableView fx:id="claimTable" maxHeight="Infinity" maxWidth="Infinity" minHeight="319.0" minWidth="1500.0" prefHeight="400.0" prefWidth="1515.0">
                                     <columns>
                                         <TableColumn fx:id="claimId" maxWidth="Infinity" minWidth="150.0" prefWidth="150.0" text="Claim ID" />
                                         <TableColumn fx:id="creationDate" maxWidth="Infinity" minWidth="170.0" prefWidth="170.0" text="Creation Date" />
