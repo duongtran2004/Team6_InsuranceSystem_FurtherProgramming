@@ -1,5 +1,6 @@
 package org.example.insurancemanagementapplication;
 
+import Entity.SystemAdmin;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -7,7 +8,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.example.insurancemanagementapplication.Controller.LogInPageController;
+import org.example.insurancemanagementapplication.Controller.DashBoardController.SystemAdminDashBoardController;
 
 import java.io.IOException;
 
@@ -16,8 +17,10 @@ public class MainEntryPoint extends Application {
     public void start(Stage stage) throws IOException {
 
         //run different fxml files for testing
+        System.out.println("Hello After Before Manager");
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
+        SystemAdmin systemAdmin = entityManager.find(SystemAdmin.class, "SA90987611");
 
 //        //Load System Admin DashBoard
 //        FXMLLoader fxmlLoader = new FXMLLoader(MainEntryPoint.class.getResource("SystemAdminDashBoard.fxml"));
@@ -27,9 +30,11 @@ public class MainEntryPoint extends Application {
 
 
         //Load login page
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("LogInPage.fxml"));
-        LogInPageController logInPageController = new LogInPageController(entityManager);
-        fxmlLoader.setController(logInPageController);
+        System.out.println("Hello After Entity Manager");
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("SystemAdminDashBoard.fxml"));
+//        LogInPageController logInPageController = new LogInPageController(entityManager);
+        SystemAdminDashBoardController systemAdminDashBoardController = new SystemAdminDashBoardController(entityManager, systemAdmin);
+        fxmlLoader.setController(systemAdminDashBoardController);
 
 
 

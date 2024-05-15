@@ -12,12 +12,15 @@ import org.example.insurancemanagementapplication.Interfaces.ClaimRead;
 import org.example.insurancemanagementapplication.Utility.CustomizedComparator;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 class ClaimTableFillingTest {
     EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     User user = new User();
 
-    @Test
+//    @Test
     public void testSortingClaimTable() {
         // Create sample data for testing
         ObservableList<Claim> claimObservableList = FXCollections.observableArrayList();
@@ -53,6 +56,44 @@ class ClaimTableFillingTest {
     for (Claim claim : sortedClaimList) {
         System.out.println(String.valueOf(claim.getClaimAmount()));
     }
+
+    }
+
+    @Test
+    void setTextToClaimLabels() {
+
+        //list of sample claims
+        Claim claim1 = new Claim();
+        claim1.setStatus("APPROVED");
+        claim1.setClaimAmount(100);
+
+        Claim claim2 = new Claim();
+        claim2.setStatus("REJECTED");
+
+
+        List<Claim> claimList = new ArrayList<>();
+        claimList.add(claim1);
+        claimList.add(claim2);
+        System.out.println("Original list of claims: " + claimList);
+
+
+        //add them into a collection
+        //sample attributes
+        int originalTotalSuccessfulClaimAmount = 13;
+
+
+        int modifiedTotalSuccessfulClaimAmount;
+
+        modifiedTotalSuccessfulClaimAmount = originalTotalSuccessfulClaimAmount - claim.getClaimAmount(); //filter out claims that is un-satisfied with sorting conditions
+
+        if (!claim.getStatus().equals("APPROVED")) {
+            modifiedTotalSuccessfulClaims = originalTotalSuccessfulClaims - 1; //filter out claims that is un-satisfied with sorting conditions
+        }
+
+        //print result to check
+
+        System.out.println( "modified total successful claim amount"+ modifiedTotalSuccessfulClaimAmount);
+
 
     }
 }

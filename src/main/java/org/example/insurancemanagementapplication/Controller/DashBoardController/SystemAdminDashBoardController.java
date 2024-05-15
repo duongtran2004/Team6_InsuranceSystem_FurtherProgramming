@@ -32,9 +32,6 @@ import java.util.ResourceBundle;
 public class SystemAdminDashBoardController extends InsuranceManagerTableFilling implements ClaimRead, EmployeeCreateRemove, CustomerCreateRemove, Initializable, EmployeeRead, Controller {
 
 
-
-
-
     //import necessary FXML controller object for the creation and update form at the top
     @FXML
     private Button updateInfoButton;
@@ -44,17 +41,7 @@ public class SystemAdminDashBoardController extends InsuranceManagerTableFilling
     private Button addManagerButton;
 
 
-    //Cancel choices button
-    @FXML
-    protected Button
-            clearCreationDateButton;
-    @FXML
-    protected Button
-            clearSettlementDateButton;
 
-    @FXML
-    protected Button
-            clearClaimAmountButton;
     //    private LogInPageController logInPageController;
     @FXML
     protected Button logOutButton;
@@ -82,32 +69,7 @@ public class SystemAdminDashBoardController extends InsuranceManagerTableFilling
 
     }
 
-    // Event handler for clearing the creation date filter
-    protected void handleClearCreationDateButton() {
-        creationDateFrom.setValue(null);
-        creationDateFrom.getEditor().clear();
-        creationDateTo.setValue(null);
-        creationDateTo.getEditor().clear();
-        fillingClaimTable(entityManager, user, ClaimRead.getAllClaims(entityManager)); //refill claim table
-    }
 
-    // Event handler for clearing the settlement date filter
-
-    protected void handleClearSettlementDateButton() {
-        settlementDateFrom.setValue(null);
-        settlementDateFrom.getEditor().clear();
-        settlementDateTo.setValue(null);
-        settlementDateTo.getEditor().clear();
-        fillingClaimTable(entityManager, user, ClaimRead.getAllClaims(entityManager));
-    }
-
-    // Event handler for clearing the claim amount filter
-
-    protected void handleClearClaimAmountButton() {
-        claimAmountFrom.clear();
-        claimAmountTo.clear();
-        fillingClaimTable(entityManager, user, ClaimRead.getAllClaims(entityManager));
-    }
 
 
     //constructor
@@ -119,9 +81,15 @@ public class SystemAdminDashBoardController extends InsuranceManagerTableFilling
     }
 
 
+
+
     @lombok.SneakyThrows
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        //calculate original total successful claim amount and total succesful claim
+
+        //set text for claim labels by original values each time we initialize
+
 
 
         clearCreationDateButton.setOnAction(event -> handleClearCreationDateButton());
@@ -171,20 +139,24 @@ public class SystemAdminDashBoardController extends InsuranceManagerTableFilling
 
         //FILL ALL THE NECESSARY TABLE (CALL METHODS IN TABLE FILLING CLASS)
         //METHOD FROM TABLE FILLING CLASS CALLS "READ ALL" METHODS IN READ INTERFACES (PASS ENTITY MANAGER AS ARGUMENT)
-
+        System.out.println("Hello bro");
 //using thread
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
         EntityManager entityManagerClaim = entityManagerFactory.createEntityManager();
         ClaimTableFillingThread claimTableFillingThread = new ClaimTableFillingThread(ClaimRead.getAllClaims(entityManagerClaim), this);
         claimTableFillingThread.setPriority(10);
         claimTableFillingThread.start();
+        System.out.println("Hello claim table");
         entityManagerClaim.close();
+        numberOfSuccessfulClaimLabel.setText(String.valueOf(originalTotalSuccessfulClaims));
+        successfulClaimAmountLabel.setText(String.valueOf(originalTotalSuccessfulClaimAmount));
 
 
         EntityManager entityManagerDependant = entityManagerFactory.createEntityManager();
         DependantTableFillingThread dependantTableFillingThread = new DependantTableFillingThread(CustomerRead.getAllDependant(entityManagerDependant), this);
         dependantTableFillingThread.setPriority(9);
         dependantTableFillingThread.start();
+        System.out.println("G");
         entityManagerDependant.close();
 
         EntityManager entityManagerManager = entityManagerFactory.createEntityManager();

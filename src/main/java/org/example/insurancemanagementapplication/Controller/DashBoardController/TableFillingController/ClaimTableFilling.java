@@ -2,6 +2,9 @@ package org.example.insurancemanagementapplication.Controller.DashBoardControlle
 
 import Entity.*;
 import jakarta.persistence.EntityManager;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -16,7 +19,9 @@ import org.example.insurancemanagementapplication.Interfaces.ClaimCreateRemove;
 import org.example.insurancemanagementapplication.Utility.StageBuilder;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.*;
+import java.util.function.Predicate;
 
 /**
  * @author Luong Thanh Trung
@@ -38,10 +43,19 @@ public class ClaimTableFilling extends ActionHistoryTableFilling implements Clai
     protected UserInactivityHandler userInactivityHandler; // Declare UserInactivityHandler instance
 
 
-
     public List<Button> buttonList = new ArrayList<>();
 
     private ObservableList<Claim> claimObservableList = FXCollections.observableArrayList();
+
+    // Original values of total Successful Claim amount and total number of sucessful claim
+    protected int originalTotalSuccessfulClaimAmount;
+    protected int originalTotalSuccessfulClaims;
+
+    //Modified value (based on filters) total Successful Claim amount and total number of sucessful claim
+
+    private int modifiedTotalSuccessfulClaimAmount;
+    private int modifiedTotalSuccessfulClaims;
+
 
     @FXML
     protected TextField userIdField;
@@ -112,11 +126,23 @@ public class ClaimTableFilling extends ActionHistoryTableFilling implements Clai
     //User will input the max claim amount they want to see
     @FXML
     protected TextField claimAmountTo;
+    @FXML
+    protected Label successfulClaimAmountLabel;
+    @FXML
+    protected Label numberOfSuccessfulClaimLabel;
 
+    //cancel buttons
+    //Cancel choices button
+    @FXML
+    protected Button
+            clearCreationDateButton;
+    @FXML
+    protected Button
+            clearSettlementDateButton;
 
-
-
-
+    @FXML
+    protected Button
+            clearClaimAmountButton;
 
 
     /**
@@ -168,6 +194,9 @@ public class ClaimTableFilling extends ActionHistoryTableFilling implements Clai
         class ClaimSettlementDateComparator implements Comparator<Claim> {
             @Override
             public int compare(Claim firstClaim, Claim secondClaim) {
+                if (firstClaim.getSettlementDate() == null || secondClaim.getSettlementDate() == null) {
+                    return -1;
+                }
                 long firstClaimTime = firstClaim.getSettlementDate().getTime();
                 long secondClaimTime = secondClaim.getSettlementDate().getTime();
                 return Long.compare(firstClaimTime, secondClaimTime);
@@ -186,6 +215,7 @@ public class ClaimTableFilling extends ActionHistoryTableFilling implements Clai
 
         //not allowed to reverse a sorted list
         sortList.valueProperty().addListener((observable, oldVal, newVal) -> {
+            System.out.println("New Value" + newVal);
             //only change the observable list if other options except "NONE
             if (!(newVal.equals("NONE"))) {
                 if (newVal.equals("Sort By Creation Date In Ascending Order")) {
@@ -207,6 +237,8 @@ public class ClaimTableFilling extends ActionHistoryTableFilling implements Clai
                     ClaimAmountComparator claimAmountComparator = new ClaimAmountComparator();
                     sortedClaimList.setComparator(claimAmountComparator.reversed());
                 }
+            } else {
+                sortedClaimList.setComparator(null);
             }
 
 
@@ -214,141 +246,293 @@ public class ClaimTableFilling extends ActionHistoryTableFilling implements Clai
     }
 
     //This method adds handlers to changes in filtering fields that filter the claim tables when their value changes.
+    //This method adds handlers to changes in filtering fields that filter the claim tables when their value changes.
     public void filteringClaimTable(FilteredList<Claim> filteredClaimList) {
-        //Add a handler to the search field
-        claimListSearchField.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredClaimList.setPredicate(claim -> {
-                String searchValue = newValue.toLowerCase();
-                if (newValue.isEmpty() || newValue.isBlank() || newValue == null) {
-                    return true;
-                } else if (claim.getClaimId().toLowerCase().contains(searchValue)) {
-                    return true;
-                } else if (claim.getInsuredPersonId().toLowerCase().contains(searchValue)) {
-                    return true;
-                } else if (claim.getCardNumber().toLowerCase().contains(searchValue)) {
-                    return true;
-                } else if (claim.getPolicyOwnerId().toLowerCase().contains(searchValue)) {
-                    return true;
-                } else if (claim.getStatus().toLowerCase().contains(searchValue)) {
-                    return true;
-                } else {
-                    return false;
-                }
-            });
-        });
-        //Add a handler to the creationDateFrom field
-        creationDateFrom.valueProperty().addListener((observable, oldDate, newDate) -> {
-            filteredClaimList.setPredicate(claim -> {
-                if (newDate == null) {
-                    return true;
-                } else if (!claim.getCreationDate().toLocalDate().isBefore(newDate)) {
-                    return true;
-                } else {
-                    return false;
-                }
-            });
-        });
-        //Add a handler to the creationDateTo field
-        creationDateTo.valueProperty().addListener((observable, oldDate, newDate) -> {
-            filteredClaimList.setPredicate(claim -> {
-                if (newDate == null) {
-                    return true;
-                } else if (!claim.getCreationDate().toLocalDate().isAfter(newDate)) {
-                    return true;
-                } else {
-                    return false;
-                }
-            });
-        });
-        //Add a handler to the settlementDateFrom field
-        settlementDateFrom.valueProperty().addListener((observable, oldDate, newDate) -> {
-            filteredClaimList.setPredicate(claim -> {
+        ObjectProperty<Predicate<Claim>> searchFieldFilter = new SimpleObjectProperty<>();
+        ObjectProperty<Predicate<Claim>> creationDateFromFilter = new SimpleObjectProperty<>();
+        ObjectProperty<Predicate<Claim>> creationDateToFilter = new SimpleObjectProperty<>();
+        ObjectProperty<Predicate<Claim>> settlementDateFromFilter = new SimpleObjectProperty<>();
+        ObjectProperty<Predicate<Claim>> settlementDateToFilter = new SimpleObjectProperty<>();
+        ObjectProperty<Predicate<Claim>> claimAmountFromFilter = new SimpleObjectProperty<>();
+        ObjectProperty<Predicate<Claim>> claimAmountToFilter = new SimpleObjectProperty<>();
+        ObjectProperty<Predicate<Claim>> statusListFilter = new SimpleObjectProperty<>();
+
+        statusListFilter.bind(Bindings.createObjectBinding(() -> claim -> {
+            String newVal = statusList.valueProperty().getValue();
+
+            if (newVal == null || newVal.equals("NONE")) {
+                return true;
+            } else if (claim.getStatus().equals(newVal)) {
+                return true;
+            } else {
+                setTextToClaimLabels(claim);
+                return false;
+            }
+        }));
+
+        searchFieldFilter.bind(Bindings.createObjectBinding(() -> claim -> {
+            String searchValue = claimListSearchField.textProperty().getValue().toLowerCase();
+            if (searchValue.isEmpty() || searchValue.isBlank()) {
+                return true;
+            } else if (claim.getClaimId().toLowerCase().contains(searchValue)) {
+
+                return true;
+            } else if (claim.getInsuredPersonId().toLowerCase().contains(searchValue)) {
+
+                return true;
+            } else if (claim.getCardNumber().toLowerCase().contains(searchValue)) {
+
+                return true;
+            } else if (claim.getPolicyOwnerId().toLowerCase().contains(searchValue)) {
+
+                return true;
+            } else if (claim.getStatus().toLowerCase().contains(searchValue)) {
+                return true;
+            } else {
+                setTextToClaimLabels(claim);
+                return false;
+            }
+        }));
+
+        creationDateFromFilter.bind(Bindings.createObjectBinding(() -> claim -> {
+            LocalDate newDate = creationDateFrom.valueProperty().getValue();
+
+            if (newDate == null) {
+                return true;
+            } else if (!claim.getCreationDate().toLocalDate().isBefore(newDate)) {
+
+                return true;
+            } else {
+                setTextToClaimLabels(claim);
+                return false;
+            }
+
+        }));
+
+        creationDateToFilter.bind(Bindings.createObjectBinding(() -> claim -> {
+            LocalDate newDate = creationDateTo.valueProperty().getValue();
+
+            if (newDate == null) {
+                return true;
+            } else if (!claim.getCreationDate().toLocalDate().isAfter(newDate)) {
+
+                return true;
+            } else {
+                setTextToClaimLabels(claim);
+                return false;
+            }
+        }));
+
+        settlementDateFromFilter.bind(Bindings.createObjectBinding(() -> claim -> {
+            LocalDate newDate = settlementDateFrom.valueProperty().getValue();
+            if (claim.getSettlementDate() == null) {
+                return false;
+            } else {
+
                 if (newDate == null) {
                     return true;
                 } else if (!claim.getSettlementDate().toLocalDate().isBefore(newDate)) {
+
                     return true;
                 } else {
+                    setTextToClaimLabels(claim);
                     return false;
                 }
-            });
-        });
-        //Add a handler to the settlementDateTo field.
-        settlementDateTo.valueProperty().addListener((observable, oldDate, newDate) -> {
-            filteredClaimList.setPredicate(claim -> {
+            }
+
+        }));
+        settlementDateToFilter.bind(Bindings.createObjectBinding(() -> claim -> {
+            LocalDate newDate = settlementDateTo.valueProperty().getValue();
+            if (claim.getSettlementDate() == null) {
+                return false;
+            } else {
+
+
                 if (newDate == null) {
                     return true;
                 } else if (!claim.getSettlementDate().toLocalDate().isAfter(newDate)) {
+
                     return true;
                 } else {
+                    setTextToClaimLabels(claim);
                     return false;
                 }
-            });
+            }
+
+        }));
+        claimAmountFromFilter.bind(Bindings.createObjectBinding(() -> claim -> {
+            String newVal = claimAmountFrom.textProperty().getValue();
+            if (newVal.isEmpty() || newVal.isBlank()) {
+                return true;
+            } else {
+                try {
+                    if (Integer.parseInt(newVal) <= claim.getClaimAmount()) {
+
+                        return true;
+                    } else {
+                        setTextToClaimLabels(claim);
+                        return false;
+                    }
+                } catch (NumberFormatException e) {
+                    return false;
+                }
+            }
+
+        }));
+
+        claimAmountToFilter.bind(Bindings.createObjectBinding(() -> claim -> {
+            String newVal = claimAmountTo.textProperty().getValue();
+            if (newVal.isBlank() || newVal.isEmpty()) {
+                return true;
+            } else {
+                try {
+                    if (Integer.parseInt(newVal) >= claim.getClaimAmount()) {
+                        return true;
+                    } else {
+                        setTextToClaimLabels(claim);
+                        return false;
+                    }
+                } catch (NumberFormatException e) {
+                    return true;
+                }
+            }
+
+        }));
+
+        //Add a handler to the search field
+        claimListSearchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            //reset modified value to the original value (filter out nothing)
+            modifiedTotalSuccessfulClaims = originalTotalSuccessfulClaims;
+            modifiedTotalSuccessfulClaimAmount = originalTotalSuccessfulClaimAmount;
+
+            filteredClaimList.predicateProperty().bind(Bindings.createObjectBinding(() -> searchFieldFilter.get().and(statusListFilter.get()).and(creationDateFromFilter.get()).and(creationDateToFilter.get()).and(settlementDateFromFilter.get()).and(settlementDateToFilter.get()).and(claimAmountFromFilter.get()).and(claimAmountToFilter.get())));
+        });
+        //Add a handler to the creationDateFrom field
+        creationDateFrom.valueProperty().addListener((observable, oldDate, newDate) -> {
+            //reset modified value to the original value (filter out nothing)
+            modifiedTotalSuccessfulClaims = originalTotalSuccessfulClaims;
+            modifiedTotalSuccessfulClaimAmount = originalTotalSuccessfulClaimAmount;
+            filteredClaimList.predicateProperty().bind(Bindings.createObjectBinding(() -> searchFieldFilter.get().and(statusListFilter.get()).and(creationDateFromFilter.get()).and(creationDateToFilter.get()).and(settlementDateFromFilter.get()).and(settlementDateToFilter.get()).and(claimAmountFromFilter.get()).and(claimAmountToFilter.get())));
+
+        });
+        //Add a handler to the creationDateTo field
+        creationDateTo.valueProperty().addListener((observable, oldDate, newDate) -> {
+            //reset modified value to the original value (filter out nothing)
+            modifiedTotalSuccessfulClaims = originalTotalSuccessfulClaims;
+            modifiedTotalSuccessfulClaimAmount = originalTotalSuccessfulClaimAmount;
+            filteredClaimList.predicateProperty().bind(Bindings.createObjectBinding(() -> searchFieldFilter.get().and(statusListFilter.get()).and(creationDateFromFilter.get()).and(creationDateToFilter.get()).and(settlementDateFromFilter.get()).and(settlementDateToFilter.get()).and(claimAmountFromFilter.get()).and(claimAmountToFilter.get())));
+
+        });
+        //Add a handler to the settlementDateFrom field
+        settlementDateFrom.valueProperty().addListener((observable, oldDate, newDate) -> {
+            //reset modified value to the original value (filter out nothing)
+            modifiedTotalSuccessfulClaims = originalTotalSuccessfulClaims;
+            modifiedTotalSuccessfulClaimAmount = originalTotalSuccessfulClaimAmount;
+            filteredClaimList.predicateProperty().bind(Bindings.createObjectBinding(() -> searchFieldFilter.get().and(statusListFilter.get()).and(creationDateFromFilter.get()).and(creationDateToFilter.get()).and(settlementDateFromFilter.get()).and(settlementDateToFilter.get()).and(claimAmountFromFilter.get()).and(claimAmountToFilter.get())));
+
+        });
+        //Add a handler to the settlementDateTo field.
+        settlementDateTo.valueProperty().addListener((observable, oldDate, newDate) -> {
+            //reset modified value to the original value (filter out nothing)
+            modifiedTotalSuccessfulClaims = originalTotalSuccessfulClaims;
+            modifiedTotalSuccessfulClaimAmount = originalTotalSuccessfulClaimAmount;
+            filteredClaimList.predicateProperty().bind(Bindings.createObjectBinding(() -> searchFieldFilter.get().and(statusListFilter.get()).and(creationDateFromFilter.get()).and(creationDateToFilter.get()).and(settlementDateFromFilter.get()).and(settlementDateToFilter.get()).and(claimAmountFromFilter.get()).and(claimAmountToFilter.get())));
+
         });
         //Add a handler to the claimAmountFrom field.
         claimAmountFrom.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredClaimList.setPredicate(claim -> {
-                if (newValue == null || newValue.isBlank() || newValue.isEmpty()) {
-                    return true;
-                } else {
-                    try {
-                        if (Float.parseFloat(newValue) <= claim.getClaimAmount()) {
-                            return true;
-                        } else {
-                            return false;
-                        }
-                    } catch (NumberFormatException e) {
-                        return false;
-                    }
-                }
+            //reset modified value to the original value (filter out nothing)
+            modifiedTotalSuccessfulClaims = originalTotalSuccessfulClaims;
+            modifiedTotalSuccessfulClaimAmount = originalTotalSuccessfulClaimAmount;
+            filteredClaimList.predicateProperty().bind(Bindings.createObjectBinding(() -> searchFieldFilter.get().and(statusListFilter.get()).and(creationDateFromFilter.get()).and(creationDateToFilter.get()).and(settlementDateFromFilter.get()).and(settlementDateToFilter.get()).and(claimAmountFromFilter.get()).and(claimAmountToFilter.get())));
 
-            });
         });
         //Add a handler to the claimAmountTo field
         claimAmountTo.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredClaimList.setPredicate(claim -> {
-                if (newValue == null || newValue.isBlank() || newValue.isEmpty()) {
-                    return true;
-                } else {
-                    try {
-                        if (Float.parseFloat(newValue) >= claim.getClaimAmount()) {
-                            return true;
-                        } else {
-                            return false;
-                        }
-                    } catch (NumberFormatException e) {
-                        return false;
-                    }
-                }
+            //reset modified value to the original value (filter out nothing)
+            modifiedTotalSuccessfulClaims = originalTotalSuccessfulClaims;
+            modifiedTotalSuccessfulClaimAmount = originalTotalSuccessfulClaimAmount;
+            filteredClaimList.predicateProperty().bind(Bindings.createObjectBinding(() -> searchFieldFilter.get().and(statusListFilter.get()).and(creationDateFromFilter.get()).and(creationDateToFilter.get()).and(settlementDateFromFilter.get()).and(settlementDateToFilter.get()).and(claimAmountFromFilter.get()).and(claimAmountToFilter.get())));
 
-            });
         });
         //Add a handler to the statusList choice box
-        statusList.valueProperty().addListener((observable, oldVal, newVal) -> {
-            filteredClaimList.setPredicate(claim -> {
-                if (newVal == null || newVal.equals("NONE")) {
-                    return true;
-                } else if (claim.getStatus().equals(newVal)) {
-                    return true;
-                } else {
-                    return false;
-                }
+        statusList.valueProperty().addListener((observable, oldVal, newValue) -> {
+            //reset modified value to the original value (filter out nothing)
+            modifiedTotalSuccessfulClaims = originalTotalSuccessfulClaims;
+            modifiedTotalSuccessfulClaimAmount = originalTotalSuccessfulClaimAmount;
+            filteredClaimList.predicateProperty().bind(Bindings.createObjectBinding(() -> searchFieldFilter.get().and(statusListFilter.get()).and(creationDateFromFilter.get()).and(creationDateToFilter.get()).and(settlementDateFromFilter.get()).and(settlementDateToFilter.get()).and(claimAmountFromFilter.get()).and(claimAmountToFilter.get())));
 
-            });
         });
+    }
+
+    //helper method to update and set text to labels in claim filtering
+
+    public void setTextToClaimLabels(Claim claim) {
+        if (user instanceof SystemAdmin) { //only system admin can do this feature
+            modifiedTotalSuccessfulClaimAmount = originalTotalSuccessfulClaimAmount - claim.getClaimAmount(); //filter out claims that is un-satisfied with sorting conditions
+
+            if (!claim.getStatus().equals("APPROVED")) {
+                modifiedTotalSuccessfulClaims = originalTotalSuccessfulClaims - 1; //filter out claims that is un-satisfied with sorting conditions
+            }
+            System.out.println("modifiedTotalSuccessfulClaim"+ modifiedTotalSuccessfulClaims);
+            System.out.println("modifiedTotalSuccessfulClaimAmount"+ modifiedTotalSuccessfulClaimAmount);
+            //set text for labels. Always set text with by modified value
+            successfulClaimAmountLabel.setText(String.valueOf(modifiedTotalSuccessfulClaimAmount));
+            numberOfSuccessfulClaimLabel.setText(String.valueOf(modifiedTotalSuccessfulClaims));
+
+        }
+    }
+    //helper method to reset  totalSuccessfulClaimAmount AND countNumberOfSuccessfulClaims to be 0;
+
+    //helper method for cancelling buttons
+    // Event handler for clearing the creation date filter
+    protected void handleClearCreationDateButton() {
+        creationDateFrom.setValue(null);
+        creationDateFrom.getEditor().clear();
+        creationDateTo.setValue(null);
+        creationDateTo.getEditor().clear();
+
+    }
+
+    // Event handler for clearing the settlement date filter
+
+    protected void handleClearSettlementDateButton() {
+        settlementDateFrom.setValue(null);
+        settlementDateFrom.getEditor().clear();
+        settlementDateTo.setValue(null);
+        settlementDateTo.getEditor().clear();
+    }
+
+    // Event handler for clearing the claim amount filter
+
+    protected void handleClearClaimAmountButton() {
+        claimAmountFrom.clear();
+        claimAmountTo.clear();
     }
 
     //This method maps table's columns with entity's fields and fill the table up with data.
     public void fillingClaimTable(EntityManager entityManager, User user, List<Claim> claims) {
+        //reset modified value to the original value (filter out nothing)
+
+
+
+
         //Putting values into the statusList choice box
         String[] statusArray = {"NEW", "PROCESSING", "NEED INFO", "APPROVED", "REJECTED", "NONE"};
         statusList.getItems().setAll(statusArray);
+        statusList.setValue("NONE"); //set default value
         //Putting values into the sortList choice box
         String[] sortArray = {"Sort By Creation Date In Ascending Order", "Sort By Creation Date In Descending Order", "Sort By Settlement Date In Ascending Order", "Sort By Settlement Date In Descending Order", "Sort by Claim Amount In Ascending Order", "Sort by Claim Amount In Descending Order", "NONE"};
         sortList.getItems().setAll(sortArray);
+        sortList.setValue("NONE"); //set default value
         ListIterator<Claim> claimListIterator = claims.listIterator();
         //Adding Claims to the claim observable list
         while (claimListIterator.hasNext()) {
             Claim claim = claimListIterator.next();
+            originalTotalSuccessfulClaimAmount = originalTotalSuccessfulClaimAmount + claim.getClaimAmount();
+            if (claim.getStatus().equals("APPROVED")) {
+                originalTotalSuccessfulClaims = originalTotalSuccessfulClaims + 1;
+            }
 
             //Only non-dependant users get to perform actions on the claim table
             if (!(user instanceof Dependant)) {
@@ -383,7 +567,11 @@ public class ClaimTableFilling extends ActionHistoryTableFilling implements Clai
 
             claimObservableList.add(claim);
 
+
+
         }
+        modifiedTotalSuccessfulClaims = originalTotalSuccessfulClaims;
+        modifiedTotalSuccessfulClaimAmount = originalTotalSuccessfulClaimAmount;
         FilteredList<Claim> filteredClaimList = new FilteredList<>(claimObservableList, b -> true);
         //Adding to handlers to changes in filtering fields and Search Box.
         filteringClaimTable(filteredClaimList);
@@ -410,9 +598,8 @@ public class ClaimTableFilling extends ActionHistoryTableFilling implements Clai
         }
         claimTable.setItems(sortedClaimList);
 
+
     }
-
-
 
 
     public TableView<Claim> getClaimTable() {
@@ -571,6 +758,7 @@ public class ClaimTableFilling extends ActionHistoryTableFilling implements Clai
     public EntityManager getEntityManager() {
         return entityManager;
     }
+
     public List<Button> getButtonList() {
         return buttonList;
     }

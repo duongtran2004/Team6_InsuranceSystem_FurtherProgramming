@@ -499,18 +499,6 @@
                         </Label>
                   <HBox prefHeight="100.0" prefWidth="200.0" />
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <Label minWidth="150.0" prefHeight="20.0" prefWidth="148.0" text="Search Box" HBox.hgrow="NEVER">
-                           <font>
-                              <Font name="Helvetica Neue Bold" size="16.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="claimListSearchField1" prefHeight="25.0" prefWidth="1474.0" HBox.hgrow="ALWAYS">
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                        </TextField>
-                     </children>
                      <opaqueInsets>
                         <Insets bottom="100.0" />
                      </opaqueInsets>
@@ -555,8 +543,6 @@
                         <Font name="Helvetica Neue Bold" size="14.0" />
                      </font>
                   </Label>
-                  <ChoiceBox fx:id="sortList" prefHeight="25.0" prefWidth="195.0" GridPane.columnIndex="1" />
-                  <ChoiceBox fx:id="statusList" prefHeight="25.0" prefWidth="195.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <children>
                         <Label text="From">
@@ -636,6 +622,20 @@
                         </Label>
                         <TextField fx:id="claimAmountTo" prefHeight="25.0" prefWidth="185.0" />
                         <Button fx:id="clearClaimAmountButton" mnemonicParsing="false" text="Clear Claim Amount" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
+                     <children>
+                        <ChoiceBox fx:id="sortList" prefHeight="25.0" prefWidth="195.0" />
+                        <Label prefHeight="18.0" prefWidth="206.0" text="Number of Succesful Claims" />
+                        <Label fx:id="numberOfSuccessfulClaimLabel" text="numberOfSuccessfulClaimLabel" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <children>
+                        <ChoiceBox fx:id="statusList" prefHeight="25.0" prefWidth="195.0" />
+                        <Label prefHeight="18.0" prefWidth="210.0" text="Total Successful Claim Amount" />
+                        <Label fx:id="successfulClaimAmountLabel" text="successfulClaimAmountLabel" />
                      </children>
                   </HBox>
                </children>
