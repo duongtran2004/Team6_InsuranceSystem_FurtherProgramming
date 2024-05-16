@@ -1,9 +1,6 @@
 package org.example.insurancemanagementapplication.Controller.DashBoardController.TableFillingController;
 
-import Entity.InsuranceCard;
-import Entity.PolicyOwner;
-import Entity.SystemAdmin;
-import Entity.User;
+import Entity.*;
 import jakarta.persistence.EntityManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -94,14 +91,17 @@ public class InsuranceCardTableFilling extends DependantTableFilling {
         while (insuranceCardListIterator.hasNext()) {
 
             InsuranceCard insuranceCard = insuranceCardListIterator.next();
+            //reassign from database object
+            insuranceCard = entityManager.find(InsuranceCard.class, insuranceCard.getCardNumber());
 
 
             //Only system admin and policy owner has access to the remove button
             if (user instanceof SystemAdmin || user instanceof PolicyOwner) {
                 Button buttonRemove = new Button("Remove");
                 buttonList.add(buttonRemove);
+                InsuranceCard finalInsuranceCard = insuranceCard;
                 buttonRemove.setOnAction(event -> {
-                   InsuranceCreateAndRemove.removeInsuranceCard(entityManager, insuranceCard);
+                   InsuranceCreateAndRemove.removeInsuranceCard(entityManager, finalInsuranceCard);
 
                 });
                 insuranceCard.setRemoveButton(buttonRemove);

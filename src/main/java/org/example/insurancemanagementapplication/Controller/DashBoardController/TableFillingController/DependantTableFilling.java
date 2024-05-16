@@ -79,12 +79,50 @@ public class DependantTableFilling extends ClaimTableFilling {
         super(user, entityManager);
     }
 
+
+//    public void sortingDependantTable(SortedList<Claim> sortedClaimList) {
+//
+//        //Comparator class. An instance of this class will be used as a parameter of the sort Method to define the sorting factor. In this class, the sorting factor is the claim's claim amount
+//        class TotalSuccessfulClaimAmountComparator implements Comparator<Dependant> {
+//            @Override
+//            public int compare(Dependant firstDependant, Dependant secondDependant) {
+//                return Integer.compare(firstDependant.getTotalSuccessfulClaimAmount(), secondDependant.getTotalSuccessfulClaimAmount());
+//            }
+//
+//            @Override
+//            public int compare(Claim o1, Claim o2) {
+//                return 0;
+//            }
+//        }
+//        //claimSorting choiceBox
+//        //add a listener to the sort list choice box. The listener will monitor the choice box's value to apply the correct sorting
+//
+//        //not allowed to reverse a sorted list
+//        sortList.valueProperty().addListener((observable, oldVal, newVal) -> {
+//            System.out.println("New Value" + newVal);
+//            //only change the observable list if other options except "NONE
+//            if (!(newVal.equals("NONE"))) {
+//                if (newVal.equals("Sort By Creation Date In Ascending Order")) {
+//                    ClaimCreationDateComparator claimCreationDateComparator = new ClaimCreationDateComparator();
+//                    sortedClaimList.setComparator(claimCreationDateComparator);
+//                } else if (newVal.equals("Sort By Creation Date In Descending Order")) {
+//                    ClaimCreationDateComparator claimCreationDateComparator = new ClaimCreationDateComparator();
+//                    sortedClaimList.setComparator(claimCreationDateComparator.reversed());
+//                }
+//            } else {
+//                sortedClaimList.setComparator(null);
+//            }
+//        });
+//    }
+
+
     /**
      * This method attaches an event listener to the dependant search field. It will listen for change in value of this field and filter the dependant
      * table accordingly.
      *
      * @param filteredDependantList
      */
+
     //AKA: FILTERING THE DEPENDENT TABLE BASED ON WHAT WE TYPE ON THE SEARCH FIELD
     public void filteringDependantTable(FilteredList<Dependant> filteredDependantList) {
         dependantSearchField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -132,6 +170,8 @@ public class DependantTableFilling extends ClaimTableFilling {
         //Adding dependants to the dependant observable list
         while (dependantListIterator.hasNext()) {
             Dependant dependant = dependantListIterator.next();
+            //reassign from database object
+            dependant = entityManager.find(Dependant.class, dependant.getId());
             //setter
             dependant.setTotalSuccessfulClaimAmount(ClaimRead.getTotalSuccessfulClaimAmountMadeByABeneficiary((Beneficiaries) dependant));
 
@@ -148,8 +188,9 @@ public class DependantTableFilling extends ClaimTableFilling {
                 buttonUpdateInfo.setText("Update Info");
                 //Create a CreationAndUpdatePageController for the Dependant in Update mode by passing in the dependant object to the constructor
                 //Open a new scene on the existing stage by calling the showStage static method from the Repeated Code Class
+                Dependant finalDependant = dependant;
                 buttonUpdateInfo.setOnAction(event -> {
-                    CreationAndUpdatePageControllerDependant creationPageControllerDependant = new CreationAndUpdatePageControllerDependant(entityManager, user, dependant);
+                    CreationAndUpdatePageControllerDependant creationPageControllerDependant = new CreationAndUpdatePageControllerDependant(entityManager, user, finalDependant);
                     StageBuilder.showStage((Stage) buttonUpdateInfo.getScene().getWindow(), creationPageControllerDependant, "DependantCreationAndUpdatePage.fxml", "Dependant Update");
 
                 });
@@ -158,7 +199,7 @@ public class DependantTableFilling extends ClaimTableFilling {
                 dependant.setRemoveButton(buttonRemove);
                 //Set action for the remove button. Clicking the button will remove its dependant
                 buttonRemove.setOnAction(event -> {
-                    CustomerCreateRemove.removeDependant(entityManager, dependant);
+                    CustomerCreateRemove.removeDependant(entityManager, finalDependant);
                 });
 
                 buttonUpdateInfo.setUserData(dependant); //built in method of javafx button class
@@ -172,7 +213,7 @@ public class DependantTableFilling extends ClaimTableFilling {
                     buttonAddClaim.setOnAction(event -> {
                         //Create a ClaimCreationPage controller in creation mode by passing the dependant object to the constructor
                         //Open a new scene in the existing stage by calling the showStage static method from the Repeated Code Class
-                        CreationAndUpdatePageControllerClaim creationPageControllerClaim = new CreationAndUpdatePageControllerClaim(entityManager, user, dependant);
+                        CreationAndUpdatePageControllerClaim creationPageControllerClaim = new CreationAndUpdatePageControllerClaim(entityManager, user, finalDependant);
                         StageBuilder.showStage((Stage) buttonUpdateInfo.getScene().getWindow(), creationPageControllerClaim, "ClaimCreationAndUpdatePage.fxml", "Claim Creation");
                     });
                     dependant.setAddClaimButton(buttonAddClaim);

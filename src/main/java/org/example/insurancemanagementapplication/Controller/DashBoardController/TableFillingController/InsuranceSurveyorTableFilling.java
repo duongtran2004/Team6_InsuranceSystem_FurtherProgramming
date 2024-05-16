@@ -103,14 +103,17 @@ public class InsuranceSurveyorTableFilling extends PolicyOwnerTableFilling {
         //Adding insurance surveyors to the observable list.
         while (listIteratorInsuranceSurveyor.hasNext()) {
             InsuranceSurveyor insuranceSurveyor = listIteratorInsuranceSurveyor.next();
+            //reassign object from database
+            insuranceSurveyor = entityManager.find(InsuranceSurveyor.class, insuranceSurveyor.getId());
             Button buttonUpdateInfo = new Button("Update Info");
             buttonList.add(buttonUpdateInfo);
             //Only System admin has access to the update info button and the remove button
             if (user instanceof SystemAdmin) {
                 //The Update Info Button will create a CreationPage Controller for the Insurance Surveyor in update mode by passing in the insurance surveyor object
                 //It will then open the Insurance Surveyor Creation Page
+                InsuranceSurveyor finalInsuranceSurveyor = insuranceSurveyor;
                 buttonUpdateInfo.setOnAction(event -> {
-                    CreationAndUpdatePageControllerInsuranceSurveyor creationPageControllerInsuranceSurveyor = new CreationAndUpdatePageControllerInsuranceSurveyor(entityManager, user, insuranceSurveyor);
+                    CreationAndUpdatePageControllerInsuranceSurveyor creationPageControllerInsuranceSurveyor = new CreationAndUpdatePageControllerInsuranceSurveyor(entityManager, user, finalInsuranceSurveyor);
                     StageBuilder.showStage((Stage) buttonUpdateInfo.getScene().getWindow(), creationPageControllerInsuranceSurveyor, "InsuranceSurveyorCreationAndUpdatePage.fxml", "Insurance Surveyor Update");
 
 
@@ -122,7 +125,7 @@ public class InsuranceSurveyorTableFilling extends PolicyOwnerTableFilling {
                 buttonList.add(buttonRemove);
                 insuranceSurveyor.setRemoveButton(buttonRemove);
                 buttonRemove.setOnAction(event -> {
-                    EmployeeCreateRemove.removeInsuranceSurveyor(entityManager, insuranceSurveyor);
+                    EmployeeCreateRemove.removeInsuranceSurveyor(entityManager, finalInsuranceSurveyor);
                 });
             }
 
@@ -148,4 +151,3 @@ public class InsuranceSurveyorTableFilling extends PolicyOwnerTableFilling {
 
 }
 //Inner Class for thread
-

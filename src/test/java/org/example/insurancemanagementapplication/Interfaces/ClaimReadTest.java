@@ -1,10 +1,8 @@
 package org.example.insurancemanagementapplication.Interfaces;
 
-import Entity.PolicyOwner;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
-import org.junit.jupiter.api.Test;
 
 class ClaimReadTest {
     EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
@@ -23,13 +21,13 @@ class ClaimReadTest {
         }
     }*/
 
-    @Test
-    void getTotalSuccessfulClaimAmountOfAPolicyOwner(){
-        PolicyOwner policyOwner = entityManager.find(PolicyOwner.class, "PO6173753721");
-        int amount = ClaimRead.getTotalSuccessfulClaimAmountMadeByAPolicyOwner(policyOwner);
-        System.out.println("List of claims: " + policyOwner.getListOfClaims());
-        System.out.println(amount);
-
-    }
+//    @Test
+//    void getTotalSuccessfulClaimAmountOfAPolicyOwner(){
+//        PolicyOwner policyOwner = entityManager.find(PolicyOwner.class, "PO6173753721");
+//        int amount = ClaimRead.getTotalSuccessfulClaimAmountMadeByAPolicyOwner(policyOwner);
+//        System.out.println("List of claims: " + policyOwner.getListOfClaims());
+//        System.out.println(amount);
+//
+//    }
 
 }

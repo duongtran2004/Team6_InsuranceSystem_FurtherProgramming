@@ -17,7 +17,7 @@ public interface CustomerUpdate {
         EntityTransaction transaction = entityManager.getTransaction();
         try{
             transaction.begin();
-            entityManager.persist(policyOwner);
+       entityManager.persist(policyOwner);
             policyOwner.setAddress(address);
             policyOwner.setPhoneNumber(phoneNumber);
             policyOwner.setEmail(email);

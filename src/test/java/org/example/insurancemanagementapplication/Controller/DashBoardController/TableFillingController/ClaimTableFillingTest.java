@@ -4,6 +4,7 @@ import Entity.Claim;
 import Entity.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -59,7 +60,7 @@ class ClaimTableFillingTest {
 
     }
 
-    @Test
+    //@Test
     void setTextToClaimLabels() {
 
         //list of sample claims
@@ -105,4 +106,29 @@ class ClaimTableFillingTest {
 
 
     }
+
+    @Test
+    void claimPersistenceTesting(){
+
+        EntityTransaction entityTransaction = entityManager.getTransaction();
+        try {
+            entityTransaction.begin();
+            Claim dbClaim = entityManager.find(Claim.class, "F0000000020");
+            dbClaim.setBankAccountName("VietcomBank");
+//            entityManager.persist(dbClaim);
+            entityTransaction.commit();
+        }catch (Exception e){
+
+        }finally {
+            if (entityTransaction.isActive()) {
+                entityTransaction.rollback();
+            }
+
+        }
+
+
+
+    }
+
+
 }

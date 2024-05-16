@@ -26,6 +26,17 @@ public class InsuranceManager extends User {
     @OneToMany(mappedBy = "insuranceManager")
     private Collection<InsuranceSurveyor> listOfSurveyors;
 
+    @Transient
+    private int totalResolvedClaims;
+
+    public int getTotalResolvedClaims() {
+        return totalResolvedClaims;
+    }
+
+    public void setTotalResolvedClaims(int totalResolvedClaims) {
+        this.totalResolvedClaims = totalResolvedClaims;
+    }
+
     public Button getAddSurveyorButton() {
         return addSurveyorButton;
     }

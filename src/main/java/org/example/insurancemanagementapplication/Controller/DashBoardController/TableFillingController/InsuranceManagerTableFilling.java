@@ -15,6 +15,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController.CreationAndUpdatePageControllerInsuranceManager;
 import org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController.CreationAndUpdatePageControllerInsuranceSurveyor;
+import org.example.insurancemanagementapplication.Interfaces.ClaimRead;
 import org.example.insurancemanagementapplication.Interfaces.EmployeeCreateRemove;
 import org.example.insurancemanagementapplication.Utility.StageBuilder;
 
@@ -52,6 +53,8 @@ public class InsuranceManagerTableFilling extends InsuranceSurveyorTableFilling 
     protected TableColumn<InsuranceManager, Button> managerRemoveButton;
     @FXML
     protected TextField insuranceManagerSearchField;
+    @FXML
+    protected TableColumn<InsuranceManager, Integer> totalResolvedClaimsIMColumn;
 
 
     /**
@@ -96,13 +99,18 @@ public class InsuranceManagerTableFilling extends InsuranceSurveyorTableFilling 
         //adding insurance managers into the observable list
         while (listIteratorInsuranceManager.hasNext()) {
             InsuranceManager insuranceManager = listIteratorInsuranceManager.next();
+            //reassign from database object
+            insuranceManager = entityManager.find(InsuranceManager.class, insuranceManager.getId());
+            //set total resolved claims
+            insuranceManager.setTotalResolvedClaims(ClaimRead.countTotalResolvedClaimOfAnInsuranceManager((InsuranceManager) user));
             Button buttonUpdateInfo = new Button("Update Info");
             buttonList.add(buttonUpdateInfo);
             insuranceManager.setUpdateInfoButton(buttonUpdateInfo);
             //The update info button on each row will create a CreationPage Controller in update mode for the corresponding insurance manager by passing in the insurance manager object
             //It will then open the Insurance Manager Creation Form
+            InsuranceManager finalInsuranceManager = insuranceManager;
             buttonUpdateInfo.setOnAction(event -> {
-                CreationAndUpdatePageControllerInsuranceManager insuranceManagerCreationPageController = new CreationAndUpdatePageControllerInsuranceManager(entityManager, user, insuranceManager);
+                CreationAndUpdatePageControllerInsuranceManager insuranceManagerCreationPageController = new CreationAndUpdatePageControllerInsuranceManager(entityManager, user, finalInsuranceManager);
                 StageBuilder.showStage((Stage) buttonUpdateInfo.getScene().getWindow(), insuranceManagerCreationPageController, "InsuranceManagerCreationAndUpdatePage.fxml", "Insurance Manager Update");
             });
 
@@ -112,7 +120,7 @@ public class InsuranceManagerTableFilling extends InsuranceSurveyorTableFilling 
             //The addSurveyor button will create an Insurance Surveyor CreationPage Controller in creation mode by passing the insurance manage object
             //It will then open the Insurance Surveyor Creation Form
             buttonAddSurveyor.setOnAction(event -> {
-                CreationAndUpdatePageControllerInsuranceSurveyor creationPageControllerInsuranceSurveyor = new CreationAndUpdatePageControllerInsuranceSurveyor(entityManager, user, insuranceManager);
+                CreationAndUpdatePageControllerInsuranceSurveyor creationPageControllerInsuranceSurveyor = new CreationAndUpdatePageControllerInsuranceSurveyor(entityManager, user, finalInsuranceManager);
                 StageBuilder.showStage((Stage) buttonAddSurveyor.getScene().getWindow(), creationPageControllerInsuranceSurveyor, "InsuranceSurveyorCreationAndUpdatePage.fxml", "Insurance Surveyor Creation");
             });
 
@@ -121,7 +129,7 @@ public class InsuranceManagerTableFilling extends InsuranceSurveyorTableFilling 
             buttonList.add(buttonRemove);
             insuranceManager.setRemoveButton(buttonRemove);
             buttonRemove.setOnAction(event -> {
-                EmployeeCreateRemove.removeInsuranceManager(entityManager, insuranceManager);
+                EmployeeCreateRemove.removeInsuranceManager(entityManager, finalInsuranceManager);
             });
 
             insuranceManagersObservableList.add(insuranceManager);
@@ -135,6 +143,8 @@ public class InsuranceManagerTableFilling extends InsuranceSurveyorTableFilling 
         managerUpdateInfoButton.setCellValueFactory(new PropertyValueFactory<InsuranceManager, Button>("updateInfoButton"));
         managerAddSurveyorButton.setCellValueFactory(new PropertyValueFactory<InsuranceManager, Button>("addSurveyorButton"));
         managerRemoveButton.setCellValueFactory(new PropertyValueFactory<InsuranceManager, Button>("removeButton"));
+        totalResolvedClaimsIMColumn.setCellValueFactory(new PropertyValueFactory<InsuranceManager, Integer>("totalResolvedClaims"));
+
         FilteredList<InsuranceManager> filteredManagerList = new FilteredList<>(insuranceManagersObservableList, b -> true);
         filteringInsuranceManagerTable(filteredManagerList);
         managerTable.setItems(filteredManagerList);

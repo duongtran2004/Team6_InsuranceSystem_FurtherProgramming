@@ -22,7 +22,7 @@ public interface ClaimUpdate {
         EntityTransaction transaction = entityManager.getTransaction();
         try {
             transaction.begin();
-            entityManager.persist(claim);
+//            entityManager.persist(claim);
             claim.setBankName(bankName);
             claim.setBankAccountName(bankAccountName);
             claim.setBankAccountNumber(accountNumber);
@@ -39,7 +39,7 @@ public interface ClaimUpdate {
         EntityTransaction transaction = entityManager.getTransaction();
         try {
             transaction.begin();
-            entityManager.persist(claim);
+//            entityManager.persist(claim);
             claim.setBankName(bankName);
             claim.setBankAccountName(bankAccountName);
             claim.setBankAccountNumber(accountNumber);
@@ -57,7 +57,7 @@ public interface ClaimUpdate {
         EntityTransaction transaction = entityManager.getTransaction();
         try {
             transaction.begin();
-            entityManager.persist(claim);
+//            entityManager.persist(claim);
             claim.setStatus(status);
             transaction.commit();
         } finally {
@@ -76,7 +76,7 @@ public interface ClaimUpdate {
         EntityTransaction transaction = entityManager.getTransaction();
         try {
             transaction.begin();
-            entityManager.persist(claim);
+//            entityManager.persist(claim);
             claim.setInsuranceSurveyor(insuranceSurveyor);
             transaction.commit();
         } finally {
@@ -90,7 +90,7 @@ public interface ClaimUpdate {
         EntityTransaction transaction = entityManager.getTransaction();
         try {
             transaction.begin();
-            entityManager.persist(claim);
+//            entityManager.persist(claim);
             claim.setClaimAmount(claimAmount);
             claim.setStatus(status);
             transaction.commit();
@@ -106,7 +106,7 @@ public interface ClaimUpdate {
         EntityTransaction transaction = entityManager.getTransaction();
         try {
             transaction.begin();
-            entityManager.persist(claim);
+//            entityManager.persist(claim);
             claim.setSettlementDate(settlementDate);
             claim.setStatus(status);
             transaction.commit();

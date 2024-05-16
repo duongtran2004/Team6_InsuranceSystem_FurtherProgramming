@@ -14,6 +14,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController.CreationAndUpdatePageControllerClaim;
+import org.example.insurancemanagementapplication.Controller.DashBoardController.*;
 import org.example.insurancemanagementapplication.Controller.Threads.UserInactivityHandler;
 import org.example.insurancemanagementapplication.Interfaces.ClaimCreateRemove;
 import org.example.insurancemanagementapplication.Utility.StageBuilder;
@@ -536,14 +537,20 @@ public class ClaimTableFilling extends ActionHistoryTableFilling implements Clai
 
             //Only non-dependant users get to perform actions on the claim table
             if (!(user instanceof Dependant)) {
+                //reassign from database object
+                claim = entityManager.find(Claim.class, claim.getClaimId() );
+
                 //Creating a button whose functionality depends on the type of user.
                 Button claimButton = new Button();
                 //Creating a Button to remove a claim
                 Button buttonRemoveClaim = new Button("Remove");
                 buttonList.add(claimButton);
+
                 buttonList.add(buttonRemoveClaim);
+                Claim finalClaim = claim;
                 buttonRemoveClaim.setOnAction(event -> {
-                    ClaimCreateRemove.removeClaim(entityManager, claim);
+                    ClaimCreateRemove.removeClaim(entityManager,    finalClaim);
+                    returnAndRefreshDashboard(buttonRemoveClaim);
                 });
                 //If the user is a system admin the button will have "View Claim" text.
                 if (user instanceof SystemAdmin) {
@@ -556,9 +563,11 @@ public class ClaimTableFilling extends ActionHistoryTableFilling implements Clai
                     claim.setClaimRemoveButton(buttonRemoveClaim);
                 }
                 //Binding a handler to the onClick event.
+                Claim finalClaim1 = claim;
                 claimButton.setOnAction(event -> {
                     //Creating the Controller for Claim Creation Page in update mode by passing the claim into the constructor
-                    CreationAndUpdatePageControllerClaim creationPageControllerClaim = new CreationAndUpdatePageControllerClaim(entityManager, user, claim);
+
+                    CreationAndUpdatePageControllerClaim creationPageControllerClaim = new CreationAndUpdatePageControllerClaim(entityManager, user, finalClaim1);
 
                     StageBuilder.showStage((Stage) claimButton.getScene().getWindow(), creationPageControllerClaim, "ClaimCreationAndUpdatePage.fxml", "UpdateClaimAsAdmin");
                 });
@@ -600,7 +609,33 @@ public class ClaimTableFilling extends ActionHistoryTableFilling implements Clai
 
 
     }
+    public void returnAndRefreshDashboard(Button button){
+        if (user instanceof SystemAdmin) {
+            SystemAdminDashBoardController dashBoardControllerSystemAdmin = new SystemAdminDashBoardController(entityManager, (SystemAdmin) user);
+            StageBuilder.showStage((Stage) button.getScene().getWindow(), dashBoardControllerSystemAdmin, "SystemAdminDashBoard.fxml", "Dashboard");
+        }
+        else if (user instanceof InsuranceManager) {
+            InsuranceManagerDashBoardController dashBoardControllerInsuranceManager = new InsuranceManagerDashBoardController((InsuranceManager) user, entityManager);
+            StageBuilder.showStage((Stage) button.getScene().getWindow(), dashBoardControllerInsuranceManager, "InsuranceManagerDashBoard.fxml", "Dashboard");
 
+        }
+        else if (user instanceof InsuranceSurveyor) {
+
+            InsuranceSurveyorDashBoardController dashBoardControllerInsuranceSurveyor = new InsuranceSurveyorDashBoardController((InsuranceSurveyor) user, entityManager);
+            StageBuilder.showStage((Stage) button.getScene().getWindow(), dashBoardControllerInsuranceSurveyor, "InsuranceSurveyorDashBoard.fxml", "Dashboard");
+
+        }
+        else if (user instanceof PolicyOwner) {
+            PolicyOwnerDashBoardController dashBoardController_policyOwner = new PolicyOwnerDashBoardController((PolicyOwner) user, entityManager);
+            StageBuilder.showStage((Stage) button.getScene().getWindow(), dashBoardController_policyOwner, "PolicyOwnerDashBoard.fxml", "Dashboard");
+
+        }
+        else if (user instanceof PolicyHolder) {
+            PolicyHolderDashBoardController dashBoardControllerPolicyHolder = new PolicyHolderDashBoardController((PolicyHolder) user, entityManager);
+            StageBuilder.showStage((Stage) button.getScene().getWindow(), dashBoardControllerPolicyHolder, "PolicyHolderDashBoard.fxml", "Dashboard");
+
+        }
+    }
 
     public TableView<Claim> getClaimTable() {
         return claimTable;

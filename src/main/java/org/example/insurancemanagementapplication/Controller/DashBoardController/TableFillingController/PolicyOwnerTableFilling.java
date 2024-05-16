@@ -105,6 +105,9 @@ public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
         //Add policy owners to the observable list
         while (policyOwnerListIterator.hasNext()) {
             PolicyOwner policyOwner = policyOwnerListIterator.next();
+            //reassign object from database
+            policyOwner = entityManager.find(PolicyOwner.class, policyOwner.getId());
+            PolicyOwner finalPolicyOwner = policyOwner;
             policyOwner.setTotalSuccessfulClaimAmount(ClaimRead.getTotalSuccessfulClaimAmountMadeByAPolicyOwner(entityManager,policyOwner));
             System.out.println("\"PO's id \" + policyOwner.getId(), Claim amount " + policyOwner.getTotalSuccessfulClaimAmount());
             Button buttonUpdateInfo = new Button("Update Info");
@@ -118,7 +121,7 @@ public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
                 //The Update Info Button will create a CreationPage Controller for the policy owner in update mode by passing in the policy owner object
                 //It will then open the Policy Owner Creation Page
                 buttonUpdateInfo.setOnAction(event -> {
-                    CreationAndUpdatePageControllerPolicyOwner creationPageControllerPolicyOwner = new CreationAndUpdatePageControllerPolicyOwner(entityManager, user, policyOwner);
+                    CreationAndUpdatePageControllerPolicyOwner creationPageControllerPolicyOwner = new CreationAndUpdatePageControllerPolicyOwner(entityManager, user, finalPolicyOwner);
                     StageBuilder.showStage((Stage) buttonUpdateInfo.getScene().getWindow(), creationPageControllerPolicyOwner, "PolicyOwnerCreationAndUpdatePage.fxml", "Policy Owner Update");
 
                 });
@@ -126,8 +129,9 @@ public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
                 policyOwner.setUpdateInfoButton(buttonUpdateInfo);
                 //The addPolicyHolder button will create a Policy Holder CreationPage Controller in creation mode by passing the policy owner object
                 //It will then open the Policy Holder Creation Form
+
                 buttonAddPolicy.setOnAction(event -> {
-                    CreationAndUpdatePageControllerPolicyHolder creationPageControllerPolicyHolder = new CreationAndUpdatePageControllerPolicyHolder(entityManager, user, policyOwner);
+                    CreationAndUpdatePageControllerPolicyHolder creationPageControllerPolicyHolder = new CreationAndUpdatePageControllerPolicyHolder(entityManager, user, finalPolicyOwner);
                     StageBuilder.showStage((Stage) buttonAddPolicy.getScene().getWindow(), creationPageControllerPolicyHolder, "PolicyHolderCreationAndUpdatePage.fxml", "Policy Creation");
 
                 });
@@ -135,7 +139,7 @@ public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
                 //The remove button will remove its policy owner button from the database
                 policyOwner.setRemoveButton(buttonRemove);
                 buttonRemove.setOnAction(event -> {
-                    CustomerCreateRemove.removePolicyOwner(entityManager, policyOwner);
+                    CustomerCreateRemove.removePolicyOwner(entityManager, finalPolicyOwner);
                 });
                 policyOwner.setAddPolicyButton(buttonAddPolicy);
 

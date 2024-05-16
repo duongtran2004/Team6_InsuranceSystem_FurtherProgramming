@@ -1,15 +1,14 @@
 package org.example.insurancemanagementapplication.Interfaces;
 
-import Entity.Beneficiaries;
-import Entity.Claim;
-import Entity.PolicyOwner;
+import Entity.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
+import org.hibernate.Hibernate;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public interface    ClaimRead {
+public interface ClaimRead {
 
     /**
      * @author Luong Thanh Trung
@@ -87,13 +86,11 @@ public interface    ClaimRead {
     }
 
 
-
-
-    public static int getTotalSuccessfulClaimAmountMadeByABeneficiary (Beneficiaries beneficiary) {
+    public static int getTotalSuccessfulClaimAmountMadeByABeneficiary(Beneficiaries beneficiary) {
         int totalAmount = 0;
         for (Claim claim : beneficiary.getListOfClaims()) {
             if (claim.getStatus().equals("APPROVED")) {
-                totalAmount = totalAmount+  claim.getClaimAmount();
+                totalAmount = totalAmount + claim.getClaimAmount();
             }
         }
         return totalAmount;
@@ -101,8 +98,8 @@ public interface    ClaimRead {
 
     public static int getTotalSuccessfulClaimAmountMadeByAPolicyOwner(EntityManager entityManager, PolicyOwner policyOwner) {
         // Ensure the listOfClaims is initialized within an active session
-//        policyOwner = entityManager.merge(policyOwner);
-//        Hibernate.initialize(policyOwner.getListOfClaims());
+        policyOwner = entityManager.merge(policyOwner);
+        Hibernate.initialize(policyOwner.getListOfClaims());
         int totalAmount = 0;
         for (Claim claim : policyOwner.getListOfClaims()) {
             if (claim.getStatus().equals("APPROVED")) {
@@ -111,8 +108,6 @@ public interface    ClaimRead {
         }
         return totalAmount;
     }
-
-
 
 
     public static int getTotalSuccessfulClaimAmountProcessedByAnInsuranceSurveyor(EntityManager entityManager, String insuranceSurveyorID) {
@@ -192,11 +187,31 @@ public interface    ClaimRead {
         return claims;
     }
 
+    public static int countTotalResolvedClaimOfAnInsuranceSurveyor(InsuranceSurveyor insuranceSurveyor) {
+        int resolvedClaims = 0;
+        for (Claim claim : insuranceSurveyor.getListOfClaims()) {
+            if (claim.getStatus().equals("APPROVED") || claim.getStatus().equals("REJECTED")) {
+                resolvedClaims++;
+            }
+        }
+        return resolvedClaims;
+    }
+
+    public static int countTotalResolvedClaimOfAnInsuranceManager(InsuranceManager insuranceManager) {
+        int resolvedClaims = 0;
+        for (Claim claim : insuranceManager.getListOfClaims()) {
+            if (claim.getStatus().equals("APPROVED") || claim.getStatus().equals("REJECTED")) {
+                resolvedClaims++;
+            }
+        }
+        return resolvedClaims;
+    }
+
 
     //get number of finishedClaim (status = reject or approved)
     public static int getNumberOfFinishedClaimsOfAnEmployee(EntityManager entityManager, String employeeID, String role) {
-         int numberOfFinishedClaims = getFinishedClaimOfAnEmployee(entityManager, employeeID, role).size();
-         return numberOfFinishedClaims;
+        int numberOfFinishedClaims = getFinishedClaimOfAnEmployee(entityManager, employeeID, role).size();
+        return numberOfFinishedClaims;
     }
 
 

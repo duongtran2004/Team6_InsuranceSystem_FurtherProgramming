@@ -24,6 +24,16 @@ public class InsuranceSurveyor extends User {
     @JoinColumn(name = "insurance_manager_id", referencedColumnName = "id", nullable = false)
     private InsuranceManager insuranceManager;
 
+    @Transient
+    private int totalResolvedClaims;
+
+    public int getTotalResolvedClaims() {
+        return totalResolvedClaims;
+    }
+
+    public void setTotalResolvedClaims(int totalResolvedClaims) {
+        this.totalResolvedClaims = totalResolvedClaims;
+    }
 
     public String getInsuranceManagerId() {
         return insuranceManagerId;
