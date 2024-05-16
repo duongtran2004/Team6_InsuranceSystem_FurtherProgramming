@@ -96,11 +96,12 @@ public interface ClaimRead {
     }
 //    policyOwner = entityManager.merge(policyOwner);
 //        Hibernate.initialize(policyOwner.getListOfClaims());
-    public static int getTotalSuccessfulClaimAmountMadeByAPolicyOwner(PolicyOwner policyOwner) {
+    public static int getTotalSuccessfulClaimAmountMadeByAPolicyOwner( List<Claim> policyOwnerListOfClaims ) {
         // Ensure the listOfClaims is initialized within an active session
-
+        //policyOwner = entityManager.merge(policyOwner);
+        //Hibernate.initialize(policyOwner.getListOfClaims());
         int totalAmount = 0;
-        for (Claim claim : policyOwner.getListOfClaims()) {
+        for (Claim claim : policyOwnerListOfClaims) {
             if (claim.getStatus().equals("APPROVED")) {
                 totalAmount = totalAmount + claim.getClaimAmount();
             }

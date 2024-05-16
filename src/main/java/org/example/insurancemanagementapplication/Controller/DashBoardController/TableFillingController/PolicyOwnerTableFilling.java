@@ -1,8 +1,6 @@
 package org.example.insurancemanagementapplication.Controller.DashBoardController.TableFillingController;
 
-import Entity.PolicyOwner;
-import Entity.SystemAdmin;
-import Entity.User;
+import Entity.*;
 import jakarta.persistence.EntityManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,6 +16,7 @@ import org.example.insurancemanagementapplication.Controller.CreationAndUpdatePa
 import org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController.CreationAndUpdatePageControllerPolicyOwner;
 import org.example.insurancemanagementapplication.Interfaces.ClaimRead;
 import org.example.insurancemanagementapplication.Interfaces.CustomerCreateRemove;
+import org.example.insurancemanagementapplication.Interfaces.CustomerRead;
 import org.example.insurancemanagementapplication.Interfaces.YearlyRateCalculation;
 import org.example.insurancemanagementapplication.Utility.StageBuilder;
 
@@ -104,11 +103,16 @@ public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
         ListIterator<PolicyOwner> policyOwnerListIterator = policyOwners.listIterator();
         //Add policy owners to the observable list
         while (policyOwnerListIterator.hasNext()) {
+
             PolicyOwner policyOwner = policyOwnerListIterator.next();
+
             //reassign object from database
             policyOwner = entityManager.find(PolicyOwner.class, policyOwner.getId());
+            //call interface method to get all claims of a policy owner
+            List<Claim> policyOwnerClaimList = ClaimRead.getAllClaimsFromBeneficiariesOfAPolicyOwner(entityManager, policyOwner.getId());
+
             PolicyOwner finalPolicyOwner = policyOwner;
-            policyOwner.setTotalSuccessfulClaimAmount(ClaimRead.getTotalSuccessfulClaimAmountMadeByAPolicyOwner(policyOwner));
+            policyOwner.setTotalSuccessfulClaimAmount(ClaimRead.getTotalSuccessfulClaimAmountMadeByAPolicyOwner(policyOwnerClaimList));
             System.out.println("\"PO's id \" + policyOwner.getId(), Claim amount " + policyOwner.getTotalSuccessfulClaimAmount());
             Button buttonUpdateInfo = new Button("Update Info");
             Button buttonAddPolicy = new Button("Add Policy");
@@ -144,7 +148,10 @@ public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
                 policyOwner.setAddPolicyButton(buttonAddPolicy);
 
                 // Calculate the total yearly rate for the policy owner
-                int yearlyRate = YearlyRateCalculation.calculateYearlyRateOfAPolicyOwner(policyOwner);
+
+                //get beneficiaries list of policy owner from the database
+                List<Beneficiaries> beneficiariesList = CustomerRead.getAllBeneficiariesOfAPolicyOwner(entityManager,policyOwner.getId());
+                int yearlyRate = YearlyRateCalculation.calculateYearlyRateOfAPolicyOwner(beneficiariesList);
                 policyOwner.setTotalYearlyRate(yearlyRate);
             }
 

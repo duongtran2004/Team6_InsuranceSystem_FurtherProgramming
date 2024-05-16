@@ -1,5 +1,6 @@
 package org.example.insurancemanagementapplication.Controller.DashBoardController;
 
+import Entity.Beneficiaries;
 import Entity.Claim;
 import Entity.PolicyOwner;
 import jakarta.persistence.EntityManager;
@@ -103,8 +104,8 @@ public class PolicyOwnerDashBoardController extends PolicyHolderTableFilling imp
         //fill table
         //see the ClaimTableFilling Class
         userFillingData();
-
-        int yearlyRate = YearlyRateCalculation.calculateYearlyRateOfAPolicyOwner((PolicyOwner) user);
+        List<Beneficiaries> beneficiariesList = CustomerRead.getAllBeneficiariesOfAPolicyOwner(entityManager,user.getId());
+        int yearlyRate = YearlyRateCalculation.calculateYearlyRateOfAPolicyOwner(beneficiariesList);
         totalYearlyRateLabel.setText(String.valueOf(yearlyRate));
 
         //event handling for button

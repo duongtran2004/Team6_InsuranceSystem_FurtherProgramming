@@ -92,7 +92,7 @@ public class InsuranceCardTableFilling extends DependantTableFilling {
 
             InsuranceCard insuranceCard = insuranceCardListIterator.next();
             //reassign from database object
-            insuranceCard = entityManager.find(InsuranceCard.class, insuranceCard.getCardNumber());
+//            insuranceCard = entityManager.find(InsuranceCard.class, insuranceCard.getCardNumber()); //unit test for this
 
 
             //Only system admin and policy owner has access to the remove button

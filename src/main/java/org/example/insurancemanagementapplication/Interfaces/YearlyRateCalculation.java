@@ -2,7 +2,6 @@ package org.example.insurancemanagementapplication.Interfaces;
 
 import Entity.Beneficiaries;
 import Entity.PolicyOwner;
-import jakarta.persistence.EntityManager;
 
 import java.util.List;
 
@@ -26,10 +25,10 @@ public interface YearlyRateCalculation {
 //    }
 
 
-    public static int countPolicyHoldersOfAPolicyOwner(PolicyOwner policyOwner) {
+    public static int countPolicyHoldersOfAPolicyOwner(List<Beneficiaries> beneficiariesList) {
         int policyHoldersCount = 0;
-        for (Beneficiaries beneficiariy : policyOwner.getListOfBeneficiaries() ){
-            if (beneficiariy.getType().equals("PH")){
+        for (Beneficiaries beneficiaries : beneficiariesList ){
+            if (beneficiaries.getType().equals("PH")){
                 policyHoldersCount++;
             }
         }
@@ -45,10 +44,10 @@ public interface YearlyRateCalculation {
 //        return (int) dependantCount;
 //    }
 
-    public static int countDependantsOfAPolicyOwner(PolicyOwner policyOwner) {
+    public static int countDependantsOfAPolicyOwner(List<Beneficiaries> beneficiariesList) {
 
         int dependantCount = 0;
-        for (Beneficiaries beneficiaries : policyOwner.getListOfBeneficiaries()){
+        for (Beneficiaries beneficiaries : beneficiariesList){
             if (beneficiaries.getType().equals("DE")){
                 dependantCount ++;
             }
@@ -92,9 +91,9 @@ public interface YearlyRateCalculation {
         return yearlyRate;
     }
 
-        public static int calculateYearlyRateOfAPolicyOwner(PolicyOwner policyOwner) {
-        int dependantCount = countDependantsOfAPolicyOwner(policyOwner);
-        int policyHolderCount = countPolicyHoldersOfAPolicyOwner(policyOwner);
+        public static int calculateYearlyRateOfAPolicyOwner(List<Beneficiaries> beneficiariesList) {
+        int dependantCount = countDependantsOfAPolicyOwner(beneficiariesList);
+        int policyHolderCount = countPolicyHoldersOfAPolicyOwner(beneficiariesList);
         int beneficiaryCount = dependantCount + policyHolderCount;
         String level = dividePolicyOwnerIntoPHYearlyRateLevel(beneficiaryCount);
         int PHyearlyRate = getPHYearlyRateBasedOnLevel(level);
@@ -108,14 +107,12 @@ public interface YearlyRateCalculation {
 
     //FOR SYSTEM ADMIN
     //calculate total yearly rate from all policy owner
-    public static int calculateTotalYearlyRateOfAllPolicyOwners(EntityManager entityManager) {
+    public static int calculateTotalYearlyRateOfAllPolicyOwners(List<PolicyOwner> policyOwnerList) {
         int POYearlyRateSum = 0;
-        //get all policy owner and store into a List
-        List<PolicyOwner> policyOwners = CustomerRead.getAllPolicyOwner(entityManager);
-        //loop through each policy owner => perform calculateYearlyRateOfAPolicyOwner
-        for (PolicyOwner policyOwner : policyOwners) {
+
+        for (PolicyOwner policyOwner : policyOwnerList) {
             //add up the sum
-            POYearlyRateSum += calculateYearlyRateOfAPolicyOwner(policyOwner);
+            POYearlyRateSum  = POYearlyRateSum + policyOwner.getTotalYearlyRate();
         }
         return POYearlyRateSum;
     }

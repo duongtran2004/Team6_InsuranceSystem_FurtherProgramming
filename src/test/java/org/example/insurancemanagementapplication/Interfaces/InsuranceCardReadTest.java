@@ -27,7 +27,7 @@ class InsuranceCardReadTest {
 //            System.out.println(insuranceCard);
 //        }
 //    }
-    @Test
+    //@Test
     void  getALlInsuranceCards() {
         List<InsuranceCard> insuranceCardList =
         InsuranceCardRead.getAllInsuranceCard(entityManager);
@@ -35,6 +35,11 @@ class InsuranceCardReadTest {
             System.out.println(insuranceCard);
         }
 
+    }
+    @Test
+    void getAnInsuranceCardByEntityManager() {
+        InsuranceCard insuranceCard = entityManager.find(InsuranceCard.class, "9087940541");
+        System.out.println(insuranceCard);
     }
 
 //    @Test

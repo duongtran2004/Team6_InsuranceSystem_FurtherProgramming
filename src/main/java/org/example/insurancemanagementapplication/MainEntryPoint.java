@@ -1,5 +1,6 @@
 package org.example.insurancemanagementapplication;
 
+import Entity.SystemAdmin;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -7,7 +8,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.example.insurancemanagementapplication.Controller.LogInPageController;
+import org.example.insurancemanagementapplication.Controller.DashBoardController.SystemAdminDashBoardController;
 
 import java.io.IOException;
 
@@ -28,15 +29,25 @@ public class MainEntryPoint extends Application {
 //        SystemAdminDashBoardController dashBoardControllerSystemAdmin = new SystemAdminDashBoardController(entityManager, systemAdmin);
 //        fxmlLoader.setController(dashBoardControllerSystemAdmin);
 
+//
+//        //Load login page
+////        System.out.println("Hello After Entity Manager");
+//        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("LogInPage.fxml"));
+//        LogInPageController logInPageController = new LogInPageController(entityManager);
+////        SystemAdminDashBoardController systemAdminDashBoardController = new SystemAdminDashBoardController(entityManager, systemAdmin);
+//
+////        PolicyOwnerDashBoardController policyOwnerDashBoardController = new PolicyOwnerDashBoardController( policyOwner, entityManager);
+//        fxmlLoader.setController(logInPageController);
 
-        //Load login page
-//        System.out.println("Hello After Entity Manager");
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("LogInPage.fxml"));
-        LogInPageController logInPageController = new LogInPageController(entityManager);
+
+        //log in as SA
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("SystemAdminDashBoard.fxml"));
+        SystemAdmin systemAdmin = entityManager.find(SystemAdmin.class, "SA90987611");
+        SystemAdminDashBoardController systemAdminDashBoardController = new SystemAdminDashBoardController(entityManager, systemAdmin);
 //        SystemAdminDashBoardController systemAdminDashBoardController = new SystemAdminDashBoardController(entityManager, systemAdmin);
 
 //        PolicyOwnerDashBoardController policyOwnerDashBoardController = new PolicyOwnerDashBoardController( policyOwner, entityManager);
-        fxmlLoader.setController(logInPageController);
+        fxmlLoader.setController(systemAdminDashBoardController);
 
 
 
