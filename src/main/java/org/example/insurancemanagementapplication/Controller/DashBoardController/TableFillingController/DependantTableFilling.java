@@ -72,7 +72,7 @@ public class DependantTableFilling extends ClaimTableFilling {
     protected TextField dependantSearchField;
 
     @FXML
-    protected ChoiceBox<String> dependantSortBox;
+    private ChoiceBox<String> dependantSortBox;
 
     @FXML
     private TableColumn<Dependant, Integer> totalSuccessfulClaimAmountDependantColumn;
@@ -166,12 +166,7 @@ public class DependantTableFilling extends ClaimTableFilling {
      */
     //AKA: MAP: 1 COLUMNS IN DEPENDENT TABLE = 1 ATTRIBUTES OF DEPENDENT CLASS
     public void fillingDependantTable(EntityManager entityManager, User user, List<Dependant> dependants) {
-        if (user instanceof SystemAdmin) {
-            //Putting values into the sorting  choice box
-            String[] statusArray = {"Sort By Total Successful Claim Amount In Ascending Order", "Sort By Total Successful Claim Amount In Descending Order", "NONE"};
-            dependantSortBox.getItems().setAll(statusArray);
-            dependantSortBox.setValue("NONE"); //set default value
-        }
+
 
 
         ListIterator<Dependant> dependantListIterator = dependants.listIterator();
@@ -246,6 +241,12 @@ public class DependantTableFilling extends ClaimTableFilling {
         policyHolderDependantTable.setCellValueFactory(new PropertyValueFactory<Dependant, String>("policyHolderId"));
         if (user instanceof SystemAdmin) {
             totalSuccessfulClaimAmountDependantColumn.setCellValueFactory(new PropertyValueFactory<Dependant, Integer>("totalSuccessfulClaimAmount"));
+
+                //Putting values into the sorting  choice box
+                String[] successfulClaimAmountSortArray = {"Sort By Total Successful Claim Amount In Ascending Order", "Sort By Total Successful Claim Amount In Descending Order", "NONE"};
+                dependantSortBox.getItems().setAll(successfulClaimAmountSortArray);
+                dependantSortBox.setValue("NONE"); //set default value
+
         }
 
 

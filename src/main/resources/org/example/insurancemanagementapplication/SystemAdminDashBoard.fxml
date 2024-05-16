@@ -333,6 +333,8 @@
                            </HBox.margin>
                         </Label>
                         <ChoiceBox fx:id="policyOwnerSortBox" prefWidth="150.0" />
+                        <Label text="Total Yearly Rate Of All Policy Owner: " />
+                        <Label fx:id="yearlyRateSumLabel" text="yearlyRateSumLabel" />
                      </children>
                   </HBox>
                       </children>

@@ -7,10 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController.CreationAndUpdatePageControllerInsuranceManager;
@@ -55,6 +52,8 @@ public class InsuranceManagerTableFilling extends InsuranceSurveyorTableFilling 
     protected TextField insuranceManagerSearchField;
     @FXML
     protected TableColumn<InsuranceManager, Integer> totalResolvedClaimsIMColumn;
+    @FXML
+    private ChoiceBox<String> insuranceManagerSortBox;
 
 
     /**
@@ -144,6 +143,10 @@ public class InsuranceManagerTableFilling extends InsuranceSurveyorTableFilling 
         managerAddSurveyorButton.setCellValueFactory(new PropertyValueFactory<InsuranceManager, Button>("addSurveyorButton"));
         managerRemoveButton.setCellValueFactory(new PropertyValueFactory<InsuranceManager, Button>("removeButton"));
         totalResolvedClaimsIMColumn.setCellValueFactory(new PropertyValueFactory<InsuranceManager, Integer>("totalResolvedClaims"));
+        //Set choices option for choice box
+        String[] totalResolvedClaimsSortBoxArray = {"Sort By Total Resolved Claims In Ascending Order", "Sort By Total Resolved Claims In Descending Order"};
+        insuranceManagerSortBox.getItems().setAll(totalResolvedClaimsSortBoxArray);
+        insuranceManagerSortBox.setValue("NONE");
 
         FilteredList<InsuranceManager> filteredManagerList = new FilteredList<>(insuranceManagersObservableList, b -> true);
         filteringInsuranceManagerTable(filteredManagerList);

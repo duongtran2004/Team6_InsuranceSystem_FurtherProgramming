@@ -6,10 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController.CreationAndUpdatePageControllerPolicyHolder;
@@ -58,6 +55,9 @@ public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
     protected TableColumn<PolicyOwner, Integer> policyOwnerTotalYearlyRate;
     @FXML
     private TableColumn<PolicyOwner, Integer> totalSuccessfulClaimAmountPolicyOwnerColumn;
+
+    @FXML
+    private ChoiceBox<String> policyOwnerSortBox;
 
     public PolicyOwnerTableFilling(EntityManager entityManager, User user) {
         super(entityManager, user);
@@ -150,7 +150,7 @@ public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
                 // Calculate the total yearly rate for the policy owner
 
                 //get beneficiaries list of policy owner from the database
-                List<Beneficiaries> beneficiariesList = CustomerRead.getAllBeneficiariesOfAPolicyOwner(entityManager,policyOwner.getId());
+                List<Beneficiaries> beneficiariesList = CustomerRead.getAllBeneficiariesOfAPolicyOwner(entityManager, policyOwner.getId());
                 int yearlyRate = YearlyRateCalculation.calculateYearlyRateOfAPolicyOwner(beneficiariesList);
                 policyOwner.setTotalYearlyRate(yearlyRate);
             }
@@ -173,6 +173,11 @@ public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
             policyOwnerRemoveButton.setCellValueFactory(new PropertyValueFactory<PolicyOwner, Button>("removeButton"));
             totalSuccessfulClaimAmountPolicyOwnerColumn.setCellValueFactory(new PropertyValueFactory<PolicyOwner, Integer>("totalSuccessfulClaimAmount"));
 
+            //Putting values into the sorting  choice box
+
+            String[] policyOwnerSortBoxArray = {"Sort By Total Yearly Rate In Ascending Order", "Sort By Total Yearly Rate In Descending Order", "Sort By Total Successful Claim Amount In Ascending Order", "Sort By Total Successful Claim Amount In Descending Order", "NONE"};
+            policyOwnerSortBox.getItems().setAll(policyOwnerSortBoxArray);
+            policyOwnerSortBox.setValue("NONE"); //set default value
         }
         FilteredList<PolicyOwner> filteredPolicyOwnerList = new FilteredList<>(policyOwnersObservableList, b -> true);
         filteringPolicyOwnerTable(filteredPolicyOwnerList);

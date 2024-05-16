@@ -6,10 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController.CreationAndUpdatePageControllerClaim;
@@ -61,6 +58,8 @@ public class PolicyHolderTableFilling extends InsuranceCardTableFilling {
     protected TextField policyHolderSearchField;
     @FXML
     private TableColumn<PolicyHolder, Integer> totalSuccessfulClaimAmountPolicyHolderColumn;
+    @FXML
+    private ChoiceBox<String> policyHolderSortBox;
 
     public PolicyHolderTableFilling(EntityManager entityManager, User user) {
         super(entityManager, user);
@@ -172,6 +171,12 @@ public class PolicyHolderTableFilling extends InsuranceCardTableFilling {
         policyHolderPassword.setCellValueFactory(new PropertyValueFactory<PolicyHolder, String>("password"));
         if (user instanceof SystemAdmin) {
             totalSuccessfulClaimAmountPolicyHolderColumn.setCellValueFactory(new PropertyValueFactory<PolicyHolder, Integer>("totalSuccessfulClaimAmount"));
+
+                //Putting values into the sorting  choice box
+                String[] successfulClaimAmountSortArray = {"Sort By Total Successful Claim Amount In Ascending Order", "Sort By Total Successful Claim Amount In Descending Order", "NONE"};
+                policyHolderSortBox.getItems().setAll(successfulClaimAmountSortArray);
+                policyHolderSortBox.setValue("NONE"); //set default value
+
         }
 
         if (user instanceof SystemAdmin || user instanceof Customer) {
