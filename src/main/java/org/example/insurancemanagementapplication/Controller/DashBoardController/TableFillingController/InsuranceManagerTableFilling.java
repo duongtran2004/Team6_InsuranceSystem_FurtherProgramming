@@ -128,7 +128,7 @@ public class InsuranceManagerTableFilling extends InsuranceSurveyorTableFilling 
     public void fillingInsuranceManagerTable(EntityManager entityManager, User user, List<InsuranceManager> insuranceManagers) {
         if (user instanceof SystemAdmin) {
             //Set choices option for choice box
-            String[] totalResolvedClaimsSortBoxArray = {"Sort By Total Resolved Claims In Ascending Order", "Sort By Total Resolved Claims In Descending Order"};
+            String[] totalResolvedClaimsSortBoxArray = {"Sort By Total Resolved Claims In Ascending Order", "Sort By Total Resolved Claims In Descending Order", "NONE"};
             insuranceManagerSortBox.getItems().setAll(totalResolvedClaimsSortBoxArray);
             insuranceManagerSortBox.setValue("NONE");
         }

@@ -178,7 +178,6 @@ public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
 
             PolicyOwner finalPolicyOwner = policyOwner;
             policyOwner.setTotalSuccessfulClaimAmount(ClaimRead.getTotalSuccessfulClaimAmountMadeByAPolicyOwner(policyOwnerClaimList));
-            System.out.println("\"PO's id \" + policyOwner.getId(), Claim amount " + policyOwner.getTotalSuccessfulClaimAmount());
             Button buttonUpdateInfo = new Button("Update Info");
             Button buttonAddPolicy = new Button("Add Policy");
             Button buttonRemove = new Button("Remove");
