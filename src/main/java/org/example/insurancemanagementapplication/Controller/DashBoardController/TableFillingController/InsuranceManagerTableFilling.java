@@ -102,7 +102,7 @@ public class InsuranceManagerTableFilling extends InsuranceSurveyorTableFilling 
             //reassign from database object
             insuranceManager = entityManager.find(InsuranceManager.class, insuranceManager.getId());
             //set total resolved claims
-            insuranceManager.setTotalResolvedClaims(ClaimRead.countTotalResolvedClaimOfAnInsuranceManager((InsuranceManager) user));
+            insuranceManager.setTotalResolvedClaims(ClaimRead.countTotalResolvedClaimOfAnInsuranceManager(insuranceManager));
             Button buttonUpdateInfo = new Button("Update Info");
             buttonList.add(buttonUpdateInfo);
             insuranceManager.setUpdateInfoButton(buttonUpdateInfo);

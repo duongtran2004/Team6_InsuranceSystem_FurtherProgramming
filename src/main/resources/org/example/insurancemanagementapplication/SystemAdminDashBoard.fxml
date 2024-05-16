@@ -168,6 +168,7 @@
                               <TableColumn fx:id="managerUpdateInfoButton" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Update Info" />
                               <TableColumn fx:id="managerAddSurveyorButton" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Add Surveyor" />
                               <TableColumn fx:id="managerRemoveButton" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Remove" />
+                              <TableColumn fx:id="totalResolvedClaimsIMColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Total Resolved Claims" />
                           </columns>
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -187,7 +188,7 @@
                               <Font name="Helvetica Neue Bold" size="16.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="insuranceManagerSearchBox" maxWidth="500.0" minWidth="500.0" prefHeight="25.0" prefWidth="1117.0" HBox.hgrow="ALWAYS">
+                        <TextField fx:id="insuranceManagerSearchField" maxWidth="500.0" minWidth="500.0" prefHeight="25.0" prefWidth="1117.0" HBox.hgrow="ALWAYS">
                            <padding>
                               <Insets right="30.0" />
                            </padding>
@@ -231,6 +232,7 @@
                                         <TableColumn fx:id="manager" maxWidth="130.0" minWidth="130.0" prefWidth="130.0" text="Manager" />
                               <TableColumn fx:id="surveyorUpdateInfoButton" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Update Info" />
                               <TableColumn fx:id="surveyorRemoveButton" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Remove" />
+                              <TableColumn fx:id="totalResolvedClaimsISColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Total Resolved Claims" />
                                     </columns>
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -396,7 +398,7 @@
                               <Insets right="30.0" />
                            </HBox.margin>
                         </Label>
-                        <ChoiceBox fx:id="policyHolderSearchField" prefWidth="150.0" />
+                        <ChoiceBox fx:id="policyHolderSortBox" prefWidth="150.0" />
                      </children>
                   </HBox>
                     </children>
@@ -506,7 +508,7 @@
                               <Font name="Helvetica Neue Bold" size="16.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="actionSearchField1" prefHeight="25.0" prefWidth="1474.0" HBox.hgrow="ALWAYS" />
+                        <TextField fx:id="insuranceCardSearchField" prefHeight="25.0" prefWidth="1474.0" HBox.hgrow="ALWAYS" />
                      </children>
                   </HBox>
                     </children>
@@ -525,7 +527,7 @@
                     <children>
                         <ScrollPane fitToWidth="true" maxHeight="325" maxWidth="Infinity" prefHeight="200.0" prefWidth="200.0" GridPane.hgrow="NEVER" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
                             <content>
-                                <TableView fx:id="claimTable" maxHeight="Infinity" maxWidth="Infinity" minHeight="319.0" minWidth="1500.0" prefHeight="400.0" prefWidth="1515.0">
+                                <TableView fx:id="claimTable" maxHeight="Infinity" maxWidth="Infinity" minHeight="319.0" minWidth="1500.0" prefHeight="325.0" prefWidth="1500.0">
                                     <columns>
                                         <TableColumn fx:id="claimId" maxWidth="Infinity" minWidth="150.0" prefWidth="150.0" text="Claim ID" />
                                         <TableColumn fx:id="creationDate" maxWidth="Infinity" minWidth="170.0" prefWidth="170.0" text="Creation Date" />

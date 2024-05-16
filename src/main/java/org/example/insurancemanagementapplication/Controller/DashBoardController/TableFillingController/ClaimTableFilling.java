@@ -241,8 +241,6 @@ public class ClaimTableFilling extends ActionHistoryTableFilling implements Clai
             } else {
                 sortedClaimList.setComparator(null);
             }
-
-
         });
     }
 

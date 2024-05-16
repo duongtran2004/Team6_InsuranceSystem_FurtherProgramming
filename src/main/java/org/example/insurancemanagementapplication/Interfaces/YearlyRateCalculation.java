@@ -1,8 +1,8 @@
 package org.example.insurancemanagementapplication.Interfaces;
 
+import Entity.Beneficiaries;
 import Entity.PolicyOwner;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.Query;
 
 import java.util.List;
 
@@ -18,21 +18,42 @@ public interface YearlyRateCalculation {
 
     //    count number of policy holders of a policy owner
 
-    public static int countPolicyHoldersOfAPolicyOwner(EntityManager entityManager, String policyOwnerID) {
-        Query query = entityManager.createQuery("SELECT COUNT(c) FROM Beneficiaries c WHERE c.policyOwnerId = ?1 AND c.type = 'PH'");
-        query.setParameter(1, policyOwnerID);
-        long policyHolderCount = (long) query.getSingleResult();
-        return (int) policyHolderCount;
-    }
+//    public static int countPolicyHoldersOfAPolicyOwner(EntityManager entityManager, String policyOwnerID) {
+//        Query query = entityManager.createQuery("SELECT COUNT(c) FROM Beneficiaries c WHERE c.policyOwnerId = ?1 AND c.type = 'PH'");
+//        query.setParameter(1, policyOwnerID);
+//        long policyHolderCount = (long) query.getSingleResult();
+//        return (int) policyHolderCount;
+//    }
 
+
+    public static int countPolicyHoldersOfAPolicyOwner(PolicyOwner policyOwner) {
+        int policyHoldersCount = 0;
+        for (Beneficiaries beneficiariy : policyOwner.getListOfBeneficiaries() ){
+            if (beneficiariy.getType().equals("PH")){
+                policyHoldersCount++;
+            }
+        }
+        return policyHoldersCount;
+    }
 
     //count number of dependants of a policy owner
 
-    public static int countDependantsOfAPolicyOwner(EntityManager entityManager, String policyOwnerID) {
-        Query query = entityManager.createQuery("SELECT COUNT(c) FROM Beneficiaries c WHERE c.policyOwnerId = ?1 AND c.type = 'DE'");
-        query.setParameter(1, policyOwnerID);
-        long dependantCount = (long) query.getSingleResult();
-        return (int) dependantCount;
+//    public static int countDependantsOfAPolicyOwner(EntityManager entityManager, String policyOwnerID) {
+//        Query query = entityManager.createQuery("SELECT COUNT(c) FROM Beneficiaries c WHERE c.policyOwnerId = ?1 AND c.type = 'DE'");
+//        query.setParameter(1, policyOwnerID);
+//        long dependantCount = (long) query.getSingleResult();
+//        return (int) dependantCount;
+//    }
+
+    public static int countDependantsOfAPolicyOwner(PolicyOwner policyOwner) {
+
+        int dependantCount = 0;
+        for (Beneficiaries beneficiaries : policyOwner.getListOfBeneficiaries()){
+            if (beneficiaries.getType().equals("DE")){
+                dependantCount ++;
+            }
+        }
+        return dependantCount;
     }
 
     public static String dividePolicyOwnerIntoPHYearlyRateLevel (int beneficiariesCount){
@@ -71,13 +92,16 @@ public interface YearlyRateCalculation {
         return yearlyRate;
     }
 
-        public static int calculateYearlyRateOfAPolicyOwner(EntityManager entityManager, String policyOwnerID) {
-        int dependantCount = countDependantsOfAPolicyOwner(entityManager, policyOwnerID);
-        int policyHolderCount = countPolicyHoldersOfAPolicyOwner(entityManager, policyOwnerID);
+        public static int calculateYearlyRateOfAPolicyOwner(PolicyOwner policyOwner) {
+        int dependantCount = countDependantsOfAPolicyOwner(policyOwner);
+        int policyHolderCount = countPolicyHoldersOfAPolicyOwner(policyOwner);
         int beneficiaryCount = dependantCount + policyHolderCount;
         String level = dividePolicyOwnerIntoPHYearlyRateLevel(beneficiaryCount);
-        int yearlyRate = getPHYearlyRateBasedOnLevel(level);
-        int totalYearlyRate = yearlyRate * policyHolderCount + yearlyRate * (60 / 100) * dependantCount;
+        int PHyearlyRate = getPHYearlyRateBasedOnLevel(level);
+            // Calculate DEyearlyRate and round to nearest integer
+            int DEyearlyRate = (int) Math.round(PHyearlyRate * 0.6);
+        int totalYearlyRate = PHyearlyRate * policyHolderCount + DEyearlyRate  * dependantCount;
+
         return totalYearlyRate;
     }
 
@@ -91,7 +115,7 @@ public interface YearlyRateCalculation {
         //loop through each policy owner => perform calculateYearlyRateOfAPolicyOwner
         for (PolicyOwner policyOwner : policyOwners) {
             //add up the sum
-            POYearlyRateSum += calculateYearlyRateOfAPolicyOwner(entityManager, policyOwner.getId());
+            POYearlyRateSum += calculateYearlyRateOfAPolicyOwner(policyOwner);
         }
         return POYearlyRateSum;
     }

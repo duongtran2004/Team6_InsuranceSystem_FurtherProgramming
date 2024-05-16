@@ -5,11 +5,9 @@ import jakarta.persistence.EntityManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController.CreationAndUpdatePageControllerClaim;
@@ -18,6 +16,7 @@ import org.example.insurancemanagementapplication.Interfaces.ClaimRead;
 import org.example.insurancemanagementapplication.Interfaces.CustomerCreateRemove;
 import org.example.insurancemanagementapplication.Utility.StageBuilder;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -73,6 +72,9 @@ public class DependantTableFilling extends ClaimTableFilling {
     protected TextField dependantSearchField;
 
     @FXML
+    protected ChoiceBox<String> dependantSortBox;
+
+    @FXML
     private TableColumn<Dependant, Integer> totalSuccessfulClaimAmountDependantColumn;
 
     public DependantTableFilling(EntityManager entityManager, User user) {
@@ -80,40 +82,36 @@ public class DependantTableFilling extends ClaimTableFilling {
     }
 
 
-//    public void sortingDependantTable(SortedList<Claim> sortedClaimList) {
-//
-//        //Comparator class. An instance of this class will be used as a parameter of the sort Method to define the sorting factor. In this class, the sorting factor is the claim's claim amount
-//        class TotalSuccessfulClaimAmountComparator implements Comparator<Dependant> {
-//            @Override
-//            public int compare(Dependant firstDependant, Dependant secondDependant) {
-//                return Integer.compare(firstDependant.getTotalSuccessfulClaimAmount(), secondDependant.getTotalSuccessfulClaimAmount());
-//            }
-//
-//            @Override
-//            public int compare(Claim o1, Claim o2) {
-//                return 0;
-//            }
-//        }
-//        //claimSorting choiceBox
-//        //add a listener to the sort list choice box. The listener will monitor the choice box's value to apply the correct sorting
-//
-//        //not allowed to reverse a sorted list
-//        sortList.valueProperty().addListener((observable, oldVal, newVal) -> {
-//            System.out.println("New Value" + newVal);
-//            //only change the observable list if other options except "NONE
-//            if (!(newVal.equals("NONE"))) {
-//                if (newVal.equals("Sort By Creation Date In Ascending Order")) {
-//                    ClaimCreationDateComparator claimCreationDateComparator = new ClaimCreationDateComparator();
-//                    sortedClaimList.setComparator(claimCreationDateComparator);
-//                } else if (newVal.equals("Sort By Creation Date In Descending Order")) {
-//                    ClaimCreationDateComparator claimCreationDateComparator = new ClaimCreationDateComparator();
-//                    sortedClaimList.setComparator(claimCreationDateComparator.reversed());
-//                }
-//            } else {
-//                sortedClaimList.setComparator(null);
-//            }
-//        });
-//    }
+    public void sortingDependantTable(SortedList<Dependant> sortedDependantList) {
+
+        //Comparator class. An instance of this class will be used as a parameter of the sort Method to define the sorting factor. In this class, the sorting factor is the claim's claim amount
+        class TotalSuccessfulClaimAmountComparator implements Comparator<Dependant> {
+            @Override
+            public int compare(Dependant firstDependant, Dependant secondDependant) {
+                return Integer.compare(firstDependant.getTotalSuccessfulClaimAmount(), secondDependant.getTotalSuccessfulClaimAmount());
+            }
+
+        }
+        //Total Successful Claim Amount choiceBox
+        //add a listener to the sort list choice box. The listener will monitor the choice box's value to apply the correct sorting
+        //not allowed to reverse a sorted list
+        dependantSortBox.valueProperty().addListener((observable, oldVal, newVal) -> {
+            //only change the observable list if other options except "NONE
+            if (!(newVal.equals("NONE"))) {
+                if (newVal.equals("Sort By Total Successful Claim Amount In Ascending Order")) {
+
+                    TotalSuccessfulClaimAmountComparator totalSuccessfulClaimAmountComparator = new TotalSuccessfulClaimAmountComparator();
+                    sortedDependantList.setComparator(totalSuccessfulClaimAmountComparator);
+                } else if (newVal.equals("Sort By Total Successful Claim Amount In Descending Order")) {
+                    TotalSuccessfulClaimAmountComparator totalSuccessfulClaimAmountComparator = new TotalSuccessfulClaimAmountComparator();
+                    sortedDependantList.setComparator(totalSuccessfulClaimAmountComparator.reversed());
+                }
+            } else {
+
+                sortedDependantList.setComparator(null);
+            }
+        });
+    }
 
 
     /**
@@ -125,6 +123,8 @@ public class DependantTableFilling extends ClaimTableFilling {
 
     //AKA: FILTERING THE DEPENDENT TABLE BASED ON WHAT WE TYPE ON THE SEARCH FIELD
     public void filteringDependantTable(FilteredList<Dependant> filteredDependantList) {
+
+
         dependantSearchField.textProperty().addListener((observable, oldValue, newValue) -> {
 
             filteredDependantList.setPredicate(dependant -> {
@@ -166,6 +166,14 @@ public class DependantTableFilling extends ClaimTableFilling {
      */
     //AKA: MAP: 1 COLUMNS IN DEPENDENT TABLE = 1 ATTRIBUTES OF DEPENDENT CLASS
     public void fillingDependantTable(EntityManager entityManager, User user, List<Dependant> dependants) {
+        if (user instanceof SystemAdmin) {
+            //Putting values into the sorting  choice box
+            String[] statusArray = {"Sort By Total Successful Claim Amount In Ascending Order", "Sort By Total Successful Claim Amount In Descending Order", "NONE"};
+            dependantSortBox.getItems().setAll(statusArray);
+            dependantSortBox.setValue("NONE"); //set default value
+        }
+
+
         ListIterator<Dependant> dependantListIterator = dependants.listIterator();
         //Adding dependants to the dependant observable list
         while (dependantListIterator.hasNext()) {
@@ -182,6 +190,8 @@ public class DependantTableFilling extends ClaimTableFilling {
             buttonList.add(buttonAddClaim);
             buttonList.add(buttonRemove);
             buttonList.add(buttonUpdateInfo);
+
+
             //Only system admin and policy holder and policy owner have access to the update info button, remove button
             if (user instanceof SystemAdmin || user instanceof Customer) {
                 //MAKE BUTTON TO UPDATE INFO OF DEPENDENT OBJECT BECOME VISIBLE

@@ -60,7 +60,7 @@
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="15.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
@@ -116,7 +116,7 @@
                               </Label>
                            </buttons>
                         </ButtonBar>
-                      <Button fx:id="addPolicyHolderButton" alignment="CENTER_RIGHT" contentDisplay="CENTER" mnemonicParsing="false" text="Add Policy Holder" GridPane.columnIndex="1" GridPane.rowIndex="8">
+                      <Button fx:id="addPolicyHolderButton" alignment="CENTER_RIGHT" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="17.0" prefWidth="148.0" text="Add Policy Holder" GridPane.columnIndex="1" GridPane.rowIndex="8">
                            <font>
                               <Font name="Helvetica Neue Bold" size="16.0" />
                            </font>

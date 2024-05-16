@@ -296,9 +296,7 @@ public class PolicyHolderTableFilling extends InsuranceCardTableFilling {
         return policyHolderSearchField;
     }
 
-    public void setPolicyHolderSearchField(TextField policyHolderSearchField) {
-        this.policyHolderSearchField = policyHolderSearchField;
-    }
+
 
 }
 

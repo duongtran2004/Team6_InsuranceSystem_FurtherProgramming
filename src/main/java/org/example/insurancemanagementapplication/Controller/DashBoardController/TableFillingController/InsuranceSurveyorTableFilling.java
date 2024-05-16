@@ -15,6 +15,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController.CreationAndUpdatePageControllerInsuranceSurveyor;
+import org.example.insurancemanagementapplication.Interfaces.ClaimRead;
 import org.example.insurancemanagementapplication.Interfaces.EmployeeCreateRemove;
 import org.example.insurancemanagementapplication.Utility.StageBuilder;
 
@@ -52,6 +53,8 @@ public class InsuranceSurveyorTableFilling extends PolicyOwnerTableFilling {
     protected TableColumn<InsuranceSurveyor, Button> surveyorRemoveButton;
     @FXML
     protected TextField insuranceSurveyorSearchField;
+    @FXML
+    protected TableColumn<InsuranceSurveyor, Integer> totalResolvedClaimsISColumn;
 
     public InsuranceSurveyorTableFilling(EntityManager entityManager, User user) {
         super(entityManager, user);
@@ -105,6 +108,8 @@ public class InsuranceSurveyorTableFilling extends PolicyOwnerTableFilling {
             InsuranceSurveyor insuranceSurveyor = listIteratorInsuranceSurveyor.next();
             //reassign object from database
             insuranceSurveyor = entityManager.find(InsuranceSurveyor.class, insuranceSurveyor.getId());
+            //setter
+            insuranceSurveyor.setTotalResolvedClaims(ClaimRead.countTotalResolvedClaimOfAnInsuranceSurveyor(insuranceSurveyor));
             Button buttonUpdateInfo = new Button("Update Info");
             buttonList.add(buttonUpdateInfo);
             //Only System admin has access to the update info button and the remove button
@@ -142,6 +147,8 @@ public class InsuranceSurveyorTableFilling extends PolicyOwnerTableFilling {
         if (user instanceof SystemAdmin) {
             surveyorUpdateInfoButton.setCellValueFactory(new PropertyValueFactory<InsuranceSurveyor, Button>("updateInfoButton"));
             surveyorRemoveButton.setCellValueFactory(new PropertyValueFactory<InsuranceSurveyor, Button>("removeButton"));
+            totalResolvedClaimsISColumn.setCellValueFactory(new PropertyValueFactory<InsuranceSurveyor, Integer>("totalResolvedClaims"));
+
         }
         FilteredList<InsuranceSurveyor> filteredSurveyorList = new FilteredList<>(insuranceSurveyorsObservableList, b -> true);
         filteringSurveyorTable(filteredSurveyorList);

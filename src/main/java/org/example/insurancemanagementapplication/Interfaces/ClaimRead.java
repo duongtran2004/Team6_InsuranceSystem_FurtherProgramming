@@ -3,7 +3,6 @@ package org.example.insurancemanagementapplication.Interfaces;
 import Entity.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
-import org.hibernate.Hibernate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,11 +94,11 @@ public interface ClaimRead {
         }
         return totalAmount;
     }
-
-    public static int getTotalSuccessfulClaimAmountMadeByAPolicyOwner(EntityManager entityManager, PolicyOwner policyOwner) {
+//    policyOwner = entityManager.merge(policyOwner);
+//        Hibernate.initialize(policyOwner.getListOfClaims());
+    public static int getTotalSuccessfulClaimAmountMadeByAPolicyOwner(PolicyOwner policyOwner) {
         // Ensure the listOfClaims is initialized within an active session
-        policyOwner = entityManager.merge(policyOwner);
-        Hibernate.initialize(policyOwner.getListOfClaims());
+
         int totalAmount = 0;
         for (Claim claim : policyOwner.getListOfClaims()) {
             if (claim.getStatus().equals("APPROVED")) {

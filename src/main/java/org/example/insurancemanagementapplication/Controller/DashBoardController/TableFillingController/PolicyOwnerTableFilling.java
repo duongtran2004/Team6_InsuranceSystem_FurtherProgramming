@@ -108,7 +108,7 @@ public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
             //reassign object from database
             policyOwner = entityManager.find(PolicyOwner.class, policyOwner.getId());
             PolicyOwner finalPolicyOwner = policyOwner;
-            policyOwner.setTotalSuccessfulClaimAmount(ClaimRead.getTotalSuccessfulClaimAmountMadeByAPolicyOwner(entityManager,policyOwner));
+            policyOwner.setTotalSuccessfulClaimAmount(ClaimRead.getTotalSuccessfulClaimAmountMadeByAPolicyOwner(policyOwner));
             System.out.println("\"PO's id \" + policyOwner.getId(), Claim amount " + policyOwner.getTotalSuccessfulClaimAmount());
             Button buttonUpdateInfo = new Button("Update Info");
             Button buttonAddPolicy = new Button("Add Policy");
@@ -144,7 +144,7 @@ public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
                 policyOwner.setAddPolicyButton(buttonAddPolicy);
 
                 // Calculate the total yearly rate for the policy owner
-                int yearlyRate = YearlyRateCalculation.calculateYearlyRateOfAPolicyOwner(entityManager, policyOwner.getId());
+                int yearlyRate = YearlyRateCalculation.calculateYearlyRateOfAPolicyOwner(policyOwner);
                 policyOwner.setTotalYearlyRate(yearlyRate);
             }
 

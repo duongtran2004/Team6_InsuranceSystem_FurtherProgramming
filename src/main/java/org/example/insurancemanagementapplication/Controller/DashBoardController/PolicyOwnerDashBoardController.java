@@ -104,7 +104,7 @@ public class PolicyOwnerDashBoardController extends PolicyHolderTableFilling imp
         //see the ClaimTableFilling Class
         userFillingData();
 
-        int yearlyRate = YearlyRateCalculation.calculateYearlyRateOfAPolicyOwner(entityManager, user.getId());
+        int yearlyRate = YearlyRateCalculation.calculateYearlyRateOfAPolicyOwner((PolicyOwner) user);
         totalYearlyRateLabel.setText(String.valueOf(yearlyRate));
 
         //event handling for button
