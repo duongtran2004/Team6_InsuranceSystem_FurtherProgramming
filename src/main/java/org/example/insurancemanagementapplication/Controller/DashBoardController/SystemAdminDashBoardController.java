@@ -140,54 +140,50 @@ public class SystemAdminDashBoardController extends InsuranceManagerTableFilling
 
         //FILL ALL THE NECESSARY TABLE (CALL METHODS IN TABLE FILLING CLASS)
         //METHOD FROM TABLE FILLING CLASS CALLS "READ ALL" METHODS IN READ INTERFACES (PASS ENTITY MANAGER AS ARGUMENT)
-        System.out.println("Hello bro");
+
 //using thread
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
         EntityManager entityManagerClaim = entityManagerFactory.createEntityManager();
         ClaimTableFillingThread claimTableFillingThread = new ClaimTableFillingThread(ClaimRead.getAllClaims(entityManagerClaim), this);
-        claimTableFillingThread.setPriority(10);
         claimTableFillingThread.start();
-        System.out.println("Hello claim table");
         entityManagerClaim.close();
+
         numberOfSuccessfulClaimLabel.setText(String.valueOf(originalTotalSuccessfulClaims));
         successfulClaimAmountLabel.setText(String.valueOf(originalTotalSuccessfulClaimAmount));
 
 
         EntityManager entityManagerDependant = entityManagerFactory.createEntityManager();
         DependantTableFillingThread dependantTableFillingThread = new DependantTableFillingThread(CustomerRead.getAllDependant(entityManagerDependant), this);
-        dependantTableFillingThread.setPriority(9);
+
         dependantTableFillingThread.start();
-        System.out.println("G");
         entityManagerDependant.close();
 
         EntityManager entityManagerManager = entityManagerFactory.createEntityManager();
         InsuranceManagerTableFillingThread insuranceManagerTableFillingThread = new InsuranceManagerTableFillingThread(EmployeeRead.getAllInsuranceManager(entityManagerManager), this);
-        insuranceManagerTableFillingThread.setPriority(8);
+
         insuranceManagerTableFillingThread.start();
         entityManagerManager.close();
 
         EntityManager entityManagerSurveyor = entityManagerFactory.createEntityManager();
         InsuranceSurveyorTableFillingThread insuranceSurveyorTableFillingThread = new InsuranceSurveyorTableFillingThread(EmployeeRead.getAllInsuranceSurveyor(entityManagerSurveyor), this);
-        insuranceSurveyorTableFillingThread.setPriority(7);
+
         insuranceSurveyorTableFillingThread.start();
         entityManagerSurveyor.close();
 
         EntityManager entityManagerHolder = entityManagerFactory.createEntityManager();
         PolicyHolderTableFillingThread policyHolderTableFillingThread = new PolicyHolderTableFillingThread(CustomerRead.getAllPolicyHolder(entityManagerHolder), this);
-        policyHolderTableFillingThread.setPriority(6);
+
         policyHolderTableFillingThread.start();
         entityManagerHolder.close();
 
         EntityManager entityManagerOwner = entityManagerFactory.createEntityManager();
         PolicyOwnerTableFillingThread policyOwnerTableFillingThread = new PolicyOwnerTableFillingThread(CustomerRead.getAllPolicyOwner(entityManagerOwner), this);
-        policyOwnerTableFillingThread.setPriority(5);
         policyOwnerTableFillingThread.start();
         entityManagerOwner.close();
 
 
         EntityManager entityManagerCard = entityManagerFactory.createEntityManager();
         InsuranceCardTableFillingThread insuranceCardTableFillingThread = new InsuranceCardTableFillingThread(InsuranceCardRead.getAllInsuranceCard(entityManagerCard), this);
-        insuranceCardTableFillingThread.setPriority(4);
         insuranceCardTableFillingThread.start();
         entityManagerCard.close();
 

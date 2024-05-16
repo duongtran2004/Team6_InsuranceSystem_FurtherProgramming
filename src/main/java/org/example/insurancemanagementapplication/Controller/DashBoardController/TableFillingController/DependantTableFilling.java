@@ -33,7 +33,6 @@ import java.util.ListIterator;
  * DashBoard Controller, which does not have access to this table
  */
 public class DependantTableFilling extends ClaimTableFilling {
-    //TODO Create a thread that runs in a selected interval that get all Dependants from the database  and check if new entries exist. If they do, append the new entries to the Observable List
 
     //this List is to get notice of changes in dependents Collection
     private ObservableList<Dependant> dependantsObservableList = FXCollections.observableArrayList();
@@ -82,10 +81,10 @@ public class DependantTableFilling extends ClaimTableFilling {
     }
 
 
-    public void sortingDependantTable(SortedList<Dependant> sortedDependantList) {
+    private void sortingDependantTable(SortedList<Dependant> sortedDependantList) {
 
         //Comparator class. An instance of this class will be used as a parameter of the sort Method to define the sorting factor. In this class, the sorting factor is the claim's claim amount
-        class TotalSuccessfulClaimAmountComparator implements Comparator<Dependant> {
+        class TotalSuccessfulClaimAmountComparatorForDependant implements Comparator<Dependant> {
             @Override
             public int compare(Dependant firstDependant, Dependant secondDependant) {
                 return Integer.compare(firstDependant.getTotalSuccessfulClaimAmount(), secondDependant.getTotalSuccessfulClaimAmount());
@@ -96,19 +95,21 @@ public class DependantTableFilling extends ClaimTableFilling {
         //add a listener to the sort list choice box. The listener will monitor the choice box's value to apply the correct sorting
         //not allowed to reverse a sorted list
         dependantSortBox.valueProperty().addListener((observable, oldVal, newVal) -> {
+
             //only change the observable list if other options except "NONE
             if (!(newVal.equals("NONE"))) {
                 if (newVal.equals("Sort By Total Successful Claim Amount In Ascending Order")) {
 
-                    TotalSuccessfulClaimAmountComparator totalSuccessfulClaimAmountComparator = new TotalSuccessfulClaimAmountComparator();
+                    TotalSuccessfulClaimAmountComparatorForDependant totalSuccessfulClaimAmountComparator = new TotalSuccessfulClaimAmountComparatorForDependant();
                     sortedDependantList.setComparator(totalSuccessfulClaimAmountComparator);
                 } else if (newVal.equals("Sort By Total Successful Claim Amount In Descending Order")) {
-                    TotalSuccessfulClaimAmountComparator totalSuccessfulClaimAmountComparator = new TotalSuccessfulClaimAmountComparator();
+                    TotalSuccessfulClaimAmountComparatorForDependant totalSuccessfulClaimAmountComparator = new TotalSuccessfulClaimAmountComparatorForDependant();
                     sortedDependantList.setComparator(totalSuccessfulClaimAmountComparator.reversed());
                 }
-            } else {
+            } else { //if choice = "NONE"
 
                 sortedDependantList.setComparator(null);
+
             }
         });
     }
@@ -166,7 +167,11 @@ public class DependantTableFilling extends ClaimTableFilling {
      */
     //AKA: MAP: 1 COLUMNS IN DEPENDENT TABLE = 1 ATTRIBUTES OF DEPENDENT CLASS
     public void fillingDependantTable(EntityManager entityManager, User user, List<Dependant> dependants) {
-
+        if (user instanceof SystemAdmin) {
+            String[] successfulClaimAmountSortArray = {"Sort By Total Successful Claim Amount In Ascending Order", "Sort By Total Successful Claim Amount In Descending Order", "NONE"};
+            dependantSortBox.getItems().setAll(successfulClaimAmountSortArray);
+            dependantSortBox.setValue("NONE"); //set default value
+        }
 
 
         ListIterator<Dependant> dependantListIterator = dependants.listIterator();
@@ -242,11 +247,6 @@ public class DependantTableFilling extends ClaimTableFilling {
         if (user instanceof SystemAdmin) {
             totalSuccessfulClaimAmountDependantColumn.setCellValueFactory(new PropertyValueFactory<Dependant, Integer>("totalSuccessfulClaimAmount"));
 
-                //Putting values into the sorting  choice box
-                String[] successfulClaimAmountSortArray = {"Sort By Total Successful Claim Amount In Ascending Order", "Sort By Total Successful Claim Amount In Descending Order", "NONE"};
-                dependantSortBox.getItems().setAll(successfulClaimAmountSortArray);
-                dependantSortBox.setValue("NONE"); //set default value
-
         }
 
 
@@ -273,7 +273,13 @@ public class DependantTableFilling extends ClaimTableFilling {
         //AKA: ADD A NEW, FILTERED LIST OF DEPENDENT INTO THE TABLE SCOPE AFTER THE USER FILTER BY SEARCH BAR
         FilteredList<Dependant> filteredDependantList = new FilteredList<>(dependantsObservableList, b -> true);
         filteringDependantTable(filteredDependantList);
-        dependantTable.setItems(filteredDependantList);
+        SortedList<Dependant> sortedDependants = new SortedList<>(filteredDependantList);
+        sortingDependantTable(sortedDependants);
+
+        dependantTable.setItems(sortedDependants);
+
+
+
     }
 
 

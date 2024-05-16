@@ -5,6 +5,7 @@ import jakarta.persistence.EntityManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -16,6 +17,7 @@ import org.example.insurancemanagementapplication.Interfaces.ClaimRead;
 import org.example.insurancemanagementapplication.Interfaces.CustomerCreateRemove;
 import org.example.insurancemanagementapplication.Utility.StageBuilder;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -26,7 +28,6 @@ import java.util.ListIterator;
  * @project InsuranceManagementTeamProject
  */
 public class PolicyHolderTableFilling extends InsuranceCardTableFilling {
-    //TODO Create a thread that get all Policy Holders from the table  and check if new entries exist. If they do, append the new entries to the Observable List
     private ObservableList<PolicyHolder> policyHoldersObservableList = FXCollections.observableArrayList();
     @FXML
     protected TableView<PolicyHolder> policyHolderTable;
@@ -63,6 +64,40 @@ public class PolicyHolderTableFilling extends InsuranceCardTableFilling {
 
     public PolicyHolderTableFilling(EntityManager entityManager, User user) {
         super(entityManager, user);
+    }
+
+
+    public void sortingPolicyHolderTable(SortedList<PolicyHolder> sortedPolicyHolderList) {
+
+        //Comparator class. An instance of this class will be used as a parameter of the sort Method to define the sorting factor. In this class, the sorting factor is the claim's claim amount
+        class TotalSuccessfulClaimAmountComparatorForPolicyHolder implements Comparator<PolicyHolder> {
+            @Override
+            public int compare(PolicyHolder firstPolicyHolder, PolicyHolder secondPolicyHolder) {
+                return Integer.compare(firstPolicyHolder.getTotalSuccessfulClaimAmount(), secondPolicyHolder.getTotalSuccessfulClaimAmount());
+            }
+
+        }
+        //Total Successful Claim Amount choiceBox
+        //add a listener to the sort list choice box. The listener will monitor the choice box's value to apply the correct sorting
+        //not allowed to reverse a sorted list
+        policyHolderSortBox.valueProperty().addListener((observable, oldVal, newValue) -> {
+
+            //only change the observable list if other options except "NONE
+            if (!(newValue.equals("NONE"))) {
+                if (newValue.equals("Sort By Total Successful Claim Amount In Ascending Order")) {
+                    System.out.println("yolo 1");
+                    TotalSuccessfulClaimAmountComparatorForPolicyHolder  totalSuccessfulClaimAmountComparator = new TotalSuccessfulClaimAmountComparatorForPolicyHolder ();
+                    sortedPolicyHolderList.setComparator(totalSuccessfulClaimAmountComparator);
+                } else if (newValue.equals("Sort By Total Successful Claim Amount In Descending Order")) {
+                    System.out.println("yolo 2");
+                    TotalSuccessfulClaimAmountComparatorForPolicyHolder  totalSuccessfulClaimAmountComparator = new TotalSuccessfulClaimAmountComparatorForPolicyHolder ();
+                    sortedPolicyHolderList.setComparator(totalSuccessfulClaimAmountComparator.reversed());
+                }
+            } else { //if choice = "NONE"
+                sortedPolicyHolderList.setComparator(null);
+                System.out.println("yolo 3");
+            }
+        });
     }
 
     /**
@@ -106,11 +141,20 @@ public class PolicyHolderTableFilling extends InsuranceCardTableFilling {
      * @param policyHolders
      */
     public void fillingPolicyHolderTable(EntityManager entityManager, User user, List<PolicyHolder> policyHolders) {
+        //Putting values into the sorting  choice box
+        if (user instanceof SystemAdmin) {
+            String[] successfulClaimAmountSortArray = {"Sort By Total Successful Claim Amount In Ascending Order", "Sort By Total Successful Claim Amount In Descending Order", "NONE"};
+            policyHolderSortBox.getItems().setAll(successfulClaimAmountSortArray);
+            System.out.println("yolo 4");
+            policyHolderSortBox.setValue("NONE"); //set default value
+            System.out.println("yolo 5");
+        }
+
         ListIterator<PolicyHolder> policyHolderListIterator = policyHolders.listIterator();
         //Add policy holders to the observable list
         while (policyHolderListIterator.hasNext()) {
             PolicyHolder policyHolder = policyHolderListIterator.next();
-            policyHolder = entityManager.find(policyHolder.getClass(), policyHolder.getId());
+            policyHolder = entityManager.find(PolicyHolder.class, policyHolder.getId());
             //setter
             policyHolder.setTotalSuccessfulClaimAmount(ClaimRead.getTotalSuccessfulClaimAmountMadeByABeneficiary((Beneficiaries) policyHolder));
             Button buttonUpdateInfo = new Button("Update Info");
@@ -172,11 +216,6 @@ public class PolicyHolderTableFilling extends InsuranceCardTableFilling {
         if (user instanceof SystemAdmin) {
             totalSuccessfulClaimAmountPolicyHolderColumn.setCellValueFactory(new PropertyValueFactory<PolicyHolder, Integer>("totalSuccessfulClaimAmount"));
 
-                //Putting values into the sorting  choice box
-                String[] successfulClaimAmountSortArray = {"Sort By Total Successful Claim Amount In Ascending Order", "Sort By Total Successful Claim Amount In Descending Order", "NONE"};
-                policyHolderSortBox.getItems().setAll(successfulClaimAmountSortArray);
-                policyHolderSortBox.setValue("NONE"); //set default value
-
         }
 
         if (user instanceof SystemAdmin || user instanceof Customer) {
@@ -189,7 +228,11 @@ public class PolicyHolderTableFilling extends InsuranceCardTableFilling {
         }
         FilteredList<PolicyHolder> filteredPolicyHolderList = new FilteredList<>(policyHoldersObservableList, b -> true);
         filteringPolicyHolderTable(filteredPolicyHolderList);
-        policyHolderTable.setItems(filteredPolicyHolderList);
+        SortedList<PolicyHolder> sortedPolicyHolders = new SortedList<>(filteredPolicyHolderList);
+        sortingPolicyHolderTable(sortedPolicyHolders);
+        policyHolderTable.setItems(sortedPolicyHolders);
+
+
     }
 
 
@@ -277,7 +320,8 @@ public class PolicyHolderTableFilling extends InsuranceCardTableFilling {
         return policyHolderAddDependantButton;
     }
 
-    public void setPolicyHolderAddDependantButton(TableColumn<PolicyHolder, Button> policyHolderAddDependantButton) {
+    public void setPolicyHolderAddDependantButton
+            (TableColumn<PolicyHolder, Button> policyHolderAddDependantButton) {
         this.policyHolderAddDependantButton = policyHolderAddDependantButton;
     }
 
@@ -300,7 +344,6 @@ public class PolicyHolderTableFilling extends InsuranceCardTableFilling {
     public TextField getPolicyHolderSearchField() {
         return policyHolderSearchField;
     }
-
 
 
 }

@@ -1,11 +1,13 @@
 package org.example.insurancemanagementapplication.Controller.DashBoardController.TableFillingController;
 
 import Entity.InsuranceManager;
+import Entity.SystemAdmin;
 import Entity.User;
 import jakarta.persistence.EntityManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -16,6 +18,7 @@ import org.example.insurancemanagementapplication.Interfaces.ClaimRead;
 import org.example.insurancemanagementapplication.Interfaces.EmployeeCreateRemove;
 import org.example.insurancemanagementapplication.Utility.StageBuilder;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -55,6 +58,35 @@ public class InsuranceManagerTableFilling extends InsuranceSurveyorTableFilling 
     @FXML
     private ChoiceBox<String> insuranceManagerSortBox;
 
+    public void sortingInsuranceManagerTable(SortedList<InsuranceManager> sortedInsuranceManagerList) {
+
+        //Comparator class. An instance of this class will be used as a parameter of the sort Method to define the sorting factor. In this class, the sorting factor is the claim's claim amount
+        class TotalResolvedClaimsComparator implements Comparator<InsuranceManager> {
+            @Override
+            public int compare(InsuranceManager firstInsuranceManager, InsuranceManager secondInsuranceManager) {
+                return Integer.compare(firstInsuranceManager.getTotalResolvedClaims(), secondInsuranceManager.getTotalResolvedClaims());
+            }
+
+        }
+        //Total Resolved Claims choiceBox
+        //add a listener to the sort list choice box. The listener will monitor the choice box's value to apply the correct sorting
+        //not allowed to reverse a sorted list
+        insuranceManagerSortBox.valueProperty().addListener((observable, oldVal, newVal) -> {
+
+            //only change the observable list if other options except "NONE
+            if (!(newVal.equals("NONE"))) {
+                if (newVal.equals("Sort By Total Resolved Claims In Ascending Order")) {
+                    TotalResolvedClaimsComparator totalResolvedClaimsComparator = new TotalResolvedClaimsComparator();
+                    sortedInsuranceManagerList.setComparator(totalResolvedClaimsComparator);
+                } else if (newVal.equals("Sort By Total Resolved Claims In Descending Order")) {
+                    TotalResolvedClaimsComparator totalResolvedClaimsComparator = new TotalResolvedClaimsComparator();
+                    sortedInsuranceManagerList.setComparator(totalResolvedClaimsComparator.reversed());
+                }
+            } else { //if choice = "NONE"
+                sortedInsuranceManagerList.setComparator(null);
+            }
+        });
+    }
 
     /**
      * Attach an event listener to the manager search field that filter the insurance manager according to changes in this field
@@ -94,6 +126,12 @@ public class InsuranceManagerTableFilling extends InsuranceSurveyorTableFilling 
      * @param insuranceManagers
      */
     public void fillingInsuranceManagerTable(EntityManager entityManager, User user, List<InsuranceManager> insuranceManagers) {
+        if (user instanceof SystemAdmin) {
+            //Set choices option for choice box
+            String[] totalResolvedClaimsSortBoxArray = {"Sort By Total Resolved Claims In Ascending Order", "Sort By Total Resolved Claims In Descending Order"};
+            insuranceManagerSortBox.getItems().setAll(totalResolvedClaimsSortBoxArray);
+            insuranceManagerSortBox.setValue("NONE");
+        }
         ListIterator<InsuranceManager> listIteratorInsuranceManager = insuranceManagers.listIterator();
         //adding insurance managers into the observable list
         while (listIteratorInsuranceManager.hasNext()) {
@@ -143,14 +181,14 @@ public class InsuranceManagerTableFilling extends InsuranceSurveyorTableFilling 
         managerAddSurveyorButton.setCellValueFactory(new PropertyValueFactory<InsuranceManager, Button>("addSurveyorButton"));
         managerRemoveButton.setCellValueFactory(new PropertyValueFactory<InsuranceManager, Button>("removeButton"));
         totalResolvedClaimsIMColumn.setCellValueFactory(new PropertyValueFactory<InsuranceManager, Integer>("totalResolvedClaims"));
-        //Set choices option for choice box
-        String[] totalResolvedClaimsSortBoxArray = {"Sort By Total Resolved Claims In Ascending Order", "Sort By Total Resolved Claims In Descending Order"};
-        insuranceManagerSortBox.getItems().setAll(totalResolvedClaimsSortBoxArray);
-        insuranceManagerSortBox.setValue("NONE");
 
         FilteredList<InsuranceManager> filteredManagerList = new FilteredList<>(insuranceManagersObservableList, b -> true);
         filteringInsuranceManagerTable(filteredManagerList);
-        managerTable.setItems(filteredManagerList);
+        SortedList<InsuranceManager> sortedManagers = new SortedList<>(filteredManagerList);
+        sortingInsuranceManagerTable(sortedManagers);
+        managerTable.setItems(sortedManagers);
+
+
     }
 
     public InsuranceManagerTableFilling(EntityManager entityManager, User user) {

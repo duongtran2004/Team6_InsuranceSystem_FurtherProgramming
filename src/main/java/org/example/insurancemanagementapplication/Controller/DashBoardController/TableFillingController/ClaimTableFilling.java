@@ -473,8 +473,6 @@ public class ClaimTableFilling extends ActionHistoryTableFilling implements Clai
             if (claim.getStatus().equals("APPROVED")) {
                 modifiedTotalSuccessfulClaims = modifiedTotalSuccessfulClaims - 1; //filter out claims that is un-satisfied with sorting conditions
             }
-            System.out.println("modifiedTotalSuccessfulClaim"+ modifiedTotalSuccessfulClaims);
-            System.out.println("modifiedTotalSuccessfulClaimAmount"+ modifiedTotalSuccessfulClaimAmount);
             //set text for labels. Always set text with by modified value
             successfulClaimAmountLabel.setText(String.valueOf(modifiedTotalSuccessfulClaimAmount));
             numberOfSuccessfulClaimLabel.setText(String.valueOf(modifiedTotalSuccessfulClaims));

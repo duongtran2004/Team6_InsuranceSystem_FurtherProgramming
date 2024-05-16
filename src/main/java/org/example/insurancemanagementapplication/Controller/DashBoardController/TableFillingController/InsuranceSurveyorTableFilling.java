@@ -7,6 +7,7 @@ import jakarta.persistence.EntityManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -16,6 +17,7 @@ import org.example.insurancemanagementapplication.Interfaces.ClaimRead;
 import org.example.insurancemanagementapplication.Interfaces.EmployeeCreateRemove;
 import org.example.insurancemanagementapplication.Utility.StageBuilder;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -57,6 +59,35 @@ public class InsuranceSurveyorTableFilling extends PolicyOwnerTableFilling {
 
     public InsuranceSurveyorTableFilling(EntityManager entityManager, User user) {
         super(entityManager, user);
+    }
+
+    public void sortingInsuranceSurveyorTable(SortedList<InsuranceSurveyor> sortedInsuranceSurveyorList) {
+
+        //Comparator class. An instance of this class will be used as a parameter of the sort Method to define the sorting factor. In this class, the sorting factor is the claim's claim amount
+        class TotalResolvedClaimsComparatorForInsuranceSurveyor implements Comparator<InsuranceSurveyor> {
+            @Override
+            public int compare(InsuranceSurveyor firstInsuranceSurveyor, InsuranceSurveyor secondInsuranceSurveyor) {
+                return Integer.compare(firstInsuranceSurveyor.getTotalResolvedClaims(), secondInsuranceSurveyor.getTotalResolvedClaims());
+            }
+        }
+        //Total Resolved Claims choiceBox
+        //add a listener to the sort list choice box. The listener will monitor the choice box's value to apply the correct sorting
+        //not allowed to reverse a sorted list
+        insuranceSurveyorSortBox.valueProperty().addListener((observable, oldVal, newVal) -> {
+
+            //only change the observable list if other options except "NONE
+            if (!(newVal.equals("NONE"))) {
+                if (newVal.equals("Sort By Total Resolved Claims In Ascending Order")) {
+                    TotalResolvedClaimsComparatorForInsuranceSurveyor totalResolvedClaimsComparator = new TotalResolvedClaimsComparatorForInsuranceSurveyor();
+                    sortedInsuranceSurveyorList.setComparator(totalResolvedClaimsComparator);
+                } else if (newVal.equals("Sort By Total Resolved Claims In Descending Order")) {
+                    TotalResolvedClaimsComparatorForInsuranceSurveyor totalResolvedClaimsComparator = new TotalResolvedClaimsComparatorForInsuranceSurveyor();
+                    sortedInsuranceSurveyorList.setComparator(totalResolvedClaimsComparator.reversed());
+                }
+            } else { //if choice = "NONE"
+                sortedInsuranceSurveyorList.setComparator(null);
+            }
+        });
     }
 
     /**
@@ -101,6 +132,11 @@ public class InsuranceSurveyorTableFilling extends PolicyOwnerTableFilling {
      * @param insuranceSurveyors
      */
     public void fillingInsuranceSurveyorTable(EntityManager entityManager, User user, List<InsuranceSurveyor> insuranceSurveyors) {
+        if (user instanceof SystemAdmin) {
+            String[] totalResolvedClaimsSortBoxArray = {"Sort By Total Resolved Claims In Ascending Order", "Sort By Total Resolved Claims In Descending Order"};
+            insuranceSurveyorSortBox.getItems().setAll(totalResolvedClaimsSortBoxArray);
+            insuranceSurveyorSortBox.setValue("NONE");
+        }
         ListIterator<InsuranceSurveyor> listIteratorInsuranceSurveyor = insuranceSurveyors.listIterator();
         //Adding insurance surveyors to the observable list.
         while (listIteratorInsuranceSurveyor.hasNext()) {
@@ -147,13 +183,13 @@ public class InsuranceSurveyorTableFilling extends PolicyOwnerTableFilling {
             surveyorUpdateInfoButton.setCellValueFactory(new PropertyValueFactory<InsuranceSurveyor, Button>("updateInfoButton"));
             surveyorRemoveButton.setCellValueFactory(new PropertyValueFactory<InsuranceSurveyor, Button>("removeButton"));
             totalResolvedClaimsISColumn.setCellValueFactory(new PropertyValueFactory<InsuranceSurveyor, Integer>("totalResolvedClaims"));
-            String[] totalResolvedClaimsSortBoxArray = {"Sort By Total Resolved Claims In Ascending Order", "Sort By Total Resolved Claims In Descending Order"};
-            insuranceSurveyorSortBox.getItems().setAll(totalResolvedClaimsSortBoxArray);
-            insuranceSurveyorSortBox.setValue("NONE");
+
         }
         FilteredList<InsuranceSurveyor> filteredSurveyorList = new FilteredList<>(insuranceSurveyorsObservableList, b -> true);
         filteringSurveyorTable(filteredSurveyorList);
-        surveyorTable.setItems(filteredSurveyorList);
+        SortedList<InsuranceSurveyor> sortedSurveyors = new SortedList<>(filteredSurveyorList);
+        sortingInsuranceSurveyorTable(sortedSurveyors);
+        surveyorTable.setItems(sortedSurveyors);
     }
 
 

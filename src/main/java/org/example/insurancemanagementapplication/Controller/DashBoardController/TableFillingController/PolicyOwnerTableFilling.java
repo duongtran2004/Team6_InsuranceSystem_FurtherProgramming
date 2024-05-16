@@ -2,9 +2,11 @@ package org.example.insurancemanagementapplication.Controller.DashBoardControlle
 
 import Entity.*;
 import jakarta.persistence.EntityManager;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -17,6 +19,7 @@ import org.example.insurancemanagementapplication.Interfaces.CustomerRead;
 import org.example.insurancemanagementapplication.Interfaces.YearlyRateCalculation;
 import org.example.insurancemanagementapplication.Utility.StageBuilder;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -59,8 +62,64 @@ public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
     @FXML
     private ChoiceBox<String> policyOwnerSortBox;
 
+
+    @FXML
+    private Label yearlyRateSumOfAllPolicyOwnersLabel;
+
+    private int yearlyRateSumOfAllPolicyOwnersValue = 0;
+
     public PolicyOwnerTableFilling(EntityManager entityManager, User user) {
         super(entityManager, user);
+    }
+
+
+    public void sortingPolicyOwnerTable(SortedList<PolicyOwner> sortedPolicyOwnerList) {
+
+
+        //Comparator class. An instance of this class will be used as a parameter of the sort Method to define the sorting factor. In this class, the sorting factor is the claim's claim amount
+        class TotalSuccessfulClaimAmountComparatorForPolicyOwner implements Comparator<PolicyOwner> {
+            @Override
+            public int compare(PolicyOwner firstPolicyOwner, PolicyOwner secondPolicyOwner) {
+                return Integer.compare(firstPolicyOwner.getTotalSuccessfulClaimAmount(), secondPolicyOwner.getTotalSuccessfulClaimAmount());
+            }
+
+        }
+
+        class TotalYearlyRateComparator implements Comparator<PolicyOwner> {
+            @Override
+            public int compare(PolicyOwner firstPolicyOwner, PolicyOwner secondPolicyOwner) {
+                return Integer.compare(firstPolicyOwner.getTotalYearlyRate(), secondPolicyOwner.getTotalYearlyRate());
+            }
+
+        }
+        //Total Successful Claim Amount choiceBox
+        //add a listener to the sort list choice box. The listener will monitor the choice box's value to apply the correct sorting
+        //not allowed to reverse a sorted list
+        policyOwnerSortBox.valueProperty().addListener((observable, oldVal, newVal) -> {
+
+            //only change the observable list if other options except "NONE
+            if (!(newVal.equals("NONE"))) {
+                if (newVal.equals("Sort By Total Successful Claim Amount In Ascending Order")) {
+
+                    TotalSuccessfulClaimAmountComparatorForPolicyOwner totalSuccessfulClaimAmountComparator = new TotalSuccessfulClaimAmountComparatorForPolicyOwner();
+                    sortedPolicyOwnerList.setComparator(totalSuccessfulClaimAmountComparator);
+                } else if (newVal.equals("Sort By Total Successful Claim Amount In Descending Order")) {
+
+                    TotalSuccessfulClaimAmountComparatorForPolicyOwner totalSuccessfulClaimAmountComparator = new TotalSuccessfulClaimAmountComparatorForPolicyOwner();
+                    sortedPolicyOwnerList.setComparator(totalSuccessfulClaimAmountComparator.reversed());
+                } else if (newVal.equals("Sort By Total Yearly Rate In Ascending Order")) {
+
+                    TotalYearlyRateComparator totalYearlyRateComparator = new TotalYearlyRateComparator();
+                    sortedPolicyOwnerList.setComparator(totalYearlyRateComparator);
+                } else if (newVal.equals("Sort By Total Yearly Rate In Descending Order")) {
+
+                    TotalYearlyRateComparator totalYearlyRateComparator = new TotalYearlyRateComparator();
+                    sortedPolicyOwnerList.setComparator(totalYearlyRateComparator.reversed());
+                }
+            } else { //if choice = "NONE"
+                sortedPolicyOwnerList.setComparator(null);
+            }
+        });
     }
 
     /**
@@ -100,6 +159,12 @@ public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
      * @param policyOwners
      */
     public void fillingPolicyOwnerTable(EntityManager entityManager, User user, List<PolicyOwner> policyOwners) {
+        if (user instanceof SystemAdmin) {
+            String[] policyOwnerSortBoxArray = {"Sort By Total Yearly Rate In Ascending Order", "Sort By Total Yearly Rate In Descending Order", "Sort By Total Successful Claim Amount In Ascending Order", "Sort By Total Successful Claim Amount In Descending Order", "NONE"};
+            policyOwnerSortBox.getItems().setAll(policyOwnerSortBoxArray);
+            policyOwnerSortBox.setValue("NONE"); //set default value
+
+        }
         ListIterator<PolicyOwner> policyOwnerListIterator = policyOwners.listIterator();
         //Add policy owners to the observable list
         while (policyOwnerListIterator.hasNext()) {
@@ -152,6 +217,7 @@ public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
                 //get beneficiaries list of policy owner from the database
                 List<Beneficiaries> beneficiariesList = CustomerRead.getAllBeneficiariesOfAPolicyOwner(entityManager, policyOwner.getId());
                 int yearlyRate = YearlyRateCalculation.calculateYearlyRateOfAPolicyOwner(beneficiariesList);
+                yearlyRateSumOfAllPolicyOwnersValue = yearlyRateSumOfAllPolicyOwnersValue + yearlyRate;
                 policyOwner.setTotalYearlyRate(yearlyRate);
             }
 
@@ -167,7 +233,7 @@ public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
         policyOwnerPhoneNumber.setCellValueFactory(new PropertyValueFactory<PolicyOwner, String>("phoneNumber"));
 
         if (user instanceof SystemAdmin) {
-            policyOwnerTotalYearlyRate.setCellValueFactory(new PropertyValueFactory<>("totalYearlyRate"));
+            policyOwnerTotalYearlyRate.setCellValueFactory(new PropertyValueFactory<PolicyOwner, Integer>("totalYearlyRate"));
             policyOwnerUpdateInfoButton.setCellValueFactory(new PropertyValueFactory<PolicyOwner, Button>("updateInfoButton"));
             policyOwnerAddPolicyButton.setCellValueFactory(new PropertyValueFactory<PolicyOwner, Button>("addPolicyButton"));
             policyOwnerRemoveButton.setCellValueFactory(new PropertyValueFactory<PolicyOwner, Button>("removeButton"));
@@ -175,13 +241,21 @@ public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
 
             //Putting values into the sorting  choice box
 
-            String[] policyOwnerSortBoxArray = {"Sort By Total Yearly Rate In Ascending Order", "Sort By Total Yearly Rate In Descending Order", "Sort By Total Successful Claim Amount In Ascending Order", "Sort By Total Successful Claim Amount In Descending Order", "NONE"};
-            policyOwnerSortBox.getItems().setAll(policyOwnerSortBoxArray);
-            policyOwnerSortBox.setValue("NONE"); //set default value
+
+            //display sum of yearly rate from all policy owners
+
+
+            Platform.runLater(() -> {
+                // do your GUI stuff here
+                yearlyRateSumOfAllPolicyOwnersLabel.setText(String.valueOf(yearlyRateSumOfAllPolicyOwnersValue));
+            });
+
         }
         FilteredList<PolicyOwner> filteredPolicyOwnerList = new FilteredList<>(policyOwnersObservableList, b -> true);
         filteringPolicyOwnerTable(filteredPolicyOwnerList);
-        policyOwnerTable.setItems(filteredPolicyOwnerList);
+        SortedList<PolicyOwner> sortedPolicyOwners = new SortedList<>(filteredPolicyOwnerList);
+        sortingPolicyOwnerTable(sortedPolicyOwners);
+        policyOwnerTable.setItems(sortedPolicyOwners);
 
     }
 
