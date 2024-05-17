@@ -63,7 +63,7 @@ public class CreationAndUpdatePageControllerInsuranceSurveyor extends CreationAn
 
         //When the controller is in update mode
         if (insuranceSurveyor != null){
-            changePageTittleInUpdateMode("INSURANCE SURVEYOR UPDATE PAGE");
+            changePageTitleInUpdateMode("INSURANCE SURVEYOR UPDATE PAGE");
             managerReassignButton.setDisable(false);
             managerIdField.setText(insuranceSurveyor.getInsuranceManagerId());
             //see the CreationAndUpdatePageController class for this method

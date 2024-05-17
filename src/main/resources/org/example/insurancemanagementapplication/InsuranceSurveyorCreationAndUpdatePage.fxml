@@ -32,7 +32,7 @@
 
             </rowConstraints>
             <children>
-                <Label fx:id="pageTittleLabel" alignment="CENTER" maxHeight="145.0" maxWidth="1600.0" minHeight="65.0" minWidth="800.0" prefHeight="145.0" prefWidth="800.0" style="-fx-background-color: linear-gradient(to right, rgb(62, 198, 222), rgb(17, 130, 100));" text="INSURANCE SURVEYOR CREATION PAGE" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                <Label fx:id="pageTitleLabel" alignment="CENTER" maxHeight="145.0" maxWidth="1600.0" minHeight="65.0" minWidth="800.0" prefHeight="145.0" prefWidth="800.0" style="-fx-background-color: linear-gradient(to right, rgb(62, 198, 222), rgb(17, 130, 100));" text="INSURANCE SURVEYOR CREATION PAGE" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
                     <font>
                         <Font name="Helvetica Neue Bold" size="37.0" />
                     </font>

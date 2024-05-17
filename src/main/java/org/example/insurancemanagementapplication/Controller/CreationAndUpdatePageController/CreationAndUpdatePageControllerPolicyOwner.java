@@ -32,7 +32,7 @@ public class CreationAndUpdatePageControllerPolicyOwner extends CreationAndUpdat
         setActionReturnButton();
         //When the controller is in update mode
         if (selectedUser != null) {
-            changePageTittleInUpdateMode(" POLICY OWNER UPDATE PAGE");
+            changePageTitleInUpdateMode(" POLICY OWNER UPDATE PAGE");
             //See the CreationAndUpdatePageController class
             fillingFormAuto();
             //See the CreationPage Controller Class

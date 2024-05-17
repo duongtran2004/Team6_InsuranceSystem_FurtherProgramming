@@ -4,9 +4,7 @@ import Entity.ActionHistory;
 import Entity.InsuranceManager;
 import Entity.User;
 import jakarta.persistence.EntityManager;
-import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
 import org.example.insurancemanagementapplication.Interfaces.ActionHistoryCreate;
 import org.example.insurancemanagementapplication.Interfaces.Controller;
 import org.example.insurancemanagementapplication.Interfaces.EmployeeCreateRemove;
@@ -25,8 +23,6 @@ import java.util.ResourceBundle;
  */
 public class CreationAndUpdatePageControllerInsuranceManager extends CreationAndUpdatePageController implements EmployeeCreateRemove, EmployeeUpdate, Initializable, Controller {
 
-    @FXML
-    private Label pageTittleLabel;
 
     public CreationAndUpdatePageControllerInsuranceManager(EntityManager entityManager, User user) {
         super(entityManager, user);
@@ -43,7 +39,7 @@ public class CreationAndUpdatePageControllerInsuranceManager extends CreationAnd
         setActionReturnButton();
         //When the controller is in update mode
         if (selectedUser != null) {
-            changePageTittleInUpdateMode("INSURANCE MANAGER UPDATE PAGE");
+            changePageTitleInUpdateMode("INSURANCE MANAGER UPDATE PAGE");
             //See the CreationAndUpdatePageController class for this method
             fillingFormAuto();
             //See the CreationAndUpdatePageController class for this method

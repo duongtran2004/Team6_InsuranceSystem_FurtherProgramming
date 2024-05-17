@@ -58,8 +58,8 @@ public abstract class CreationAndUpdatePageController {
         this.entityManager = entityManager;
     }
 
-    public void changePageTittleInUpdateMode(String newTittle) {
-        pageTitleLabel.setText(newTittle);
+    public void changePageTitleInUpdateMode(String newTitle) {
+        pageTitleLabel.setText(newTitle);
     }
 
     /**

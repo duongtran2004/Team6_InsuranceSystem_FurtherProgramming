@@ -36,7 +36,7 @@ public class CreationAndUpdatePageControllerDependant extends CreationAndUpdateP
         //When the controller is in update mode
 
         if (selectedUser != null) {
-            changePageTittleInUpdateMode(" DEPENDANT UPDATE PAGE ");
+            changePageTitleInUpdateMode(" DEPENDANT UPDATE PAGE ");
             //See the CreationAndUpdatePageController class for this method
             fillingFormAuto();
             //See the CrationPageController class for this method

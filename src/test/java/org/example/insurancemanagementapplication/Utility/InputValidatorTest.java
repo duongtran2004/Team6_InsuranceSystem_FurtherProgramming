@@ -20,7 +20,7 @@ class InputValidatorTest {
     @Test
     void validateEmailFormat() {
         InputValidator validator = new InputValidator();
-        boolean correctEmailFormat = validator.validateEmailFormat("trungluong0899@gmail.com");
+        boolean correctEmailFormat = validator.validateEmailFormat("jonnyjavas@gmail.com");
         System.out.println(correctEmailFormat);
     }
 }

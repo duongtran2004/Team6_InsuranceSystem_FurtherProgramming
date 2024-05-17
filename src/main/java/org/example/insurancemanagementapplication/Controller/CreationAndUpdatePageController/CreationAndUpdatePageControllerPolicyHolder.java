@@ -40,7 +40,7 @@ public class CreationAndUpdatePageControllerPolicyHolder extends CreationAndUpda
         setActionReturnButton();
         //when the controller is in update mode
         if (selectedUser != null){
-            changePageTittleInUpdateMode("POLICY HOLDER UPDATE PAGE");
+            changePageTitleInUpdateMode("POLICY HOLDER UPDATE PAGE");
             lengthOfContractField.setDisable(true);
             //See the CreationAndUpdatePageController class for this method
             fillingFormAuto();
