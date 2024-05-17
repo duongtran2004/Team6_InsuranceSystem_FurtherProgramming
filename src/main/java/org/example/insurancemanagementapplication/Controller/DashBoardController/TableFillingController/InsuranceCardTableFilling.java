@@ -11,7 +11,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import org.example.insurancemanagementapplication.Interfaces.CustomerUpdate;
 import org.example.insurancemanagementapplication.Interfaces.InsuranceCreateAndRemove;
+import org.example.insurancemanagementapplication.Utility.IDGenerator;
 
 import java.sql.Date;
 import java.util.List;
@@ -101,8 +103,23 @@ public class InsuranceCardTableFilling extends DependantTableFilling {
                 buttonList.add(buttonRemove);
                 InsuranceCard finalInsuranceCard = insuranceCard;
                 buttonRemove.setOnAction(event -> {
-                   InsuranceCreateAndRemove.removeInsuranceCard(entityManager, finalInsuranceCard);
-
+                    InsuranceCard newInsuranceCard = new InsuranceCard();
+                    newInsuranceCard.setPolicyOwner(finalInsuranceCard.getPolicyOwner());
+                    newInsuranceCard.setExpirationDate(finalInsuranceCard.getExpirationDate());
+                    String cardNumber = IDGenerator.generateId("");
+                    newInsuranceCard.setCardNumber(cardNumber);
+                    newInsuranceCard.setCardHolder(finalInsuranceCard.getCardHolder());
+                    for (Beneficiaries beneficiary: finalInsuranceCard.getListOfBeneficiaries()){
+                        if (beneficiary instanceof Dependant){
+                            CustomerUpdate.updateDependant(entityManager, (Dependant) beneficiary, newInsuranceCard);
+                        }
+                        else {
+                            CustomerUpdate.updatePolicyHolder(entityManager, (PolicyHolder) beneficiary, newInsuranceCard);
+                        }
+                    }
+                    newInsuranceCard.setListOfBeneficiaries(finalInsuranceCard.getListOfBeneficiaries());
+                    InsuranceCreateAndRemove.createInsuranceCard(entityManager, newInsuranceCard);
+                    InsuranceCreateAndRemove.removeInsuranceCard(entityManager, finalInsuranceCard);
                 });
                 insuranceCard.setRemoveButton(buttonRemove);
             }

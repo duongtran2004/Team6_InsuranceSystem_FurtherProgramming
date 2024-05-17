@@ -541,7 +541,6 @@ public class ClaimTableFilling extends ActionHistoryTableFilling implements Clai
                 //Creating a Button to remove a claim
                 Button buttonRemoveClaim = new Button("Remove");
                 buttonList.add(claimButton);
-
                 buttonList.add(buttonRemoveClaim);
                 Claim finalClaim = claim;
                 buttonRemoveClaim.setOnAction(event -> {

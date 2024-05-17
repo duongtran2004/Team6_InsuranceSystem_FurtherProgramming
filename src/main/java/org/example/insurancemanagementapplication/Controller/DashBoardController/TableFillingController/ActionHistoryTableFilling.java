@@ -8,13 +8,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import org.example.insurancemanagementapplication.Controller.RootController;
 import org.example.insurancemanagementapplication.Interfaces.ActionHistoryCreate;
 import org.example.insurancemanagementapplication.Interfaces.ActionHistoryRead;
 
 import java.io.IOException;
 import java.sql.Timestamp;
 
-public class ActionHistoryTableFilling {
+public class ActionHistoryTableFilling extends RootController {
     //This class is to de-serialize from file and display action history to user
 
     protected User user;

@@ -210,6 +210,7 @@ public class DependantTableFilling extends ClaimTableFilling {
                 //Set action for the remove button. Clicking the button will remove its dependant
                 buttonRemove.setOnAction(event -> {
                     CustomerCreateRemove.removeDependant(entityManager, finalDependant);
+                    returnToDashBoard(user, entityManager, buttonRemove);
                 });
 
                 buttonUpdateInfo.setUserData(dependant); //built in method of javafx button class

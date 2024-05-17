@@ -184,6 +184,7 @@ public class PolicyHolderTableFilling extends InsuranceCardTableFilling {
                 //The remove button will remove its policy holder from the database
                 buttonRemove.setOnAction(event -> {
                     CustomerCreateRemove.removePolicyHolder(entityManager, finalPolicyHolder);
+                    returnToDashBoard(user, entityManager, buttonRemove);
                 });
                 policyHolder.setRemoveButton(buttonRemove);
                 policyHolder.setAddDependantButton(buttonAddDependant);

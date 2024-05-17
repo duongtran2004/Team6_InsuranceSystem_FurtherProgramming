@@ -167,6 +167,7 @@ public class InsuranceManagerTableFilling extends InsuranceSurveyorTableFilling 
             insuranceManager.setRemoveButton(buttonRemove);
             buttonRemove.setOnAction(event -> {
                 EmployeeCreateRemove.removeInsuranceManager(entityManager, finalInsuranceManager);
+                returnToDashBoard(user, entityManager, buttonRemove);
             });
 
             insuranceManagersObservableList.add(insuranceManager);

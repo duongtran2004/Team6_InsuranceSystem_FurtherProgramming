@@ -208,6 +208,7 @@ public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
                 policyOwner.setRemoveButton(buttonRemove);
                 buttonRemove.setOnAction(event -> {
                     CustomerCreateRemove.removePolicyOwner(entityManager, finalPolicyOwner);
+                    returnToDashBoard(user, entityManager, buttonRemove);
                 });
                 policyOwner.setAddPolicyButton(buttonAddPolicy);
 

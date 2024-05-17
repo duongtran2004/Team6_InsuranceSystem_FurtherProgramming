@@ -166,6 +166,7 @@ public class InsuranceSurveyorTableFilling extends PolicyOwnerTableFilling {
                 insuranceSurveyor.setRemoveButton(buttonRemove);
                 buttonRemove.setOnAction(event -> {
                     EmployeeCreateRemove.removeInsuranceSurveyor(entityManager, finalInsuranceSurveyor);
+                    returnToDashBoard(user, entityManager, buttonRemove);
                 });
             }
 

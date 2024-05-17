@@ -41,6 +41,7 @@ public interface EmployeeUpdate {
             insuranceManager.setAddress(address);
             insuranceManager.setPhoneNumber(phoneNumber);
             insuranceManager.setEmail(email);
+            insuranceManager.setPassword(password);
             transaction.commit();
 
 

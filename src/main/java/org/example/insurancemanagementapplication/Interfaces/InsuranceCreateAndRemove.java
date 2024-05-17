@@ -10,16 +10,26 @@ import java.util.List;
 
 public interface InsuranceCreateAndRemove {
 
+    public static boolean createInsuranceCard(EntityManager entityManager, InsuranceCard insuranceCard){
+        EntityTransaction transaction = entityManager.getTransaction();
+        try {
+            transaction.begin();
+            entityManager.persist(insuranceCard);
+            transaction.commit();
+        }finally {
+            transaction.rollback();
+        }
+        return true;
+    }
 
-
-    public static boolean createInsuranceCard(EntityManager entityManager, String cardNumber, Date expirationDate, String cardHolderId, String policyOwnerId){
+    public static boolean createInsuranceCard(EntityManager entityManager, String cardNumber, Date expirationDate, Beneficiaries cardHolder, String policyOwnerId){
         EntityTransaction transaction = entityManager.getTransaction();
         try{
             transaction.begin();
             InsuranceCard insuranceCard = new InsuranceCard();
             insuranceCard.setCardNumber(cardNumber);
             insuranceCard.setExpirationDate(expirationDate);
-            insuranceCard.setCardHolderId(cardHolderId);
+            insuranceCard.setCardHolder(cardHolder);
             insuranceCard.setPolicyOwnerId(policyOwnerId);
             entityManager.persist(insuranceCard);
             transaction.commit();
