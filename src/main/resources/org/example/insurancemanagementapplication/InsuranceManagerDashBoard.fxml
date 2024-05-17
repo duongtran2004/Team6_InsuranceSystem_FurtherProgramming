@@ -42,17 +42,23 @@
                     <children>
                         <Pane maxHeight="275.0" maxWidth="Infinity" minHeight="275.0" minWidth="150.0" prefHeight="275.0" prefWidth="150.0" HBox.hgrow="ALWAYS">
                             <children>
-                                <Button fx:id="logOutButton" layoutX="7.0" layoutY="246.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="188.0" text="Log Out">
+                                <Button fx:id="logOutButton" layoutY="243.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="188.0" text="Log Out">
                                     <font>
                                         <Font name="Helvetica Neue Bold" size="16.0" />
                                     </font>
                                 </Button>
+                        <Button fx:id="refreshButton" layoutY="185.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="190.0" text="Refresh DashBoard">
+                           <font>
+                              <Font name="Helvetica Neue Bold" size="16.0" />
+                           </font>
+                        </Button>
                             </children>
                         </Pane>
-                        <GridPane maxHeight="275.0" maxWidth="850.0" minHeight="275.0" minWidth="850.0" prefHeight="275.0" prefWidth="850.0" style="-fx-background-color: rgb(233, 229, 229);" HBox.hgrow="NEVER">
+                        <GridPane maxHeight="275.0" maxWidth="1042.0" minHeight="275.0" minWidth="850.0" prefHeight="275.0" prefWidth="1042.0" style="-fx-background-color: rgb(233, 229, 229);" HBox.hgrow="NEVER">
                             <columnConstraints>
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="421.0" minWidth="10.0" prefWidth="204.0" />
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="618.0" minWidth="10.0" prefWidth="571.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="421.0" minWidth="0.0" prefWidth="224.39999675750732" />
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="618.0" minWidth="6.800018501281784" prefWidth="345.399951171875" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="618.0" minWidth="10.0" prefWidth="227.800048828125" />
                             </columnConstraints>
                             <rowConstraints>
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -63,6 +69,7 @@
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
                                 <Label alignment="CENTER" prefHeight="47.0" prefWidth="425.0" text="User ID">
@@ -108,6 +115,21 @@
                                 </Label>
                                 <PasswordField fx:id="passwordField" minWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                                 <PasswordField fx:id="passwordValidationField" minWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                           <children>
+                              <Button fx:id="updateInfoButton" mnemonicParsing="false" prefHeight="37.0" prefWidth="188.0" text="Update Info">
+                                 <font>
+                                    <Font name="Helvetica Neue Bold" size="16.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </HBox>
+                        <Label prefHeight="18.0" prefWidth="172.0" text="Full name must not be empty " GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <Label text="Addess must not be empty" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                        <Label text="Phone should be 10 numbers long" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                        <Label text="Email should include &quot;@&quot; and &quot;.com&quot;" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                        <Label minWidth="500.0" prefHeight="18.0" prefWidth="322.0" text="Password should include 1 uppercase and have minium length of 8" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                        <Label text="Re-enter password must match with original password" GridPane.columnIndex="2" GridPane.rowIndex="6" />
                             </children>
                             <padding>
                                 <Insets right="75.0" top="10.0" />

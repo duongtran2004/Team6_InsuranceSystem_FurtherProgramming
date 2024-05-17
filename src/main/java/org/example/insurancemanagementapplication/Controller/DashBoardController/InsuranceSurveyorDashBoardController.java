@@ -12,10 +12,8 @@ import javafx.stage.Stage;
 import org.example.insurancemanagementapplication.Controller.DashBoardController.TableFillingController.PolicyOwnerTableFilling;
 import org.example.insurancemanagementapplication.Controller.LogInPageController;
 import org.example.insurancemanagementapplication.Controller.Threads.*;
-import org.example.insurancemanagementapplication.Interfaces.ClaimRead;
-import org.example.insurancemanagementapplication.Interfaces.Controller;
-import org.example.insurancemanagementapplication.Interfaces.CustomerRead;
-import org.example.insurancemanagementapplication.Interfaces.InsuranceCardRead;
+import org.example.insurancemanagementapplication.Interfaces.*;
+import org.example.insurancemanagementapplication.Utility.InputValidator;
 import org.example.insurancemanagementapplication.Utility.StageBuilder;
 
 import java.io.IOException;
@@ -44,6 +42,8 @@ public class InsuranceSurveyorDashBoardController extends PolicyOwnerTableFillin
             clearClaimAmountButton;
     @FXML
     protected Button logOutButton;
+    @FXML
+    protected Button updateInfoButton;
 
     protected void handleLogOutButton() throws IOException {
 //Set the current user to null
@@ -81,6 +81,17 @@ public class InsuranceSurveyorDashBoardController extends PolicyOwnerTableFillin
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        updateInfoButton.setOnAction(event -> {
+            String message = InputValidator.validatingUser(emailField.getText(), passwordField.getText(), phoneNumberField.getText(), addressField.getText(), passwordValidationField.getText());
+            if (message.equals("Success")) {
+               EmployeeUpdate.updateInsuranceSurveyor(
+                        entityManager, (InsuranceSurveyor) user, addressField.getText(), phoneNumberField.getText(), addressField.getText(), passwordField.getText());
+            } else {
+                errorContainer.setText(message);
+            }
+
+        });
+
         logOutButton.setOnAction(event -> {
             try {
                 handleLogOutButton();

@@ -17,6 +17,8 @@ import org.example.insurancemanagementapplication.Controller.Threads.UserInactiv
 import org.example.insurancemanagementapplication.Interfaces.ClaimRead;
 import org.example.insurancemanagementapplication.Interfaces.Controller;
 import org.example.insurancemanagementapplication.Interfaces.CustomerRead;
+import org.example.insurancemanagementapplication.Interfaces.CustomerUpdate;
+import org.example.insurancemanagementapplication.Utility.InputValidator;
 import org.example.insurancemanagementapplication.Utility.StageBuilder;
 
 import java.io.IOException;
@@ -45,6 +47,9 @@ public class PolicyHolderDashBoardController extends DependantTableFilling imple
             clearClaimAmountButton;
     @FXML
     protected Button logOutButton;
+
+    @FXML
+    protected Button updateInfoButton;
 
     protected void handleLogOutButton() throws IOException {
 //Set the current user to null
@@ -82,6 +87,16 @@ public class PolicyHolderDashBoardController extends DependantTableFilling imple
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        updateInfoButton.setOnAction(event -> {
+            String message = InputValidator.validatingUser(emailField.getText(), passwordField.getText(), phoneNumberField.getText(), addressField.getText(), passwordValidationField.getText());
+            if (message.equals("Success")) {
+                CustomerUpdate.updatePolicyHolder
+                        (entityManager, (PolicyHolder) user, addressField.getText(), phoneNumberField.getText(), addressField.getText(), passwordField.getText());
+            } else {
+                errorContainer.setText(message);
+            }
+
+        });
         logOutButton.setOnAction(event -> {
             try {
                 handleLogOutButton();

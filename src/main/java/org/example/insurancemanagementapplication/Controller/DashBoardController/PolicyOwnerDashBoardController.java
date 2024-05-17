@@ -18,6 +18,7 @@ import org.example.insurancemanagementapplication.Controller.DashBoardController
 import org.example.insurancemanagementapplication.Controller.LogInPageController;
 import org.example.insurancemanagementapplication.Controller.Threads.*;
 import org.example.insurancemanagementapplication.Interfaces.*;
+import org.example.insurancemanagementapplication.Utility.InputValidator;
 import org.example.insurancemanagementapplication.Utility.StageBuilder;
 
 import java.io.IOException;
@@ -52,6 +53,9 @@ public class PolicyOwnerDashBoardController extends PolicyHolderTableFilling imp
             clearClaimAmountButton;
     @FXML
     protected Button logOutButton;
+
+    @FXML
+    protected Button updateInfoButton;
     private LogInPageController logInPageController;
 
     protected void handleLogOutButton() throws IOException {
@@ -91,6 +95,16 @@ public class PolicyOwnerDashBoardController extends PolicyHolderTableFilling imp
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        updateInfoButton.setOnAction(event -> {
+            String message = InputValidator.validatingUser(emailField.getText(), passwordField.getText(), phoneNumberField.getText(), addressField.getText(), passwordValidationField.getText());
+            if (message.equals("Success")) {
+                CustomerUpdate.updatePolicyOwner
+                        (entityManager, (PolicyOwner) user, addressField.getText(), phoneNumberField.getText(), addressField.getText(), passwordField.getText());
+            } else {
+                errorContainer.setText(message);
+            }
+
+        });
         logOutButton.setOnAction(event -> {
             try {
                 handleLogOutButton();
@@ -104,7 +118,7 @@ public class PolicyOwnerDashBoardController extends PolicyHolderTableFilling imp
         //fill table
         //see the ClaimTableFilling Class
         userFillingData();
-        List<Beneficiaries> beneficiariesList = CustomerRead.getAllBeneficiariesOfAPolicyOwner(entityManager,user.getId());
+        List<Beneficiaries> beneficiariesList = CustomerRead.getAllBeneficiariesOfAPolicyOwner(entityManager, user.getId());
         int yearlyRate = YearlyRateCalculation.calculateYearlyRateOfAPolicyOwner(beneficiariesList);
         totalYearlyRateLabel.setText(String.valueOf(yearlyRate));
 

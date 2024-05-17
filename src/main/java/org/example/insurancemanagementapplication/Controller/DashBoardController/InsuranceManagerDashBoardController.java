@@ -13,6 +13,7 @@ import org.example.insurancemanagementapplication.Controller.DashBoardController
 import org.example.insurancemanagementapplication.Controller.LogInPageController;
 import org.example.insurancemanagementapplication.Controller.Threads.*;
 import org.example.insurancemanagementapplication.Interfaces.*;
+import org.example.insurancemanagementapplication.Utility.InputValidator;
 import org.example.insurancemanagementapplication.Utility.StageBuilder;
 
 import java.io.IOException;
@@ -47,6 +48,8 @@ public class InsuranceManagerDashBoardController extends InsuranceSurveyorTableF
 
     @FXML
     protected Button logOutButton;
+    @FXML
+    protected Button updateInfoButton;
 
     protected void handleLogOutButton() throws IOException {
 //Set the current user to null
@@ -91,6 +94,16 @@ public class InsuranceManagerDashBoardController extends InsuranceSurveyorTableF
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+        });
+        updateInfoButton.setOnAction(event -> {
+            String message = InputValidator.validatingUser(emailField.getText(), passwordField.getText(), phoneNumberField.getText(), addressField.getText(), passwordValidationField.getText());
+            if (message.equals("Success")) {
+                EmployeeUpdate.updateInsuranceManager
+                        (entityManager, (InsuranceManager) user, addressField.getText(), phoneNumberField.getText(), addressField.getText(), passwordField.getText());
+            } else {
+                errorContainer.setText(message);
+            }
+
         });
 
         clearCreationDateButton.setOnAction(event -> handleClearCreationDateButton());
