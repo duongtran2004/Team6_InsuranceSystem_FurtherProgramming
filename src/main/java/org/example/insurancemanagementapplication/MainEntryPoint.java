@@ -1,6 +1,5 @@
 package org.example.insurancemanagementapplication;
 
-import Entity.SystemAdmin;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -8,7 +7,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.example.insurancemanagementapplication.Controller.DashBoardController.SystemAdminDashBoardController;
+import org.example.insurancemanagementapplication.Controller.LogInPageController;
 
 import java.io.IOException;
 
@@ -22,18 +21,18 @@ public class MainEntryPoint extends Application {
 
 
 
-        //Load System Admin DashBoard
-        FXMLLoader fxmlLoader = new FXMLLoader(MainEntryPoint.class.getResource("SystemAdminDashBoard.fxml"));
-        SystemAdmin systemAdmin = entityManager.find(SystemAdmin.class, "SA90987611");
-        SystemAdminDashBoardController dashBoardControllerSystemAdmin = new SystemAdminDashBoardController(entityManager, systemAdmin);
-        fxmlLoader.setController(dashBoardControllerSystemAdmin);
+//        //Load System Admin DashBoard
+//        FXMLLoader fxmlLoader = new FXMLLoader(MainEntryPoint.class.getResource("SystemAdminDashBoard.fxml"));
+//        SystemAdmin systemAdmin = entityManager.find(SystemAdmin.class, "SA90987611");
+//        SystemAdminDashBoardController dashBoardControllerSystemAdmin = new SystemAdminDashBoardController(entityManager, systemAdmin);
+//        fxmlLoader.setController(dashBoardControllerSystemAdmin);
 
 ////
 //        //Load login page
 ////        System.out.println("Hello After Entity Manager");
-//        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("LogInPage.fxml"));
-//        LogInPageController logInPageController = new LogInPageController(entityManager);;
-//        fxmlLoader.setController(logInPageController);
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("LogInPage.fxml"));
+        LogInPageController logInPageController = new LogInPageController(entityManager);;
+        fxmlLoader.setController(logInPageController);
 
 
 

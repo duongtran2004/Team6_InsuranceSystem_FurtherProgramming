@@ -38,13 +38,13 @@ public abstract class CreationAndUpdatePageController {
     @FXML
     protected PasswordField passwordField;
     @FXML
-    protected PasswordField  passwordValidationField;
+    protected PasswordField passwordValidationField;
     @FXML
     protected Label errorContainer;
-    @FXML Button submitButton;
+    @FXML
+    protected Button submitButton;
     @FXML
     protected Button returnButton;
-
 
 
     public CreationAndUpdatePageController(EntityManager entityManager, User user, User selectedUser) {
@@ -57,14 +57,15 @@ public abstract class CreationAndUpdatePageController {
         this.user = user;
         this.entityManager = entityManager;
     }
-    public void  changePageTittleInUpdateMode (String newTittle){
+
+    public void changePageTittleInUpdateMode(String newTittle) {
         pageTitleLabel.setText(newTittle);
     }
 
     /**
      * This method automatically fill form when the controller is in update mode
      */
-    public void fillingFormAuto(){
+    public void fillingFormAuto() {
 
         fullNameField.setDisable(true);
         fullNameField.setText(selectedUser.getFullName());
@@ -78,25 +79,21 @@ public abstract class CreationAndUpdatePageController {
     /**
      * This method defines the action for the submit button when the controller is in update mode
      */
-    public void setHandlerForSubmitButtonInUserUpdateMode(){
+    public void setHandlerForSubmitButtonInUserUpdateMode() {
         submitButton.setOnAction(event -> {
             String message = InputValidator.validatingUser(emailField.getText(), passwordField.getText(), phoneNumberField.getText(), addressField.getText(), passwordValidationField.getText());
-            if (message.equals("Success")){
-                if (selectedUser instanceof Dependant){
+            if (message.equals("Success")) {
+                if (selectedUser instanceof Dependant) {
                     CustomerUpdate.updateDependant(entityManager, (Dependant) selectedUser, addressField.getText(), phoneNumberField.getText(), passwordField.getText(), passwordValidationField.getText());
-                }
-                else if (selectedUser instanceof PolicyHolder){
+                } else if (selectedUser instanceof PolicyHolder) {
                     CustomerUpdate.updatePolicyHolder(entityManager, (PolicyHolder) selectedUser, addressField.getText(), phoneNumberField.getText(), passwordField.getText(), passwordValidationField.getText());
-                }
-                else if (selectedUser instanceof PolicyOwner){
+                } else if (selectedUser instanceof PolicyOwner) {
                     CustomerUpdate.updatePolicyOwner(entityManager, (PolicyOwner) selectedUser, addressField.getText(), phoneNumberField.getText(), passwordField.getText(), passwordValidationField.getText());
-                }
-                else if (selectedUser instanceof InsuranceManager){
+                } else if (selectedUser instanceof InsuranceManager) {
                     EmployeeUpdate.updateInsuranceManager(entityManager, (InsuranceManager) selectedUser, addressField.getText(), phoneNumberField.getText(), passwordField.getText(), passwordValidationField.getText());
                 }
 
-            }
-            else {
+            } else {
                 errorContainer.setText(message);
             }
         });
@@ -105,29 +102,25 @@ public abstract class CreationAndUpdatePageController {
     /**
      * This method defines action for the return button. Pressing this button will return to the dashboard
      */
-    public void setActionReturnButton(){
+    public void setActionReturnButton() {
         returnButton.setOnAction(event -> {
             if (user instanceof SystemAdmin) {
                 SystemAdminDashBoardController dashBoardControllerSystemAdmin = new SystemAdminDashBoardController(entityManager, (SystemAdmin) user);
                 StageBuilder.showStage((Stage) returnButton.getScene().getWindow(), dashBoardControllerSystemAdmin, "SystemAdminDashBoard.fxml", "Dashboard");
-            }
-            else if (user instanceof InsuranceManager) {
+            } else if (user instanceof InsuranceManager) {
                 InsuranceManagerDashBoardController dashBoardControllerInsuranceManager = new InsuranceManagerDashBoardController((InsuranceManager) user, entityManager);
                 StageBuilder.showStage((Stage) returnButton.getScene().getWindow(), dashBoardControllerInsuranceManager, "InsuranceManagerDashBoard.fxml", "Dashboard");
 
-            }
-            else if (user instanceof InsuranceSurveyor) {
+            } else if (user instanceof InsuranceSurveyor) {
 
                 InsuranceSurveyorDashBoardController dashBoardControllerInsuranceSurveyor = new InsuranceSurveyorDashBoardController((InsuranceSurveyor) user, entityManager);
                 StageBuilder.showStage((Stage) returnButton.getScene().getWindow(), dashBoardControllerInsuranceSurveyor, "InsuranceSurveyorDashBoard.fxml", "Dashboard");
 
-            }
-            else if (user instanceof PolicyOwner) {
+            } else if (user instanceof PolicyOwner) {
                 PolicyOwnerDashBoardController dashBoardController_policyOwner = new PolicyOwnerDashBoardController((PolicyOwner) user, entityManager);
                 StageBuilder.showStage((Stage) returnButton.getScene().getWindow(), dashBoardController_policyOwner, "PolicyOwnerDashBoard.fxml", "Dashboard");
 
-            }
-            else if (user instanceof PolicyHolder) {
+            } else if (user instanceof PolicyHolder) {
                 PolicyHolderDashBoardController dashBoardControllerPolicyHolder = new PolicyHolderDashBoardController((PolicyHolder) user, entityManager);
                 StageBuilder.showStage((Stage) returnButton.getScene().getWindow(), dashBoardControllerPolicyHolder, "PolicyHolderDashBoard.fxml", "Dashboard");
 

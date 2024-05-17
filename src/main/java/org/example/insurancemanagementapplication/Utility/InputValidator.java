@@ -5,33 +5,14 @@ import jakarta.persistence.EntityManager;
 import org.example.insurancemanagementapplication.Interfaces.CustomerRead;
 import org.example.insurancemanagementapplication.Interfaces.EmployeeRead;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 public class InputValidator {
     public static boolean validatePasswordFormat(String password) {
-        // Check if password has at least 1 uppercase letter and more than 8 characters
-        boolean hasUppercase = false;
-        boolean isLongEnough = false;
-
-        // Iterate through each character in the password
-        for (char c : password.toCharArray()) {
-            // Check if the character is uppercase
-            if (Character.isUpperCase(c)) {
-                hasUppercase = true;
-            }
-            // Check if the password length is more than 8 characters
-            if (password.length() > 8) {
-                isLongEnough = true;
-            }
-            // If both conditions are met, break out of the loop
-            if (hasUppercase && isLongEnough) {
-                break;
-            }
+        // Check if password has  more than 8 characters
+        boolean eightCharInLength = false;
+        if (password.length() >= 8) {
+            eightCharInLength = true;
         }
-
-        // Return true if password meets both conditions, false otherwise
-        return hasUppercase && isLongEnough;
+        return eightCharInLength;
     }
 
     public static boolean passwordValidator(String password, String passwordValidator) {
@@ -42,22 +23,10 @@ public class InputValidator {
     }
 
     public static boolean validateEmailFormat(String email) {
-        //email must include "@" and ".com"
-        // Regular expression for email format
-        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
-
-        // Compile the regular expression
-        Pattern pattern = Pattern.compile(emailRegex);
-
-        // Match the input email with the pattern
-        Matcher matcher = pattern.matcher(email);
-
-        // Check if the email matches the pattern
-        if (matcher.matches()) {
+        // Check if the email contains "@" and ".com"
+        if (email.contains("@") && email.contains(".com")) {
             System.out.println("Email format is valid.");
             return true;
-
-
         } else {
             System.out.println("Email format is not valid.");
             return false;
@@ -95,35 +64,40 @@ public class InputValidator {
     }
 
 
-    public static boolean checkIfPolicyOwnerAlreadyExist(EntityManager entityManager, String fullName, String email, String password, String phoneNumber, String address) {
+    public static boolean checkIfPolicyOwnerAlreadyExist(EntityManager entityManager, String fullName, String
+            email, String password, String phoneNumber, String address) {
         if ((CustomerRead.getPolicyOwnerByCredential(entityManager, fullName, email, password, phoneNumber, address)) != null) {
             return true;
         }
         return false;
     }
 
-    public static boolean checkIfPolicyHolderAlreadyExist(EntityManager entityManager, String fullName, String email, String password, String phoneNumber, String address) {
+    public static boolean checkIfPolicyHolderAlreadyExist(EntityManager entityManager, String fullName, String
+            email, String password, String phoneNumber, String address) {
         if ((CustomerRead.getPolicyHolderByCredential(entityManager, fullName, email, password, phoneNumber, address)) != null) {
             return true;
         }
         return false;
     }
 
-    public static boolean checkIfDependantAlreadyExist(EntityManager entityManager, String fullName, String email, String password, String phoneNumber, String address) {
+    public static boolean checkIfDependantAlreadyExist(EntityManager entityManager, String fullName, String
+            email, String password, String phoneNumber, String address) {
         if ((CustomerRead.getDependantByCredential(entityManager, fullName, email, password, phoneNumber, address)) != null) {
             return true;
         }
         return false;
     }
 
-    public static boolean checkIfInsuranceManagerAlreadyExist(EntityManager entityManager, String fullName, String email, String password, String phoneNumber, String address) {
+    public static boolean checkIfInsuranceManagerAlreadyExist(EntityManager entityManager, String fullName, String
+            email, String password, String phoneNumber, String address) {
         if ((EmployeeRead.getInsuranceManagerByCredential(entityManager, fullName, email, password, phoneNumber, address)) != null) {
             return true;
         }
         return false;
     }
 
-    public static boolean checkIfInsuranceSurveyorAlreadyExist(EntityManager entityManager, String fullName, String email, String password, String phoneNumber, String address) {
+    public static boolean checkIfInsuranceSurveyorAlreadyExist(EntityManager entityManager, String fullName, String
+            email, String password, String phoneNumber, String address) {
         if ((EmployeeRead.getInsuranceSurveyorByCredential(entityManager, fullName, email, password, phoneNumber, address)) != null) {
             return true;
         }
@@ -131,14 +105,16 @@ public class InputValidator {
     }
 
 
-    public static boolean checkIfSystemAdminAlreadyExist(EntityManager entityManager, String fullName, String email, String password, String phoneNumber, String address) {
+    public static boolean checkIfSystemAdminAlreadyExist(EntityManager entityManager, String fullName, String
+            email, String password, String phoneNumber, String address) {
         if ((EmployeeRead.getSystemAdminByCredential(entityManager, fullName, email, password, phoneNumber, address)) != null) {
             return true;
         }
         return false;
     }
 
-    public static boolean validateBankingInfo(EntityManager entityManager, String bankName, String bankAccountName, String bankAccountNumber) {
+    public static boolean validateBankingInfo(EntityManager entityManager, String bankName, String
+            bankAccountName, String bankAccountNumber) {
         String message = "";
         if (!validateNonEmptyString(bankName)) {
             return false;
@@ -153,7 +129,8 @@ public class InputValidator {
         }
     }
 
-    public static String ClaimCreateValidator(EntityManager entityManager, String bankName, String accountName, String accountNumber) {
+    public static String ClaimCreateValidator(EntityManager entityManager, String bankName, String
+            accountName, String accountNumber) {
         String message = "";
         if (!validateBankingInfo(entityManager, bankName, accountName, accountNumber)) {
             return message = "Invalid Banking Information, no fields should be empty";
@@ -166,7 +143,8 @@ public class InputValidator {
 
 
     //ClaimUpdateValidator for Insurance Manager
-    public static String ClaimUpdateValidator(EntityManager entityManager, int claimAmount, InsuranceManager insuranceManager) {
+    public static String ClaimUpdateValidator(EntityManager entityManager, int claimAmount, InsuranceManager
+            insuranceManager) {
         String message = "";
         if (!validateClaimAmount(claimAmount)) {
             return message = "Invalid Claim Amount, must be a positive integer";
@@ -179,7 +157,8 @@ public class InputValidator {
     }
 
     //ClaimUpdateValidator for PolicyHolder and PolicyOwner
-    public static String ClaimUpdateValidator(EntityManager entityManager, String bankName, String accountName, String accountNumber) {
+    public static String ClaimUpdateValidator(EntityManager entityManager, String bankName, String
+            accountName, String accountNumber) {
         String message = "";
         if (!validateBankingInfo(entityManager, bankName, accountName, accountNumber)) {
             return message = "Invalid Banking Information, no fields should be empty";
@@ -190,7 +169,8 @@ public class InputValidator {
 
     //overloading method
     //for login page
-    public static String validatingUser(String email, String password, String phoneNumber, String address, String passwordValidator) {
+    public static String validatingUser(String email, String password, String phoneNumber, String address, String
+            passwordValidator) {
         if (!validateNonEmptyString(email)) {
             return "Invalid email, cannot be empty";
         } else if (!validateEmailFormat(email)) {
@@ -212,7 +192,8 @@ public class InputValidator {
 
     //overloading method
     //for creation and update page
-    public static String validatingUser(String role, EntityManager entityManager, String fullName, String email, String password, String phoneNumber, String address, String passwordValidator) {
+    public static String validatingUser(String role, EntityManager entityManager, String fullName, String
+            email, String password, String phoneNumber, String address, String passwordValidator) {
 //        boolean allInfoValid = true;
 //        boolean userExists = false;
 //        boolean inputValidation = false;

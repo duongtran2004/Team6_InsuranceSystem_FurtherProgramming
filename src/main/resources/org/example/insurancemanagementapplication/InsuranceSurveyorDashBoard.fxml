@@ -118,9 +118,9 @@
                         </Button>
                         <Label prefHeight="18.0" prefWidth="172.0" text="Full name must not be empty " GridPane.columnIndex="2" GridPane.rowIndex="1" />
                         <Label text="Addess must not be empty" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                        <Label text="Phone should be 10 numbers long" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                        <Label text="Email should include &quot;@&quot; and &quot;.com&quot;" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-                        <Label minWidth="500.0" prefHeight="18.0" prefWidth="322.0" text="Password should include 1 uppercase and have minium length of 8" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                        <Label text="Phone must be 10 numbers long" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                        <Label text="Email must include &quot;@&quot; and &quot;.com&quot;" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                        <Label minWidth="500.0" prefHeight="18.0" prefWidth="322.0" text="Password must  have minium length of 8" GridPane.columnIndex="2" GridPane.rowIndex="5" />
                         <Label text="Re-enter password must match with original password" GridPane.columnIndex="2" GridPane.rowIndex="6" />
                             </children>
                             <padding>
