@@ -22,6 +22,7 @@ public interface EmployeeUpdate {
             systemAdmin.setAddress(address);
             systemAdmin.setPhoneNumber(phoneNumber);
             systemAdmin.setEmail(email);
+            systemAdmin.setPassword(password);
             transaction.commit();
 
 
