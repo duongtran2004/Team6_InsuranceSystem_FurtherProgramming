@@ -120,6 +120,7 @@ public class InsuranceCardTableFilling extends DependantTableFilling {
                     newInsuranceCard.setListOfBeneficiaries(finalInsuranceCard.getListOfBeneficiaries());
                     InsuranceCreateAndRemove.createInsuranceCard(entityManager, newInsuranceCard);
                     InsuranceCreateAndRemove.removeInsuranceCard(entityManager, finalInsuranceCard);
+                    returnToDashBoard(user, entityManager, buttonRemove);
                 });
                 insuranceCard.setRemoveButton(buttonRemove);
             }
