@@ -54,6 +54,9 @@ public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
     protected TableColumn<PolicyOwner, Button> policyOwnerRemoveButton;
     @FXML
     protected TextField policyOwnerSearchField;
+    Button buttonUpdateInfo = new Button("Update Info");
+    Button buttonAddPolicy = new Button("Add Policy");
+    Button buttonRemove = new Button("Remove");
     @FXML
     protected TableColumn<PolicyOwner, Integer> policyOwnerTotalYearlyRate;
     @FXML
