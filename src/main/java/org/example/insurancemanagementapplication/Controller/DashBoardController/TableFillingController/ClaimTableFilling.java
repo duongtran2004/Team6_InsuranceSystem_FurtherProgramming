@@ -38,6 +38,7 @@ import java.util.function.Predicate;
  */
 
 public class ClaimTableFilling extends ActionHistoryTableFilling implements ClaimCreateRemove {
+    public final EntityManager entityManager;
     protected Timer AFKCountDownTimer = new Timer();
     protected Timer refreshCountDownTimer = new Timer();
     protected UserInactivityHandler userInactivityHandler; // Declare UserInactivityHandler instance
@@ -174,7 +175,8 @@ public class ClaimTableFilling extends ActionHistoryTableFilling implements Clai
 
 
     public ClaimTableFilling(User user, EntityManager entityManager) {
-        super(user, entityManager);
+        super(user);
+        this.entityManager = entityManager;
     }
 
     //This method adds event listener to sorting choice boxes and fields that sort the claim tables when their values change.
@@ -540,7 +542,7 @@ public class ClaimTableFilling extends ActionHistoryTableFilling implements Clai
                 buttonList.add(buttonRemoveClaim);
                 Claim finalClaim = claim;
                 buttonRemoveClaim.setOnAction(event -> {
-                    ClaimCreateRemove.removeClaim(buttonRemoveClaim, user, entityManager, finalClaim);
+                    ClaimCreateRemove.removeClaim(entityManager, finalClaim);
                     returnAndRefreshDashboard(buttonRemoveClaim);
                 });
                 //If the user is a system admin the button will have "View Claim" text.

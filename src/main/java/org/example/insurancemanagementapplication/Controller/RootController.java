@@ -2,7 +2,7 @@ package org.example.insurancemanagementapplication.Controller;
 
 import Entity.*;
 import jakarta.persistence.EntityManager;
-import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import org.example.insurancemanagementapplication.Controller.DashBoardController.*;
 import org.example.insurancemanagementapplication.Utility.StageBuilder;
@@ -14,15 +14,7 @@ import org.example.insurancemanagementapplication.Utility.StageBuilder;
  * @project Team6_InsuranceSystem_FurtherProgramming
  */
 public class RootController {
-    protected User user;
-    protected EntityManager entityManager;
-
-    public RootController(User user, EntityManager entityManager) {
-        this.user = user;
-        this.entityManager = entityManager;
-    }
-
-    public void returnToDashBoard(User user, EntityManager entityManager, Node returnButton){
+    public void returnToDashBoard(User user, EntityManager entityManager, Button returnButton){
         if (user instanceof SystemAdmin) {
             SystemAdminDashBoardController dashBoardControllerSystemAdmin = new SystemAdminDashBoardController(entityManager, (SystemAdmin) user);
             StageBuilder.showStage((Stage) returnButton.getScene().getWindow(), dashBoardControllerSystemAdmin, "SystemAdminDashBoard.fxml", "Dashboard");

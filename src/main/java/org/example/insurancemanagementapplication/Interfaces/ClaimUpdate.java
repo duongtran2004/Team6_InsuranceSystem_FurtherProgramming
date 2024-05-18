@@ -2,13 +2,8 @@ package org.example.insurancemanagementapplication.Interfaces;
 
 import Entity.Claim;
 import Entity.InsuranceSurveyor;
-import Entity.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
-import javafx.scene.Node;
-import javafx.stage.Stage;
-import org.example.insurancemanagementapplication.Controller.Page404Controller;
-import org.example.insurancemanagementapplication.Utility.StageBuilder;
 
 import java.sql.Date;
 
@@ -23,7 +18,7 @@ public interface ClaimUpdate {
     //overloading 4 methods
     //update claim for PolicyHolder and PolicyOwner
 
-    static boolean updateClaim(Node node, User user, EntityManager entityManager, Claim claim, String bankName, String bankAccountName, String accountNumber) {
+    static boolean updateClaim(EntityManager entityManager, Claim claim, String bankName, String bankAccountName, String accountNumber) {
         EntityTransaction transaction = entityManager.getTransaction();
         try {
             transaction.begin();
@@ -32,12 +27,7 @@ public interface ClaimUpdate {
             claim.setBankAccountName(bankAccountName);
             claim.setBankAccountNumber(accountNumber);
             transaction.commit();
-        } catch (Exception e){
-            Page404Controller page404Controller = new Page404Controller(user, entityManager);
-            StageBuilder.showStage((Stage) node.getScene().getWindow(), page404Controller, "Page404.fxml", "An Error has occurred");
-            return false;
-        }
-        finally {
+        } finally {
             if (transaction.isActive()) {
                 transaction.rollback();
             }
@@ -45,7 +35,7 @@ public interface ClaimUpdate {
         return true;
     }
 
-    static boolean updateClaim(Node node, User user, EntityManager entityManager, Claim claim, String bankName, String bankAccountName, String accountNumber, byte[] file) {
+    static boolean updateClaim(EntityManager entityManager, Claim claim, String bankName, String bankAccountName, String accountNumber, byte[] file) {
         EntityTransaction transaction = entityManager.getTransaction();
         try {
             transaction.begin();
@@ -63,7 +53,7 @@ public interface ClaimUpdate {
         return true;
     }
 //update claim for insurance surveyor
-    static boolean updateClaim(Node node, User user, EntityManager entityManager, Claim claim,String status) {
+    static boolean updateClaim(EntityManager entityManager, Claim claim,String status) {
         EntityTransaction transaction = entityManager.getTransaction();
         try {
             transaction.begin();
@@ -82,7 +72,7 @@ public interface ClaimUpdate {
 
 
     //update claim for insurance manager
-    static boolean updateClaim(Node node, User user, EntityManager entityManager, Claim claim, InsuranceSurveyor insuranceSurveyor){
+    static boolean updateClaim(EntityManager entityManager, Claim claim, InsuranceSurveyor insuranceSurveyor){
         EntityTransaction transaction = entityManager.getTransaction();
         try {
             transaction.begin();
@@ -96,7 +86,7 @@ public interface ClaimUpdate {
         }
         return true;
     }
-    static boolean updateClaim(Node node, User user, EntityManager entityManager, Claim claim, int claimAmount, Date settlementDate, String status) {
+    static boolean updateClaim(EntityManager entityManager, Claim claim, int claimAmount, Date settlementDate, String status) {
         EntityTransaction transaction = entityManager.getTransaction();
         try {
             transaction.begin();
@@ -104,12 +94,7 @@ public interface ClaimUpdate {
             claim.setClaimAmount(claimAmount);
             claim.setStatus(status);
             transaction.commit();
-        } catch (Exception e){
-            Page404Controller page404Controller = new Page404Controller(user, entityManager);
-            StageBuilder.showStage((Stage) node.getScene().getWindow(), page404Controller, "Page404.fxml", "An Error has occurred");
-            return false;
-        }
-        finally {
+        } finally {
             if (transaction.isActive()) {
                 transaction.rollback();
             }
@@ -117,7 +102,7 @@ public interface ClaimUpdate {
         return true;
     }
 
-    static boolean updateClaim(Node node, User user, EntityManager entityManager, Claim claim, Date settlementDate, String status) {
+    static boolean updateClaim(EntityManager entityManager, Claim claim, Date settlementDate, String status) {
         EntityTransaction transaction = entityManager.getTransaction();
         try {
             transaction.begin();

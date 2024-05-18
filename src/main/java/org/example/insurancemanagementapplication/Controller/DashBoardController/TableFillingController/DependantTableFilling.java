@@ -181,7 +181,7 @@ public class DependantTableFilling extends ClaimTableFilling {
             //reassign from database object
             dependant = entityManager.find(Dependant.class, dependant.getId());
             //setter
-            dependant.setTotalSuccessfulClaimAmount(ClaimRead.getTotalSuccessfulClaimAmountMadeByABeneficiary(dependantTable, user, entityManager, (Beneficiaries) dependant));
+            dependant.setTotalSuccessfulClaimAmount(ClaimRead.getTotalSuccessfulClaimAmountMadeByABeneficiary((Beneficiaries) dependant));
 
             //ADD NECESSARY BUTTONS BESIDE 1 ROW
             Button buttonUpdateInfo = new Button();
@@ -209,7 +209,7 @@ public class DependantTableFilling extends ClaimTableFilling {
                 dependant.setRemoveButton(buttonRemove);
                 //Set action for the remove button. Clicking the button will remove its dependant
                 buttonRemove.setOnAction(event -> {
-                    CustomerCreateRemove.removeDependant(buttonRemove, user, entityManager, finalDependant);
+                    CustomerCreateRemove.removeDependant(entityManager, finalDependant);
                     returnToDashBoard(user, entityManager, buttonRemove);
                 });
 

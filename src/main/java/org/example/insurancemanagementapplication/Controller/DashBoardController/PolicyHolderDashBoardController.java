@@ -64,7 +64,7 @@ public class PolicyHolderDashBoardController extends DependantTableFilling imple
         creationDateFrom.getEditor().clear();
         creationDateTo.setValue(null);
         creationDateTo.getEditor().clear();
-        fillingClaimTable(entityManager, user, ClaimRead.getAllClaims(creationDateFrom, user, entityManager)); //refill claim table
+        fillingClaimTable(entityManager, user, ClaimRead.getAllClaims(entityManager)); //refill claim table
     }
 
     // Event handler for clearing the settlement date filter
@@ -74,7 +74,7 @@ public class PolicyHolderDashBoardController extends DependantTableFilling imple
         settlementDateFrom.getEditor().clear();
         settlementDateTo.setValue(null);
         settlementDateTo.getEditor().clear();
-        fillingClaimTable(entityManager, user, ClaimRead.getAllClaims(settlementDateFrom, user, entityManager));
+        fillingClaimTable(entityManager, user, ClaimRead.getAllClaims(entityManager));
     }
 
     // Event handler for clearing the claim amount filter
@@ -82,7 +82,7 @@ public class PolicyHolderDashBoardController extends DependantTableFilling imple
     protected void handleClearClaimAmountButton() {
         claimAmountFrom.clear();
         claimAmountTo.clear();
-        fillingClaimTable(entityManager, user, ClaimRead.getAllClaims(claimAmountFrom, user, entityManager));
+        fillingClaimTable(entityManager, user, ClaimRead.getAllClaims(entityManager));
     }
 
     @Override
@@ -91,7 +91,7 @@ public class PolicyHolderDashBoardController extends DependantTableFilling imple
             String message = InputValidator.validatingUser(emailField.getText(), passwordField.getText(), phoneNumberField.getText(), addressField.getText(), passwordValidationField.getText());
             if (message.equals("Success")) {
                 CustomerUpdate.updatePolicyHolder
-                        (settlementDateFrom, user, entityManager, (PolicyHolder) user, addressField.getText(), phoneNumberField.getText(), addressField.getText(), passwordField.getText());
+                        (entityManager, (PolicyHolder) user, addressField.getText(), phoneNumberField.getText(), addressField.getText(), passwordField.getText());
             } else {
                 errorContainer.setText(message);
             }
@@ -118,7 +118,7 @@ public class PolicyHolderDashBoardController extends DependantTableFilling imple
 
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
         EntityManager entityManagerDependant = entityManagerFactory.createEntityManager();
-        DependantTableFillingThread dependantTableFillingThread = new DependantTableFillingThread(CustomerRead.getAllDependantsOfAPolicyHolder(clearCreationDateButton, user, entityManagerDependant, user.getId()), this);
+        DependantTableFillingThread dependantTableFillingThread = new DependantTableFillingThread(CustomerRead.getAllDependantsOfAPolicyHolder(entityManagerDependant, user.getId()), this);
         dependantTableFillingThread.start();
         entityManagerDependant.close();
         entityManagerFactory.close();

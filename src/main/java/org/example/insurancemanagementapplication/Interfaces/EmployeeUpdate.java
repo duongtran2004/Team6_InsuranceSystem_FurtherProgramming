@@ -3,13 +3,8 @@ package org.example.insurancemanagementapplication.Interfaces;
 import Entity.InsuranceManager;
 import Entity.InsuranceSurveyor;
 import Entity.SystemAdmin;
-import Entity.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
-import javafx.scene.Node;
-import javafx.stage.Stage;
-import org.example.insurancemanagementapplication.Controller.Page404Controller;
-import org.example.insurancemanagementapplication.Utility.StageBuilder;
 
 /**
  * @author Luong Thanh Trung
@@ -19,7 +14,7 @@ import org.example.insurancemanagementapplication.Utility.StageBuilder;
  */
 public interface EmployeeUpdate {
 
-    static boolean updateSystemAdmin(Node node, User user, EntityManager entityManager, SystemAdmin systemAdmin, String address, String phoneNumber, String email, String password){
+    static boolean updateSystemAdmin(EntityManager entityManager, SystemAdmin systemAdmin, String address, String phoneNumber, String email, String password){
         EntityTransaction transaction = entityManager.getTransaction();
         try{
             transaction.begin();
@@ -31,19 +26,14 @@ public interface EmployeeUpdate {
             transaction.commit();
 
 
-        } catch (Exception e){
-            Page404Controller page404Controller = new Page404Controller(user, entityManager);
-            StageBuilder.showStage((Stage) node.getScene().getWindow(), page404Controller, "Page404.fxml", "An Error has occurred");
-            return false;
-        }
-        finally {
+        }finally {
             if (transaction.isActive()){
                 transaction.rollback();
             }
         }
         return true;
     }
-    static boolean updateInsuranceManager(Node node, User user, EntityManager entityManager, InsuranceManager insuranceManager, String address, String phoneNumber, String email, String password){
+    static boolean updateInsuranceManager(EntityManager entityManager, InsuranceManager insuranceManager, String address, String phoneNumber, String email, String password){
         EntityTransaction transaction = entityManager.getTransaction();
         try{
             transaction.begin();
@@ -55,12 +45,7 @@ public interface EmployeeUpdate {
             transaction.commit();
 
 
-        } catch (Exception e){
-            Page404Controller page404Controller = new Page404Controller(user, entityManager);
-            StageBuilder.showStage((Stage) node.getScene().getWindow(), page404Controller, "Page404.fxml", "An Error has occurred");
-            return false;
-        }
-        finally {
+        }finally {
             if (transaction.isActive()){
                 transaction.rollback();
             }
@@ -68,7 +53,7 @@ public interface EmployeeUpdate {
         return true;
     }
 
-    static boolean updateInsuranceSurveyor(Node node, User user, EntityManager entityManager, InsuranceSurveyor insuranceSurveyor, String address, String phoneNumber, String email, String password, InsuranceManager insuranceManager){
+    static boolean updateInsuranceSurveyor(EntityManager entityManager, InsuranceSurveyor insuranceSurveyor, String address, String phoneNumber, String email, String password, InsuranceManager insuranceManager){
         EntityTransaction transaction = entityManager.getTransaction();
         try{
             transaction.begin();
@@ -80,12 +65,7 @@ public interface EmployeeUpdate {
             insuranceSurveyor.setInsuranceManager(insuranceManager);
             transaction.commit();
 
-        } catch (Exception e){
-            Page404Controller page404Controller = new Page404Controller(user, entityManager);
-            StageBuilder.showStage((Stage) node.getScene().getWindow(), page404Controller, "Page404.fxml", "An Error has occurred");
-            return false;
-        }
-        finally {
+        } finally {
             if (transaction.isActive()){
                 transaction.rollback();
             }
@@ -94,7 +74,7 @@ public interface EmployeeUpdate {
 
     }
 
-    static boolean updateInsuranceSurveyor(Node node, User user, EntityManager entityManager, InsuranceSurveyor insuranceSurveyor, String address, String phoneNumber, String email, String password){
+    static boolean updateInsuranceSurveyor(EntityManager entityManager, InsuranceSurveyor insuranceSurveyor, String address, String phoneNumber, String email, String password){
         EntityTransaction transaction = entityManager.getTransaction();
         try{
             transaction.begin();
@@ -105,12 +85,7 @@ public interface EmployeeUpdate {
             insuranceSurveyor.setPassword(password);
             transaction.commit();
 
-        } catch (Exception e){
-            Page404Controller page404Controller = new Page404Controller(user, entityManager);
-            StageBuilder.showStage((Stage) node.getScene().getWindow(), page404Controller, "Page404.fxml", "An Error has occurred");
-            return false;
-        }
-        finally {
+        } finally {
             if (transaction.isActive()){
                 transaction.rollback();
             }

@@ -2,13 +2,8 @@ package org.example.insurancemanagementapplication.Interfaces;
 
 import Entity.Claim;
 import Entity.InsuranceCard;
-import Entity.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
-import javafx.scene.Node;
-import javafx.stage.Stage;
-import org.example.insurancemanagementapplication.Controller.Page404Controller;
-import org.example.insurancemanagementapplication.Utility.StageBuilder;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -19,83 +14,73 @@ public interface InsuranceCardRead {
 
     //for System Admin
 
-    public static List<InsuranceCard> getAllInsuranceCard(Node node, User user, EntityManager entityManager) {
-        try {
-            return entityManager.createQuery(
-                    "SELECT c FROM InsuranceCard c").getResultList();
-
-        } catch (Exception e){
-            Page404Controller page404Controller = new Page404Controller(user, entityManager);
-            StageBuilder.showStage((Stage) node.getScene().getWindow(), page404Controller, "Page404.fxml", "An Error has occurred");
-            return null;
-        }
+    public static List<InsuranceCard> getAllInsuranceCard(EntityManager entityManager) {
+        return entityManager.createQuery(
+                "SELECT c FROM InsuranceCard c").getResultList();
 
     }
 
     // For Policy Owner
-    public static List<InsuranceCard> getAllInsuranceCardsOfPolicyOwner(Node node, User user, EntityManager entityManager, String policyOwnerID) {
-        try {
-            return entityManager.createQuery(
-                    "SELECT c FROM InsuranceCard c WHERE c.policyOwnerId = ?1").setParameter(1, policyOwnerID).getResultList();
-        } catch (Exception e){
-            Page404Controller page404Controller = new Page404Controller(user, entityManager);
-            StageBuilder.showStage((Stage) node.getScene().getWindow(), page404Controller, "Page404.fxml", "An Error has occurred");
-            return null;
-        }
-
+    public static List<InsuranceCard> getAllInsuranceCardsOfPolicyOwner(EntityManager entityManager, String policyOwnerID) {
+        return entityManager.createQuery(
+                "SELECT c FROM InsuranceCard c WHERE c.policyOwnerId = ?1").setParameter(1, policyOwnerID).getResultList();
 
     }
 //Employee can only retrieve the insurance card that is related to the claims  they deal with
 
 
-    public static List<InsuranceCard> getAllInsuranceCardsTakeChargeByAnEmployee(Node node, User user, EntityManager entityManager, String employeeID, String role) {
-        try {
-            List<InsuranceCard> insuranceCards = new ArrayList<>();
-            Set<String> processedIds = new HashSet<>();
+    public static List<InsuranceCard> getAllInsuranceCardsTakeChargeByAnEmployee(EntityManager entityManager, String employeeID, String role) {
+        List<InsuranceCard> insuranceCards = new ArrayList<>();
+        Set<String> processedIds = new HashSet<>();
 
-            String queryString;
-            if (role.equals("InsuranceSurveyor")) {
-                // Query for insurance surveyors
-                queryString = "SELECT c FROM Claim c WHERE c.insuranceSurveyorId = :employeeId";
-            } else if (role.equals("InsuranceManager")) {
-                // Query for insurance managers
-                queryString = "SELECT c FROM Claim c WHERE c.insuranceManagerId = :employeeId";
-            } else {//invalid role
-                return insuranceCards;
-            }
-
-            // Create a query
-            Query query = entityManager.createQuery(queryString);
-            query.setParameter("employeeId", employeeID);
-
-            // Execute the query to get the claims
-            List<Claim> claims = query.getResultList();
-
-            // Iterate through each claim to retrieve the dependant objects
-            for (Claim claim : claims) {
-                // Retrieve the insurance card object
-                InsuranceCard insuranceCard = claim.getInsuranceCard();
-                // Check if the card number has already been processed
-                if (!processedIds.contains(insuranceCard.getCardNumber())) {
-                    insuranceCards.add(insuranceCard);
-                    processedIds.add(insuranceCard.getCardNumber());
-                }
-
-
-            }
+        String queryString;
+        if (role.equals("InsuranceSurveyor")) {
+            // Query for insurance surveyors
+            queryString = "SELECT c FROM Claim c WHERE c.insuranceSurveyorId = :employeeId";
+        } else if (role.equals("InsuranceManager")) {
+            // Query for insurance managers
+            queryString = "SELECT c FROM Claim c WHERE c.insuranceManagerId = :employeeId";
+        } else {//invalid role
             return insuranceCards;
-        } catch (Exception e){
-            Page404Controller page404Controller = new Page404Controller(user, entityManager);
-            StageBuilder.showStage((Stage) node.getScene().getWindow(), page404Controller, "Page404.fxml", "An Error has occurred");
-            return null;
         }
 
+        // Create a query
+        Query query = entityManager.createQuery(queryString);
+        query.setParameter("employeeId", employeeID);
+
+        // Execute the query to get the claims
+        List<Claim> claims = query.getResultList();
+
+        // Iterate through each claim to retrieve the dependant objects
+        for (Claim claim : claims) {
+            // Retrieve the insurance card object
+            InsuranceCard insuranceCard = claim.getInsuranceCard();
+            // Check if the card number has already been processed
+            if (!processedIds.contains(insuranceCard.getCardNumber())) {
+                insuranceCards.add(insuranceCard);
+                processedIds.add(insuranceCard.getCardNumber());
+            }
+
+
+        }
+        return insuranceCards;
     }
 
 
     // For insurance Surveyor
 
 //unit testing for this method
+    public static List<InsuranceCard> getAllInsuranceCardsProcessByInsuranceSurveyor(EntityManager entityManager, String insuranceSurveyorID) {
+        return entityManager.createQuery(
+                "SELECT c.insuranceCard FROM Claim c WHERE c.insuranceSurveyorId = ?1").setParameter(1, insuranceSurveyorID).getResultList();
+    }
+
+
+    public static List<InsuranceCard> getAllInsuranceCardProcessByInsuranceManager(EntityManager entityManager, String insuranceManagerID) {
+        return entityManager.createQuery(
+                "SELECT c.insuranceCard FROM Claim c WHERE c.insuranceManagerId = ?1").setParameter(1, insuranceManagerID).getResultList();
+
+    }
 
 
     //Extra feature: Notify when insuranceCard is close to expiring (to customer)

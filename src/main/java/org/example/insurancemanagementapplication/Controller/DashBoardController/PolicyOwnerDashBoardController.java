@@ -71,7 +71,7 @@ public class PolicyOwnerDashBoardController extends PolicyHolderTableFilling imp
         creationDateFrom.getEditor().clear();
         creationDateTo.setValue(null);
         creationDateTo.getEditor().clear();
-        fillingClaimTable(entityManager, user, ClaimRead.getAllClaims(creationDateFrom, user, entityManager)); //refill claim table
+        fillingClaimTable(entityManager, user, ClaimRead.getAllClaims(entityManager)); //refill claim table
     }
 
     // Event handler for clearing the settlement date filter
@@ -81,7 +81,7 @@ public class PolicyOwnerDashBoardController extends PolicyHolderTableFilling imp
         settlementDateFrom.getEditor().clear();
         settlementDateTo.setValue(null);
         settlementDateTo.getEditor().clear();
-        fillingClaimTable(entityManager, user, ClaimRead.getAllClaims(settlementDateFrom, user, entityManager));
+        fillingClaimTable(entityManager, user, ClaimRead.getAllClaims(entityManager));
     }
 
     // Event handler for clearing the claim amount filter
@@ -89,7 +89,7 @@ public class PolicyOwnerDashBoardController extends PolicyHolderTableFilling imp
     protected void handleClearClaimAmountButton() {
         claimAmountFrom.clear();
         claimAmountTo.clear();
-        fillingClaimTable(entityManager, user, ClaimRead.getAllClaims(claimAmountFrom, user, entityManager));
+        fillingClaimTable(entityManager, user, ClaimRead.getAllClaims(entityManager));
     }
 
 
@@ -99,7 +99,7 @@ public class PolicyOwnerDashBoardController extends PolicyHolderTableFilling imp
             String message = InputValidator.validatingUser(emailField.getText(), passwordField.getText(), phoneNumberField.getText(), addressField.getText(), passwordValidationField.getText());
             if (message.equals("Success")) {
                 CustomerUpdate.updatePolicyOwner
-                        (settlementDateFrom, user, entityManager, (PolicyOwner) user, addressField.getText(), phoneNumberField.getText(), addressField.getText(), passwordField.getText());
+                        (entityManager, (PolicyOwner) user, addressField.getText(), phoneNumberField.getText(), addressField.getText(), passwordField.getText());
             } else {
                 errorContainer.setText(message);
             }
@@ -118,7 +118,7 @@ public class PolicyOwnerDashBoardController extends PolicyHolderTableFilling imp
         //fill table
         //see the ClaimTableFilling Class
         userFillingData();
-        List<Beneficiaries> beneficiariesList = CustomerRead.getAllBeneficiariesOfAPolicyOwner(clearClaimAmountButton, user, entityManager, user.getId());
+        List<Beneficiaries> beneficiariesList = CustomerRead.getAllBeneficiariesOfAPolicyOwner(entityManager, user.getId());
         int yearlyRate = YearlyRateCalculation.calculateYearlyRateOfAPolicyOwner(beneficiariesList);
         totalYearlyRateLabel.setText(String.valueOf(yearlyRate));
 
@@ -138,18 +138,18 @@ public class PolicyOwnerDashBoardController extends PolicyHolderTableFilling imp
 
 
         EntityManager entityManagerDependant = entityManagerFactory.createEntityManager();
-        DependantTableFillingThread dependantTableFillingThread = new DependantTableFillingThread(CustomerRead.getAllDependantsOfAPolicyOwner(dependantTable, user, entityManagerDependant, user.getId()), this);
+        DependantTableFillingThread dependantTableFillingThread = new DependantTableFillingThread(CustomerRead.getAllDependantsOfAPolicyOwner(entityManagerDependant, user.getId()), this);
         dependantTableFillingThread.start();
         entityManagerDependant.close();
 
         EntityManager entityManagerPolicyHolder = entityManagerFactory.createEntityManager();
-        PolicyHolderTableFillingThread policyHolderTableFillingThread = new PolicyHolderTableFillingThread(CustomerRead.getAllPolicyHoldersOfAPolicyOwner(policyHolderTable, user, entityManagerPolicyHolder, user.getId()), this);
+        PolicyHolderTableFillingThread policyHolderTableFillingThread = new PolicyHolderTableFillingThread(CustomerRead.getAllPolicyHoldersOfAPolicyOwner(entityManagerPolicyHolder, user.getId()), this);
         policyHolderTableFillingThread.start();
         entityManagerPolicyHolder.close();
 
 
         EntityManager entityManagerInsuranceCard = entityManagerFactory.createEntityManager();
-        InsuranceCardTableFillingThread insuranceCardTableFillingThread = new InsuranceCardTableFillingThread(InsuranceCardRead.getAllInsuranceCardsOfPolicyOwner(insuranceCardTable, user, entityManagerInsuranceCard, user.getId()), this);
+        InsuranceCardTableFillingThread insuranceCardTableFillingThread = new InsuranceCardTableFillingThread(InsuranceCardRead.getAllInsuranceCardsOfPolicyOwner(entityManagerInsuranceCard, user.getId()), this);
         insuranceCardTableFillingThread.start();
         entityManagerInsuranceCard.close();
         entityManagerFactory.close();

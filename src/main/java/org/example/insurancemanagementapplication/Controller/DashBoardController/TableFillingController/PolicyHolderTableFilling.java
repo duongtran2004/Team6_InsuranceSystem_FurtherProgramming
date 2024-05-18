@@ -156,7 +156,7 @@ public class PolicyHolderTableFilling extends InsuranceCardTableFilling {
             PolicyHolder policyHolder = policyHolderListIterator.next();
             policyHolder = entityManager.find(PolicyHolder.class, policyHolder.getId());
             //setter
-            policyHolder.setTotalSuccessfulClaimAmount(ClaimRead.getTotalSuccessfulClaimAmountMadeByABeneficiary(policyHolderTable, user, entityManager, (Beneficiaries) policyHolder));
+            policyHolder.setTotalSuccessfulClaimAmount(ClaimRead.getTotalSuccessfulClaimAmountMadeByABeneficiary((Beneficiaries) policyHolder));
             Button buttonUpdateInfo = new Button("Update Info");
             Button buttonAddDependant = new Button("Add Dependant");
             Button buttonRemove = new Button("Remove");
@@ -183,7 +183,7 @@ public class PolicyHolderTableFilling extends InsuranceCardTableFilling {
                 });
                 //The remove button will remove its policy holder from the database
                 buttonRemove.setOnAction(event -> {
-                    CustomerCreateRemove.removePolicyHolder(buttonRemove, user, entityManager, finalPolicyHolder);
+                    CustomerCreateRemove.removePolicyHolder(entityManager, finalPolicyHolder);
                     returnToDashBoard(user, entityManager, buttonRemove);
                 });
                 policyHolder.setRemoveButton(buttonRemove);

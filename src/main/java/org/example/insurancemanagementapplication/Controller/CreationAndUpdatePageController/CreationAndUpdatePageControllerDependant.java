@@ -50,7 +50,7 @@ public class CreationAndUpdatePageControllerDependant extends CreationAndUpdateP
                     //See the RepeatedCode class for this method
                     //This method generates an ID.
                     String id = IDGenerator.generateId("DE");
-                    CustomerCreateRemove.createDependant(submitButton, user, entityManager, id, fullNameField.getText(), addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText(), policyHolder);
+                    CustomerCreateRemove.createDependant(entityManager, id, fullNameField.getText(), addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText(), policyHolder);
                 }
             });
         }

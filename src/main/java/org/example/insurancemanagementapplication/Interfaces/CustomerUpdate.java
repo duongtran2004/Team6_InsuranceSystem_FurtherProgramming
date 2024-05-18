@@ -1,12 +1,11 @@
 package org.example.insurancemanagementapplication.Interfaces;
 
-import Entity.*;
+import Entity.Dependant;
+import Entity.InsuranceCard;
+import Entity.PolicyHolder;
+import Entity.PolicyOwner;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
-import javafx.scene.Node;
-import javafx.stage.Stage;
-import org.example.insurancemanagementapplication.Controller.Page404Controller;
-import org.example.insurancemanagementapplication.Utility.StageBuilder;
 
 /**
  * @author Luong Thanh Trung
@@ -15,11 +14,11 @@ import org.example.insurancemanagementapplication.Utility.StageBuilder;
  * @project InsuranceManagementTeamProject
  */
 public interface CustomerUpdate {
-    static boolean updatePolicyOwner(Node node, User user, EntityManager entityManager, PolicyOwner policyOwner, String address, String phoneNumber, String email, String password){
+    static boolean updatePolicyOwner(EntityManager entityManager, PolicyOwner policyOwner, String address, String phoneNumber, String email, String password){
         EntityTransaction transaction = entityManager.getTransaction();
         try{
             transaction.begin();
-            entityManager.persist(policyOwner);
+       entityManager.persist(policyOwner);
             policyOwner.setAddress(address);
             policyOwner.setPhoneNumber(phoneNumber);
             policyOwner.setEmail(email);
@@ -27,12 +26,7 @@ public interface CustomerUpdate {
             transaction.commit();
 
 
-        } catch (Exception e){
-            Page404Controller page404Controller = new Page404Controller(user, entityManager);
-            StageBuilder.showStage((Stage) node.getScene().getWindow(), page404Controller, "Page404.fxml", "An Error has occurred");
-            return false;
-        }
-        finally {
+        }finally {
             if (transaction.isActive()){
                 transaction.rollback();
             }
@@ -40,7 +34,7 @@ public interface CustomerUpdate {
         return true;
     }
 
-    static boolean updatePolicyHolder(Node node, User user, EntityManager entityManager, PolicyHolder policyHolder, String address, String phoneNumber, String email, String password){
+    static boolean updatePolicyHolder(EntityManager entityManager, PolicyHolder policyHolder, String address, String phoneNumber, String email, String password){
         EntityTransaction transaction = entityManager.getTransaction();
         try{
             transaction.begin();
@@ -52,12 +46,7 @@ public interface CustomerUpdate {
             transaction.commit();
 
 
-        }catch (Exception e){
-            Page404Controller page404Controller = new Page404Controller(user, entityManager);
-            StageBuilder.showStage((Stage) node.getScene().getWindow(), page404Controller, "Page404.fxml", "An Error has occurred");
-            return false;
-        }
-        finally {
+        }finally {
             if (transaction.isActive()){
                 transaction.rollback();
             }
@@ -65,7 +54,7 @@ public interface CustomerUpdate {
         return true;
     }
 
-    static boolean updateDependant(Node node, User user, EntityManager entityManager, Dependant dependant, String address, String phoneNumber, String email, String password){
+    static boolean updateDependant(EntityManager entityManager, Dependant dependant, String address, String phoneNumber, String email, String password){
         EntityTransaction transaction = entityManager.getTransaction();
         try{
             transaction.begin();
@@ -77,12 +66,7 @@ public interface CustomerUpdate {
             transaction.commit();
 
 
-        }catch (Exception e){
-            Page404Controller page404Controller = new Page404Controller(user, entityManager);
-            StageBuilder.showStage((Stage) node.getScene().getWindow(), page404Controller, "Page404.fxml", "An Error has occurred");
-            return false;
-        }
-        finally {
+        }finally {
             if (transaction.isActive()){
                 transaction.rollback();
             }
@@ -90,19 +74,14 @@ public interface CustomerUpdate {
         return true;
     }
 
-    static boolean updatePolicyHolder(Node node, User user, EntityManager entityManager, PolicyHolder policyHolder, InsuranceCard newCard){
+    static boolean updatePolicyHolder(EntityManager entityManager, PolicyHolder policyHolder, InsuranceCard newCard){
         EntityTransaction transaction = entityManager.getTransaction();
         try {
             transaction.begin();
             entityManager.persist(policyHolder);
             policyHolder.setInsuranceCard(newCard);
             transaction.commit();
-        }catch (Exception e){
-            Page404Controller page404Controller = new Page404Controller(user, entityManager);
-            StageBuilder.showStage((Stage) node.getScene().getWindow(), page404Controller, "Page404.fxml", "An Error has occurred");
-            return false;
-        }
-        finally {
+        } finally {
             if (transaction.isActive()){
                 transaction.rollback();
             }
@@ -110,19 +89,14 @@ public interface CustomerUpdate {
         return true;
     }
 
-    static boolean updateDependant(Node node, User user, EntityManager entityManager, Dependant dependant, InsuranceCard newCard){
+    static boolean updateDependant(EntityManager entityManager, Dependant dependant, InsuranceCard newCard){
         EntityTransaction transaction = entityManager.getTransaction();
         try {
             transaction.begin();
             entityManager.persist(dependant);
             dependant.setInsuranceCard(newCard);
             transaction.commit();
-        } catch (Exception e){
-            Page404Controller page404Controller = new Page404Controller(user, entityManager);
-            StageBuilder.showStage((Stage) node.getScene().getWindow(), page404Controller, "Page404.fxml", "An Error has occurred");
-            return false;
-        }
-        finally {
+        } finally {
             if (transaction.isActive()){
                 transaction.rollback();
             }
