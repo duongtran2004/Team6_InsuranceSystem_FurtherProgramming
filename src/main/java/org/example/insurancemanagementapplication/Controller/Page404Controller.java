@@ -1,39 +1,35 @@
 package org.example.insurancemanagementapplication.Controller;
 
+import Entity.User;
+import jakarta.persistence.EntityManager;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
+import org.example.insurancemanagementapplication.Interfaces.Controller;
 
-import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * name tri
  * Date 13/05/2024
  */
-public class Page404Controller {
-
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
-    @FXML
-    ImageView image404;
+public class Page404Controller extends RootController implements Controller, Initializable {
 
     @FXML
-    Button BackToLoginPageButton;
+    Button backToLoginPageButton;
 
-    public void switchToLoginScreen(javafx.event.ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("LogInPage.fxml"));
-        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+    public Page404Controller(User user, EntityManager entityManager) {
+        super(user, entityManager);
     }
 
 
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        backToLoginPageButton.setOnAction(event -> {
+            returnToDashBoard(user, entityManager, backToLoginPageButton);
+        });
+
+    }
 }

@@ -3,6 +3,10 @@ package org.example.insurancemanagementapplication.Interfaces;
 import Entity.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import javafx.scene.control.Button;
+import javafx.stage.Stage;
+import org.example.insurancemanagementapplication.Controller.Page404Controller;
+import org.example.insurancemanagementapplication.Utility.StageBuilder;
 
 import java.sql.Date;
 
@@ -14,7 +18,7 @@ import java.sql.Date;
  */
 public interface ClaimCreateRemove {
 
-    public static boolean createClaim(EntityManager entityManager, String claimId, Date creationDate, Beneficiaries beneficiaries, PolicyOwner policyOwner, InsuranceCard insuranceCard, InsuranceManager insuranceManager, String bankName, String accountName, String accountNumber, byte[] documentFile){
+    public static boolean createClaim(Button button, EntityManager entityManager, User user, String claimId, Date creationDate, Beneficiaries beneficiaries, PolicyOwner policyOwner, InsuranceCard insuranceCard, InsuranceManager insuranceManager, String bankName, String accountName, String accountNumber, byte[] documentFile){
         EntityTransaction transaction = entityManager.getTransaction();
         try{
             transaction.begin();
@@ -32,7 +36,11 @@ public interface ClaimCreateRemove {
             claim.setDocumentFile(documentFile);
             entityManager.persist(claim);
             transaction.commit();
-        } finally {
+        } catch (Exception e){
+            Page404Controller page404Controller = new Page404Controller(user, entityManager);
+            StageBuilder.showStage((Stage) button.getScene().getWindow(), (Controller) page404Controller, "Page404.fxml", "An Error has occurred");
+        }
+        finally {
             if (transaction.isActive()){
                 transaction.rollback();
             }
@@ -41,13 +49,17 @@ public interface ClaimCreateRemove {
     }
 
 
-    public static boolean removeClaim(EntityManager entityManager, Claim claim){
+    public static boolean removeClaim(Button button, User user, EntityManager entityManager, Claim claim){
         EntityTransaction transaction = entityManager.getTransaction();
         try{
             transaction.begin();
             entityManager.remove(claim);
             transaction.commit();
-        } finally {
+        } catch (Exception e){
+            Page404Controller page404Controller = new Page404Controller(user, entityManager);
+            StageBuilder.showStage((Stage) button.getScene().getWindow(), (Controller) page404Controller, "Page404.fxml", "An Error has occurred");
+        }
+        finally {
             if (transaction.isActive()){
                 transaction.rollback();
             }

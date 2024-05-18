@@ -2,6 +2,7 @@ package org.example.insurancemanagementapplication.Controller.DashBoardControlle
 
 import Entity.ActionHistory;
 import Entity.User;
+import jakarta.persistence.EntityManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -37,8 +38,8 @@ public class ActionHistoryTableFilling extends RootController {
     //constructor
 
 
-    public ActionHistoryTableFilling(User user) {
-        this.user = user;
+    public ActionHistoryTableFilling(User user, EntityManager entityManager) {
+        super(user, entityManager);
     }
 
 

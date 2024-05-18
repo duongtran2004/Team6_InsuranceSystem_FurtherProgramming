@@ -45,7 +45,7 @@ public class CreationAndUpdatePageControllerPolicyOwner extends CreationAndUpdat
                 if (message.equals("Success")) {
                     //See the RepeatedCode class for this method
                     String id = IDGenerator.generateId("PO");
-                    CustomerCreateRemove.createPolicyOwner(entityManager, id, fullNameField.getText(), addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText());
+                    CustomerCreateRemove.createPolicyOwner(submitButton, user, entityManager, id, fullNameField.getText(), addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText());
                 }
             });
         }

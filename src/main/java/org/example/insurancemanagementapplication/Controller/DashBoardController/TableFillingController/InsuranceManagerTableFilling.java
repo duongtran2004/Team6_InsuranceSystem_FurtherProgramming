@@ -139,7 +139,7 @@ public class InsuranceManagerTableFilling extends InsuranceSurveyorTableFilling 
             //reassign from database object
             insuranceManager = entityManager.find(InsuranceManager.class, insuranceManager.getId());
             //set total resolved claims
-            insuranceManager.setTotalResolvedClaims(ClaimRead.countTotalResolvedClaimOfAnInsuranceManager(insuranceManager));
+            insuranceManager.setTotalResolvedClaims(ClaimRead.countTotalResolvedClaimOfAnInsuranceManager(insuranceCardTable, user, entityManager, insuranceManager));
             Button buttonUpdateInfo = new Button("Update Info");
             buttonList.add(buttonUpdateInfo);
             insuranceManager.setUpdateInfoButton(buttonUpdateInfo);
@@ -166,7 +166,7 @@ public class InsuranceManagerTableFilling extends InsuranceSurveyorTableFilling 
             buttonList.add(buttonRemove);
             insuranceManager.setRemoveButton(buttonRemove);
             buttonRemove.setOnAction(event -> {
-                EmployeeCreateRemove.removeInsuranceManager(entityManager, finalInsuranceManager);
+                EmployeeCreateRemove.removeInsuranceManager(buttonRemove, user, entityManager, finalInsuranceManager);
                 returnToDashBoard(user, entityManager, buttonRemove);
             });
 

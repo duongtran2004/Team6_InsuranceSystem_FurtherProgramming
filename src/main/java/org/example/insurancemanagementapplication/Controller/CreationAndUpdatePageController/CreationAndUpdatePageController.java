@@ -21,7 +21,6 @@ import org.example.insurancemanagementapplication.Utility.InputValidator;
 public abstract class CreationAndUpdatePageController extends RootController {
     protected User user;
 
-    protected EntityManager entityManager;
     protected User selectedUser;
     @FXML
     protected Label pageTitleLabel;
@@ -46,14 +45,12 @@ public abstract class CreationAndUpdatePageController extends RootController {
 
 
     public CreationAndUpdatePageController(EntityManager entityManager, User user, User selectedUser) {
-        this.user = user;
-        this.entityManager = entityManager;
+        super(user, entityManager);
         this.selectedUser = selectedUser;
     }
 
     public CreationAndUpdatePageController(EntityManager entityManager, User user) {
-        this.user = user;
-        this.entityManager = entityManager;
+        super(user, entityManager);
     }
 
     public void changePageTitleInUpdateMode(String newTitle) {
@@ -82,13 +79,13 @@ public abstract class CreationAndUpdatePageController extends RootController {
             String message = InputValidator.validatingUser(emailField.getText(), passwordField.getText(), phoneNumberField.getText(), addressField.getText(), passwordValidationField.getText());
             if (message.equals("Success")) {
                 if (selectedUser instanceof Dependant) {
-                    CustomerUpdate.updateDependant(entityManager, (Dependant) selectedUser, addressField.getText(), phoneNumberField.getText(), passwordField.getText(), passwordValidationField.getText());
+                    CustomerUpdate.updateDependant(submitButton, user, entityManager, (Dependant) selectedUser, addressField.getText(), phoneNumberField.getText(), passwordField.getText(), passwordValidationField.getText());
                 } else if (selectedUser instanceof PolicyHolder) {
-                    CustomerUpdate.updatePolicyHolder(entityManager, (PolicyHolder) selectedUser, addressField.getText(), phoneNumberField.getText(), passwordField.getText(), passwordValidationField.getText());
+                    CustomerUpdate.updatePolicyHolder(submitButton, user, entityManager, (PolicyHolder) selectedUser, addressField.getText(), phoneNumberField.getText(), passwordField.getText(), passwordValidationField.getText());
                 } else if (selectedUser instanceof PolicyOwner) {
-                    CustomerUpdate.updatePolicyOwner(entityManager, (PolicyOwner) selectedUser, addressField.getText(), phoneNumberField.getText(), passwordField.getText(), passwordValidationField.getText());
+                    CustomerUpdate.updatePolicyOwner(submitButton, user, entityManager, (PolicyOwner) selectedUser, addressField.getText(), phoneNumberField.getText(), passwordField.getText(), passwordValidationField.getText());
                 } else if (selectedUser instanceof InsuranceManager) {
-                    EmployeeUpdate.updateInsuranceManager(entityManager, (InsuranceManager) selectedUser, addressField.getText(), phoneNumberField.getText(), passwordField.getText(), passwordValidationField.getText());
+                    EmployeeUpdate.updateInsuranceManager(submitButton, user, entityManager, (InsuranceManager) selectedUser, addressField.getText(), phoneNumberField.getText(), passwordField.getText(), passwordValidationField.getText());
                 }
 
             } else {

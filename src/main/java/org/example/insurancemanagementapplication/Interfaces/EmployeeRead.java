@@ -3,14 +3,16 @@ package org.example.insurancemanagementapplication.Interfaces;
 import Entity.InsuranceManager;
 import Entity.InsuranceSurveyor;
 import Entity.SystemAdmin;
+import Entity.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
+import javafx.scene.Node;
+import javafx.stage.Stage;
+import org.example.insurancemanagementapplication.Controller.LogInPageController;
+import org.example.insurancemanagementapplication.Controller.Page404Controller;
+import org.example.insurancemanagementapplication.Utility.StageBuilder;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * @author Luong Thanh Trung
@@ -19,47 +21,90 @@ import java.util.stream.Collectors;
  * @project InsuranceManagementTeamProject
  */
 public interface EmployeeRead {
-    public static List<InsuranceManager> getAllInsuranceManager(EntityManager entityManager) {
-        return entityManager.createQuery(
-                "SELECT e FROM InsuranceManager e").getResultList();
+    public static List<InsuranceManager> getAllInsuranceManager(Node node, User user, EntityManager entityManager) {
+        try{
+            return entityManager.createQuery(
+                    "SELECT e FROM InsuranceManager e").getResultList();
+        }catch (Exception e){
+            Page404Controller page404Controller = new Page404Controller(user, entityManager);
+            StageBuilder.showStage((Stage) node.getScene().getWindow(), page404Controller, "Page404.fxml", "An Error has occurred");
+            return null;
+        }
+
 
     }
-    public static InsuranceManager findRandomInsuranceManager(EntityManager entityManager){
-        String query = "SELECT c FROM InsuranceManager c ORDER BY random() LIMIT 1";
-        return  (InsuranceManager) entityManager.createQuery(query).getSingleResult();
+    public static InsuranceManager findRandomInsuranceManager(Node node, User user, EntityManager entityManager){
+        try {
+            String query = "SELECT c FROM InsuranceManager c ORDER BY random() LIMIT 1";
+            return  (InsuranceManager) entityManager.createQuery(query).getSingleResult();
+        } catch (Exception e){
+            Page404Controller page404Controller = new Page404Controller(user, entityManager);
+            StageBuilder.showStage((Stage) node.getScene().getWindow(), page404Controller, "Page404.fxml", "An Error has occurred");
+            return null;
+        }
+
 
     }
 
-    public static List<InsuranceSurveyor> getAllInsuranceSurveyor(EntityManager entityManager) {
-        return entityManager.createQuery(
-                "SELECT e FROM InsuranceSurveyor e").getResultList();
-
+    public static List<InsuranceSurveyor> getAllInsuranceSurveyor(Node node, User user, EntityManager entityManager) {
+        try{
+            return entityManager.createQuery(
+                    "SELECT e FROM InsuranceSurveyor e").getResultList();
+        } catch (Exception e){
+            Page404Controller page404Controller = new Page404Controller(user, entityManager);
+            StageBuilder.showStage((Stage) node.getScene().getWindow(), page404Controller, "Page404.fxml", "An Error has occurred");
+            return null;
+        }
     }
 
-    public static InsuranceSurveyor findInsuranceSurveyorById(EntityManager entityManager, String id) {
-        InsuranceSurveyor insuranceSurveyor = entityManager.find(InsuranceSurveyor.class, id);
-        return insuranceSurveyor;
-    }
 
-    public static InsuranceManager findInsuranceManagerById(EntityManager entityManager, String id) {
-        InsuranceManager insuranceManager = entityManager.find(InsuranceManager.class, id);
-        return insuranceManager;
+    public static InsuranceManager findInsuranceManagerById(Node node, User user, EntityManager entityManager, String id) {
+        try {
+            InsuranceManager insuranceManager = entityManager.find(InsuranceManager.class, id);
+            return insuranceManager;
+        } catch (Exception e){
+            Page404Controller page404Controller = new Page404Controller(user, entityManager);
+            StageBuilder.showStage((Stage) node.getScene().getWindow(), page404Controller, "Page404.fxml", "An Error has occurred");
+            return null;
+        }
+
     }
     //FOR LOGIN
 
-    public static SystemAdmin getSystemAdminWithCredential(EntityManager entityManager, String id, String email, String password) {
-        SystemAdmin employee = (SystemAdmin) entityManager.createQuery("SELECT c FROM SystemAdmin c WHERE c.id LIKE ?1 AND c.password LIKE ?2 AND c.email LIKE ?3").setParameter(1, id).setParameter(2, password).setParameter(3, email).getSingleResult();
-        return employee;
+    public static SystemAdmin getSystemAdminWithCredential(Node node, EntityManager entityManager, String id, String email, String password) {
+        try {
+            SystemAdmin employee = (SystemAdmin) entityManager.createQuery("SELECT c FROM SystemAdmin c WHERE c.id LIKE ?1 AND c.password LIKE ?2 AND c.email LIKE ?3").setParameter(1, id).setParameter(2, password).setParameter(3, email).getSingleResult();
+            return employee;
+        } catch (Exception e){
+            LogInPageController logInPageController = new LogInPageController(entityManager);
+            StageBuilder.showStage((Stage) node.getScene().getWindow(), logInPageController, "LogInPage.fxml", "Log in Page");
+            return null;
+        }
+
     }
 
-    public static InsuranceManager getInsuranceManagerWithCredential(EntityManager entityManager, String id, String email, String password) {
-        InsuranceManager employee = (InsuranceManager) entityManager.createQuery("SELECT c FROM InsuranceManager c WHERE c.id LIKE ?1 AND c.password LIKE ?2 AND c.email LIKE ?3").setParameter(1, id).setParameter(2, password).setParameter(3, email).getSingleResult();
-        return employee;
+    public static InsuranceManager getInsuranceManagerWithCredential(Node node, EntityManager entityManager, String id, String email, String password) {
+        try{
+            InsuranceManager employee = (InsuranceManager) entityManager.createQuery("SELECT c FROM InsuranceManager c WHERE c.id LIKE ?1 AND c.password LIKE ?2 AND c.email LIKE ?3").setParameter(1, id).setParameter(2, password).setParameter(3, email).getSingleResult();
+            return employee;
+        } catch (Exception e){
+            LogInPageController logInPageController = new LogInPageController(entityManager);
+            StageBuilder.showStage((Stage) node.getScene().getWindow(), logInPageController, "LogInPage.fxml", "Log in Page");
+            return null;
+        }
+
     }
 
-    public static InsuranceSurveyor getInsuranceSurveyorWithCredential(EntityManager entityManager, String id, String email, String password) {
-        InsuranceSurveyor employee = (InsuranceSurveyor) entityManager.createQuery("SELECT c FROM InsuranceSurveyor c WHERE c.id LIKE ?1 AND c.password LIKE ?2 AND c.email LIKE ?3").setParameter(1, id).setParameter(2, password).setParameter(3, email).getSingleResult();
-        return employee;
+    public static InsuranceSurveyor getInsuranceSurveyorWithCredential(Node node, EntityManager entityManager, String id, String email, String password) {
+        try {
+            InsuranceSurveyor employee = (InsuranceSurveyor) entityManager.createQuery("SELECT c FROM InsuranceSurveyor c WHERE c.id LIKE ?1 AND c.password LIKE ?2 AND c.email LIKE ?3").setParameter(1, id).setParameter(2, password).setParameter(3, email).getSingleResult();
+            return employee;
+        } catch (Exception e){
+            LogInPageController logInPageController = new LogInPageController(entityManager);
+            StageBuilder.showStage((Stage) node.getScene().getWindow(), logInPageController, "LogInPage.fxml", "Log in Page");
+            return null;
+        }
+
     }
 
     //FOR RETRIEVING OBJECT
@@ -111,45 +156,20 @@ public interface EmployeeRead {
         }
     }
 
-    public static List<InsuranceSurveyor> getAllInsuranceSurveyorOfAnInsuranceManager(EntityManager entityManager, String insuranceManagerID) {
-        return entityManager.createQuery("SELECT c FROM InsuranceSurveyor c WHERE c.insuranceManagerId = ?1").setParameter(1, insuranceManagerID).getResultList();
+    public static List<InsuranceSurveyor> getAllInsuranceSurveyorOfAnInsuranceManager(Node node, User user, EntityManager entityManager, String insuranceManagerID) {
+        try {
+            return entityManager.createQuery("SELECT c FROM InsuranceSurveyor c WHERE c.insuranceManagerId = ?1").setParameter(1, insuranceManagerID).getResultList();
+        } catch (Exception e){
+            Page404Controller page404Controller = new Page404Controller(user, entityManager);
+            StageBuilder.showStage((Stage) node.getScene().getWindow(), page404Controller, "Page404.fxml", "An Error has occurred");
+            return null;
+        }
+
     }
 
 
 //should I use map instead for this ranking method, if I want to display both user and their sucessful claim amount in the front-end ?
 
-    public static Map<Object, Integer> rankAllEmployeeByTotalFinishedClaims(EntityManager entityManager) {
-        List<Object> allEmployees = new ArrayList<>();
-        List<InsuranceManager> allInsuranceManagers = EmployeeRead.getAllInsuranceManager(entityManager);
-        List<InsuranceSurveyor> allInsuranceSurveyors = EmployeeRead.getAllInsuranceSurveyor(entityManager);
-        allEmployees.addAll(allInsuranceManagers);
-        allEmployees.addAll(allInsuranceSurveyors);
-
-        // Calculate the total finished claim count for each employee
-        Map<Object, Integer> totalFinishedClaimsMap = allEmployees.stream()
-                .collect(Collectors.toMap(
-                        employee -> employee,
-                        employee -> {
-                            if (employee instanceof InsuranceManager) {
-                                return ClaimRead.getTotalSuccessfulClaimAmountProcessedByAnEmployee(entityManager, ((InsuranceManager) employee).getId(), "InsuranceManager");
-                            } else if (employee instanceof InsuranceSurveyor) {
-                                return ClaimRead.getTotalSuccessfulClaimAmountProcessedByAnEmployee(entityManager, ((InsuranceSurveyor) employee).getId(), "InsuranceSurveyor");
-                            }
-                            return 0;
-                        }
-                ));
-        // Sort the employees based on their total finished claim count
-        Map<Object, Integer> rankedEmployees = totalFinishedClaimsMap.entrySet().stream()
-                .sorted((entry1, entry2) -> entry2.getValue().compareTo(entry1.getValue())) // Sort by value in descending order
-                .collect(Collectors.toMap(
-                        entry -> entry.getKey(), // Use lambda expression to get the key
-                        entry -> entry.getValue(), // Use lambda expression to get the value
-                        (oldValue, newValue) -> oldValue, // Keep existing values (not necessary here)
-                        LinkedHashMap::new // Preserve order
-                ));
-
-        return rankedEmployees;
-    }
 
 
 }

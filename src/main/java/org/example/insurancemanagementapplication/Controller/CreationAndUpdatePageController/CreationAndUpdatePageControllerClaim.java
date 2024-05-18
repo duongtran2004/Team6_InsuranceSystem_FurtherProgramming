@@ -68,8 +68,6 @@ public class CreationAndUpdatePageControllerClaim extends CreationAndUpdatePageC
     private Label pageTittleLabel;
     @FXML
     private Button updateDocumentButton;
-    @FXML
-    private Label documentIsEmptyLabel;
 
 
     //for file upload
@@ -91,31 +89,26 @@ public class CreationAndUpdatePageControllerClaim extends CreationAndUpdatePageC
     }
 
     public void downloadDocument(String filePath) {
-        if (claim.getDocumentFile() != null) {
-            byte[] cover = claim.getDocumentFile();
+        byte[] cover = claim.getDocumentFile();
 
-            try (FileOutputStream fos
-                         = new FileOutputStream(filePath)) {
-                fos.write(cover);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        try (FileOutputStream fos
+                     = new FileOutputStream(filePath)) {
+            fos.write(cover);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-// if claim.getDocument = null, trigger to set text to a label
-        if (claim.getDocumentFile() != null) {
-            documentIsEmptyLabel.setVisible(false);
-        }
+
         updateDocumentButton.setOnAction(event -> {
             updateFile = !updateFile;
             if (updateFile) {
                 uploadDocumentButton.setDisable(false);
                 file = claim.getDocumentFile();
-            } else {
+            }
+            else {
                 uploadDocumentButton.setDisable(true);
 
             }
@@ -222,7 +215,7 @@ public class CreationAndUpdatePageControllerClaim extends CreationAndUpdatePageC
 
         //After user click on  Submit Button to Update Claim
         submitButton.setOnAction(event -> {
-            ClaimUpdate.updateClaim(entityManager, claim, statusChoiceBox.getValue());
+            ClaimUpdate.updateClaim(submitButton, user, entityManager, claim, statusChoiceBox.getValue());
         });
     }
 
@@ -250,7 +243,7 @@ public class CreationAndUpdatePageControllerClaim extends CreationAndUpdatePageC
                 ArrayList<InsuranceSurveyor> insuranceSurveyors = (ArrayList<InsuranceSurveyor>) ((InsuranceManager) user).getListOfSurveyors();
                 for (int i = 0; i < insuranceSurveyors.size(); i++) {
                     if (insuranceSurveyors.get(i).getId().equals(insuranceSurveyorID)) {
-                        ClaimUpdate.updateClaim(entityManager, claim, insuranceSurveyors.get(i).getId());
+                        ClaimUpdate.updateClaim(submitButton, user, entityManager, claim, insuranceSurveyors.get(i));
                         break;
                     } else {
                         errorContainer.setText("Insurance Surveyor either does not exist or not belong to you");
@@ -302,7 +295,7 @@ public class CreationAndUpdatePageControllerClaim extends CreationAndUpdatePageC
                     if (message.equals("Success")) {
                         //If the message is "Success", update the claim in the database
                         //Selecting "APPROVED" will update claim's amount, claim's settlement date, and claim's status
-                        ClaimUpdate.updateClaim(entityManager, claim, claimAmount, settlementDate, statusChoiceBox.getValue());
+                        ClaimUpdate.updateClaim(submitButton, user, entityManager, claim, claimAmount, settlementDate, statusChoiceBox.getValue());
                     } else {
                         errorContainer.setText(message);
                     }
@@ -310,7 +303,7 @@ public class CreationAndUpdatePageControllerClaim extends CreationAndUpdatePageC
 
                 } else {
                     //Selecting "REJECTED" will update claim's settlement date, and claim's status
-                    ClaimUpdate.updateClaim(entityManager, claim, settlementDate, statusChoiceBox.getValue());
+                    ClaimUpdate.updateClaim(submitButton, user, entityManager, claim, settlementDate, statusChoiceBox.getValue());
                 }
 
             });
@@ -335,12 +328,10 @@ public class CreationAndUpdatePageControllerClaim extends CreationAndUpdatePageC
             // input validator for Claim's Field
             errorContainer.setText(InputValidator.ClaimUpdateValidator(entityManager, bankName, bankAccountName, bankAccountNumber));
             if (errorContainer.getText().equals("Success")) {
-                if (updateFile) {
-                    ClaimUpdate.updateClaim(entityManager, claim, statusChoiceBox.getValue());
+                if (updateFile){
+                    ClaimUpdate.updateClaim(submitButton, user, entityManager, claim, statusChoiceBox.getValue());
 
-                } else {
-                    ClaimUpdate.updateClaim(entityManager, claim, bankName, bankAccountName, bankAccountNumber, file);
-                }
+                }else {ClaimUpdate.updateClaim(submitButton, user, entityManager, claim, bankName, bankAccountName, bankAccountNumber, file);}
 
             }
         });
@@ -369,9 +360,9 @@ public class CreationAndUpdatePageControllerClaim extends CreationAndUpdatePageC
                 Date today = new Date();
                 java.sql.Date sqlToday = new java.sql.Date(today.getTime());
                 String claimId = IDGenerator.generateId("C");
-                InsuranceManager insuranceManager = EmployeeRead.findRandomInsuranceManager(entityManager);
+                InsuranceManager insuranceManager = EmployeeRead.findRandomInsuranceManager(submitButton, user, entityManager);
                 System.out.println(insuranceManager);
-                ClaimCreateRemove.createClaim(entityManager, claimId, sqlToday, beneficiary, beneficiary.getPolicyOwner(), beneficiary.getInsuranceCard(), insuranceManager, bankName, bankAccountName, bankAccountNumber, file);
+                ClaimCreateRemove.createClaim(submitButton, entityManager, user, claimId, sqlToday, beneficiary, beneficiary.getPolicyOwner(), beneficiary.getInsuranceCard(), insuranceManager, bankName, bankAccountName, bankAccountNumber, file);
 
 
 // call method to write action history  to file right here

@@ -111,15 +111,15 @@ public class InsuranceCardTableFilling extends DependantTableFilling {
                     newInsuranceCard.setCardHolder(finalInsuranceCard.getCardHolder());
                     for (Beneficiaries beneficiary: finalInsuranceCard.getListOfBeneficiaries()){
                         if (beneficiary instanceof Dependant){
-                            CustomerUpdate.updateDependant(entityManager, (Dependant) beneficiary, newInsuranceCard);
+                            CustomerUpdate.updateDependant(settlementDateFrom, user, entityManager, (Dependant) beneficiary, newInsuranceCard);
                         }
                         else {
-                            CustomerUpdate.updatePolicyHolder(entityManager, (PolicyHolder) beneficiary, newInsuranceCard);
+                            CustomerUpdate.updatePolicyHolder(settlementDateFrom, user, entityManager, (PolicyHolder) beneficiary, newInsuranceCard);
                         }
                     }
                     newInsuranceCard.setListOfBeneficiaries(finalInsuranceCard.getListOfBeneficiaries());
-                    InsuranceCreateAndRemove.createInsuranceCard(entityManager, newInsuranceCard);
-                    InsuranceCreateAndRemove.removeInsuranceCard(entityManager, finalInsuranceCard);
+                    InsuranceCreateAndRemove.createInsuranceCard(buttonRemove, user, entityManager, newInsuranceCard);
+                    InsuranceCreateAndRemove.removeInsuranceCard(buttonRemove, user, entityManager, finalInsuranceCard);
                     returnToDashBoard(user, entityManager, buttonRemove);
                 });
                 insuranceCard.setRemoveButton(buttonRemove);

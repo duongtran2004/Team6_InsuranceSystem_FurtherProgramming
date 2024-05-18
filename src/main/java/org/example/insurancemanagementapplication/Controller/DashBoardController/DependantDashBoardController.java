@@ -53,7 +53,7 @@ public class DependantDashBoardController extends ClaimTableFilling implements I
         creationDateFrom.getEditor().clear();
         creationDateTo.setValue(null);
         creationDateTo.getEditor().clear();
-        fillingClaimTable(entityManager, user, ClaimRead.getAllClaims(entityManager)); //refill claim table
+        fillingClaimTable(entityManager, user, ClaimRead.getAllClaims(creationDateFrom, user, entityManager)); //refill claim table
     }
 
     // Event handler for clearing the settlement date filter
@@ -63,7 +63,7 @@ public class DependantDashBoardController extends ClaimTableFilling implements I
         settlementDateFrom.getEditor().clear();
         settlementDateTo.setValue(null);
         settlementDateTo.getEditor().clear();
-        fillingClaimTable(entityManager, user, ClaimRead.getAllClaims(entityManager));
+        fillingClaimTable(entityManager, user, ClaimRead.getAllClaims(settlementDateFrom, user, entityManager));
     }
 
     // Event handler for clearing the claim amount filter
@@ -71,7 +71,7 @@ public class DependantDashBoardController extends ClaimTableFilling implements I
     protected void handleClearClaimAmountButton() {
         claimAmountFrom.clear();
         claimAmountTo.clear();
-        fillingClaimTable(entityManager, user, ClaimRead.getAllClaims(entityManager));
+        fillingClaimTable(entityManager, user, ClaimRead.getAllClaims(claimAmountFrom, user, entityManager));
     }
 
     @Override

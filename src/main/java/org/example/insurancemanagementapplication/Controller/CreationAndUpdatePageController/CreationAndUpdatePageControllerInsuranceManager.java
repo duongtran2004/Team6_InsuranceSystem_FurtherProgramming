@@ -61,7 +61,7 @@ public class CreationAndUpdatePageControllerInsuranceManager extends CreationAnd
                     //See the RepeatedCode class for this method
                     //This method generates an id.
                     String id = IDGenerator.generateId("IM");
-                    EmployeeCreateRemove.createInsuranceManager(entityManager, id, fullNameField.getText(), addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText());
+                    EmployeeCreateRemove.createInsuranceManager(submitButton, user, entityManager, id, fullNameField.getText(), addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText());
 
                     //record action history
                     ActionHistory actionHistory =

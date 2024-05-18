@@ -67,7 +67,7 @@ public class CreationAndUpdatePageControllerPolicyHolder extends CreationAndUpda
                         InsuranceCard insuranceCard = new InsuranceCard();
                         insuranceCard.setCardNumber(cardNumber);
                         insuranceCard.setExpirationDate(new java.sql.Date(expiryUtilDate.getTime()));
-                        CustomerCreateRemove.createPolicyHolder(entityManager, id, insuranceCard, fullNameField.getText(), addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText(), policyOwner);
+                        CustomerCreateRemove.createPolicyHolder(submitButton, user, entityManager, id, insuranceCard, fullNameField.getText(), addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText(), policyOwner);
 
                     } catch (NumberFormatException exception){
                         errorContainer.setText("Length of contract must be in numerical format");

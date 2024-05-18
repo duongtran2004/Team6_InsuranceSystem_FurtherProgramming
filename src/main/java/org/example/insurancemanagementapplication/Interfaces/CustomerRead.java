@@ -4,6 +4,11 @@ import Entity.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.Query;
+import javafx.scene.Node;
+import javafx.stage.Stage;
+import org.example.insurancemanagementapplication.Controller.LogInPageController;
+import org.example.insurancemanagementapplication.Controller.Page404Controller;
+import org.example.insurancemanagementapplication.Utility.StageBuilder;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -17,140 +22,202 @@ import java.util.Set;
  * @project InsuranceManagementTeamProject
  */
 public interface CustomerRead {
-    public static List<PolicyOwner> getAllPolicyOwner(EntityManager entityManager) {
-        return entityManager.createQuery(
-                "SELECT o FROM PolicyOwner o").getResultList();
+    public static List<PolicyOwner> getAllPolicyOwner(Node node, User user, EntityManager entityManager) {
+        try{
+            return entityManager.createQuery(
+                    "SELECT o FROM PolicyOwner o").getResultList();
+        }  catch (Exception e){
+            Page404Controller page404Controller = new Page404Controller(user, entityManager);
+            StageBuilder.showStage((Stage) node.getScene().getWindow(), page404Controller, "Page404.fxml", "An Error has occurred");
+            return null;
+        }
+
 
     }
 
-    public static List<PolicyHolder> getAllPolicyHolder(EntityManager entityManager) {
-        return entityManager.createQuery(
-                "SELECT e FROM PolicyHolder e WHERE e.type LIKE ?1").setParameter(1, "PH").getResultList();
+    public static List<PolicyHolder> getAllPolicyHolder(Node node, User user, EntityManager entityManager) {
+        try {
+            return entityManager.createQuery(
+                    "SELECT e FROM PolicyHolder e WHERE e.type LIKE ?1").setParameter(1, "PH").getResultList();
+        }catch (Exception e){
+            Page404Controller page404Controller = new Page404Controller(user, entityManager);
+            StageBuilder.showStage((Stage) node.getScene().getWindow(), page404Controller, "Page404.fxml", "An Error has occurred");
+            return null;
+        }
+
 
     }
 
-    public static List<Dependant> getAllDependant(EntityManager entityManager) {
-        return entityManager.createQuery(
-                "SELECT d FROM Beneficiaries d WHERE d.type LIKE ?1").setParameter(1, "DE").getResultList();
+    public static List<Dependant> getAllDependant(Node node, User user, EntityManager entityManager) {
+        try{
+            return entityManager.createQuery(
+                    "SELECT d FROM Beneficiaries d WHERE d.type LIKE ?1").setParameter(1, "DE").getResultList();
+        } catch (Exception e){
+            Page404Controller page404Controller = new Page404Controller(user, entityManager);
+            StageBuilder.showStage((Stage) node.getScene().getWindow(), page404Controller, "Page404.fxml", "An Error has occurred");
+            return null;
+        }
+
 
     } //unit testing for this method
 
 
-    public static List<Dependant> getAllDependantsOfAPolicyHolder(EntityManager entityManager, String policyHolderID) {
-        return entityManager.createQuery(
-                        "SELECT d FROM Beneficiaries d WHERE d.type LIKE ?1 AND d.policyHolderId = ?2 AND d.type = 'DE'")
-                .setParameter(1, "DE")
-                .setParameter(2, policyHolderID)
-                .getResultList();
+    public static List<Dependant> getAllDependantsOfAPolicyHolder(Node node, User user, EntityManager entityManager, String policyHolderID) {
+        try{
+            return entityManager.createQuery(
+                            "SELECT d FROM Beneficiaries d WHERE d.type LIKE ?1 AND d.policyHolderId = ?2 AND d.type = 'DE'")
+                    .setParameter(1, "DE")
+                    .setParameter(2, policyHolderID)
+                    .getResultList();
+        } catch (Exception e){
+            Page404Controller page404Controller = new Page404Controller(user, entityManager);
+            StageBuilder.showStage((Stage) node.getScene().getWindow(), page404Controller, "Page404.fxml", "An Error has occurred");
+            return null;
+        }
+
     }
 
-    public static List<PolicyHolder> getAllPolicyHoldersOfAPolicyOwner(EntityManager entityManager, String policyOwnerID) {
-        return entityManager.createQuery(
-                        "SELECT d FROM Beneficiaries d WHERE d.type LIKE ?1 AND d.policyOwnerId = ?2 AND d.type = 'PH'")
-                .setParameter(1, "DE")
-                .setParameter(2, policyOwnerID)
-                .getResultList();
+    public static List<PolicyHolder> getAllPolicyHoldersOfAPolicyOwner(Node node, User user, EntityManager entityManager, String policyOwnerID) {
+        try {
+            return entityManager.createQuery(
+                            "SELECT d FROM Beneficiaries d WHERE d.type LIKE ?1 AND d.policyOwnerId = ?2 AND d.type = 'PH'")
+                    .setParameter(1, "DE")
+                    .setParameter(2, policyOwnerID)
+                    .getResultList();
+        } catch (Exception e){
+            Page404Controller page404Controller = new Page404Controller(user, entityManager);
+            StageBuilder.showStage((Stage) node.getScene().getWindow(), page404Controller, "Page404.fxml", "An Error has occurred");
+            return null;
+        }
+
     }
 
 
-    public static List<Dependant> getAllDependantsOfAPolicyOwner(EntityManager entityManager, String policyOwnerID) {
-        return entityManager.createQuery(
-                        "SELECT d FROM Beneficiaries d WHERE d.type LIKE ?1 AND d.policyOwnerId = ?2")
-                .setParameter(1, "DE")
-                .setParameter(2, policyOwnerID)
-                .getResultList();
+    public static List<Dependant> getAllDependantsOfAPolicyOwner(Node node, User user, EntityManager entityManager, String policyOwnerID) {
+        try{
+            return entityManager.createQuery(
+                            "SELECT d FROM Beneficiaries d WHERE d.type LIKE ?1 AND d.policyOwnerId = ?2")
+                    .setParameter(1, "DE")
+                    .setParameter(2, policyOwnerID)
+                    .getResultList();
+        } catch (Exception e){
+            Page404Controller page404Controller = new Page404Controller(user, entityManager);
+            StageBuilder.showStage((Stage) node.getScene().getWindow(), page404Controller, "Page404.fxml", "An Error has occurred");
+            return null;
+        }
+
     }
 
-    public static List<Beneficiaries> getAllBeneficiariesOfAPolicyOwner(EntityManager entityManager, String policyOwnerID) {
-        return entityManager.createQuery(
-                        "SELECT d FROM Beneficiaries d WHERE d.policyOwnerId = ?1")
-                .setParameter(1, policyOwnerID)
-                .getResultList();
+    public static List<Beneficiaries> getAllBeneficiariesOfAPolicyOwner(Node node, User user, EntityManager entityManager, String policyOwnerID) {
+        try{
+            return entityManager.createQuery(
+                            "SELECT d FROM Beneficiaries d WHERE d.policyOwnerId = ?1")
+                    .setParameter(1, policyOwnerID)
+                    .getResultList();
+        } catch (Exception e){
+            Page404Controller page404Controller = new Page404Controller(user, entityManager);
+            StageBuilder.showStage((Stage) node.getScene().getWindow(), page404Controller, "Page404.fxml", "An Error has occurred");
+            return null;
+        }
+
     }
 
 
-    public static List<Dependant> getAllDependantsTakeChargeByAnEmployee(EntityManager entityManager, String employeeID, String role) {
-        List<Dependant> dependants = new ArrayList<>();
-        Set<String> processedIds = new HashSet<>();
+    public static List<Dependant> getAllDependantsTakeChargeByAnEmployee(Node node, User user, EntityManager entityManager, String employeeID, String role) {
+        try{
+            List<Dependant> dependants = new ArrayList<>();
+            Set<String> processedIds = new HashSet<>();
+            String queryString;
+            if (role.equals("InsuranceSurveyor")) {
+                // Query for insurance surveyors
+                queryString = "SELECT c FROM Claim c WHERE c.insuranceSurveyorId = :employeeId";
+            } else if (role.equals("InsuranceManager")) {
+                // Query for insurance managers
+                queryString = "SELECT c FROM Claim c WHERE c.insuranceManagerId = :employeeId";
+            } else {
+                // Invalid role
+                return dependants;
+            }
 
-        String queryString;
-        if (role.equals("InsuranceSurveyor")) {
-            // Query for insurance surveyors
-            queryString = "SELECT c FROM Claim c WHERE c.insuranceSurveyorId = :employeeId";
-        } else if (role.equals("InsuranceManager")) {
-            // Query for insurance managers
-            queryString = "SELECT c FROM Claim c WHERE c.insuranceManagerId = :employeeId";
-        } else {
-            // Invalid role
+            // Create a query
+            Query query = entityManager.createQuery(queryString);
+            query.setParameter("employeeId", employeeID);
+
+            // Execute the query to get the claims
+            List<Claim> claims = query.getResultList();
+
+            // Iterate through each claim to retrieve the dependant objects
+            for (Claim claim : claims) {
+                // Check if the insured person ID of the claim starts with "DE"
+                if (claim.getInsuredPersonId().startsWith("DE")) {
+                    // Retrieve the beneficiary object (insured person)
+                    Beneficiaries beneficiary = claim.getInsuredPerson();
+                    if (beneficiary instanceof Dependant) {
+                        Dependant dependant = (Dependant) beneficiary;
+                        // Check if the ID has already been processed
+                        if (!processedIds.contains(dependant.getId())) {
+                            dependants.add(dependant);
+                            processedIds.add(dependant.getId());
+                        }
+                    }
+                }
+            }
             return dependants;
+        } catch (Exception e){
+            Page404Controller page404Controller = new Page404Controller(user, entityManager);
+            StageBuilder.showStage((Stage) node.getScene().getWindow(), page404Controller, "Page404.fxml", "An Error has occurred");
+            return null;
         }
 
-        // Create a query
-        Query query = entityManager.createQuery(queryString);
-        query.setParameter("employeeId", employeeID);
-
-        // Execute the query to get the claims
-        List<Claim> claims = query.getResultList();
-
-        // Iterate through each claim to retrieve the dependant objects
-        for (Claim claim : claims) {
-            // Check if the insured person ID of the claim starts with "DE"
-            if (claim.getInsuredPersonId().startsWith("DE")) {
-                // Retrieve the beneficiary object (insured person)
-                Beneficiaries beneficiary = claim.getInsuredPerson();
-                if (beneficiary instanceof Dependant) {
-                    Dependant dependant = (Dependant) beneficiary;
-                    // Check if the ID has already been processed
-                    if (!processedIds.contains(dependant.getId())) {
-                        dependants.add(dependant);
-                        processedIds.add(dependant.getId());
-                    }
-                }
-            }
-        }
-        return dependants;
     }
 
 
-    public static List<PolicyHolder> getAllPolicyHoldersTakeChargeByAnEmployee(EntityManager entityManager, String employeeID, String role) {
-        List<PolicyHolder> policyHolders = new ArrayList<>();
-        Set<String> processedIds = new HashSet<>();
+    public static List<PolicyHolder> getAllPolicyHoldersTakeChargeByAnEmployee(Node node, User user, EntityManager entityManager, String employeeID, String role) {
+        try{
+            List<PolicyHolder> policyHolders = new ArrayList<>();
+            Set<String> processedIds = new HashSet<>();
 
-        String queryString;
-        if (role.equals("InsuranceSurveyor")) {
-            // Query for insurance surveyors
-            queryString = "SELECT c FROM Claim c WHERE c.insuranceSurveyorId = :employeeId";
-        } else if (role.equals("InsuranceManager")) {
-            // Query for insurance managers
-            queryString = "SELECT c FROM Claim c WHERE c.insuranceManagerId = :employeeId";
-        } else {//invalid role
-            return policyHolders;
-        }
+            String queryString;
+            if (role.equals("InsuranceSurveyor")) {
+                // Query for insurance surveyors
+                queryString = "SELECT c FROM Claim c WHERE c.insuranceSurveyorId = :employeeId";
+            } else if (role.equals("InsuranceManager")) {
+                // Query for insurance managers
+                queryString = "SELECT c FROM Claim c WHERE c.insuranceManagerId = :employeeId";
+            } else {//invalid role
+                return policyHolders;
+            }
 
-        // Create a query
-        Query query = entityManager.createQuery(queryString);
-        query.setParameter("employeeId", employeeID);
+            // Create a query
+            Query query = entityManager.createQuery(queryString);
+            query.setParameter("employeeId", employeeID);
 
-        // Execute the query to get the claims
-        List<Claim> claims = query.getResultList();
+            // Execute the query to get the claims
+            List<Claim> claims = query.getResultList();
 
-        // Iterate through each claim to retrieve the dependant objects
-        for (Claim claim : claims) {
-            // Check if the insured person ID of the claim starts with "DE"
-            if (claim.getInsuredPersonId().startsWith("PH")) {
-                // Retrieve the beneficiary object (insured person)
-                Beneficiaries beneficiary = claim.getInsuredPerson();
-                if (beneficiary instanceof PolicyHolder) {
-                    PolicyHolder policyHolder = (PolicyHolder) beneficiary;
-                    // Check if the ID has already been processed
-                    if (!processedIds.contains(policyHolder.getId())) {
-                        policyHolders.add(policyHolder);
-                        processedIds.add(policyHolder.getId());
+            // Iterate through each claim to retrieve the dependant objects
+            for (Claim claim : claims) {
+                // Check if the insured person ID of the claim starts with "DE"
+                if (claim.getInsuredPersonId().startsWith("PH")) {
+                    // Retrieve the beneficiary object (insured person)
+                    Beneficiaries beneficiary = claim.getInsuredPerson();
+                    if (beneficiary instanceof PolicyHolder) {
+                        PolicyHolder policyHolder = (PolicyHolder) beneficiary;
+                        // Check if the ID has already been processed
+                        if (!processedIds.contains(policyHolder.getId())) {
+                            policyHolders.add(policyHolder);
+                            processedIds.add(policyHolder.getId());
+                        }
                     }
                 }
             }
+            return policyHolders;
+        } catch (Exception e){
+            Page404Controller page404Controller = new Page404Controller(user, entityManager);
+            StageBuilder.showStage((Stage) node.getScene().getWindow(), page404Controller, "Page404.fxml", "An Error has occurred");
+            return null;
         }
-        return policyHolders;
+
     }
     // I
 
@@ -159,42 +226,49 @@ public interface CustomerRead {
 
 //get all policy holder take charge by an employee
 
-    public static List<PolicyOwner> getAllPolicyOwnersTakeChargeByAnEmployee(EntityManager entityManager, String employeeID, String role) {
-        List<PolicyOwner> policyHolders = new ArrayList<>();
-        Set<String> processedIds = new HashSet<>();
+    public static List<PolicyOwner> getAllPolicyOwnersTakeChargeByAnEmployee(Node node, User user, EntityManager entityManager, String employeeID, String role) {
+        try{
+            List<PolicyOwner> policyHolders = new ArrayList<>();
+            Set<String> processedIds = new HashSet<>();
 
-        String queryString;
-        if (role.equals("InsuranceSurveyor")) {
-            // Query for insurance surveyors
-            queryString = "SELECT c FROM Claim c WHERE c.insuranceSurveyorId = :employeeId";
-        } else if (role.equals("InsuranceManager")) {
-            // Query for insurance managers
-            queryString = "SELECT c FROM Claim c WHERE c.insuranceManagerId = :employeeId";
-        } else {//invalid role
-            return policyHolders;
-        }
-
-        // Create a query
-        Query query = entityManager.createQuery(queryString);
-        query.setParameter("employeeId", employeeID);
-
-        // Execute the query to get the claims
-        List<Claim> claims = query.getResultList();
-
-        // Iterate through each claim to retrieve the dependant objects
-        for (Claim claim : claims) {
-            // Check if the insured person ID of the claim starts with "DE"
-            // Retrieve the policy owner object
-            PolicyOwner policyOwner = claim.getPolicyOwner();
-            // Check if the ID has already been processed
-            if (!processedIds.contains(policyOwner.getId())) {
-                policyHolders.add(policyOwner);
-                processedIds.add(policyOwner.getId());
+            String queryString;
+            if (role.equals("InsuranceSurveyor")) {
+                // Query for insurance surveyors
+                queryString = "SELECT c FROM Claim c WHERE c.insuranceSurveyorId = :employeeId";
+            } else if (role.equals("InsuranceManager")) {
+                // Query for insurance managers
+                queryString = "SELECT c FROM Claim c WHERE c.insuranceManagerId = :employeeId";
+            } else {//invalid role
+                return policyHolders;
             }
 
+            // Create a query
+            Query query = entityManager.createQuery(queryString);
+            query.setParameter("employeeId", employeeID);
 
+            // Execute the query to get the claims
+            List<Claim> claims = query.getResultList();
+
+            // Iterate through each claim to retrieve the dependant objects
+            for (Claim claim : claims) {
+                // Check if the insured person ID of the claim starts with "DE"
+                // Retrieve the policy owner object
+                PolicyOwner policyOwner = claim.getPolicyOwner();
+                // Check if the ID has already been processed
+                if (!processedIds.contains(policyOwner.getId())) {
+                    policyHolders.add(policyOwner);
+                    processedIds.add(policyOwner.getId());
+                }
+
+
+            }
+            return policyHolders;
+        } catch (Exception e){
+            Page404Controller page404Controller = new Page404Controller(user, entityManager);
+            StageBuilder.showStage((Stage) node.getScene().getWindow(), page404Controller, "Page404.fxml", "An Error has occurred");
+            return null;
         }
-        return policyHolders;
+
     }
 
 
@@ -217,56 +291,74 @@ public interface CustomerRead {
     //  }
     //write new methods for logins for each type of customer, as the old one does not work. remember to call them in login page controller
 
-    public static SystemAdmin getSystemAdminWithCredential(EntityManager entityManager, String id, String email, String password) {
-        SystemAdmin employee = (SystemAdmin) entityManager.createQuery("SELECT c FROM SystemAdmin c WHERE c.id LIKE ?1 AND c.password LIKE ?2 AND c.email LIKE ?3").setParameter(1, id).setParameter(2, password).setParameter(3, email).getSingleResult();
-        return employee;
-    }
-
-    public static Dependant getDependentWithLoginCredentials(EntityManager entityManager, String email, String password, String id) {
-        Query query = entityManager.createQuery("SELECT c FROM Beneficiaries c WHERE c.id LIKE ?1 AND c.password LIKE ?2 AND c.email LIKE ?3 AND c.type = 'DE'");
-        query.setParameter(1, id);
-        query.setParameter(2, password);
-        query.setParameter(3, email);
-
-        Object result = query.getSingleResult();
-        //System.out.println("Type of object returned by getSingleResult(): " + result.getClass().getName());
-
-        // Attempt casting
-        Dependant dependant = (Dependant) result;
-        // System.out.println("Dependant: " + dependant.toString());
-        return dependant;
-
-    }
 
 
-    public static PolicyOwner getPolicyOwnerWithLoginCredentials(EntityManager entityManager, String email, String password, String id) {
-        Query query = entityManager.createQuery("SELECT c FROM PolicyOwner c WHERE c.id LIKE ?1 AND c.password LIKE ?2 AND c.email LIKE ?3 ");
-        query.setParameter(1, id);
-        query.setParameter(2, password);
-        query.setParameter(3, email);
+    public static Dependant getDependentWithLoginCredentials(Node node, EntityManager entityManager, String email, String password, String id) {
+        try{
+            Query query = entityManager.createQuery("SELECT c FROM Beneficiaries c WHERE c.id LIKE ?1 AND c.password LIKE ?2 AND c.email LIKE ?3 AND c.type = 'DE'");
+            query.setParameter(1, id);
+            query.setParameter(2, password);
+            query.setParameter(3, email);
 
-        Object result = query.getSingleResult();
-        //System.out.println("Type of object returned by getSingleResult(): " + result.getClass().getName());
+            Object result = query.getSingleResult();
+            //System.out.println("Type of object returned by getSingleResult(): " + result.getClass().getName());
 
-        // Attempt casting
-        PolicyOwner policyOwner = (PolicyOwner) result;
-        return policyOwner;
+            // Attempt casting
+            Dependant dependant = (Dependant) result;
+            // System.out.println("Dependant: " + dependant.toString());
+            return dependant;
+        } catch (Exception e){
+            LogInPageController logInPageController = new LogInPageController(entityManager);
+            StageBuilder.showStage((Stage) node.getScene().getWindow(), logInPageController, "LogInPage.fxml", "Log in Page");
+            return null;
+        }
+
 
     }
 
-    public static PolicyHolder getPolicyHolderWithLoginCredentials(EntityManager entityManager, String email, String password, String id) {
-        Query query = entityManager.createQuery("SELECT c FROM Beneficiaries c WHERE c.id LIKE ?1 AND c.password LIKE ?2 AND c.email LIKE ?3 AND c.type = 'PH'");
-        query.setParameter(1, id);
-        query.setParameter(2, password);
-        query.setParameter(3, email);
 
-        Object result = query.getSingleResult();
-        //System.out.println("Type of object returned by getSingleResult(): " + result.getClass().getName());
+    public static PolicyOwner getPolicyOwnerWithLoginCredentials(Node node, EntityManager entityManager, String email, String password, String id) {
+        try{
+            Query query = entityManager.createQuery("SELECT c FROM PolicyOwner c WHERE c.id LIKE ?1 AND c.password LIKE ?2 AND c.email LIKE ?3 ");
+            query.setParameter(1, id);
+            query.setParameter(2, password);
+            query.setParameter(3, email);
 
-        // Attempt casting
-        PolicyHolder policyHolder = (PolicyHolder) result;
-        System.out.println("PolicyHolder: " + policyHolder.toString());
-        return policyHolder;
+            Object result = query.getSingleResult();
+            //System.out.println("Type of object returned by getSingleResult(): " + result.getClass().getName());
+
+            // Attempt casting
+            PolicyOwner policyOwner = (PolicyOwner) result;
+            return policyOwner;
+        } catch (Exception e){
+            LogInPageController logInPageController = new LogInPageController(entityManager);
+            StageBuilder.showStage((Stage) node.getScene().getWindow(), logInPageController, "LogInPage.fxml", "Log in Page");
+            return null;
+        }
+
+
+    }
+
+    public static PolicyHolder getPolicyHolderWithLoginCredentials(Node node, EntityManager entityManager, String email, String password, String id) {
+        try {
+            Query query = entityManager.createQuery("SELECT c FROM Beneficiaries c WHERE c.id LIKE ?1 AND c.password LIKE ?2 AND c.email LIKE ?3 AND c.type = 'PH'");
+            query.setParameter(1, id);
+            query.setParameter(2, password);
+            query.setParameter(3, email);
+
+            Object result = query.getSingleResult();
+            //System.out.println("Type of object returned by getSingleResult(): " + result.getClass().getName());
+
+            // Attempt casting
+            PolicyHolder policyHolder = (PolicyHolder) result;
+            System.out.println("PolicyHolder: " + policyHolder.toString());
+            return policyHolder;
+        } catch (Exception e){
+            LogInPageController logInPageController = new LogInPageController(entityManager);
+            StageBuilder.showStage((Stage) node.getScene().getWindow(), logInPageController, "LogInPage.fxml", "Log in Page");
+            return null;
+        }
+
 
     }
 
@@ -323,17 +415,7 @@ public interface CustomerRead {
 
     //ranking user
 
-    public static List<Customer> getAllCustomers(EntityManager entityManager) {
-        List<Dependant> dependants = CustomerRead.getAllDependant(entityManager);
-        List<PolicyHolder> policyHolders = CustomerRead.getAllPolicyHolder(entityManager);
-        List<PolicyOwner> policyOwners = CustomerRead.getAllPolicyOwner(entityManager);
-        List<Customer> allCustomers = new ArrayList<>();
-        allCustomers.addAll(dependants);
-        allCustomers.addAll(policyHolders);
-        allCustomers.addAll(policyOwners);
-        return allCustomers;
 
-    }
     //rank each type of customer by successful claim Amount (remember to add the claim amount column)
 
 //    public static Map<String, Integer> rankAllCustomerBySuccessfulClaimAmount(EntityManager entityManager) {

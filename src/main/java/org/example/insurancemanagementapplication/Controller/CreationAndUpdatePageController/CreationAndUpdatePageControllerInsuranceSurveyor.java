@@ -53,6 +53,10 @@ public CreationAndUpdatePageControllerInsuranceSurveyor(EntityManager entityMana
         super(entityManager, user);
         this.manager = manager;
     }
+    public CreationAndUpdatePageControllerInsuranceSurveyor(EntityManager entityManager, User user, User selectedUser){
+        super(entityManager, user, selectedUser);
+
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -87,16 +91,16 @@ public CreationAndUpdatePageControllerInsuranceSurveyor(EntityManager entityMana
                 String message = InputValidator.validatingUser(emailField.getText(), passwordField.getText(), phoneNumberField.getText(), addressField.getText(), passwordValidationField.getText());
                 if (message.equals("Success")){
                     if (managerReassign){
-                        InsuranceManager insuranceManager = EmployeeRead.findInsuranceManagerById(entityManager, managerIdField.getText());
+                        InsuranceManager insuranceManager = EmployeeRead.findInsuranceManagerById(submitButton, user, entityManager, managerIdField.getText());
                         if (insuranceManager == null){
                             errorContainer.setText("Incorrect Manager ID");
                         }
                         else {
-                            EmployeeUpdate.updateInsuranceSurveyor(entityManager, insuranceSurveyor, addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText(), insuranceManager);
+                            EmployeeUpdate.updateInsuranceSurveyor(submitButton, user, entityManager, insuranceSurveyor, addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText(), insuranceManager);
                         }
                     }
                     else {
-                        EmployeeUpdate.updateInsuranceSurveyor(entityManager, insuranceSurveyor, addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText());
+                        EmployeeUpdate.updateInsuranceSurveyor(submitButton, user, entityManager, insuranceSurveyor, addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText());
                     }
                 }
                 else {
@@ -112,7 +116,7 @@ public CreationAndUpdatePageControllerInsuranceSurveyor(EntityManager entityMana
                 String message = InputValidator.validatingUser("Insurance Manager", entityManager, fullNameField.getText(), emailField.getText(), passwordField.getText(), phoneNumberField.getText(), addressField.getText(), passwordValidationField.getText());
                 if (message.equals("Success")){
                     String id = IDGenerator.generateId("IS");
-                    EmployeeCreateRemove.createInsuranceSurveyor(entityManager, id, fullNameField.getText(), addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText(), manager );
+                    EmployeeCreateRemove.createInsuranceSurveyor(submitButton, user, entityManager, id, fullNameField.getText(), addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText(), manager );
                 }
             });
         }

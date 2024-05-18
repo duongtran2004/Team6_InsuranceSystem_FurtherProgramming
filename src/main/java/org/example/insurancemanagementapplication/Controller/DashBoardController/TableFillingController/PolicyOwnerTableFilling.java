@@ -177,10 +177,10 @@ public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
             //reassign object from database
             policyOwner = entityManager.find(PolicyOwner.class, policyOwner.getId());
             //call interface method to get all claims of a policy owner
-            List<Claim> policyOwnerClaimList = ClaimRead.getAllClaimsFromBeneficiariesOfAPolicyOwner(entityManager, policyOwner.getId());
+            List<Claim> policyOwnerClaimList = ClaimRead.getAllClaimsFromBeneficiariesOfAPolicyOwner(policyOwnerTable, user, entityManager, policyOwner.getId());
 
             PolicyOwner finalPolicyOwner = policyOwner;
-            policyOwner.setTotalSuccessfulClaimAmount(ClaimRead.getTotalSuccessfulClaimAmountMadeByAPolicyOwner(policyOwnerClaimList));
+            policyOwner.setTotalSuccessfulClaimAmount(ClaimRead.getTotalSuccessfulClaimAmountMadeByAPolicyOwner(policyOwnerTable, user, entityManager, policyOwnerClaimList));
             Button buttonUpdateInfo = new Button("Update Info");
             Button buttonAddPolicy = new Button("Add Policy");
             Button buttonRemove = new Button("Remove");
@@ -210,7 +210,7 @@ public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
                 //The remove button will remove its policy owner button from the database
                 policyOwner.setRemoveButton(buttonRemove);
                 buttonRemove.setOnAction(event -> {
-                    CustomerCreateRemove.removePolicyOwner(entityManager, finalPolicyOwner);
+                    CustomerCreateRemove.removePolicyOwner(buttonRemove, user, entityManager, finalPolicyOwner);
                     returnToDashBoard(user, entityManager, buttonRemove);
                 });
                 policyOwner.setAddPolicyButton(buttonAddPolicy);
@@ -218,7 +218,7 @@ public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
                 // Calculate the total yearly rate for the policy owner
 
                 //get beneficiaries list of policy owner from the database
-                List<Beneficiaries> beneficiariesList = CustomerRead.getAllBeneficiariesOfAPolicyOwner(entityManager, policyOwner.getId());
+                List<Beneficiaries> beneficiariesList = CustomerRead.getAllBeneficiariesOfAPolicyOwner(claimAmountFrom, user, entityManager, policyOwner.getId());
                 int yearlyRate = YearlyRateCalculation.calculateYearlyRateOfAPolicyOwner(beneficiariesList);
                 yearlyRateSumOfAllPolicyOwnersValue = yearlyRateSumOfAllPolicyOwnersValue + yearlyRate;
                 policyOwner.setTotalYearlyRate(yearlyRate);

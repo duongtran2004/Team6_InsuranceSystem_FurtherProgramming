@@ -1,11 +1,12 @@
 package org.example.insurancemanagementapplication.Interfaces;
 
-import Entity.Dependant;
-import Entity.InsuranceCard;
-import Entity.PolicyHolder;
-import Entity.PolicyOwner;
+import Entity.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import javafx.scene.Node;
+import javafx.stage.Stage;
+import org.example.insurancemanagementapplication.Controller.Page404Controller;
+import org.example.insurancemanagementapplication.Utility.StageBuilder;
 
 /**
  * @author Luong Thanh Trung
@@ -14,7 +15,7 @@ import jakarta.persistence.EntityTransaction;
  * @project InsuranceManagementTeamProject
  */
 public interface CustomerCreateRemove {
-    public static boolean createPolicyOwner(EntityManager entityManager, String id, String fullName, String address, String phoneNumber, String email, String password){
+    public static boolean createPolicyOwner(Node node, User user, EntityManager entityManager, String id, String fullName, String address, String phoneNumber, String email, String password){
         EntityTransaction transaction = entityManager.getTransaction();
         try{
             transaction.begin();
@@ -27,8 +28,10 @@ public interface CustomerCreateRemove {
             policyOwner.setId(id);
             entityManager.persist(policyOwner);
             transaction.commit();
-
-
+        } catch (Exception e){
+            Page404Controller page404Controller = new Page404Controller(user, entityManager);
+            StageBuilder.showStage((Stage) node.getScene().getWindow(), page404Controller, "Page404.fxml", "An Error has occurred");
+            return false;
         }
         finally {
             if (transaction.isActive()){
@@ -37,7 +40,7 @@ public interface CustomerCreateRemove {
         }
         return true;
     }
-    public static boolean createPolicyHolder(EntityManager entityManager, String id, InsuranceCard insuranceCard, String fullName, String address, String phoneNumber, String email, String password, PolicyOwner policyOwner){
+    public static boolean createPolicyHolder(Node node, User user, EntityManager entityManager, String id, InsuranceCard insuranceCard, String fullName, String address, String phoneNumber, String email, String password, PolicyOwner policyOwner){
         EntityTransaction transaction = entityManager.getTransaction();
         try{
             transaction.begin();
@@ -55,6 +58,10 @@ public interface CustomerCreateRemove {
             entityManager.persist(policyHolder);
             entityManager.persist(insuranceCard);
             transaction.commit();
+        } catch (Exception e){
+            Page404Controller page404Controller = new Page404Controller(user, entityManager);
+            StageBuilder.showStage((Stage) node.getScene().getWindow(), page404Controller, "Page404.fxml", "An Error has occurred");
+            return false;
         }
         finally {
             if (transaction.isActive()){
@@ -64,7 +71,7 @@ public interface CustomerCreateRemove {
         return true;
     }
 
-    public static boolean createDependant(EntityManager entityManager, String id, String fullName, String address, String phoneNumber, String email, String password, PolicyHolder policyHolder){
+    public static boolean createDependant(Node node, User user, EntityManager entityManager, String id, String fullName, String address, String phoneNumber, String email, String password, PolicyHolder policyHolder){
         EntityTransaction transaction = entityManager.getTransaction();
         try{
             transaction.begin();
@@ -81,6 +88,10 @@ public interface CustomerCreateRemove {
             dependant.setInsuranceCard(policyHolder.getInsuranceCard());
             entityManager.persist(dependant);
             transaction.commit();
+        } catch (Exception e){
+            Page404Controller page404Controller = new Page404Controller(user, entityManager);
+            StageBuilder.showStage((Stage) node.getScene().getWindow(), page404Controller, "Page404.fxml", "An Error has occurred");
+            return false;
         }
         finally {
             if (transaction.isActive()){
@@ -90,26 +101,36 @@ public interface CustomerCreateRemove {
         return true;
     }
 
-    public static boolean removePolicyOwner(EntityManager entityManager, PolicyOwner policyOwner){
+    public static boolean removePolicyOwner(Node node, User user, EntityManager entityManager, PolicyOwner policyOwner){
         EntityTransaction transaction = entityManager.getTransaction();
         try{
             transaction.begin();
             entityManager.remove(policyOwner);
             transaction.commit();
-        } finally {
+        } catch (Exception e){
+            Page404Controller page404Controller = new Page404Controller(user, entityManager);
+            StageBuilder.showStage((Stage) node.getScene().getWindow(), page404Controller, "Page404.fxml", "An Error has occurred");
+            return false;
+        }
+        finally {
             if (transaction.isActive()){
                 transaction.rollback();
             }
         }
         return true;
     }
-    public static boolean removePolicyHolder(EntityManager entityManager, PolicyHolder policyHolder){
+    public static boolean removePolicyHolder(Node node, User user, EntityManager entityManager, PolicyHolder policyHolder){
         EntityTransaction transaction = entityManager.getTransaction();
         try{
             transaction.begin();
             entityManager.remove(policyHolder);
             transaction.commit();
-        } finally {
+        } catch (Exception e){
+            Page404Controller page404Controller = new Page404Controller(user, entityManager);
+            StageBuilder.showStage((Stage) node.getScene().getWindow(), page404Controller, "Page404.fxml", "An Error has occurred");
+            return false;
+        }
+        finally {
             if (transaction.isActive()){
                 transaction.rollback();
             }
@@ -117,13 +138,18 @@ public interface CustomerCreateRemove {
         return true;
     }
 
-    public static boolean removeDependant(EntityManager entityManager, Dependant dependant){
+    public static boolean removeDependant(Node node, User user, EntityManager entityManager, Dependant dependant){
         EntityTransaction transaction = entityManager.getTransaction();
         try{
             transaction.begin();
             entityManager.remove(dependant);
             transaction.commit();
-        } finally {
+        } catch (Exception e){
+            Page404Controller page404Controller = new Page404Controller(user, entityManager);
+            StageBuilder.showStage((Stage) node.getScene().getWindow(), page404Controller, "Page404.fxml", "An Error has occurred");
+            return false;
+        }
+        finally {
             if (transaction.isActive()){
                 transaction.rollback();
             }

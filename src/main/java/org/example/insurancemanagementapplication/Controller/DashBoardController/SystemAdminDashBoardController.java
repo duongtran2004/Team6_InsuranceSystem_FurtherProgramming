@@ -114,7 +114,7 @@ public class SystemAdminDashBoardController extends InsuranceManagerTableFilling
         updateInfoButton.setOnAction(event -> {
             String message = InputValidator.validatingUser(emailField.getText(), passwordField.getText(), phoneNumberField.getText(), addressField.getText(), passwordValidationField.getText());
             if (message.equals("Success")) {
-                EmployeeUpdate.updateSystemAdmin(entityManager, (SystemAdmin) user, addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText());
+                EmployeeUpdate.updateSystemAdmin(updateInfoButton, user, entityManager, (SystemAdmin) user, addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText());
             } else {
                 errorContainer.setText(message);
             }
@@ -144,7 +144,7 @@ public class SystemAdminDashBoardController extends InsuranceManagerTableFilling
 //using thread
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
         EntityManager entityManagerClaim = entityManagerFactory.createEntityManager();
-        ClaimTableFillingThread claimTableFillingThread = new ClaimTableFillingThread(ClaimRead.getAllClaims(entityManagerClaim), this);
+        ClaimTableFillingThread claimTableFillingThread = new ClaimTableFillingThread(ClaimRead.getAllClaims(logOutButton, user, entityManagerClaim), this);
         claimTableFillingThread.start();
         entityManagerClaim.close();
 
@@ -153,37 +153,37 @@ public class SystemAdminDashBoardController extends InsuranceManagerTableFilling
 
 
         EntityManager entityManagerDependant = entityManagerFactory.createEntityManager();
-        DependantTableFillingThread dependantTableFillingThread = new DependantTableFillingThread(CustomerRead.getAllDependant(entityManagerDependant), this);
+        DependantTableFillingThread dependantTableFillingThread = new DependantTableFillingThread(CustomerRead.getAllDependant(updateInfoButton, user, entityManagerDependant), this);
 
         dependantTableFillingThread.start();
         entityManagerDependant.close();
 
         EntityManager entityManagerManager = entityManagerFactory.createEntityManager();
-        InsuranceManagerTableFillingThread insuranceManagerTableFillingThread = new InsuranceManagerTableFillingThread(EmployeeRead.getAllInsuranceManager(entityManagerManager), this);
+        InsuranceManagerTableFillingThread insuranceManagerTableFillingThread = new InsuranceManagerTableFillingThread(EmployeeRead.getAllInsuranceManager(updateInfoButton, user, entityManagerManager), this);
 
         insuranceManagerTableFillingThread.start();
         entityManagerManager.close();
 
         EntityManager entityManagerSurveyor = entityManagerFactory.createEntityManager();
-        InsuranceSurveyorTableFillingThread insuranceSurveyorTableFillingThread = new InsuranceSurveyorTableFillingThread(EmployeeRead.getAllInsuranceSurveyor(entityManagerSurveyor), this);
+        InsuranceSurveyorTableFillingThread insuranceSurveyorTableFillingThread = new InsuranceSurveyorTableFillingThread(EmployeeRead.getAllInsuranceSurveyor(updateInfoButton, user,entityManagerSurveyor), this);
 
         insuranceSurveyorTableFillingThread.start();
         entityManagerSurveyor.close();
 
         EntityManager entityManagerHolder = entityManagerFactory.createEntityManager();
-        PolicyHolderTableFillingThread policyHolderTableFillingThread = new PolicyHolderTableFillingThread(CustomerRead.getAllPolicyHolder(entityManagerHolder), this);
+        PolicyHolderTableFillingThread policyHolderTableFillingThread = new PolicyHolderTableFillingThread(CustomerRead.getAllPolicyHolder(updateInfoButton, user, entityManagerHolder), this);
 
         policyHolderTableFillingThread.start();
         entityManagerHolder.close();
 
         EntityManager entityManagerOwner = entityManagerFactory.createEntityManager();
-        PolicyOwnerTableFillingThread policyOwnerTableFillingThread = new PolicyOwnerTableFillingThread(CustomerRead.getAllPolicyOwner(entityManagerOwner), this);
+        PolicyOwnerTableFillingThread policyOwnerTableFillingThread = new PolicyOwnerTableFillingThread(CustomerRead.getAllPolicyOwner(updateInfoButton, user, entityManagerOwner), this);
         policyOwnerTableFillingThread.start();
         entityManagerOwner.close();
 
 
         EntityManager entityManagerCard = entityManagerFactory.createEntityManager();
-        InsuranceCardTableFillingThread insuranceCardTableFillingThread = new InsuranceCardTableFillingThread(InsuranceCardRead.getAllInsuranceCard(entityManagerCard), this);
+        InsuranceCardTableFillingThread insuranceCardTableFillingThread = new InsuranceCardTableFillingThread(InsuranceCardRead.getAllInsuranceCard(updateInfoButton, user, entityManagerCard), this);
         insuranceCardTableFillingThread.start();
         entityManagerCard.close();
 
