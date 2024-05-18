@@ -1,0 +1,272 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (mmap) failed to map 398458880 bytes. Error detail: G1 virtual space
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   This process is running with CompressedOops enabled, and the Java Heap may be blocking the growth of the native heap
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+#   JVM is running with Zero Based Compressed Oops mode in which the Java heap is
+#     placed in the first 32GB address space. The Java Heap base address is the
+#     maximum limit for the native heap growth. Please use -XX:HeapBaseMinAddress
+#     to set the Java Heap base and to place the Java Heap above 32GB virtual address.
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (os_windows.cpp:3631), pid=3716, tid=30368
+#
+# JRE version:  (22.0.1+8) (build )
+# Java VM: Java HotSpot(TM) 64-Bit Server VM (22.0.1+8-16, mixed mode, sharing, tiered, compressed oops, compressed class ptrs, g1 gc, windows-amd64)
+# No core dump will be written. Minidumps are not enabled by default on client versions of Windows
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: --module-path=C:\Users\PC\.m2\repository\org\openjfx\javafx-base\22-ea+11\javafx-base-22-ea+11-win.jar;C:\Users\PC\.m2\repository\org\openjfx\javafx-base\22-ea+11\javafx-base-22-ea+11.jar;C:\Users\PC\.m2\repository\org\openjfx\javafx-controls\22-ea+11\javafx-controls-22-ea+11-win.jar;C:\Users\PC\.m2\repository\org\openjfx\javafx-controls\22-ea+11\javafx-controls-22-ea+11.jar;C:\Users\PC\.m2\repository\org\openjfx\javafx-fxml\22-ea+11\javafx-fxml-22-ea+11-win.jar;C:\Users\PC\.m2\repository\org\openjfx\javafx-fxml\22-ea+11\javafx-fxml-22-ea+11.jar;C:\Users\PC\.m2\repository\org\openjfx\javafx-graphics\22-ea+11\javafx-graphics-22-ea+11-win.jar;C:\Users\PC\.m2\repository\org\openjfx\javafx-graphics\22-ea+11\javafx-graphics-22-ea+11.jar --add-modules=javafx.base,javafx.controls,javafx.fxml,javafx.graphics org.example.insurancemanagementapplication.MainEntryPoint
+
+Host: 12th Gen Intel(R) Core(TM) i7-12700H, 20 cores, 23G,  Windows 11 , 64 bit Build 22621 (10.0.22621.3374)
+Time: Thu May 16 17:01:17 2024 SE Asia Standard Time elapsed time: 0.010842 seconds (0d 0h 0m 0s)
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x000001fd1a6c8290):  JavaThread "Unknown thread" [_thread_in_vm, id=30368, stack(0x0000003d25700000,0x0000003d25800000) (1024K)]
+
+Stack: [0x0000003d25700000,0x0000003d25800000]
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [jvm.dll+0x6e2279]  (no source info available)
+V  [jvm.dll+0x874e33]  (no source info available)
+V  [jvm.dll+0x87725e]  (no source info available)
+V  [jvm.dll+0x877933]  (no source info available)
+V  [jvm.dll+0x27fd76]  (no source info available)
+V  [jvm.dll+0x6de915]  (no source info available)
+V  [jvm.dll+0x6d341a]  (no source info available)
+V  [jvm.dll+0x3589da]  (no source info available)
+V  [jvm.dll+0x360f06]  (no source info available)
+V  [jvm.dll+0x3b3e2e]  (no source info available)
+V  [jvm.dll+0x3b40d8]  (no source info available)
+V  [jvm.dll+0x32c59c]  (no source info available)
+V  [jvm.dll+0x32d158]  (no source info available)
+V  [jvm.dll+0x83ccdc]  (no source info available)
+V  [jvm.dll+0x3c0d71]  (no source info available)
+V  [jvm.dll+0x825ccc]  (no source info available)
+V  [jvm.dll+0x45b8fe]  (no source info available)
+V  [jvm.dll+0x45d781]  (no source info available)
+C  [jli.dll+0x52a3]  (no source info available)
+C  [ucrtbase.dll+0x29333]  (no source info available)
+C  [KERNEL32.DLL+0x1257d]  (no source info available)
+C  [ntdll.dll+0x5aa48]  (no source info available)
+
+
+---------------  P R O C E S S  ---------------
+
+Threads class SMR info:
+_java_thread_list=0x00007fff897bb1c8, length=0, elements={
+}
+
+Java Threads: ( => current thread )
+Total: 0
+
+Other Threads:
+  0x000001fd39b309f0 WorkerThread "GC Thread#0"                     [id=12884, stack(0x0000003d25800000,0x0000003d25900000) (1024K)]
+  0x000001fd1a7237f0 ConcurrentGCThread "G1 Main Marker"            [id=14012, stack(0x0000003d25900000,0x0000003d25a00000) (1024K)]
+  0x000001fd1a724ad0 WorkerThread "G1 Conc#0"                       [id=27108, stack(0x0000003d25a00000,0x0000003d25b00000) (1024K)]
+
+[error occurred during error reporting (printing all threads), id 0xc0000005, EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x00007fff88f0f367]
+VM state: not at safepoint (not fully initialized)
+
+VM Mutex/Monitor currently owned by a thread:  ([mutex/lock_event])
+[0x00007fff8983bcb8] Heap_lock - owner thread: 0x000001fd1a6c8290
+
+Heap address: 0x0000000684800000, size: 6072 MB, Compressed Oops mode: Zero based, Oop shift amount: 3
+
+CDS archive(s) mapped at: [0x0000000000000000-0x0000000000000000-0x0000000000000000), size 0, SharedBaseAddress: 0x0000000800000000, ArchiveRelocationMode: 1.
+Narrow klass base: 0x0000000000000000, Narrow klass shift: 0, Narrow klass range: 0x0
+
+GC Precious Log:
+ CardTable entry size: 512
+ Card Set container configuration: InlinePtr #cards 4 size 8 Array Of Cards #cards 32 size 80 Howl #buckets 8 coarsen threshold 7372 Howl Bitmap #cards 1024 size 144 coarsen threshold 921 Card regions per heap region 1 cards per card region 8192
+
+Heap:
+ garbage-first heap   total reserved 6217728K, committed 0K, used 0K [0x0000000684800000, 0x0000000800000000)
+  region size 4096K, 0 young (0K), 0 survivors (0K)
+
+[error occurred during error reporting (printing heap information), id 0xc0000005, EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x00007fff8930e429]
+GC Heap History (0 events):
+No events
+
+Dll operation events (1 events):
+Event: 0.007 Loaded shared library C:\Program Files\Java\jdk-22\bin\java.dll
+
+Deoptimization events (0 events):
+No events
+
+Classes loaded (0 events):
+No events
+
+Classes unloaded (0 events):
+No events
+
+Classes redefined (0 events):
+No events
+
+Internal exceptions (0 events):
+No events
+
+ZGC Phase Switch (0 events):
+No events
+
+VM Operations (0 events):
+No events
+
+Events (0 events):
+No events
+
+
+Dynamic libraries:
+0x00007ff78f340000 - 0x00007ff78f350000 	C:\Program Files\Java\jdk-22\bin\java.exe
+0x00007ff82a570000 - 0x00007ff82a786000 	C:\WINDOWS\SYSTEM32\ntdll.dll
+0x00007ff8295e0000 - 0x00007ff8296a4000 	C:\WINDOWS\System32\KERNEL32.DLL
+0x00007ff827e20000 - 0x00007ff8281c7000 	C:\WINDOWS\System32\KERNELBASE.dll
+0x00007ff827910000 - 0x00007ff827a21000 	C:\WINDOWS\System32\ucrtbase.dll
+0x00007fffe1c40000 - 0x00007fffe1c57000 	C:\Program Files\Java\jdk-22\bin\jli.dll
+0x00007fffe1f60000 - 0x00007fffe1f7b000 	C:\Program Files\Java\jdk-22\bin\VCRUNTIME140.dll
+0x00007ff8293f0000 - 0x00007ff8294a2000 	C:\WINDOWS\System32\ADVAPI32.dll
+0x00007ff8283e0000 - 0x00007ff828487000 	C:\WINDOWS\System32\msvcrt.dll
+0x00007ff8296b0000 - 0x00007ff829758000 	C:\WINDOWS\System32\sechost.dll
+0x00007ff827a30000 - 0x00007ff827a58000 	C:\WINDOWS\System32\bcrypt.dll
+0x00007ff8294c0000 - 0x00007ff8295d5000 	C:\WINDOWS\System32\RPCRT4.dll
+0x00007ff829830000 - 0x00007ff8299de000 	C:\WINDOWS\System32\USER32.dll
+0x00007ff8278e0000 - 0x00007ff827906000 	C:\WINDOWS\System32\win32u.dll
+0x00007ff828620000 - 0x00007ff828649000 	C:\WINDOWS\System32\GDI32.dll
+0x00007ff806b20000 - 0x00007ff806db3000 	C:\WINDOWS\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.22621.3235_none_270f74e173860f98\COMCTL32.dll
+0x00007ff827bd0000 - 0x00007ff827ce9000 	C:\WINDOWS\System32\gdi32full.dll
+0x00007ff8281d0000 - 0x00007ff82826a000 	C:\WINDOWS\System32\msvcp_win.dll
+0x00007ff81b400000 - 0x00007ff81b40a000 	C:\WINDOWS\SYSTEM32\VERSION.dll
+0x00007ff828650000 - 0x00007ff828681000 	C:\WINDOWS\System32\IMM32.DLL
+0x00007fffe71e0000 - 0x00007fffe71ec000 	C:\Program Files\Java\jdk-22\bin\vcruntime140_1.dll
+0x00007fffd3bd0000 - 0x00007fffd3c5e000 	C:\Program Files\Java\jdk-22\bin\msvcp140.dll
+0x00007fff88bd0000 - 0x00007fff89917000 	C:\Program Files\Java\jdk-22\bin\server\jvm.dll
+0x00007ff82a480000 - 0x00007ff82a4f1000 	C:\WINDOWS\System32\WS2_32.dll
+0x00007ff8266c0000 - 0x00007ff82670d000 	C:\WINDOWS\SYSTEM32\POWRPROF.dll
+0x00007ff81cff0000 - 0x00007ff81d024000 	C:\WINDOWS\SYSTEM32\WINMM.dll
+0x00007ff8266a0000 - 0x00007ff8266b3000 	C:\WINDOWS\SYSTEM32\UMPDC.dll
+0x00007ff826950000 - 0x00007ff826968000 	C:\WINDOWS\SYSTEM32\kernel.appcore.dll
+0x00007fffe6d00000 - 0x00007fffe6d0a000 	C:\Program Files\Java\jdk-22\bin\jimage.dll
+0x00007ff8250c0000 - 0x00007ff8252f3000 	C:\WINDOWS\SYSTEM32\DBGHELP.DLL
+0x00007ff82a0f0000 - 0x00007ff82a478000 	C:\WINDOWS\System32\combase.dll
+0x00007ff828a00000 - 0x00007ff828ad7000 	C:\WINDOWS\System32\OLEAUT32.dll
+0x00007ff813d10000 - 0x00007ff813d42000 	C:\WINDOWS\SYSTEM32\dbgcore.DLL
+0x00007ff827860000 - 0x00007ff8278d9000 	C:\WINDOWS\System32\bcryptPrimitives.dll
+0x00007fffe1ad0000 - 0x00007fffe1aee000 	C:\Program Files\Java\jdk-22\bin\java.dll
+0x00007ff828ae0000 - 0x00007ff82933c000 	C:\WINDOWS\System32\SHELL32.dll
+0x00007ff828690000 - 0x00007ff828835000 	C:\WINDOWS\System32\ole32.dll
+
+dbghelp: loaded successfully - version: 4.0.5 - missing functions: none
+symbol engine: initialized successfully - sym options: 0x614 - pdb path: .;C:\Program Files\Java\jdk-22\bin;C:\WINDOWS\SYSTEM32;C:\WINDOWS\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.22621.3235_none_270f74e173860f98;C:\Program Files\Java\jdk-22\bin\server
+
+VM Arguments:
+jvm_args: --module-path=C:\Users\PC\.m2\repository\org\openjfx\javafx-base\22-ea+11\javafx-base-22-ea+11-win.jar;C:\Users\PC\.m2\repository\org\openjfx\javafx-base\22-ea+11\javafx-base-22-ea+11.jar;C:\Users\PC\.m2\repository\org\openjfx\javafx-controls\22-ea+11\javafx-controls-22-ea+11-win.jar;C:\Users\PC\.m2\repository\org\openjfx\javafx-controls\22-ea+11\javafx-controls-22-ea+11.jar;C:\Users\PC\.m2\repository\org\openjfx\javafx-fxml\22-ea+11\javafx-fxml-22-ea+11-win.jar;C:\Users\PC\.m2\repository\org\openjfx\javafx-fxml\22-ea+11\javafx-fxml-22-ea+11.jar;C:\Users\PC\.m2\repository\org\openjfx\javafx-graphics\22-ea+11\javafx-graphics-22-ea+11-win.jar;C:\Users\PC\.m2\repository\org\openjfx\javafx-graphics\22-ea+11\javafx-graphics-22-ea+11.jar --add-modules=javafx.base,javafx.controls,javafx.fxml,javafx.graphics 
+java_command: org.example.insurancemanagementapplication.MainEntryPoint
+java_class_path (initial): C:\Users\PC\IdeaProjects\Team6\target\classes;C:\Users\PC\.m2\repository\co\touchlab\kermit-core-jvm\2.0.3\kermit-core-jvm-2.0.3.jar;C:\Users\PC\.m2\repository\co\touchlab\kermit-jvm\2.0.3\kermit-jvm-2.0.3.jar;C:\Users\PC\.m2\repository\com\beust\jcommander\1.82\jcommander-1.82.jar;C:\Users\PC\.m2\repository\com\fasterxml\classmate\1.5.1\classmate-1.5.1.jar;C:\Users\PC\.m2\repository\com\russhwolf\multiplatform-settings-coroutines-jvm\1.1.1\multiplatform-settings-coroutines-jvm-1.1.1.jar;C:\Users\PC\.m2\repository\com\russhwolf\multiplatform-settings-jvm\1.1.1\multiplatform-settings-jvm-1.1.1.jar;C:\Users\PC\.m2\repository\com\russhwolf\multiplatform-settings-no-arg-jvm\1.1.1\multiplatform-settings-no-arg-jvm-1.1.1.jar;C:\Users\PC\.m2\repository\com\soywiz\korlibs\krypto\krypto-jvm\4.0.10\krypto-jvm-4.0.10.jar;C:\Users\PC\.m2\repository\com\sun\activation\jakarta.activation\2.0.1\jakarta.activation-2.0.1.jar;C:\Users\PC\.m2\repository\com\sun\istack\istack-commons-runtime\4.0.1\istack-commons-runtime-4.0.1.jar;C:\Users\PC\.m2\repository\com\typesafe\config\1.4.3\config-1.4.3.jar;C:\Users\PC\.m2\repository\io\github\jan-tennert\supabase\gotrue-kt-jvm\2.3.1\gotrue-kt-jvm-2.3.1.jar;C:\Users\PC\.m2\repository\io\github\jan-tennert\supabase\supabase-kt-jvm\2.3.1\supabase-kt-jvm-2.3.1.jar;C:\Users\PC\.m2\repository\io\ktor\ktor-client-content-negotiation-jvm\2.3.10\ktor-client-content-negotiation-jvm-2.3.10.jar;C:\Users\PC\.m2\repository\io\ktor\ktor-client-core-jvm\2.3.10\ktor-client-core-jvm-2.3.10.jar;C:\Users\PC\.m2\repository\io\ktor\ktor-events-jvm\2.3.10\ktor-events-jvm-2.3.10.jar;C:\Users\PC\.m2\repository\io\ktor\ktor-http-cio-jvm\2.3.10\ktor-http-cio-jvm-2.3.10.jar;C:\Users\PC\.m2\repository\io\ktor\ktor-http-jvm\2.3.10\ktor-http-jvm-2.3.10.jar;C:\Users\PC\.m2\repository\io\ktor\ktor-io-jvm\2.3.10\ktor-io-jvm-2.3.10.jar;C:\Users\PC\.m2\repository\io\ktor\ktor-network-jvm\2.3.10\ktor-network-jvm-2.3.10.jar;C:\Users\PC\.m2\repository\io\ktor\ktor-serialization-jvm\2.3.10\ktor-serialization-jvm-2.3.10.jar;C:\Users\PC\.m2\repository\io\ktor\ktor-serialization-kotlinx-json-jvm\2.3.10\ktor-serialization-kotlinx-json-jvm-2.3.10.jar;C:\Users\PC\.m2\repository\io\ktor\ktor-serialization-kotlinx-jvm\2.3.10\ktor-serialization-kotlinx-jvm-2.3.10.jar;C:\Users\PC\.m2\repository\io\ktor\ktor-server-cio-jvm\2.3.10\ktor-server-cio-jvm-2.3.10.jar;C:\Users\PC\.m2\repository\io\ktor\ktor-server-core-jvm\2.3.10\ktor-server-core-jvm-2.3.10.jar;C:\Users\PC\.m2\repository\io\ktor\ktor-server-host-common-jvm\2.3.10\ktor-server-host-common-jvm-2.3.10.jar;C:\Users\PC\.m2\repository\io\ktor\ktor-utils-jvm\2.3.10\ktor-utils-jvm-2.3.10.jar;C:\Users\PC\.m2\repository\io\ktor\ktor-websocket-serialization-jvm\2.3.10\ktor-websocket-serialization-jvm-2.3.10.jar;C:\Users\PC\.m2\repository\io\ktor\ktor-websockets-jvm\2.3.10\ktor-websockets-jvm-2.3.10.jar;C:\Users\PC\.m2\repository\jakarta\inject\jakarta.inject-api\2.0.0\jakarta.inject-api-2.0.0.jar;C:\Users\PC\.m2\repository\jakarta\persistence\jakarta.persistence-api\3.0.0\jakarta.persistence-api-3.0.0.jar;C:\Users\PC\.m2\repository\jakarta\transaction\jakarta.transaction-api\2.0.0\jakarta.transaction-api-2.0.0.jar;C:\Users\PC\.m2\repository\jakarta\xml\bind\jakarta.xml.bind-api\3.0.1\jakarta.xml.bind-api-3.0.1.jar;C:\Users\PC\.m2\repository\net\bytebuddy\byte-buddy\1.12.9\byte-buddy-1.12.9.jar;C:\Users\PC\.m2\repository\org\antlr\antlr4-runtime\4.10\antlr4-runtime-4.10.jar;C:\Users\PC\.m2\repository\org\checkerframework\checker-qual\3.42.0\checker-qual-3.42.0.jar;C:\Users\PC\.m2\repository\org\fusesource\jansi\jansi\2.4.1\jansi-2.4.1.jar;C:\Users\PC\.m2\repository\org\glassfish\jaxb\jaxb-core\3.0.2\jaxb-core-3.0.2.jar;C:\Users\PC\.m2\repository\org\glassfish\jaxb\jaxb-runtime\3.0.2\jaxb-runtime-3.0.2.jar;C:\Users\PC\.m2\repository\org\glassfish\jaxb\txw2\3.0.2\txw2-3.0.2.jar;C:\Users\PC\.m2\repository\org\hibernate\common\hibernate-commons-annotations\6.0.1.Final\hibernate-commons-annotations-6.0.1.Final.jar;C:\Users\PC\.m2\repository\org\hibernate\orm\hibernate-core\6.0.2.Final\hibernate-core-6.0.2.Final.jar;C:\Users\PC\.m2\repository\org\jboss\jandex\2.4.2.Final\jandex-2.4.2.Final.jar;C:\Users\PC\.m2\repository\org\jboss\logging\jboss-logging\3.4.3.Final\jboss-logging-3.4.3.Final.jar;C:\Users\PC\.m2\repository\org\jetbrains\annotations\13.0\annotations-13.0.jar;C:\Users\PC\.m2\repository\org\jetbrains\kotlin\kotlin-reflect\1.8.22\kotlin-reflect-1.8.22.jar;C:\Users\PC\.m2\repository\org\jetbrains\kotlin\kotlin-stdlib\2.0.0-RC1\kotlin-stdlib-2.0.0-RC1.jar;C:\Users\PC\.m2\repository\org\jetbrains\kotlin\kotlin-stdlib-common\1.8.22\kotlin-stdlib-common-1.8.22.jar;C:\Users\PC\.m2\repository\org\jetbrains\kotlin\kotlin-stdlib-jdk7\1.8.22\kotlin-stdlib-jdk7-1.8.22.jar;C:\Users\PC\.m2\repository\org\jetbrains\kotlin\kotlin-stdlib-jdk8\1.8.22\kotlin-stdlib-jdk8-1.8.22.jar;C:\Users\PC\.m2\repository\org\jetbrains\kotlinx\atomicfu-jvm\0.23.2\atomicfu-jvm-0.23.2.jar;C:\Users\PC\.m2\repository\org\jetbrains\kotlinx\kotlinx-coroutines-core-jvm\1.8.0\kotlinx-coroutines-core-jvm-1.8.0.jar;C:\Users\PC\.m2\repository\org\jetbrains\kotlinx\kotlinx-coroutines-jdk8\1.7.1\kotlinx-coroutines-jdk8-1.7.1.jar;C:\Users\PC\.m2\repository\org\jetbrains\kotlinx\kotlinx-coroutines-slf4j\1.7.1\kotlinx-coroutines-slf4j-1.7.1.jar;C:\Users\PC\.m2\repository\org\jetbrains\kotlinx\kotlinx-datetime-jvm\0.5.0\kotlinx-datetime-jvm-0.5.0.jar;C:\Users\PC\.m2\repository\org\jetbrains\kotlinx\kotlinx-serialization-core-jvm\1.5.1\kotlinx-serialization-core-jvm-1.5.1.jar;C:\Users\PC\.m2\repository\org\jetbrains\kotlinx\kotlinx-serialization-json-jvm\1.5.1\kotlinx-serialization-json-jvm-1.5.1.jar;C:\Users\PC\.m2\repository\org\postgresql\postgresql\42.7.3\postgresql-42.7.3.jar;C:\Users\PC\.m2\repository\org\slf4j\slf4j-api\1.7.36\slf4j-api-1.7.36.jar;C:\Users\PC\.m2\repository\org\testng\testng\7.10.2\testng-7.10.2.jar;C:\Users\PC\.m2\repository\org\webjars\jquery\3.7.1\jquery-3.7.1.jar
+Launcher Type: SUN_STANDARD
+
+[Global flags]
+     intx CICompilerCount                          = 12                                        {product} {ergonomic}
+     uint ConcGCThreads                            = 4                                         {product} {ergonomic}
+     uint G1ConcRefinementThreads                  = 15                                        {product} {ergonomic}
+   size_t G1HeapRegionSize                         = 4194304                                   {product} {ergonomic}
+   size_t InitialHeapSize                          = 398458880                                 {product} {ergonomic}
+   size_t MarkStackSize                            = 4194304                                   {product} {ergonomic}
+   size_t MaxHeapSize                              = 6366953472                                {product} {ergonomic}
+   size_t MinHeapDeltaBytes                        = 4194304                                   {product} {ergonomic}
+   size_t MinHeapSize                              = 8388608                                   {product} {ergonomic}
+    uintx NonNMethodCodeHeapSize                   = 7602480                                {pd product} {ergonomic}
+    uintx NonProfiledCodeHeapSize                  = 122027880                              {pd product} {ergonomic}
+    uintx ProfiledCodeHeapSize                     = 122027880                              {pd product} {ergonomic}
+    uintx ReservedCodeCacheSize                    = 251658240                              {pd product} {ergonomic}
+     bool SegmentedCodeCache                       = true                                      {product} {ergonomic}
+   size_t SoftMaxHeapSize                          = 6366953472                             {manageable} {ergonomic}
+     bool UseCompressedOops                        = true                           {product lp64_product} {ergonomic}
+     bool UseG1GC                                  = true                                      {product} {ergonomic}
+     bool UseLargePagesIndividualAllocation        = false                                  {pd product} {ergonomic}
+
+Logging:
+Log output configuration:
+ #0: stdout all=warning uptime,level,tags foldmultilines=false
+ #1: stderr all=off uptime,level,tags foldmultilines=false
+
+Environment Variables:
+PATH=C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\GitHub CLI\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\nodejs\;C:\Program Files\Git\cmd;C:\Users\PC\Downloads\apache-maven-3.9.6-bin\apache-maven-3.9.6\bin;C:\Program Files\MySQL\MySQL Shell 8.0\bin\;C:\Users\PC\AppData\Local\Microsoft\WindowsApps;C:\Users\PC\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\PC\AppData\Local\GitHubDesktop\bin;C:\Program Files\JetBrains\IntelliJ IDEA 2023.1.3\bin;C:\Users\PC\AppData\Roaming\npm;C:\Users\PC\AppData\Local\JetBrains\Toolbox\scripts;C:\Program Files\JetBrains\IntelliJ IDEA 2024.1\bin;
+USERNAME=PC
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 154 Stepping 3, GenuineIntel
+TMP=C:\Users\PC\AppData\Local\Temp
+TEMP=C:\Users\PC\AppData\Local\Temp
+
+
+
+
+Periodic native trim disabled
+
+---------------  S Y S T E M  ---------------
+
+OS:
+ Windows 11 , 64 bit Build 22621 (10.0.22621.3374)
+OS uptime: 0 days 8:34 hours
+Hyper-V role detected
+
+CPU: total 20 (initial active 20) (10 cores per cpu, 2 threads per core) family 6 model 154 stepping 3 microcode 0x41b, cx8, cmov, fxsr, ht, mmx, 3dnowpref, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, lzcnt, tsc, tscinvbit, avx, avx2, aes, erms, clmul, bmi1, bmi2, adx, sha, fma, vzeroupper, clflush, clflushopt, clwb, hv, serialize, rdtscp, rdpid, fsrm, f16c, cet_ibt, cet_ss
+Processor Information for processor 0
+  Max Mhz: 2700, Current Mhz: 2700, Mhz Limit: 2700
+Processor Information for processor 1
+  Max Mhz: 2700, Current Mhz: 2700, Mhz Limit: 2700
+Processor Information for processor 2
+  Max Mhz: 2700, Current Mhz: 2700, Mhz Limit: 2700
+Processor Information for processor 3
+  Max Mhz: 2700, Current Mhz: 2700, Mhz Limit: 2700
+Processor Information for processor 4
+  Max Mhz: 2700, Current Mhz: 2700, Mhz Limit: 2700
+Processor Information for processor 5
+  Max Mhz: 2700, Current Mhz: 2700, Mhz Limit: 2700
+Processor Information for processor 6
+  Max Mhz: 2700, Current Mhz: 2700, Mhz Limit: 2700
+Processor Information for processor 7
+  Max Mhz: 2700, Current Mhz: 2700, Mhz Limit: 2700
+Processor Information for processor 8
+  Max Mhz: 2700, Current Mhz: 2700, Mhz Limit: 2700
+Processor Information for processor 9
+  Max Mhz: 2700, Current Mhz: 2700, Mhz Limit: 2700
+Processor Information for processor 10
+  Max Mhz: 2700, Current Mhz: 2700, Mhz Limit: 2700
+Processor Information for processor 11
+  Max Mhz: 2700, Current Mhz: 2700, Mhz Limit: 2700
+Processor Information for processor 12
+  Max Mhz: 2700, Current Mhz: 1526, Mhz Limit: 1971
+Processor Information for processor 13
+  Max Mhz: 2700, Current Mhz: 1995, Mhz Limit: 1971
+Processor Information for processor 14
+  Max Mhz: 2700, Current Mhz: 1995, Mhz Limit: 1971
+Processor Information for processor 15
+  Max Mhz: 2700, Current Mhz: 1995, Mhz Limit: 1971
+Processor Information for processor 16
+  Max Mhz: 2700, Current Mhz: 1995, Mhz Limit: 1971
+Processor Information for processor 17
+  Max Mhz: 2700, Current Mhz: 1526, Mhz Limit: 1971
+Processor Information for processor 18
+  Max Mhz: 2700, Current Mhz: 1526, Mhz Limit: 1971
+Processor Information for processor 19
+  Max Mhz: 2700, Current Mhz: 1995, Mhz Limit: 1971
+
+Memory: 4k page, system-wide physical 24280M (1983M free)
+TotalPageFile size 43416M (AvailPageFile size 120M)
+current process WorkingSet (physical memory assigned to process): 12M, peak: 12M
+current process commit charge ("private bytes"): 75M, peak: 455M
+
+vm_info: Java HotSpot(TM) 64-Bit Server VM (22.0.1+8-16) for windows-amd64 JRE (22.0.1+8-16), built on 2024-03-12T10:33:16Z by "mach5one" with MS VC++ 17.6 (VS2022)
+
+END.
