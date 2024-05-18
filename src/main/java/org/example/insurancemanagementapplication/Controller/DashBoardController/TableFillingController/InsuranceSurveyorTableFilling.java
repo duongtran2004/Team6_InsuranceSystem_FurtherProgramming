@@ -153,7 +153,7 @@ public class InsuranceSurveyorTableFilling extends PolicyOwnerTableFilling {
                 //It will then open the Insurance Surveyor Creation Page
                 InsuranceSurveyor finalInsuranceSurveyor = insuranceSurveyor;
                 buttonUpdateInfo.setOnAction(event -> {
-                    CreationAndUpdatePageControllerInsuranceSurveyor creationPageControllerInsuranceSurveyor = new CreationAndUpdatePageControllerInsuranceSurveyor(entityManager, user, finalInsuranceSurveyor);
+                    CreationAndUpdatePageControllerInsuranceSurveyor creationPageControllerInsuranceSurveyor = new CreationAndUpdatePageControllerInsuranceSurveyor(entityManager, user);
                     StageBuilder.showStage((Stage) buttonUpdateInfo.getScene().getWindow(), creationPageControllerInsuranceSurveyor, "InsuranceSurveyorCreationAndUpdatePage.fxml", "Insurance Surveyor Update");
 
 

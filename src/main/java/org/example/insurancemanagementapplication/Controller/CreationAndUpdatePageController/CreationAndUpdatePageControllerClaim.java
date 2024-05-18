@@ -68,6 +68,8 @@ public class CreationAndUpdatePageControllerClaim extends CreationAndUpdatePageC
     private Label pageTittleLabel;
     @FXML
     private Button updateDocumentButton;
+    @FXML
+    private Label documentIsEmptyLabel;
 
 
     //for file upload
@@ -89,26 +91,31 @@ public class CreationAndUpdatePageControllerClaim extends CreationAndUpdatePageC
     }
 
     public void downloadDocument(String filePath) {
-        byte[] cover = claim.getDocumentFile();
+        if (claim.getDocumentFile() != null) {
+            byte[] cover = claim.getDocumentFile();
 
-        try (FileOutputStream fos
-                     = new FileOutputStream(filePath)) {
-            fos.write(cover);
-        } catch (Exception e) {
-            e.printStackTrace();
+            try (FileOutputStream fos
+                         = new FileOutputStream(filePath)) {
+                fos.write(cover);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+// if claim.getDocument = null, trigger to set text to a label
+        if (claim.getDocumentFile() != null) {
+            documentIsEmptyLabel.setVisible(false);
+        }
         updateDocumentButton.setOnAction(event -> {
             updateFile = !updateFile;
             if (updateFile) {
                 uploadDocumentButton.setDisable(false);
                 file = claim.getDocumentFile();
-            }
-            else {
+            } else {
                 uploadDocumentButton.setDisable(true);
 
             }
@@ -328,10 +335,12 @@ public class CreationAndUpdatePageControllerClaim extends CreationAndUpdatePageC
             // input validator for Claim's Field
             errorContainer.setText(InputValidator.ClaimUpdateValidator(entityManager, bankName, bankAccountName, bankAccountNumber));
             if (errorContainer.getText().equals("Success")) {
-                if (updateFile){
+                if (updateFile) {
                     ClaimUpdate.updateClaim(entityManager, claim, statusChoiceBox.getValue());
 
-                }else {ClaimUpdate.updateClaim(entityManager, claim, bankName, bankAccountName, bankAccountNumber, file);}
+                } else {
+                    ClaimUpdate.updateClaim(entityManager, claim, bankName, bankAccountName, bankAccountNumber, file);
+                }
 
             }
         });

@@ -53,6 +53,7 @@
                         <RowConstraints maxHeight="96.25" minHeight="48.125" prefHeight="48.125" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="96.25" minHeight="48.125" prefHeight="48.125" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="96.25" minHeight="48.125" prefHeight="48.125" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="96.25" minHeight="48.125" prefHeight="48.125" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="96.25" minHeight="48.125" prefHeight="48.125" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="96.25" minHeight="48.125" prefHeight="48.125" vgrow="SOMETIMES" />
 
@@ -87,26 +88,26 @@
                         <TextField fx:id="bankAccountNameField" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="1" />
                         <TextField fx:id="bankAccountNumberField" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="2" />
                         <TextField fx:id="insuranceSurveyorIDField" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="4" />
-                        <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                        <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
                             <buttons>
                                 <Button fx:id="submitButton" mnemonicParsing="false" prefHeight="30.0" style="-fx-background-color: linear-gradient(to right, rgb(62, 198, 222), rgb(17, 130, 100));" text="Submit">
                                     <font>
-                                        <Font name="Helvetica Neue Bold" size="14.0" />
+                                        <Font size="10.0" />
                                     </font>
                                 </Button>
-                                <Button fx:id="returnButton" mnemonicParsing="false" prefHeight="26.0" prefWidth="276.0" style="-fx-background-color: linear-gradient(to right, rgb(62, 198, 222), rgb(17, 130, 100));" text="Return">
+                                <Button fx:id="returnButton" minWidth="24.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="276.0" style="-fx-background-color: linear-gradient(to right, rgb(62, 198, 222), rgb(17, 130, 100));" text="Return">
                                     <font>
-                                        <Font name="Helvetica Neue Bold" size="14.0" />
+                                        <Font size="10.0" />
                                     </font>
                                 </Button>
                         <Button fx:id="viewDocumentButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="156.0" style="-fx-background-color: linear-gradient(to right, rgb(62, 198, 222), rgb(17, 130, 100));" text="View Document">
                            <font>
-                              <Font name="Helvetica Neue Bold" size="14.0" />
+                              <Font size="9.0" />
                            </font>
                         </Button>
                             </buttons>
                         </ButtonBar>
-                        <Label fx:id="errorContainer" alignment="CENTER_RIGHT" prefHeight="54.0" prefWidth="468.0" textFill="#e81111" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                        <Label fx:id="errorContainer" alignment="CENTER_RIGHT" prefHeight="54.0" prefWidth="468.0" textFill="#e81111" GridPane.columnIndex="1" GridPane.rowIndex="9" />
                         <Label alignment="CENTER" maxHeight="96.25" maxWidth="400.0" minHeight="48.125" minWidth="178.0" prefHeight="54.0" prefWidth="178.0" text="File Path" GridPane.rowIndex="6">
                             <font>
                                 <Font name="Helvetica Neue Bold" size="16.0" />
@@ -123,25 +124,30 @@
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
                      <children>
                         <Label fx:id="filePathLabel" prefHeight="18.0" prefWidth="259.0" />
-                        <Button fx:id="updateDocumentButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="159.0" style="-fx-background-color: linear-gradient(to right, rgb(62, 198, 222), rgb(17, 130, 100));" text="Update Document">
-                           <font>
-                              <Font name="Helvetica Neue Bold" size="14.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets right="10.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button fx:id="uploadDocumentButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="163.0" style="-fx-background-color: linear-gradient(to right, rgb(62, 198, 222), rgb(17, 130, 100));" text="Upload Document">
-                           <font>
-                              <Font name="Helvetica Neue Bold" size="14.0" />
-                           </font>
-                        </Button>
                      </children>
                   </HBox>
                   <Label text="Bank Name must not be empty" GridPane.columnIndex="2" />
                   <Label text="Bank Account Name must not be empty" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                   <Label prefWidth="276.0" text="Bank Account Number must be positive integer" GridPane.columnIndex="2" GridPane.rowIndex="2" />
                   <Label GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                  <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                     <children>
+                        <Button fx:id="updateDocumentButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="112.0" style="-fx-background-color: linear-gradient(to right, rgb(62, 198, 222), rgb(17, 130, 100));" text="Update Document">
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="uploadDocumentButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="124.0" style="-fx-background-color: linear-gradient(to right, rgb(62, 198, 222), rgb(17, 130, 100));" text="Upload Document">
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <Label fx:id="documentIsEmptyLabel" text="Document is empty" GridPane.columnIndex="2" GridPane.rowIndex="8" />
                     </children>
                     <GridPane.margin>
                         <Insets />

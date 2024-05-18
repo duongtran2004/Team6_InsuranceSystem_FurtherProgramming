@@ -42,7 +42,12 @@ public class CreationAndUpdatePageControllerInsuranceSurveyor extends CreationAn
     @FXML
     private Label pageTittleLabel;
 
+//update insurance surveyor as System Admin
+public CreationAndUpdatePageControllerInsuranceSurveyor(EntityManager entityManager, User user) {
+    super(entityManager, user);
+}
 
+    //update insurance surveyor as Insurance Manager
 
     public CreationAndUpdatePageControllerInsuranceSurveyor(EntityManager entityManager, User user, InsuranceManager manager) {
         super(entityManager, user);
