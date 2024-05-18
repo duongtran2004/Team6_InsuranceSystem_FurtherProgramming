@@ -291,12 +291,12 @@
                       <children>
                           <ScrollPane fitToWidth="true" maxHeight="325" maxWidth="Infinity" prefHeight="200.0" prefWidth="200.0" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
                               <content>
-                                  <TableView fx:id="policyOwnerTable" maxHeight="Infinity" maxWidth="Infinity" minHeight="325.0" minWidth="2400.0">
+                                  <TableView fx:id="policyOwnerTable" maxHeight="Infinity" maxWidth="Infinity" minHeight="325.0" minWidth="2700.0">
                                       <columns>
                                           <TableColumn fx:id="policyOwnerId" maxWidth="130.0" minWidth="130.0" prefWidth="130.0" text="Policy Owner Id" />
                                           <TableColumn fx:id="policyOwnerFullName" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" text="Full Name" />
-                                          <TableColumn fx:id="policyOwnerAddress" maxWidth="Infinity" minWidth="300.0" prefWidth="684.8000183105469" text="Address" />
-                                          <TableColumn fx:id="policyOwnerPhoneNumber" maxWidth="656.7999267578125" minWidth="130.0" prefWidth="656.7999267578125" text="Phone Number" />
+                                          <TableColumn fx:id="policyOwnerAddress" maxWidth="Infinity" minWidth="300.0" prefWidth="839.1999206542969" text="Address" />
+                                          <TableColumn fx:id="policyOwnerPhoneNumber" maxWidth="786.4000244140625" minWidth="130.0" prefWidth="786.4000244140625" text="Phone Number" />
                                           <TableColumn fx:id="policyOwnerEmail" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" text="Email" />
                                           <TableColumn fx:id="policyOwnerPassword" maxWidth="130.0" minWidth="130.0" prefWidth="130.0" text="Password" />
                                           <TableColumn fx:id="policyOwnerAddPolicyButton" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Add Policy" />
@@ -358,7 +358,7 @@
                     <children>
                         <ScrollPane fitToWidth="true" maxHeight="325" maxWidth="Infinity" prefHeight="200.0" prefWidth="200.0" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
                             <content>
-                                <TableView fx:id="policyHolderTable" maxHeight="Infinity" maxWidth="Infinity" minHeight="325.0" minWidth="2400.0">
+                                <TableView fx:id="policyHolderTable" maxHeight="Infinity" maxWidth="Infinity" minHeight="325.0" minWidth="2700.0">
                                     <columns>
                                         <TableColumn fx:id="policyHolderId" maxWidth="130.0" minWidth="130.0" prefWidth="130.0" text="Policy Holder ID" />
                                         <TableColumn fx:id="policyHolderFullName" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" text="Full Name" />
@@ -424,7 +424,7 @@
                     <children>
                         <ScrollPane fitToWidth="true" maxHeight="325" maxWidth="Infinity" prefHeight="200.0" prefWidth="200.0" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
                             <content>
-                                <TableView fx:id="dependantTable" maxHeight="Infinity" maxWidth="Infinity" minHeight="325.0" minWidth="2400.0">
+                                <TableView fx:id="dependantTable" maxHeight="Infinity" maxWidth="Infinity" minHeight="325.0" minWidth="2700.0">
                                     <columns>
                                         <TableColumn fx:id="dependantId" maxWidth="130.0" minWidth="103.99999314546585" prefWidth="110.39998704195023" text="Dependant ID" />
                                         <TableColumn fx:id="dependantFullName" maxWidth="176.800048828125" minWidth="150.0" prefWidth="160.00003051757812" text="Full Name" />

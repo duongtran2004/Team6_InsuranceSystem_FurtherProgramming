@@ -1,5 +1,6 @@
 package org.example.insurancemanagementapplication.Controller.Threads;
 
+import Entity.Dependant;
 import Entity.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -44,9 +45,12 @@ public class UserInactivityHandler extends ActionHistoryTableFilling {
     }
 
     public void startRefreshCountDown() {
-        // Check if buttonList  is properly initialized
-        if (buttonList == null || buttonList.isEmpty()) {
+        // Check if buttonList  is properly initialized (no need to initialize if user is a dependant )
+        if (
+                (buttonList == null && !(user instanceof Dependant)) || (buttonList.isEmpty()) && !(user instanceof Dependant)
+        ) {
             throw new IllegalStateException("Button list and log out callback must be initialized before starting countdown.");
+
         }
         TimerTask pauseUserToForceRefresh = new TimerTask() {
             @Override

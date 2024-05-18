@@ -41,6 +41,11 @@
                                         <Font name="Helvetica Neue Bold" size="16.0" />
                                     </font>
                                 </Button>
+                        <Button fx:id="refreshButton" layoutX="-12.0" layoutY="194.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="200.0" text="Refresh DashBoard">
+                           <font>
+                              <Font name="Helvetica Neue Bold" size="16.0" />
+                           </font>
+                        </Button>
                             </children>
                         </Pane>
                         <GridPane maxHeight="275.0" maxWidth="850.0" minHeight="275.0" minWidth="850.0" prefHeight="275.0" prefWidth="850.0" style="-fx-background-color: rgb(233, 229, 229);" HBox.hgrow="NEVER">

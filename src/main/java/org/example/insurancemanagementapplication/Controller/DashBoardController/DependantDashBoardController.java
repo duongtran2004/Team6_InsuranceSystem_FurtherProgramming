@@ -103,7 +103,7 @@ public class DependantDashBoardController extends ClaimTableFilling implements I
 
         // Start the refresh countdown timer
         userInactivityHandler.startRefreshCountDown();
-        fillingActionHistoryTable(user);
+     // no need to fill action history table for Dependant Dashboard
 
 
     }
