@@ -26,7 +26,7 @@ import java.util.ResourceBundle;
  * @project InsuranceManagementTeamProject
  */
 public class CreationAndUpdatePageControllerInsuranceSurveyor extends CreationAndUpdatePageController implements Initializable, EmployeeCreateRemove, EmployeeUpdate, Controller {
-    private InsuranceSurveyor insuranceSurveyor;
+
     private InsuranceManager manager;
     //This field will determine whether the application will update the Insurance Manager of the surveyor. True means Yes, False means No.
     private boolean managerReassign = false;
@@ -42,10 +42,7 @@ public class CreationAndUpdatePageControllerInsuranceSurveyor extends CreationAn
     @FXML
     private Label pageTittleLabel;
 
-    public CreationAndUpdatePageControllerInsuranceSurveyor(EntityManager entityManager, User user, InsuranceSurveyor insuranceSurveyor) {
-        super(entityManager, user);
-        this.insuranceSurveyor = insuranceSurveyor;
-    }
+
 
     public CreationAndUpdatePageControllerInsuranceSurveyor(EntityManager entityManager, User user, InsuranceManager manager) {
         super(entityManager, user);
@@ -62,7 +59,8 @@ public class CreationAndUpdatePageControllerInsuranceSurveyor extends CreationAn
         managerReassignButton.setDisable(true);
 
         //When the controller is in update mode
-        if (insuranceSurveyor != null){
+        if (selectedUser != null){
+            InsuranceSurveyor insuranceSurveyor = (InsuranceSurveyor) selectedUser;
             changePageTitleInUpdateMode("INSURANCE SURVEYOR UPDATE PAGE");
             managerReassignButton.setDisable(false);
             managerIdField.setText(insuranceSurveyor.getInsuranceManagerId());
