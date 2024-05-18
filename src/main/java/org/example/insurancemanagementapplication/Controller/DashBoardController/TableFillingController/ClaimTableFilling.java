@@ -160,13 +160,13 @@ public class ClaimTableFilling extends ActionHistoryTableFilling implements Clai
         emailField.setText(user.getEmail());
         passwordField.setText(user.getPassword());
         passwordValidationField.setText(user.getPassword());
-        if (!(user instanceof SystemAdmin)) {
-            addressField.setDisable(true);
-            phoneNumberField.setDisable(true);
-            emailField.setDisable(true);
-            passwordField.setDisable(true);
-            passwordValidationField.setDisable(true);
-        }
+//        if (!(user instanceof SystemAdmin)) {
+//            addressField.setDisable(true);
+//            phoneNumberField.setDisable(true);
+//            emailField.setDisable(true);
+//            passwordField.setDisable(true);
+//            passwordValidationField.setDisable(true);
+//        }
 
 
     }
@@ -216,9 +216,11 @@ public class ClaimTableFilling extends ActionHistoryTableFilling implements Clai
 
         //not allowed to reverse a sorted list
         sortList.valueProperty().addListener((observable, oldVal, newVal) -> {
-            System.out.println("New Value" + newVal);
+
             //only change the observable list if other options except "NONE
-            if (!(newVal.equals("NONE"))) {
+            if ((newVal == null) || (newVal.equals("NONE"))) {
+                sortedClaimList.setComparator(null);
+            } else {
                 if (newVal.equals("Sort By Creation Date In Ascending Order")) {
                     ClaimCreationDateComparator claimCreationDateComparator = new ClaimCreationDateComparator();
                     sortedClaimList.setComparator(claimCreationDateComparator);
@@ -238,13 +240,11 @@ public class ClaimTableFilling extends ActionHistoryTableFilling implements Clai
                     ClaimAmountComparator claimAmountComparator = new ClaimAmountComparator();
                     sortedClaimList.setComparator(claimAmountComparator.reversed());
                 }
-            } else {
-                sortedClaimList.setComparator(null);
             }
         });
     }
 
-    //This method adds handlers to changes in filtering fields that filter the claim tables when their value changes.
+
     //This method adds handlers to changes in filtering fields that filter the claim tables when their value changes.
     public void filteringClaimTable(FilteredList<Claim> filteredClaimList) {
         ObjectProperty<Predicate<Claim>> searchFieldFilter = new SimpleObjectProperty<>();
@@ -484,9 +484,9 @@ public class ClaimTableFilling extends ActionHistoryTableFilling implements Clai
     //helper method for cancelling buttons
     // Event handler for clearing the creation date filter
     protected void handleClearCreationDateButton() {
-        creationDateFrom.setValue(null);
+//        creationDateFrom.setValue(null);
         creationDateFrom.getEditor().clear();
-        creationDateTo.setValue(null);
+//        creationDateTo.setValue(null);
         creationDateTo.getEditor().clear();
 
     }
@@ -494,9 +494,9 @@ public class ClaimTableFilling extends ActionHistoryTableFilling implements Clai
     // Event handler for clearing the settlement date filter
 
     protected void handleClearSettlementDateButton() {
-        settlementDateFrom.setValue(null);
+//        settlementDateFrom.setValue(null);
         settlementDateFrom.getEditor().clear();
-        settlementDateTo.setValue(null);
+//        settlementDateTo.setValue(null);
         settlementDateTo.getEditor().clear();
     }
 
@@ -510,8 +510,6 @@ public class ClaimTableFilling extends ActionHistoryTableFilling implements Clai
     //This method maps table's columns with entity's fields and fill the table up with data.
     public void fillingClaimTable(EntityManager entityManager, User user, List<Claim> claims) {
         //reset modified value to the original value (filter out nothing)
-
-
 
 
         //Putting values into the statusList choice box
@@ -534,7 +532,7 @@ public class ClaimTableFilling extends ActionHistoryTableFilling implements Clai
             //Only non-dependant users get to perform actions on the claim table
             if (!(user instanceof Dependant)) {
                 //reassign from database object
-                claim = entityManager.find(Claim.class, claim.getClaimId() );
+                claim = entityManager.find(Claim.class, claim.getClaimId());
 
                 //Creating a button whose functionality depends on the type of user.
                 Button claimButton = new Button();
@@ -544,7 +542,7 @@ public class ClaimTableFilling extends ActionHistoryTableFilling implements Clai
                 buttonList.add(buttonRemoveClaim);
                 Claim finalClaim = claim;
                 buttonRemoveClaim.setOnAction(event -> {
-                    ClaimCreateRemove.removeClaim(entityManager,    finalClaim);
+                    ClaimCreateRemove.removeClaim(entityManager, finalClaim);
                     returnAndRefreshDashboard(buttonRemoveClaim);
                 });
                 //If the user is a system admin the button will have "View Claim" text.
@@ -570,7 +568,6 @@ public class ClaimTableFilling extends ActionHistoryTableFilling implements Clai
             }
 
             claimObservableList.add(claim);
-
 
 
         }
@@ -604,28 +601,25 @@ public class ClaimTableFilling extends ActionHistoryTableFilling implements Clai
 
 
     }
-    public void returnAndRefreshDashboard(Button button){
+
+    public void returnAndRefreshDashboard(Button button) {
         if (user instanceof SystemAdmin) {
             SystemAdminDashBoardController dashBoardControllerSystemAdmin = new SystemAdminDashBoardController(entityManager, (SystemAdmin) user);
             StageBuilder.showStage((Stage) button.getScene().getWindow(), dashBoardControllerSystemAdmin, "SystemAdminDashBoard.fxml", "Dashboard");
-        }
-        else if (user instanceof InsuranceManager) {
+        } else if (user instanceof InsuranceManager) {
             InsuranceManagerDashBoardController dashBoardControllerInsuranceManager = new InsuranceManagerDashBoardController((InsuranceManager) user, entityManager);
             StageBuilder.showStage((Stage) button.getScene().getWindow(), dashBoardControllerInsuranceManager, "InsuranceManagerDashBoard.fxml", "Dashboard");
 
-        }
-        else if (user instanceof InsuranceSurveyor) {
+        } else if (user instanceof InsuranceSurveyor) {
 
             InsuranceSurveyorDashBoardController dashBoardControllerInsuranceSurveyor = new InsuranceSurveyorDashBoardController((InsuranceSurveyor) user, entityManager);
             StageBuilder.showStage((Stage) button.getScene().getWindow(), dashBoardControllerInsuranceSurveyor, "InsuranceSurveyorDashBoard.fxml", "Dashboard");
 
-        }
-        else if (user instanceof PolicyOwner) {
+        } else if (user instanceof PolicyOwner) {
             PolicyOwnerDashBoardController dashBoardController_policyOwner = new PolicyOwnerDashBoardController((PolicyOwner) user, entityManager);
             StageBuilder.showStage((Stage) button.getScene().getWindow(), dashBoardController_policyOwner, "PolicyOwnerDashBoard.fxml", "Dashboard");
 
-        }
-        else if (user instanceof PolicyHolder) {
+        } else if (user instanceof PolicyHolder) {
             PolicyHolderDashBoardController dashBoardControllerPolicyHolder = new PolicyHolderDashBoardController((PolicyHolder) user, entityManager);
             StageBuilder.showStage((Stage) button.getScene().getWindow(), dashBoardControllerPolicyHolder, "PolicyHolderDashBoard.fxml", "Dashboard");
 

@@ -133,7 +133,7 @@ public class InsuranceSurveyorTableFilling extends PolicyOwnerTableFilling {
      */
     public void fillingInsuranceSurveyorTable(EntityManager entityManager, User user, List<InsuranceSurveyor> insuranceSurveyors) {
         if (user instanceof SystemAdmin) {
-            String[] totalResolvedClaimsSortBoxArray = {"Sort By Total Resolved Claims In Ascending Order", "Sort By Total Resolved Claims In Descending Order", "NONE" };
+            String[] totalResolvedClaimsSortBoxArray = {"Sort By Total Resolved Claims In Ascending Order", "Sort By Total Resolved Claims In Descending Order", "NONE"};
             insuranceSurveyorSortBox.getItems().setAll(totalResolvedClaimsSortBoxArray);
             insuranceSurveyorSortBox.setValue("NONE");
         }
@@ -189,7 +189,10 @@ public class InsuranceSurveyorTableFilling extends PolicyOwnerTableFilling {
         FilteredList<InsuranceSurveyor> filteredSurveyorList = new FilteredList<>(insuranceSurveyorsObservableList, b -> true);
         filteringSurveyorTable(filteredSurveyorList);
         SortedList<InsuranceSurveyor> sortedSurveyors = new SortedList<>(filteredSurveyorList);
-        sortingInsuranceSurveyorTable(sortedSurveyors);
+        if (user instanceof SystemAdmin) {
+            sortingInsuranceSurveyorTable(sortedSurveyors);
+        }
+
         surveyorTable.setItems(sortedSurveyors);
     }
 

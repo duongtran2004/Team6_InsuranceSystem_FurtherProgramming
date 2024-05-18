@@ -40,7 +40,8 @@
                 <GridPane maxHeight="870.0" maxWidth="1600.0" minHeight="435.0" minWidth="800.0" prefHeight="385.0" prefWidth="800.0" style="-fx-background-color: rgb(233, 229, 229);" GridPane.columnIndex="1" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="400.0" minWidth="152.0" prefWidth="184.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="1100.0" minWidth="0.0" prefWidth="516.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="1100.0" minWidth="0.0" prefWidth="286.79998779296875" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="1100.0" minWidth="10.0" prefWidth="261.20001220703125" />
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints maxHeight="96.25" minHeight="48.125" prefHeight="48.125" vgrow="SOMETIMES" />
@@ -111,13 +112,20 @@
                             </font>
                         </Label>
                         <PasswordField fx:id="passwordValidationField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                        <PasswordField fx:id="passwordField" alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <PasswordField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                   <TextField fx:id="managerIdField" maxWidth="614.0" prefHeight="26.0" prefWidth="407.0" GridPane.columnIndex="1" />
                           <Button fx:id="managerReassignButton" mnemonicParsing="false" prefHeight="26.0" prefWidth="276.0" style="-fx-background-color: linear-gradient(to right, rgb(62, 198, 222), rgb(17, 130, 100));" text="Re-assign Manager" GridPane.rowIndex="7">
                               <font>
                                   <Font name="Helvetica Neue Bold" size="16.0" />
                               </font>
                           </Button>
+                  <Label prefHeight="18.0" prefWidth="172.0" text="Full name must not be empty " GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <Label text="Manager ID must not be empty" GridPane.columnIndex="2" />
+                  <Label text="Addess must not be empty" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <Label text="Phone must be 10 numbers long" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                  <Label text="Email must include &quot;@&quot; and &quot;.com&quot;" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                  <Label minWidth="500.0" prefHeight="18.0" prefWidth="322.0" text="Password must have minium length of 8" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                  <Label text="Re-enter password must match with original password" GridPane.columnIndex="2" GridPane.rowIndex="6" />
                     </children>
                     <GridPane.margin>
                         <Insets />

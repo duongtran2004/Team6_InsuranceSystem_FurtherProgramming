@@ -51,7 +51,9 @@ public class CreationAndUpdatePageControllerPolicyHolder extends CreationAndUpda
         //when the controller is in creation mode
         else {
             submitButton.setOnAction(event -> {
-                String message = InputValidator.validatingUser("Policy Holder", entityManager, fullNameField.getText(), emailField.getText(), passwordField.getText(), addressField.getText(), phoneNumberField.getText(), passwordValidationField.getText());
+                //String role, EntityManager entityManager, String fullName, String
+                //            email, String password, String phoneNumber, String address, String passwordValidator)
+                String message = InputValidator.validatingUser("Policy Holder", entityManager, fullNameField.getText(), emailField.getText(), passwordField.getText(), phoneNumberField.getText(), addressField.getText(), passwordValidationField.getText());
                 if (message.equals("Success")){
                     //See the RepeatedCode class for this method.
                     //This method generates an ID.
