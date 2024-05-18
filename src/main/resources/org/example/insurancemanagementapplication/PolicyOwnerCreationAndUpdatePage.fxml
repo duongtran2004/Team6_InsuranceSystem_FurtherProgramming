@@ -41,8 +41,9 @@
                 </Label>
                 <GridPane maxHeight="770.0" maxWidth="1600.0" minHeight="385.0" minWidth="800.0" prefHeight="385.0" prefWidth="800.0" style="-fx-background-color: rgb(233, 229, 229);" GridPane.columnIndex="1" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="400.0" minWidth="200.0" prefWidth="265.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="1100.0" minWidth="0.0" prefWidth="500.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="400.0" minWidth="172.800048828125" prefWidth="175.20001220703125" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="1100.0" minWidth="0.0" prefWidth="253.40001220703124" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="1100.0" minWidth="10.0" prefWidth="271.7999877929688" />
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints maxHeight="96.25" minHeight="48.125" prefHeight="48.125" vgrow="SOMETIMES" />
@@ -108,6 +109,12 @@
                         <Label fx:id="errorContainer" alignment="CENTER_RIGHT" prefHeight="54.0" prefWidth="468.0" textFill="#e81111" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                         <PasswordField fx:id="passwordValidationField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                   <PasswordField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <Label prefHeight="18.0" prefWidth="172.0" text="Full name must not be empty " GridPane.columnIndex="2" />
+                  <Label text="Addess must not be empty" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <Label text="Phone must be 10 numbers long" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <Label text="Email must include &quot;@&quot; and &quot;.com&quot;" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                  <Label minWidth="500.0" prefHeight="18.0" prefWidth="322.0" text="Password must have minium length of 8" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                  <Label text="Re-enter password must match with original password" GridPane.columnIndex="2" GridPane.rowIndex="5" />
                     </children>
                     <GridPane.margin>
                         <Insets />

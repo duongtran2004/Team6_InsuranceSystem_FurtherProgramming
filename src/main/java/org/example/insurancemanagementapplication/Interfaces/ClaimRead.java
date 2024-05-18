@@ -87,6 +87,9 @@ public interface ClaimRead {
 
     public static int getTotalSuccessfulClaimAmountMadeByABeneficiary(Beneficiaries beneficiary) {
         int totalAmount = 0;
+        if(beneficiary.getListOfClaims() == null || beneficiary.getListOfClaims().size() == 0) {
+            return totalAmount;
+        }
         for (Claim claim : beneficiary.getListOfClaims()) {
             if (claim.getStatus().equals("APPROVED")) {
                 totalAmount = totalAmount + claim.getClaimAmount();
@@ -94,13 +97,17 @@ public interface ClaimRead {
         }
         return totalAmount;
     }
-//    policyOwner = entityManager.merge(policyOwner);
+
+    //    policyOwner = entityManager.merge(policyOwner);
 //        Hibernate.initialize(policyOwner.getListOfClaims());
-    public static int getTotalSuccessfulClaimAmountMadeByAPolicyOwner( List<Claim> policyOwnerListOfClaims ) {
+    public static int getTotalSuccessfulClaimAmountMadeByAPolicyOwner(List<Claim> policyOwnerListOfClaims) {
         // Ensure the listOfClaims is initialized within an active session
         //policyOwner = entityManager.merge(policyOwner);
         //Hibernate.initialize(policyOwner.getListOfClaims());
         int totalAmount = 0;
+        if(policyOwnerListOfClaims == null || policyOwnerListOfClaims.size() == 0) {
+            return totalAmount;
+        }
         for (Claim claim : policyOwnerListOfClaims) {
             if (claim.getStatus().equals("APPROVED")) {
                 totalAmount = totalAmount + claim.getClaimAmount();
@@ -189,6 +196,9 @@ public interface ClaimRead {
 
     public static int countTotalResolvedClaimOfAnInsuranceSurveyor(InsuranceSurveyor insuranceSurveyor) {
         int resolvedClaims = 0;
+        if (insuranceSurveyor.getListOfClaims() == null || insuranceSurveyor.getListOfClaims().size() == 0) {
+            return resolvedClaims;
+        }
         for (Claim claim : insuranceSurveyor.getListOfClaims()) {
             if (claim.getStatus().equals("APPROVED") || claim.getStatus().equals("REJECTED")) {
                 resolvedClaims++;
@@ -199,11 +209,16 @@ public interface ClaimRead {
 
     public static int countTotalResolvedClaimOfAnInsuranceManager(InsuranceManager insuranceManager) {
         int resolvedClaims = 0;
-        for (Claim claim : insuranceManager.getListOfClaims()) {
-            if (claim.getStatus().equals("APPROVED") || claim.getStatus().equals("REJECTED")) {
-                resolvedClaims++;
-            }
+        if (insuranceManager.getListOfClaims() == null || insuranceManager.getListOfClaims().size() == 0) {
+            return resolvedClaims;
         }
+            for (Claim claim : insuranceManager.getListOfClaims()) {
+                if (claim.getStatus().equals("APPROVED") || claim.getStatus().equals("REJECTED")) {
+                    resolvedClaims++;
+                }
+            }
+
+
         return resolvedClaims;
     }
 

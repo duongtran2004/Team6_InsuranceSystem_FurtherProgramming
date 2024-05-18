@@ -86,11 +86,11 @@ public class PolicyHolderTableFilling extends InsuranceCardTableFilling {
             if (!(newValue.equals("NONE"))) {
                 if (newValue.equals("Sort By Total Successful Claim Amount In Ascending Order")) {
                     System.out.println("yolo 1");
-                    TotalSuccessfulClaimAmountComparatorForPolicyHolder  totalSuccessfulClaimAmountComparator = new TotalSuccessfulClaimAmountComparatorForPolicyHolder ();
+                    TotalSuccessfulClaimAmountComparatorForPolicyHolder totalSuccessfulClaimAmountComparator = new TotalSuccessfulClaimAmountComparatorForPolicyHolder();
                     sortedPolicyHolderList.setComparator(totalSuccessfulClaimAmountComparator);
                 } else if (newValue.equals("Sort By Total Successful Claim Amount In Descending Order")) {
                     System.out.println("yolo 2");
-                    TotalSuccessfulClaimAmountComparatorForPolicyHolder  totalSuccessfulClaimAmountComparator = new TotalSuccessfulClaimAmountComparatorForPolicyHolder ();
+                    TotalSuccessfulClaimAmountComparatorForPolicyHolder totalSuccessfulClaimAmountComparator = new TotalSuccessfulClaimAmountComparatorForPolicyHolder();
                     sortedPolicyHolderList.setComparator(totalSuccessfulClaimAmountComparator.reversed());
                 }
             } else { //if choice = "NONE"
@@ -229,7 +229,9 @@ public class PolicyHolderTableFilling extends InsuranceCardTableFilling {
         FilteredList<PolicyHolder> filteredPolicyHolderList = new FilteredList<>(policyHoldersObservableList, b -> true);
         filteringPolicyHolderTable(filteredPolicyHolderList);
         SortedList<PolicyHolder> sortedPolicyHolders = new SortedList<>(filteredPolicyHolderList);
-        sortingPolicyHolderTable(sortedPolicyHolders);
+        if (user instanceof SystemAdmin) {
+            sortingPolicyHolderTable(sortedPolicyHolders);
+        }
         policyHolderTable.setItems(sortedPolicyHolders);
 
 

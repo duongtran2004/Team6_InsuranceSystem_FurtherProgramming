@@ -274,7 +274,10 @@ public class DependantTableFilling extends ClaimTableFilling {
         FilteredList<Dependant> filteredDependantList = new FilteredList<>(dependantsObservableList, b -> true);
         filteringDependantTable(filteredDependantList);
         SortedList<Dependant> sortedDependants = new SortedList<>(filteredDependantList);
-        sortingDependantTable(sortedDependants);
+        if (user instanceof  SystemAdmin){
+            sortingDependantTable(sortedDependants);
+        }
+
 
         dependantTable.setItems(sortedDependants);
 

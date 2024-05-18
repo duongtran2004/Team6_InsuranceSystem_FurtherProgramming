@@ -253,7 +253,10 @@ public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
         FilteredList<PolicyOwner> filteredPolicyOwnerList = new FilteredList<>(policyOwnersObservableList, b -> true);
         filteringPolicyOwnerTable(filteredPolicyOwnerList);
         SortedList<PolicyOwner> sortedPolicyOwners = new SortedList<>(filteredPolicyOwnerList);
-        sortingPolicyOwnerTable(sortedPolicyOwners);
+        if (user instanceof SystemAdmin) {
+            sortingPolicyOwnerTable(sortedPolicyOwners);
+        }
+
         policyOwnerTable.setItems(sortedPolicyOwners);
 
     }

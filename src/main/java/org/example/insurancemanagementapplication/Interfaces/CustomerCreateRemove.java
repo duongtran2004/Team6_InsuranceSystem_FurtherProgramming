@@ -48,6 +48,7 @@ public interface CustomerCreateRemove {
             policyHolder.setEmail(email);
             policyHolder.setPassword(password);
             policyHolder.setId(id);
+            policyHolder.setType("PH");
             insuranceCard.setCardHolder(policyHolder);
             insuranceCard.setPolicyOwner(policyOwner);
             policyHolder.setPolicyOwner(policyOwner);
@@ -74,6 +75,7 @@ public interface CustomerCreateRemove {
             dependant.setEmail(email);
             dependant.setPassword(password);
             dependant.setId(id);
+            dependant.setType("DE");
             dependant.setPolicyHolder(policyHolder);
             dependant.setPolicyOwner(policyHolder.getPolicyOwner());
             dependant.setInsuranceCard(policyHolder.getInsuranceCard());
