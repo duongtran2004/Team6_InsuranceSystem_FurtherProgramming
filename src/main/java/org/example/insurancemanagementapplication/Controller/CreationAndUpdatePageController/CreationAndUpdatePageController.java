@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import org.example.insurancemanagementapplication.Controller.RootController;
+import org.example.insurancemanagementapplication.Interfaces.ActionHistoryCreate;
 import org.example.insurancemanagementapplication.Interfaces.CustomerUpdate;
 import org.example.insurancemanagementapplication.Interfaces.EmployeeUpdate;
 import org.example.insurancemanagementapplication.Utility.InputValidator;
@@ -80,15 +81,24 @@ public abstract class CreationAndUpdatePageController extends RootController {
     public void setHandlerForSubmitButtonInUserUpdateMode() {
         submitButton.setOnAction(event -> {
             String message = InputValidator.validatingUser(emailField.getText(), passwordField.getText(), phoneNumberField.getText(), addressField.getText(), passwordValidationField.getText());
+            errorContainer.setText(message);
             if (message.equals("Success")) {
                 if (selectedUser instanceof Dependant) {
                     CustomerUpdate.updateDependant(entityManager, (Dependant) selectedUser, addressField.getText(), phoneNumberField.getText(), passwordField.getText(), passwordValidationField.getText());
+                    ActionHistory actionHistory = ActionHistoryCreate.createActionHistoryObject("UPDATE", "Dependant", selectedUser.getId());
+                    ActionHistoryCreate.writeToActionHistoryObjectToFile(user.getId(), actionHistory);
                 } else if (selectedUser instanceof PolicyHolder) {
                     CustomerUpdate.updatePolicyHolder(entityManager, (PolicyHolder) selectedUser, addressField.getText(), phoneNumberField.getText(), passwordField.getText(), passwordValidationField.getText());
+                    ActionHistory actionHistory = ActionHistoryCreate.createActionHistoryObject("UPDATE", "Policy Holder", selectedUser.getId());
+                    ActionHistoryCreate.writeToActionHistoryObjectToFile(user.getId(), actionHistory);
                 } else if (selectedUser instanceof PolicyOwner) {
                     CustomerUpdate.updatePolicyOwner(entityManager, (PolicyOwner) selectedUser, addressField.getText(), phoneNumberField.getText(), passwordField.getText(), passwordValidationField.getText());
+                    ActionHistory actionHistory = ActionHistoryCreate.createActionHistoryObject("UPDATE", "Policy Owner", selectedUser.getId());
+                    ActionHistoryCreate.writeToActionHistoryObjectToFile(user.getId(), actionHistory);
                 } else if (selectedUser instanceof InsuranceManager) {
                     EmployeeUpdate.updateInsuranceManager(entityManager, (InsuranceManager) selectedUser, addressField.getText(), phoneNumberField.getText(), passwordField.getText(), passwordValidationField.getText());
+                    ActionHistory actionHistory = ActionHistoryCreate.createActionHistoryObject("UPDATE", "Insurance Manager", selectedUser.getId());
+                    ActionHistoryCreate.writeToActionHistoryObjectToFile(user.getId(), actionHistory);
                 }
 
             } else {

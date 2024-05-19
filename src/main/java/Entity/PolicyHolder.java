@@ -22,6 +22,8 @@ public class PolicyHolder extends Beneficiaries {
     @Transient
     private Button addDependantButton;
     @Transient
+    private Button addClaimButton;
+    @Transient
     private Button removeClaimButton;
     @OneToMany(mappedBy = "policyHolder")
     private Collection<Beneficiaries> listOfDependants;

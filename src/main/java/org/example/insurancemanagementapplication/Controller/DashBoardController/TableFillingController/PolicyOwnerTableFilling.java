@@ -13,10 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController.CreationAndUpdatePageControllerPolicyHolder;
 import org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController.CreationAndUpdatePageControllerPolicyOwner;
-import org.example.insurancemanagementapplication.Interfaces.ClaimRead;
-import org.example.insurancemanagementapplication.Interfaces.CustomerCreateRemove;
-import org.example.insurancemanagementapplication.Interfaces.CustomerRead;
-import org.example.insurancemanagementapplication.Interfaces.YearlyRateCalculation;
+import org.example.insurancemanagementapplication.Interfaces.*;
 import org.example.insurancemanagementapplication.Utility.StageBuilder;
 
 import java.util.Comparator;
@@ -211,6 +208,8 @@ public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
                 policyOwner.setRemoveButton(buttonRemove);
                 buttonRemove.setOnAction(event -> {
                     CustomerCreateRemove.removePolicyOwner(entityManager, finalPolicyOwner);
+                    ActionHistory actionHistory = ActionHistoryCreate.createActionHistoryObject("DELETE", "Policy Owner", finalPolicyOwner.getId());
+                    ActionHistoryCreate.writeToActionHistoryObjectToFile(user.getId(), actionHistory);
                     returnToDashBoard(user, entityManager, buttonRemove);
                 });
                 policyOwner.setAddPolicyButton(buttonAddPolicy);

@@ -48,14 +48,8 @@ public class CreationAndUpdatePageControllerInsuranceManager extends CreationAnd
         //When the controller is in creation mode
         else {
             submitButton.setOnAction(event -> {
-                System.out.println(
-                        passwordField.getText()
-                );
-                System.out.println(
-                        passwordValidationField.getText()
-                );
                 String message = InputValidator.validatingUser("Insurance Manager", entityManager, fullNameField.getText(), emailField.getText(), passwordField.getText(), phoneNumberField.getText(), addressField.getText(), passwordValidationField.getText());
-                System.out.println(message);
+                errorContainer.setText(message);
                 if (message.equals("Success")) {
 
                     //See the RepeatedCode class for this method
@@ -64,8 +58,7 @@ public class CreationAndUpdatePageControllerInsuranceManager extends CreationAnd
                     EmployeeCreateRemove.createInsuranceManager(entityManager, id, fullNameField.getText(), addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText());
 
                     //record action history
-                    ActionHistory actionHistory =
-                            ActionHistoryCreate.createActionHistoryObject("CREATE", "Insurance Manager", id);
+                    ActionHistory actionHistory = ActionHistoryCreate.createActionHistoryObject("CREATE", "Insurance Manager", id);
                     ActionHistoryCreate.writeToActionHistoryObjectToFile(user.getId(), actionHistory);
                 }
             });

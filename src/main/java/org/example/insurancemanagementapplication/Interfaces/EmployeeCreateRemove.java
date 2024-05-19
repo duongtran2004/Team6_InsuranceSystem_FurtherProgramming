@@ -5,8 +5,6 @@ import Entity.InsuranceSurveyor;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
-import java.util.Random;
-
 /**
  * @author Luong Thanh Trung
  * @version ${}
@@ -48,10 +46,6 @@ public interface EmployeeCreateRemove {
             insuranceSurveyor.setAddress(address);
             insuranceSurveyor.setEmail(email);
             insuranceSurveyor.setPassword(password);
-            Random random = new Random();
-            for (int i = 0; i < 8; i++){
-                id = id + random.nextInt(0, 10);
-            }
             insuranceSurveyor.setId(id);
             insuranceSurveyor.setInsuranceManager(insuranceManager);
             entityManager.persist(insuranceSurveyor);

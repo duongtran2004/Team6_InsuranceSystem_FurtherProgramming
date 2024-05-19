@@ -23,6 +23,9 @@ public class PolicyOwner extends Customer {
 
     @Transient
     private Button addPolicyButton;
+
+    @Transient
+    private Button addClaimButton;
     @Transient
     private Button removeClaimButton;
     @OneToMany(mappedBy = "policyOwner")

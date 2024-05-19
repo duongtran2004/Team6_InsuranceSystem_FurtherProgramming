@@ -34,6 +34,7 @@ public class InputValidator {
     }
 
     public static boolean validatePhoneFormat(String phoneNumber) {
+        System.out.println(phoneNumber);
         // Check if the phone number consists of only digits and has a length of 10
         if (phoneNumber.length() != 10) {
             return false; // If the length is not 10, return false
@@ -181,6 +182,9 @@ public class InputValidator {
             return "Invalid password format";
         } else if (!validateNonEmptyString(phoneNumber)) {
             return "Invalid phone number, cannot be empty";
+        } else if (!validatePhoneFormat(phoneNumber)) {
+            return "Invalid phone number format";
+
         } else if (!validateNonEmptyString(address)) {
             return "Invalid address format";
         } else if (!passwordValidator(passwordValidator, password)) {

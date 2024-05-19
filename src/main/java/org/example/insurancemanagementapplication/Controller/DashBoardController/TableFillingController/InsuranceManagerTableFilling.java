@@ -1,5 +1,6 @@
 package org.example.insurancemanagementapplication.Controller.DashBoardController.TableFillingController;
 
+import Entity.ActionHistory;
 import Entity.InsuranceManager;
 import Entity.SystemAdmin;
 import Entity.User;
@@ -14,6 +15,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController.CreationAndUpdatePageControllerInsuranceManager;
 import org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController.CreationAndUpdatePageControllerInsuranceSurveyor;
+import org.example.insurancemanagementapplication.Interfaces.ActionHistoryCreate;
 import org.example.insurancemanagementapplication.Interfaces.ClaimRead;
 import org.example.insurancemanagementapplication.Interfaces.EmployeeCreateRemove;
 import org.example.insurancemanagementapplication.Utility.StageBuilder;
@@ -167,6 +169,8 @@ public class InsuranceManagerTableFilling extends InsuranceSurveyorTableFilling 
             insuranceManager.setRemoveButton(buttonRemove);
             buttonRemove.setOnAction(event -> {
                 EmployeeCreateRemove.removeInsuranceManager(entityManager, finalInsuranceManager);
+                ActionHistory actionHistory = ActionHistoryCreate.createActionHistoryObject("DELETE", "Insurance Manager", finalInsuranceManager.getId());
+                ActionHistoryCreate.writeToActionHistoryObjectToFile(user.getId(), actionHistory);
                 returnToDashBoard(user, entityManager, buttonRemove);
             });
 

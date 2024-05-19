@@ -1,5 +1,6 @@
 package org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController;
 
+import Entity.ActionHistory;
 import Entity.InsuranceManager;
 import Entity.InsuranceSurveyor;
 import Entity.User;
@@ -9,10 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import org.example.insurancemanagementapplication.Interfaces.Controller;
-import org.example.insurancemanagementapplication.Interfaces.EmployeeRead;
-import org.example.insurancemanagementapplication.Interfaces.EmployeeCreateRemove;
-import org.example.insurancemanagementapplication.Interfaces.EmployeeUpdate;
+import org.example.insurancemanagementapplication.Interfaces.*;
 import org.example.insurancemanagementapplication.Utility.IDGenerator;
 import org.example.insurancemanagementapplication.Utility.InputValidator;
 
@@ -43,9 +41,9 @@ public class CreationAndUpdatePageControllerInsuranceSurveyor extends CreationAn
     private Label pageTittleLabel;
 
 //update insurance surveyor as System Admin
-public CreationAndUpdatePageControllerInsuranceSurveyor(EntityManager entityManager, User user) {
-    super(entityManager, user);
-}
+    public CreationAndUpdatePageControllerInsuranceSurveyor(EntityManager entityManager, User user) {
+        super(entityManager, user);
+    }
 
     //update insurance surveyor as Insurance Manager
 
@@ -54,13 +52,17 @@ public CreationAndUpdatePageControllerInsuranceSurveyor(EntityManager entityMana
         this.manager = manager;
     }
 
+    public CreationAndUpdatePageControllerInsuranceSurveyor(EntityManager entityManager, User user, User selected) {
+        super(entityManager, user, selected);
+
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //See the CreationAndUpdatePageController class for this method
         setActionReturnButton();
 
         managerIdField.setDisable(true);
-
         managerReassignButton.setDisable(true);
 
         //When the controller is in update mode
@@ -85,6 +87,7 @@ public CreationAndUpdatePageControllerInsuranceSurveyor(EntityManager entityMana
 
             submitButton.setOnAction(event -> {
                 String message = InputValidator.validatingUser(emailField.getText(), passwordField.getText(), phoneNumberField.getText(), addressField.getText(), passwordValidationField.getText());
+                errorContainer.setText(message);
                 if (message.equals("Success")){
                     if (managerReassign){
                         InsuranceManager insuranceManager = EmployeeRead.findInsuranceManagerById(entityManager, managerIdField.getText());
@@ -98,6 +101,8 @@ public CreationAndUpdatePageControllerInsuranceSurveyor(EntityManager entityMana
                     else {
                         EmployeeUpdate.updateInsuranceSurveyor(entityManager, insuranceSurveyor, addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText());
                     }
+                    ActionHistory actionHistory = ActionHistoryCreate.createActionHistoryObject("UPDATE", "Insurance Surveyor", selectedUser.getId());
+                    ActionHistoryCreate.writeToActionHistoryObjectToFile(user.getId(), actionHistory);
                 }
                 else {
                     errorContainer.setText(message);
@@ -108,11 +113,15 @@ public CreationAndUpdatePageControllerInsuranceSurveyor(EntityManager entityMana
         }
         //When the controller is in creation mode
         else {
+            managerIdField.setText(manager.getId());
             submitButton.setOnAction(event -> {
                 String message = InputValidator.validatingUser("Insurance Manager", entityManager, fullNameField.getText(), emailField.getText(), passwordField.getText(), phoneNumberField.getText(), addressField.getText(), passwordValidationField.getText());
+                errorContainer.setText(message);
                 if (message.equals("Success")){
                     String id = IDGenerator.generateId("IS");
                     EmployeeCreateRemove.createInsuranceSurveyor(entityManager, id, fullNameField.getText(), addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText(), manager );
+                    ActionHistory actionHistory = ActionHistoryCreate.createActionHistoryObject("CREATE", "Insurance Surveyor", id);
+                    ActionHistoryCreate.writeToActionHistoryObjectToFile(user.getId(), actionHistory);
                 }
             });
         }

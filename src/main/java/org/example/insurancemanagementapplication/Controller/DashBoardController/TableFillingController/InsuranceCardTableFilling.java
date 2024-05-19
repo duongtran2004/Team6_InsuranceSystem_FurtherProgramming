@@ -11,6 +11,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import org.example.insurancemanagementapplication.Interfaces.ActionHistoryCreate;
 import org.example.insurancemanagementapplication.Interfaces.CustomerUpdate;
 import org.example.insurancemanagementapplication.Interfaces.InsuranceCreateAndRemove;
 import org.example.insurancemanagementapplication.Utility.IDGenerator;
@@ -120,6 +121,8 @@ public class InsuranceCardTableFilling extends DependantTableFilling {
                     newInsuranceCard.setListOfBeneficiaries(finalInsuranceCard.getListOfBeneficiaries());
                     InsuranceCreateAndRemove.createInsuranceCard(entityManager, newInsuranceCard);
                     InsuranceCreateAndRemove.removeInsuranceCard(entityManager, finalInsuranceCard);
+                    ActionHistory actionHistory = ActionHistoryCreate.createActionHistoryObject("DELETE", "Insurance Card", finalInsuranceCard.getCardNumber());
+                    ActionHistoryCreate.writeToActionHistoryObjectToFile(user.getId(), actionHistory);
                     returnToDashBoard(user, entityManager, buttonRemove);
                 });
                 insuranceCard.setRemoveButton(buttonRemove);

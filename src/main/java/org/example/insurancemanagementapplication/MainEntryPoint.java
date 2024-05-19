@@ -1,5 +1,6 @@
 package org.example.insurancemanagementapplication;
 
+import Entity.PolicyHolder;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -7,7 +8,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.example.insurancemanagementapplication.Controller.LogInPageController;
+import org.example.insurancemanagementapplication.Controller.DashBoardController.PolicyHolderDashBoardController;
 
 import java.io.IOException;
 
@@ -18,21 +19,22 @@ public class MainEntryPoint extends Application {
         //run different fxml files for testing
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
+        //System.out.println(insuranceSurveyor);
 
 
 
 //        //Load System Admin DashBoard
-//        FXMLLoader fxmlLoader = new FXMLLoader(MainEntryPoint.class.getResource("SystemAdminDashBoard.fxml"));
-//        SystemAdmin systemAdmin = entityManager.find(SystemAdmin.class, "SA90987611");
-//        SystemAdminDashBoardController dashBoardControllerSystemAdmin = new SystemAdminDashBoardController(entityManager, systemAdmin);
-//        fxmlLoader.setController(dashBoardControllerSystemAdmin);
+        FXMLLoader fxmlLoader = new FXMLLoader(MainEntryPoint.class.getResource("PolicyHolderDashBoard.fxml"));
+        PolicyHolder policyHolder = entityManager.find(PolicyHolder.class, "PH5264972101");
+        PolicyHolderDashBoardController policyHolderDashBoardController = new PolicyHolderDashBoardController(policyHolder, entityManager);
+        fxmlLoader.setController(policyHolderDashBoardController);
 
 ////
 //        //Load login page
 ////        System.out.println("Hello After Entity Manager");
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("LogInPage.fxml"));
-        LogInPageController logInPageController = new LogInPageController(entityManager);;
-        fxmlLoader.setController(logInPageController);
+        //FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("LogInPage.fxml"));
+        //LogInPageController logInPageController = new LogInPageController(entityManager);;
+        //fxmlLoader.setController(logInPageController);
 
 
 
@@ -83,7 +85,7 @@ public class MainEntryPoint extends Application {
 
         //Load scenes (for all fxml pages)
         Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Hello!");
+        stage.setTitle("Log in");
 // Set screen size
         stage.setWidth(800); // Set width to 800 pixels
         stage.setHeight(600); // Set height to 600 pixels

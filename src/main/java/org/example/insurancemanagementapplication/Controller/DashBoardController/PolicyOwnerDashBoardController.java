@@ -56,6 +56,10 @@ public class PolicyOwnerDashBoardController extends PolicyHolderTableFilling imp
 
     @FXML
     protected Button updateInfoButton;
+
+    @FXML
+    protected Button refreshButton;
+
     private LogInPageController logInPageController;
 
     protected void handleLogOutButton() throws IOException {
@@ -64,6 +68,16 @@ public class PolicyOwnerDashBoardController extends PolicyHolderTableFilling imp
         StageBuilder.showStage((Stage) logOutButton.getScene().getWindow(), new LogInPageController(entityManager), "LogInPage.fxml", "Login Page");
 
     }
+
+    public void handleRefreshButton() {
+
+        // Reload the dashboard by creating a new dashboard object
+        PolicyOwnerDashBoardController policyOwnerDashBoardController = new PolicyOwnerDashBoardController((PolicyOwner) user, entityManager);
+
+        // Show new DashBoard using stage builder
+        StageBuilder.showStage((Stage) refreshButton.getScene().getWindow(), policyOwnerDashBoardController, "PolicyOwnerDashBoard.fxml", "Policy Owner Dashboard");
+    }
+
 
     // Event handler for clearing the creation date filter
     protected void handleClearCreationDateButton() {
@@ -95,6 +109,9 @@ public class PolicyOwnerDashBoardController extends PolicyHolderTableFilling imp
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        refreshButton.setOnAction(event -> {
+            handleRefreshButton();
+        });
         updateInfoButton.setOnAction(event -> {
             String message = InputValidator.validatingUser(emailField.getText(), passwordField.getText(), phoneNumberField.getText(), addressField.getText(), passwordValidationField.getText());
             if (message.equals("Success")) {

@@ -50,6 +50,8 @@ public class InsuranceManagerDashBoardController extends InsuranceSurveyorTableF
     protected Button logOutButton;
     @FXML
     protected Button updateInfoButton;
+    @FXML
+    protected Button refreshButton;
 
     protected void handleLogOutButton() throws IOException {
 //Set the current user to null
@@ -57,6 +59,16 @@ public class InsuranceManagerDashBoardController extends InsuranceSurveyorTableF
         StageBuilder.showStage((Stage) logOutButton.getScene().getWindow(), new LogInPageController(entityManager), "LogInPage.fxml", "Login Page");
 
     }
+
+    public void handleRefreshButton() {
+
+        // Reload the dashboard by creating a new dashboard object
+        InsuranceManagerDashBoardController insuranceManagerDashBoardController = new InsuranceManagerDashBoardController((InsuranceManager) user, entityManager);
+
+        // Show new DashBoard using stage builder
+        StageBuilder.showStage((Stage) refreshButton.getScene().getWindow(), insuranceManagerDashBoardController, "InsuranceManagerDashBoard.fxml", "Insurance Manager Dashboard");
+    }
+
 
     // Event handler for clearing the creation date filter
     protected void handleClearCreationDateButton() {

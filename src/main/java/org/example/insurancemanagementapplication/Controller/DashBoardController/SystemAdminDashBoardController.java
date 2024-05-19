@@ -1,5 +1,6 @@
 package org.example.insurancemanagementapplication.Controller.DashBoardController;
 
+import Entity.ActionHistory;
 import Entity.SystemAdmin;
 import Entity.User;
 import jakarta.persistence.EntityManager;
@@ -108,15 +109,15 @@ public class SystemAdminDashBoardController extends InsuranceManagerTableFilling
         //See the ClaimTableFilling Class for this method
         //automatically fill the top form with current user info
 
-        System.out.println("User: " + user);
         userFillingData();
         //
         updateInfoButton.setOnAction(event -> {
             String message = InputValidator.validatingUser(emailField.getText(), passwordField.getText(), phoneNumberField.getText(), addressField.getText(), passwordValidationField.getText());
+            errorContainer.setText(message);
             if (message.equals("Success")) {
                 EmployeeUpdate.updateSystemAdmin(entityManager, (SystemAdmin) user, addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText());
-            } else {
-                errorContainer.setText(message);
+                ActionHistory actionHistory = ActionHistoryCreate.createActionHistoryObject("UPDATE", "System Admin", user.getId());
+                ActionHistoryCreate.writeToActionHistoryObjectToFile(user.getId(), actionHistory);
             }
 
         });
@@ -186,10 +187,8 @@ public class SystemAdminDashBoardController extends InsuranceManagerTableFilling
         InsuranceCardTableFillingThread insuranceCardTableFillingThread = new InsuranceCardTableFillingThread(InsuranceCardRead.getAllInsuranceCard(entityManagerCard), this);
         insuranceCardTableFillingThread.start();
         entityManagerCard.close();
-
         entityManagerFactory.close();
-
-
+        fillingActionHistoryTable(user);
         //add necessary buttons into the list
         buttonList.add(updateInfoButton);
         buttonList.add(addPolicyOwnerButton);

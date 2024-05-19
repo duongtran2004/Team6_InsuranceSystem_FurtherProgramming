@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 import org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController.CreationAndUpdatePageControllerClaim;
 import org.example.insurancemanagementapplication.Controller.DashBoardController.*;
 import org.example.insurancemanagementapplication.Controller.Threads.UserInactivityHandler;
+import org.example.insurancemanagementapplication.Interfaces.ActionHistoryCreate;
 import org.example.insurancemanagementapplication.Interfaces.ClaimCreateRemove;
 import org.example.insurancemanagementapplication.Utility.StageBuilder;
 
@@ -258,7 +259,6 @@ public class ClaimTableFilling extends ActionHistoryTableFilling implements Clai
 
         statusListFilter.bind(Bindings.createObjectBinding(() -> claim -> {
             String newVal = statusList.valueProperty().getValue();
-
             if (newVal == null || newVal.equals("NONE")) {
                 return true;
             } else if (claim.getStatus().equals(newVal)) {
@@ -325,7 +325,7 @@ public class ClaimTableFilling extends ActionHistoryTableFilling implements Clai
         settlementDateFromFilter.bind(Bindings.createObjectBinding(() -> claim -> {
             LocalDate newDate = settlementDateFrom.valueProperty().getValue();
             if (claim.getSettlementDate() == null) {
-                return false;
+                return true;
             } else {
 
                 if (newDate == null) {
@@ -343,7 +343,7 @@ public class ClaimTableFilling extends ActionHistoryTableFilling implements Clai
         settlementDateToFilter.bind(Bindings.createObjectBinding(() -> claim -> {
             LocalDate newDate = settlementDateTo.valueProperty().getValue();
             if (claim.getSettlementDate() == null) {
-                return false;
+                return true;
             } else {
 
 
@@ -403,7 +403,8 @@ public class ClaimTableFilling extends ActionHistoryTableFilling implements Clai
             //reset modified value to the original value (filter out nothing)
             modifiedTotalSuccessfulClaims = originalTotalSuccessfulClaims;
             modifiedTotalSuccessfulClaimAmount = originalTotalSuccessfulClaimAmount;
-
+            successfulClaimAmountLabel.setText(String.valueOf(modifiedTotalSuccessfulClaimAmount));
+            numberOfSuccessfulClaimLabel.setText(String.valueOf(modifiedTotalSuccessfulClaims));
             filteredClaimList.predicateProperty().bind(Bindings.createObjectBinding(() -> searchFieldFilter.get().and(statusListFilter.get()).and(creationDateFromFilter.get()).and(creationDateToFilter.get()).and(settlementDateFromFilter.get()).and(settlementDateToFilter.get()).and(claimAmountFromFilter.get()).and(claimAmountToFilter.get())));
         });
         //Add a handler to the creationDateFrom field
@@ -411,6 +412,8 @@ public class ClaimTableFilling extends ActionHistoryTableFilling implements Clai
             //reset modified value to the original value (filter out nothing)
             modifiedTotalSuccessfulClaims = originalTotalSuccessfulClaims;
             modifiedTotalSuccessfulClaimAmount = originalTotalSuccessfulClaimAmount;
+            successfulClaimAmountLabel.setText(String.valueOf(modifiedTotalSuccessfulClaimAmount));
+            numberOfSuccessfulClaimLabel.setText(String.valueOf(modifiedTotalSuccessfulClaims));
             filteredClaimList.predicateProperty().bind(Bindings.createObjectBinding(() -> searchFieldFilter.get().and(statusListFilter.get()).and(creationDateFromFilter.get()).and(creationDateToFilter.get()).and(settlementDateFromFilter.get()).and(settlementDateToFilter.get()).and(claimAmountFromFilter.get()).and(claimAmountToFilter.get())));
 
         });
@@ -419,6 +422,8 @@ public class ClaimTableFilling extends ActionHistoryTableFilling implements Clai
             //reset modified value to the original value (filter out nothing)
             modifiedTotalSuccessfulClaims = originalTotalSuccessfulClaims;
             modifiedTotalSuccessfulClaimAmount = originalTotalSuccessfulClaimAmount;
+            successfulClaimAmountLabel.setText(String.valueOf(modifiedTotalSuccessfulClaimAmount));
+            numberOfSuccessfulClaimLabel.setText(String.valueOf(modifiedTotalSuccessfulClaims));
             filteredClaimList.predicateProperty().bind(Bindings.createObjectBinding(() -> searchFieldFilter.get().and(statusListFilter.get()).and(creationDateFromFilter.get()).and(creationDateToFilter.get()).and(settlementDateFromFilter.get()).and(settlementDateToFilter.get()).and(claimAmountFromFilter.get()).and(claimAmountToFilter.get())));
 
         });
@@ -427,6 +432,8 @@ public class ClaimTableFilling extends ActionHistoryTableFilling implements Clai
             //reset modified value to the original value (filter out nothing)
             modifiedTotalSuccessfulClaims = originalTotalSuccessfulClaims;
             modifiedTotalSuccessfulClaimAmount = originalTotalSuccessfulClaimAmount;
+            successfulClaimAmountLabel.setText(String.valueOf(modifiedTotalSuccessfulClaimAmount));
+            numberOfSuccessfulClaimLabel.setText(String.valueOf(modifiedTotalSuccessfulClaims));
             filteredClaimList.predicateProperty().bind(Bindings.createObjectBinding(() -> searchFieldFilter.get().and(statusListFilter.get()).and(creationDateFromFilter.get()).and(creationDateToFilter.get()).and(settlementDateFromFilter.get()).and(settlementDateToFilter.get()).and(claimAmountFromFilter.get()).and(claimAmountToFilter.get())));
 
         });
@@ -435,6 +442,8 @@ public class ClaimTableFilling extends ActionHistoryTableFilling implements Clai
             //reset modified value to the original value (filter out nothing)
             modifiedTotalSuccessfulClaims = originalTotalSuccessfulClaims;
             modifiedTotalSuccessfulClaimAmount = originalTotalSuccessfulClaimAmount;
+            successfulClaimAmountLabel.setText(String.valueOf(modifiedTotalSuccessfulClaimAmount));
+            numberOfSuccessfulClaimLabel.setText(String.valueOf(modifiedTotalSuccessfulClaims));
             filteredClaimList.predicateProperty().bind(Bindings.createObjectBinding(() -> searchFieldFilter.get().and(statusListFilter.get()).and(creationDateFromFilter.get()).and(creationDateToFilter.get()).and(settlementDateFromFilter.get()).and(settlementDateToFilter.get()).and(claimAmountFromFilter.get()).and(claimAmountToFilter.get())));
 
         });
@@ -443,6 +452,8 @@ public class ClaimTableFilling extends ActionHistoryTableFilling implements Clai
             //reset modified value to the original value (filter out nothing)
             modifiedTotalSuccessfulClaims = originalTotalSuccessfulClaims;
             modifiedTotalSuccessfulClaimAmount = originalTotalSuccessfulClaimAmount;
+            successfulClaimAmountLabel.setText(String.valueOf(modifiedTotalSuccessfulClaimAmount));
+            numberOfSuccessfulClaimLabel.setText(String.valueOf(modifiedTotalSuccessfulClaims));
             filteredClaimList.predicateProperty().bind(Bindings.createObjectBinding(() -> searchFieldFilter.get().and(statusListFilter.get()).and(creationDateFromFilter.get()).and(creationDateToFilter.get()).and(settlementDateFromFilter.get()).and(settlementDateToFilter.get()).and(claimAmountFromFilter.get()).and(claimAmountToFilter.get())));
 
         });
@@ -451,6 +462,8 @@ public class ClaimTableFilling extends ActionHistoryTableFilling implements Clai
             //reset modified value to the original value (filter out nothing)
             modifiedTotalSuccessfulClaims = originalTotalSuccessfulClaims;
             modifiedTotalSuccessfulClaimAmount = originalTotalSuccessfulClaimAmount;
+            successfulClaimAmountLabel.setText(String.valueOf(modifiedTotalSuccessfulClaimAmount));
+            numberOfSuccessfulClaimLabel.setText(String.valueOf(modifiedTotalSuccessfulClaims));
             filteredClaimList.predicateProperty().bind(Bindings.createObjectBinding(() -> searchFieldFilter.get().and(statusListFilter.get()).and(creationDateFromFilter.get()).and(creationDateToFilter.get()).and(settlementDateFromFilter.get()).and(settlementDateToFilter.get()).and(claimAmountFromFilter.get()).and(claimAmountToFilter.get())));
 
         });
@@ -459,6 +472,8 @@ public class ClaimTableFilling extends ActionHistoryTableFilling implements Clai
             //reset modified value to the original value (filter out nothing)
             modifiedTotalSuccessfulClaims = originalTotalSuccessfulClaims;
             modifiedTotalSuccessfulClaimAmount = originalTotalSuccessfulClaimAmount;
+            successfulClaimAmountLabel.setText(String.valueOf(modifiedTotalSuccessfulClaimAmount));
+            numberOfSuccessfulClaimLabel.setText(String.valueOf(modifiedTotalSuccessfulClaims));
             filteredClaimList.predicateProperty().bind(Bindings.createObjectBinding(() -> searchFieldFilter.get().and(statusListFilter.get()).and(creationDateFromFilter.get()).and(creationDateToFilter.get()).and(settlementDateFromFilter.get()).and(settlementDateToFilter.get()).and(claimAmountFromFilter.get()).and(claimAmountToFilter.get())));
 
         });
@@ -484,9 +499,9 @@ public class ClaimTableFilling extends ActionHistoryTableFilling implements Clai
     //helper method for cancelling buttons
     // Event handler for clearing the creation date filter
     protected void handleClearCreationDateButton() {
-//        creationDateFrom.setValue(null);
+        creationDateFrom.setValue(null);
         creationDateFrom.getEditor().clear();
-//        creationDateTo.setValue(null);
+        creationDateTo.setValue(null);
         creationDateTo.getEditor().clear();
 
     }
@@ -494,9 +509,9 @@ public class ClaimTableFilling extends ActionHistoryTableFilling implements Clai
     // Event handler for clearing the settlement date filter
 
     protected void handleClearSettlementDateButton() {
-//        settlementDateFrom.setValue(null);
+        settlementDateFrom.setValue(null);
         settlementDateFrom.getEditor().clear();
-//        settlementDateTo.setValue(null);
+        settlementDateTo.setValue(null);
         settlementDateTo.getEditor().clear();
     }
 
@@ -543,9 +558,20 @@ public class ClaimTableFilling extends ActionHistoryTableFilling implements Clai
                 Claim finalClaim = claim;
                 buttonRemoveClaim.setOnAction(event -> {
                     ClaimCreateRemove.removeClaim(entityManager, finalClaim);
+                    ActionHistory actionHistory = ActionHistoryCreate.createActionHistoryObject("DELETE", "Claim", finalClaim.getClaimId());
+                    ActionHistoryCreate.writeToActionHistoryObjectToFile(user.getId(), actionHistory);
                     returnAndRefreshDashboard(buttonRemoveClaim);
                 });
                 //If the user is a system admin the button will have "View Claim" text.
+
+                //Binding a handler to the onClick event.
+                Claim finalClaim1 = claim;
+                claimButton.setOnAction(event -> {
+                    //Creating the Controller for Claim Creation Page in update mode by passing the claim into the constructor
+                    CreationAndUpdatePageControllerClaim creationPageControllerClaim = new CreationAndUpdatePageControllerClaim(entityManager, user, finalClaim1);
+                    StageBuilder.showStage((Stage) claimButton.getScene().getWindow(), creationPageControllerClaim, "ClaimCreationAndUpdatePage.fxml", "UpdateClaimAsAdmin");
+                });
+
                 if (user instanceof SystemAdmin) {
                     claimButton.setText("View Claim");
                     //disable all textfield
@@ -555,15 +581,6 @@ public class ClaimTableFilling extends ActionHistoryTableFilling implements Clai
                     claimButton.setText("Update Claim");
                     claim.setClaimRemoveButton(buttonRemoveClaim);
                 }
-                //Binding a handler to the onClick event.
-                Claim finalClaim1 = claim;
-                claimButton.setOnAction(event -> {
-                    //Creating the Controller for Claim Creation Page in update mode by passing the claim into the constructor
-
-                    CreationAndUpdatePageControllerClaim creationPageControllerClaim = new CreationAndUpdatePageControllerClaim(entityManager, user, finalClaim1);
-
-                    StageBuilder.showStage((Stage) claimButton.getScene().getWindow(), creationPageControllerClaim, "ClaimCreationAndUpdatePage.fxml", "UpdateClaimAsAdmin");
-                });
                 claim.setClaimButton(claimButton);
             }
 

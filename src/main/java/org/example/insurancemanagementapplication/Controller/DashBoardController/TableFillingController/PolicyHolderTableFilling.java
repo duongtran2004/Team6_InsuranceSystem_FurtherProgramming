@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController.CreationAndUpdatePageControllerClaim;
 import org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController.CreationAndUpdatePageControllerDependant;
 import org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController.CreationAndUpdatePageControllerPolicyHolder;
+import org.example.insurancemanagementapplication.Interfaces.ActionHistoryCreate;
 import org.example.insurancemanagementapplication.Interfaces.ClaimRead;
 import org.example.insurancemanagementapplication.Interfaces.CustomerCreateRemove;
 import org.example.insurancemanagementapplication.Utility.StageBuilder;
@@ -184,6 +185,8 @@ public class PolicyHolderTableFilling extends InsuranceCardTableFilling {
                 //The remove button will remove its policy holder from the database
                 buttonRemove.setOnAction(event -> {
                     CustomerCreateRemove.removePolicyHolder(entityManager, finalPolicyHolder);
+                    ActionHistory actionHistory = ActionHistoryCreate.createActionHistoryObject("DELETE", "Policy Holder", finalPolicyHolder.getId());
+                    ActionHistoryCreate.writeToActionHistoryObjectToFile(user.getId(), actionHistory);
                     returnToDashBoard(user, entityManager, buttonRemove);
                 });
                 policyHolder.setRemoveButton(buttonRemove);

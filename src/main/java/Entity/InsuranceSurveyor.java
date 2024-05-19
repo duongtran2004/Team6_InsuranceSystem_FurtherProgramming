@@ -15,13 +15,13 @@ import java.util.Collection;
 public class InsuranceSurveyor extends User {
 
     @Basic
-    @Column(name = "insurance_manager_id", updatable = false, insertable = false)
+    @Column(name = "insurance_manager_id", updatable = false, insertable = false, nullable = true)
     private String insuranceManagerId;
 
     @OneToMany(mappedBy = "insuranceSurveyor")
     private Collection<Claim> listOfClaims;
     @ManyToOne
-    @JoinColumn(name = "insurance_manager_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "insurance_manager_id", referencedColumnName = "id", nullable = true)
     private InsuranceManager insuranceManager;
 
     @Transient

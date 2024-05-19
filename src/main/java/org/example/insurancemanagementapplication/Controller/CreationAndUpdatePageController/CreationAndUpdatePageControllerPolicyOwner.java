@@ -1,11 +1,13 @@
 package org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController;
 
+import Entity.ActionHistory;
 import Entity.PolicyOwner;
 import Entity.User;
 import jakarta.persistence.EntityManager;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import org.example.insurancemanagementapplication.Interfaces.ActionHistoryCreate;
 import org.example.insurancemanagementapplication.Interfaces.Controller;
 import org.example.insurancemanagementapplication.Interfaces.CustomerCreateRemove;
 import org.example.insurancemanagementapplication.Interfaces.CustomerUpdate;
@@ -42,10 +44,13 @@ public class CreationAndUpdatePageControllerPolicyOwner extends CreationAndUpdat
         else {
             submitButton.setOnAction(event -> {
                 String message = InputValidator.validatingUser("Policy Owner", entityManager, fullNameField.getText(), emailField.getText(), passwordField.getText(), phoneNumberField.getText(), addressField.getText(), passwordValidationField.getText());
+                errorContainer.setText(message);
                 if (message.equals("Success")) {
                     //See the RepeatedCode class for this method
                     String id = IDGenerator.generateId("PO");
                     CustomerCreateRemove.createPolicyOwner(entityManager, id, fullNameField.getText(), addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText());
+                    ActionHistory actionHistory = ActionHistoryCreate.createActionHistoryObject("CREATE", "Policy Owner", id);
+                    ActionHistoryCreate.writeToActionHistoryObjectToFile(user.getId(), actionHistory);
                 }
             });
         }

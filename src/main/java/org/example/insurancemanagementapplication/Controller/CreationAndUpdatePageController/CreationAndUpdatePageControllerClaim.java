@@ -10,10 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
-import org.example.insurancemanagementapplication.Interfaces.ClaimCreateRemove;
-import org.example.insurancemanagementapplication.Interfaces.ClaimUpdate;
-import org.example.insurancemanagementapplication.Interfaces.Controller;
-import org.example.insurancemanagementapplication.Interfaces.EmployeeRead;
+import org.example.insurancemanagementapplication.Interfaces.*;
 import org.example.insurancemanagementapplication.Utility.IDGenerator;
 import org.example.insurancemanagementapplication.Utility.InputValidator;
 
@@ -194,6 +191,7 @@ public class CreationAndUpdatePageControllerClaim extends CreationAndUpdatePageC
         insuranceSurveyorIDField.setDisable(true);
 
         statusChoiceBox.setDisable(true);
+        statusChoiceBox.setValue(claim.getStatus());
 
         submitButton.setDisable(true);
         uploadDocumentButton.setDisable(true);
@@ -211,6 +209,7 @@ public class CreationAndUpdatePageControllerClaim extends CreationAndUpdatePageC
         claimAmountField.setDisable(true);
         uploadDocumentButton.setDisable(true);
         updateDocumentButton.setDisable(true);
+        statusChoiceBox.setValue(claim.getStatus());
 
         //set disable for insurance manager and insurance surveyor field
         insuranceSurveyorIDField.setDisable(true);
@@ -234,6 +233,7 @@ public class CreationAndUpdatePageControllerClaim extends CreationAndUpdatePageC
         bankNameField.setDisable(true);
         uploadDocumentButton.setDisable(true);
         updateDocumentButton.setDisable(true);
+        statusChoiceBox.setValue(claim.getStatus());
 
 
         claimAmountField.setDisable(true);
@@ -341,6 +341,8 @@ public class CreationAndUpdatePageControllerClaim extends CreationAndUpdatePageC
                 } else {
                     ClaimUpdate.updateClaim(entityManager, claim, bankName, bankAccountName, bankAccountNumber, file);
                 }
+                ActionHistory actionHistory = ActionHistoryCreate.createActionHistoryObject("UPDATE", "Claim", claim.getClaimId());
+                ActionHistoryCreate.writeToActionHistoryObjectToFile(user.getId(), actionHistory);
 
             }
         });
@@ -363,16 +365,18 @@ public class CreationAndUpdatePageControllerClaim extends CreationAndUpdatePageC
             String bankAccountNumber = bankAccountNumberField.getText();
             String bankName = bankNameField.getText();
             // input validator for Claim's Field
-            errorContainer.setText(InputValidator.ClaimUpdateValidator(entityManager, bankName, bankAccountName, bankAccountNumber));
-            if (errorContainer.getText().equals("Success")) {
+            String message = InputValidator.ClaimUpdateValidator(entityManager, bankName, bankAccountName, bankAccountNumber);
+            errorContainer.setText(message);
 
+            if (message.equals("Success")) {
                 Date today = new Date();
                 java.sql.Date sqlToday = new java.sql.Date(today.getTime());
                 String claimId = IDGenerator.generateId("C");
                 InsuranceManager insuranceManager = EmployeeRead.findRandomInsuranceManager(entityManager);
                 System.out.println(insuranceManager);
                 ClaimCreateRemove.createClaim(entityManager, claimId, sqlToday, beneficiary, beneficiary.getPolicyOwner(), beneficiary.getInsuranceCard(), insuranceManager, bankName, bankAccountName, bankAccountNumber, file);
-
+                ActionHistory actionHistory = ActionHistoryCreate.createActionHistoryObject("CREATE", "Claim", claimId);
+                ActionHistoryCreate.writeToActionHistoryObjectToFile(user.getId(), actionHistory);
 
 // call method to write action history  to file right here
 

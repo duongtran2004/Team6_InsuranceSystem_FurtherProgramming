@@ -1,14 +1,12 @@
 package org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController;
 
-import Entity.InsuranceCard;
-import Entity.PolicyHolder;
-import Entity.PolicyOwner;
-import Entity.User;
+import Entity.*;
 import jakarta.persistence.EntityManager;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import org.example.insurancemanagementapplication.Interfaces.ActionHistoryCreate;
 import org.example.insurancemanagementapplication.Interfaces.Controller;
 import org.example.insurancemanagementapplication.Interfaces.CustomerCreateRemove;
 import org.example.insurancemanagementapplication.Interfaces.CustomerUpdate;
@@ -54,6 +52,7 @@ public class CreationAndUpdatePageControllerPolicyHolder extends CreationAndUpda
                 //String role, EntityManager entityManager, String fullName, String
                 //            email, String password, String phoneNumber, String address, String passwordValidator)
                 String message = InputValidator.validatingUser("Policy Holder", entityManager, fullNameField.getText(), emailField.getText(), passwordField.getText(), phoneNumberField.getText(), addressField.getText(), passwordValidationField.getText());
+                errorContainer.setText(message);
                 if (message.equals("Success")){
                     //See the RepeatedCode class for this method.
                     //This method generates an ID.
@@ -68,6 +67,8 @@ public class CreationAndUpdatePageControllerPolicyHolder extends CreationAndUpda
                         insuranceCard.setCardNumber(cardNumber);
                         insuranceCard.setExpirationDate(new java.sql.Date(expiryUtilDate.getTime()));
                         CustomerCreateRemove.createPolicyHolder(entityManager, id, insuranceCard, fullNameField.getText(), addressField.getText(), phoneNumberField.getText(), emailField.getText(), passwordField.getText(), policyOwner);
+                        ActionHistory actionHistory = ActionHistoryCreate.createActionHistoryObject("CREATE", "Policy Holder", id);
+                        ActionHistoryCreate.writeToActionHistoryObjectToFile(user.getId(), actionHistory);
 
                     } catch (NumberFormatException exception){
                         errorContainer.setText("Length of contract must be in numerical format");

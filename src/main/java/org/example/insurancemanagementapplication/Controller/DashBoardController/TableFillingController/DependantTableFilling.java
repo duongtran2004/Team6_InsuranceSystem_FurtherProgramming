@@ -12,6 +12,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController.CreationAndUpdatePageControllerClaim;
 import org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController.CreationAndUpdatePageControllerDependant;
+import org.example.insurancemanagementapplication.Interfaces.ActionHistoryCreate;
 import org.example.insurancemanagementapplication.Interfaces.ClaimRead;
 import org.example.insurancemanagementapplication.Interfaces.CustomerCreateRemove;
 import org.example.insurancemanagementapplication.Utility.StageBuilder;
@@ -210,6 +211,8 @@ public class DependantTableFilling extends ClaimTableFilling {
                 //Set action for the remove button. Clicking the button will remove its dependant
                 buttonRemove.setOnAction(event -> {
                     CustomerCreateRemove.removeDependant(entityManager, finalDependant);
+                    ActionHistory actionHistory = ActionHistoryCreate.createActionHistoryObject("DELETE", "Dependant", finalDependant.getId());
+                    ActionHistoryCreate.writeToActionHistoryObjectToFile(user.getId(), actionHistory);
                     returnToDashBoard(user, entityManager, buttonRemove);
                 });
 
@@ -262,10 +265,12 @@ public class DependantTableFilling extends ClaimTableFilling {
         if (user instanceof SystemAdmin || user instanceof PolicyOwner) {
             //only system admin and PolicyOwner  can create or remove Dependent objects
             dependantRemoveButton.setCellValueFactory(new PropertyValueFactory<Dependant, Button>("removeButton"));
-            if (user instanceof PolicyOwner || user instanceof PolicyHolder) {
-                //only PolicyOwner and PolicyHolder can add claim for Dependent
-                dependantAddClaimButton.setCellValueFactory(new PropertyValueFactory<Dependant, Button>("addClaim"));
-            }
+
+        }
+
+        if (user instanceof PolicyOwner || user instanceof PolicyHolder) {
+            //only PolicyOwner and PolicyHolder can add claim for Dependent
+            dependantAddClaimButton.setCellValueFactory(new PropertyValueFactory<Dependant, Button>("addClaim"));
         }
 
         //FilteredList: Wraps an ObservableList and filters it's content using the provided Predicate. All changes in the ObservableList are propagated immediately to the FilteredList.

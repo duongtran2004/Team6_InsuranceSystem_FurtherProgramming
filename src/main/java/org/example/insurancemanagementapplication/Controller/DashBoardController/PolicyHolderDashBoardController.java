@@ -1,5 +1,7 @@
 package org.example.insurancemanagementapplication.Controller.DashBoardController;
 
+import Entity.ActionHistory;
+import Entity.Beneficiaries;
 import Entity.Claim;
 import Entity.PolicyHolder;
 import jakarta.persistence.EntityManager;
@@ -9,15 +11,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import org.example.insurancemanagementapplication.Controller.CreationAndUpdatePageController.CreationAndUpdatePageControllerClaim;
 import org.example.insurancemanagementapplication.Controller.DashBoardController.TableFillingController.DependantTableFilling;
 import org.example.insurancemanagementapplication.Controller.LogInPageController;
 import org.example.insurancemanagementapplication.Controller.Threads.ClaimTableFillingThread;
 import org.example.insurancemanagementapplication.Controller.Threads.DependantTableFillingThread;
 import org.example.insurancemanagementapplication.Controller.Threads.UserInactivityHandler;
-import org.example.insurancemanagementapplication.Interfaces.ClaimRead;
-import org.example.insurancemanagementapplication.Interfaces.Controller;
-import org.example.insurancemanagementapplication.Interfaces.CustomerRead;
-import org.example.insurancemanagementapplication.Interfaces.CustomerUpdate;
+import org.example.insurancemanagementapplication.Interfaces.*;
 import org.example.insurancemanagementapplication.Utility.InputValidator;
 import org.example.insurancemanagementapplication.Utility.StageBuilder;
 
@@ -39,23 +39,39 @@ public class PolicyHolderDashBoardController extends DependantTableFilling imple
     protected Button
             clearCreationDateButton;
     @FXML
-    protected Button
-            clearSettlementDateButton;
+    protected Button clearSettlementDateButton;
 
     @FXML
-    protected Button
-            clearClaimAmountButton;
+    protected Button clearClaimAmountButton;
     @FXML
     protected Button logOutButton;
 
     @FXML
+    protected Button refreshButton;
+    @FXML
+    protected Button fileClaimButton;
+    @FXML
     protected Button updateInfoButton;
 
+
+    protected  void fileClaimButton(){
+        CreationAndUpdatePageControllerClaim creationAndUpdatePageControllerClaim = new CreationAndUpdatePageControllerClaim(entityManager, user, (Beneficiaries) user);
+        StageBuilder.showStage((Stage) fileClaimButton.getScene().getWindow(), creationAndUpdatePageControllerClaim, "ClaimCreationAndUpdatePage.fxml", "Claim Creation");
+    }
     protected void handleLogOutButton() throws IOException {
 //Set the current user to null
         user = null;
         StageBuilder.showStage((Stage) logOutButton.getScene().getWindow(), new LogInPageController(entityManager), "LogInPage.fxml", "Login Page");
 
+    }
+
+    public void handleRefreshButton() {
+
+        // Reload the dashboard by creating a new dashboard object
+        PolicyHolderDashBoardController policyHolderDashBoardController = new PolicyHolderDashBoardController((PolicyHolder) user, entityManager);
+
+        // Show new DashBoard using stage builder
+        StageBuilder.showStage((Stage) refreshButton.getScene().getWindow(), policyHolderDashBoardController, "PolicyHolderDashBoard.fxml", "Policy Holder Dashboard");
     }
 
     // Event handler for clearing the creation date filter
@@ -87,11 +103,16 @@ public class PolicyHolderDashBoardController extends DependantTableFilling imple
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        refreshButton.setOnAction(event -> {
+            handleRefreshButton();
+        });
         updateInfoButton.setOnAction(event -> {
             String message = InputValidator.validatingUser(emailField.getText(), passwordField.getText(), phoneNumberField.getText(), addressField.getText(), passwordValidationField.getText());
+            errorContainer.setText(message);
             if (message.equals("Success")) {
-                CustomerUpdate.updatePolicyHolder
-                        (entityManager, (PolicyHolder) user, addressField.getText(), phoneNumberField.getText(), addressField.getText(), passwordField.getText());
+                CustomerUpdate.updatePolicyHolder(entityManager, (PolicyHolder) user, addressField.getText(), phoneNumberField.getText(), addressField.getText(), passwordField.getText());
+                ActionHistory actionHistory = ActionHistoryCreate.createActionHistoryObject("UPDATE", "Policy Holder", user.getId());
+                ActionHistoryCreate.writeToActionHistoryObjectToFile(user.getId(), actionHistory);
             } else {
                 errorContainer.setText(message);
             }

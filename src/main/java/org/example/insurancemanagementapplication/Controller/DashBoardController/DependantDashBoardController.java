@@ -39,6 +39,8 @@ public class DependantDashBoardController extends ClaimTableFilling implements I
             clearClaimAmountButton;
     @FXML
     protected Button logOutButton;
+    @FXML
+    protected Button refreshButton;
 
     protected void handleLogOutButton() throws IOException {
 //Set the current user to null
@@ -46,6 +48,16 @@ public class DependantDashBoardController extends ClaimTableFilling implements I
         StageBuilder.showStage((Stage) logOutButton.getScene().getWindow(), new LogInPageController(entityManager), "LogInPage.fxml", "Login Page");
 
     }
+
+    public void handleRefreshButton() {
+
+        // Reload the dashboard by creating a new dashboard object
+        DependantDashBoardController dependantDashBoardController = new DependantDashBoardController((Dependant) user, entityManager);
+
+        // Show new DashBoard using stage builder
+        StageBuilder.showStage((Stage) refreshButton.getScene().getWindow(), dependantDashBoardController, "DependantDashBoard.fxml", "Dependant Dashboard");
+    }
+
 
     // Event handler for clearing the creation date filter
     protected void handleClearCreationDateButton() {
@@ -76,6 +88,9 @@ public class DependantDashBoardController extends ClaimTableFilling implements I
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        refreshButton.setOnAction(event -> {
+            handleRefreshButton();
+        });
         logOutButton.setOnAction(event -> {
             try {
                 handleLogOutButton();
