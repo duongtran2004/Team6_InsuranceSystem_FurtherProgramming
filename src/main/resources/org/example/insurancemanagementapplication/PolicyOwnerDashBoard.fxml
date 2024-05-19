@@ -39,19 +39,7 @@
             <children>
                 <HBox maxHeight="287.5" minHeight="287.5" minWidth="1150.0" prefHeight="287.5" prefWidth="1150.0" GridPane.hgrow="ALWAYS" GridPane.vgrow="NEVER">
                     <children>
-                        <Pane maxHeight="275.0" maxWidth="Infinity" minHeight="275.0" minWidth="150.0" prefHeight="275.0" prefWidth="150.0" HBox.hgrow="ALWAYS">
-                     <children>
-                        <Button fx:id="logOutButton" layoutX="22.0" layoutY="239.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="188.0" text="Log Out">
-                           <font>
-                              <Font name="Helvetica Neue Bold" size="16.0" />
-                           </font>
-                        </Button>
-                        <Button fx:id="refreshButton" layoutX="21.0" layoutY="186.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="192.0" text="Refresh DashBoard">
-                           <font>
-                              <Font name="Helvetica Neue Bold" size="16.0" />
-                           </font>
-                        </Button>
-                     </children></Pane>
+                        <Pane maxHeight="275.0" maxWidth="Infinity" minHeight="275.0" minWidth="150.0" prefHeight="275.0" prefWidth="150.0" HBox.hgrow="ALWAYS" />
                         <GridPane maxHeight="275.0" maxWidth="997.0" minHeight="275.0" minWidth="850.0" prefHeight="275.0" prefWidth="997.0" style="-fx-background-color: rgb(233, 229, 229);" HBox.hgrow="NEVER">
                             <columnConstraints>
                                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="421.0" minWidth="10.0" prefWidth="204.0" />
@@ -130,18 +118,24 @@
                         </Label>
                         <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
                            <children>
-                              <Button fx:id="updateInfoButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="116.0" text="Update Info">
+                              <Button fx:id="updateInfoButton" mnemonicParsing="false" prefHeight="27.0" prefWidth="153.0" text="Update Info" />
+                            <Button fx:id="addPolicyHolderButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="27.0" prefWidth="175.0" text="Add Policy ">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
                                  <font>
-                                    <Font size="14.0" />
+                                    <Font name="System Bold" size="13.0" />
                                  </font>
                               </Button>
-                            <Button fx:id="addPolicyHolderButton" alignment="CENTER_RIGHT" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="139.0" text="Add Policy Holder">
+                              <Button fx:id="logOutButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="188.0" text="Log Out">
                                  <font>
-                                    <Font size="14.0" />
+                                    <Font name="Helvetica Neue Bold" size="13.0" />
                                  </font>
-                                 <HBox.margin>
-                                    <Insets left="15.0" />
-                                 </HBox.margin>
+                              </Button>
+                              <Button fx:id="refreshButton" mnemonicParsing="false" prefHeight="36.0" prefWidth="192.0" text="Refresh DashBoard">
+                                 <font>
+                                    <Font name="Helvetica Neue Bold" size="13.0" />
+                                 </font>
                               </Button>
                            </children>
                         </HBox>
