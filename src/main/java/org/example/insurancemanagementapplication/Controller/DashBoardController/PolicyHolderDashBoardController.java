@@ -66,9 +66,9 @@ public class PolicyHolderDashBoardController extends DependantTableFilling imple
     }
 
     public void handleRefreshButton() {
-
+        PolicyHolder policyHolder = entityManager.find(PolicyHolder.class, user.getId());
         // Reload the dashboard by creating a new dashboard object
-        PolicyHolderDashBoardController policyHolderDashBoardController = new PolicyHolderDashBoardController((PolicyHolder) user, entityManager);
+        PolicyHolderDashBoardController policyHolderDashBoardController = new PolicyHolderDashBoardController(policyHolder, entityManager);
 
         // Show new DashBoard using stage builder
         StageBuilder.showStage((Stage) refreshButton.getScene().getWindow(), policyHolderDashBoardController, "PolicyHolderDashBoard.fxml", "Policy Holder Dashboard");
@@ -124,6 +124,9 @@ public class PolicyHolderDashBoardController extends DependantTableFilling imple
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+        });
+        fileClaimButton.setOnAction(event -> {
+            fileClaimButton();
         });
 
         clearCreationDateButton.setOnAction(event -> handleClearCreationDateButton());

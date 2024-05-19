@@ -103,10 +103,7 @@ public class CreationAndUpdatePageControllerClaim extends CreationAndUpdatePageC
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-// if claim.getDocument = null, trigger to set text to a label
-        if (claim.getDocumentFile() != null) {
-            documentIsEmptyLabel.setVisible(false);
-        }
+
         updateDocumentButton.setOnAction(event -> {
             updateFile = !updateFile;
             if (updateFile) {
@@ -182,6 +179,10 @@ public class CreationAndUpdatePageControllerClaim extends CreationAndUpdatePageC
     }
 
     public void viewModeSystemAdmin() {
+        // if claim.getDocument = null, trigger to set text to a label
+        if (claim.getDocumentFile() != null) {
+            documentIsEmptyLabel.setVisible(false);
+        }
         //disable necessary fields and hide necessary buttons
         bankAccountNameField.setDisable(true);
         bankAccountNumberField.setDisable(true);
@@ -201,6 +202,10 @@ public class CreationAndUpdatePageControllerClaim extends CreationAndUpdatePageC
 
     //This method is called when the user is an insurance surveyor and the claim attribute of the object is not null
     public void updateModeInsuranceSurveyor() {
+        // if claim.getDocument = null, trigger to set text to a label
+        if (claim.getDocumentFile() != null) {
+            documentIsEmptyLabel.setVisible(false);
+        }
         //disable necessary fields
         changePageTitleInUpdateMode("CLAIM UPDATE PAGE");
         bankAccountNameField.setDisable(true);
@@ -227,6 +232,10 @@ public class CreationAndUpdatePageControllerClaim extends CreationAndUpdatePageC
 
     //This method is called when the user is an insurance manager and the claim attribute of the object is not null
     public void updateModeInsuranceManager() {
+        // if claim.getDocument = null, trigger to set text to a label
+        if (claim.getDocumentFile() != null) {
+            documentIsEmptyLabel.setVisible(false);
+        }
         changePageTitleInUpdateMode("CLAIM UPDATE PAGE");
         bankAccountNameField.setDisable(true);
         bankAccountNumberField.setDisable(true);
@@ -319,6 +328,10 @@ public class CreationAndUpdatePageControllerClaim extends CreationAndUpdatePageC
 
     //This method is called when the user is either an owner or a holder, and the claim attribute of the object is not null
     public void updateModeCustomer() {
+        // if claim.getDocument = null, trigger to set text to a label
+        if (claim.getDocumentFile() != null) {
+            documentIsEmptyLabel.setVisible(false);
+        }
         changePageTitleInUpdateMode("CLAIM UPDATE PAGE");
         //disable necessary fields
         statusChoiceBox.setDisable(true);

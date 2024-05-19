@@ -70,9 +70,9 @@ public class PolicyOwnerDashBoardController extends PolicyHolderTableFilling imp
     }
 
     public void handleRefreshButton() {
-
+        PolicyOwner policyOwner = entityManager.find(PolicyOwner.class, user.getId());
         // Reload the dashboard by creating a new dashboard object
-        PolicyOwnerDashBoardController policyOwnerDashBoardController = new PolicyOwnerDashBoardController((PolicyOwner) user, entityManager);
+        PolicyOwnerDashBoardController policyOwnerDashBoardController = new PolicyOwnerDashBoardController(policyOwner, entityManager);
 
         // Show new DashBoard using stage builder
         StageBuilder.showStage((Stage) refreshButton.getScene().getWindow(), policyOwnerDashBoardController, "PolicyOwnerDashBoard.fxml", "Policy Owner Dashboard");

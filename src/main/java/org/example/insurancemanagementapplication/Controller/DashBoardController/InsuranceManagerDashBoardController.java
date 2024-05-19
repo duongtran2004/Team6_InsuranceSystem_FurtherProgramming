@@ -62,9 +62,9 @@ public class InsuranceManagerDashBoardController extends InsuranceSurveyorTableF
     }
 
     public void handleRefreshButton() {
-
+        InsuranceManager insuranceManager = entityManager.find(InsuranceManager.class, user.getId());
         // Reload the dashboard by creating a new dashboard object
-        InsuranceManagerDashBoardController insuranceManagerDashBoardController = new InsuranceManagerDashBoardController((InsuranceManager) user, entityManager);
+        InsuranceManagerDashBoardController insuranceManagerDashBoardController = new InsuranceManagerDashBoardController(insuranceManager, entityManager);
 
         // Show new DashBoard using stage builder
         StageBuilder.showStage((Stage) refreshButton.getScene().getWindow(), insuranceManagerDashBoardController, "InsuranceManagerDashBoard.fxml", "Insurance Manager Dashboard");

@@ -54,9 +54,10 @@ public class SystemAdminDashBoardController extends InsuranceManagerTableFilling
 
     // Method to handle the RefreshButton click event
     public void handleRefreshButton() {
-
+        SystemAdmin systemAdmin = entityManager.find(SystemAdmin.class, user.getId());
         // Reload the dashboard by creating a new dashboard object
-        SystemAdminDashBoardController systemAdminDashBoardController = new SystemAdminDashBoardController(entityManager, user);
+        SystemAdminDashBoardController systemAdminDashBoardController = new SystemAdminDashBoardController(entityManager, systemAdmin);
+
         // Show new DashBoard using stage builder
         StageBuilder.showStage((Stage) refreshButton.getScene().getWindow(), systemAdminDashBoardController, "SystemAdminDashboard.fxml", "System Admin Dashboard");
     }

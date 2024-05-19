@@ -50,9 +50,9 @@ public class DependantDashBoardController extends ClaimTableFilling implements I
     }
 
     public void handleRefreshButton() {
-
-        // Reload the dashboard by creating a new dashboard object
-        DependantDashBoardController dependantDashBoardController = new DependantDashBoardController((Dependant) user, entityManager);
+        Dependant dependant = entityManager.find(Dependant.class, user.getId())
+;        // Reload the dashboard by creating a new dashboard object
+        DependantDashBoardController dependantDashBoardController = new DependantDashBoardController(dependant, entityManager);
 
         // Show new DashBoard using stage builder
         StageBuilder.showStage((Stage) refreshButton.getScene().getWindow(), dependantDashBoardController, "DependantDashBoard.fxml", "Dependant Dashboard");

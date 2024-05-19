@@ -16,23 +16,27 @@ import org.example.insurancemanagementapplication.Utility.StageBuilder;
 public class RootController {
     public void returnToDashBoard(User user, EntityManager entityManager, Button returnButton){
         if (user instanceof SystemAdmin) {
-            SystemAdminDashBoardController dashBoardControllerSystemAdmin = new SystemAdminDashBoardController(entityManager, (SystemAdmin) user);
+            SystemAdmin systemAdmin = entityManager.find(SystemAdmin.class, user.getId());
+            SystemAdminDashBoardController dashBoardControllerSystemAdmin = new SystemAdminDashBoardController(entityManager, systemAdmin);
             StageBuilder.showStage((Stage) returnButton.getScene().getWindow(), dashBoardControllerSystemAdmin, "SystemAdminDashBoard.fxml", "Dashboard");
         } else if (user instanceof InsuranceManager) {
-            InsuranceManagerDashBoardController dashBoardControllerInsuranceManager = new InsuranceManagerDashBoardController((InsuranceManager) user, entityManager);
+            InsuranceManager insuranceManager = entityManager.find(InsuranceManager.class, user.getId());
+            InsuranceManagerDashBoardController dashBoardControllerInsuranceManager = new InsuranceManagerDashBoardController(insuranceManager, entityManager);
             StageBuilder.showStage((Stage) returnButton.getScene().getWindow(), dashBoardControllerInsuranceManager, "InsuranceManagerDashBoard.fxml", "Dashboard");
 
         } else if (user instanceof InsuranceSurveyor) {
-
-            InsuranceSurveyorDashBoardController dashBoardControllerInsuranceSurveyor = new InsuranceSurveyorDashBoardController((InsuranceSurveyor) user, entityManager);
+            InsuranceSurveyor insuranceSurveyor = entityManager.find(InsuranceSurveyor.class, user.getId());
+            InsuranceSurveyorDashBoardController dashBoardControllerInsuranceSurveyor = new InsuranceSurveyorDashBoardController(insuranceSurveyor, entityManager);
             StageBuilder.showStage((Stage) returnButton.getScene().getWindow(), dashBoardControllerInsuranceSurveyor, "InsuranceSurveyorDashBoard.fxml", "Dashboard");
 
         } else if (user instanceof PolicyOwner) {
-            PolicyOwnerDashBoardController dashBoardController_policyOwner = new PolicyOwnerDashBoardController((PolicyOwner) user, entityManager);
+            PolicyOwner policyOwner = entityManager.find(PolicyOwner.class, user.getId());
+            PolicyOwnerDashBoardController dashBoardController_policyOwner = new PolicyOwnerDashBoardController(policyOwner, entityManager);
             StageBuilder.showStage((Stage) returnButton.getScene().getWindow(), dashBoardController_policyOwner, "PolicyOwnerDashBoard.fxml", "Dashboard");
 
         } else if (user instanceof PolicyHolder) {
-            PolicyHolderDashBoardController dashBoardControllerPolicyHolder = new PolicyHolderDashBoardController((PolicyHolder) user, entityManager);
+            PolicyHolder policyHolder = entityManager.find(PolicyHolder.class, user.getId());
+            PolicyHolderDashBoardController dashBoardControllerPolicyHolder = new PolicyHolderDashBoardController(policyHolder, entityManager);
             StageBuilder.showStage((Stage) returnButton.getScene().getWindow(), dashBoardControllerPolicyHolder, "PolicyHolderDashBoard.fxml", "Dashboard");
 
         }
