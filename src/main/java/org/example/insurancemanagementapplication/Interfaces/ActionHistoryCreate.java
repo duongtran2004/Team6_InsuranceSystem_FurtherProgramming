@@ -16,7 +16,7 @@ public interface ActionHistoryCreate {
     static void createActionHistoryFileIfEmpty(String userId)  {
         // Define the file name based on the userId
         String fileName = userId + "_action_history.txt";
-        String filePath = "src/main/resources/org/example/insurancemanagementapplication/ActionHistoryFiles" + "\\" + fileName;
+        String filePath = "src/org.example.insurancemanagementapplication.main/resources/org/example/insurancemanagementapplication/ActionHistoryFiles" + "\\" + fileName;
 
 
         // Create a File object with the file path
@@ -69,7 +69,7 @@ public interface ActionHistoryCreate {
     static void writeToActionHistoryObjectToFile(String userId, ActionHistory actionHistory) {// using Serialization Object Input Stream and File Input Stream
         String fileName = userId + "_action_history.txt";
 
-        String filePath = "src/main/resources/org/example/insurancemanagementapplication/ActionHistoryFiles" + "/" + fileName;
+        String filePath = "src/org.example.insurancemanagementapplication.main/resources/org/example/insurancemanagementapplication/ActionHistoryFiles" + "/" + fileName;
 //String filePath = "ActionHistoryFiles" + "\\" + fileName;
         // Create a File object with the file path
         File file = new File(filePath);

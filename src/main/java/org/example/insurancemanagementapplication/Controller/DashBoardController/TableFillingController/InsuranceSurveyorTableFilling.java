@@ -145,7 +145,6 @@ public class InsuranceSurveyorTableFilling extends PolicyOwnerTableFilling {
             InsuranceSurveyor insuranceSurveyor = listIteratorInsuranceSurveyor.next();
             if (insuranceSurveyor != null){
                 //reassign object from database
-                insuranceSurveyor = entityManager.find(InsuranceSurveyor.class, insuranceSurveyor.getId());
                 //setter
                 insuranceSurveyor.setTotalResolvedClaims(ClaimRead.countTotalResolvedClaimOfAnInsuranceSurveyor(insuranceSurveyor));
                 Button buttonUpdateInfo = new Button("Update Info");
@@ -154,7 +153,7 @@ public class InsuranceSurveyorTableFilling extends PolicyOwnerTableFilling {
                 if (user instanceof SystemAdmin) {
                     //The Update Info Button will create a CreationPage Controller for the Insurance Surveyor in update mode by passing in the insurance surveyor object
                     //It will then open the Insurance Surveyor Creation Page
-                    InsuranceSurveyor finalInsuranceSurveyor = insuranceSurveyor;
+                    InsuranceSurveyor finalInsuranceSurveyor =  entityManager.find(InsuranceSurveyor.class, insuranceSurveyor.getId());
                     buttonUpdateInfo.setOnAction(event -> {
                         CreationAndUpdatePageControllerInsuranceSurveyor creationPageControllerInsuranceSurveyor = new CreationAndUpdatePageControllerInsuranceSurveyor(entityManager, user, finalInsuranceSurveyor);
                         StageBuilder.showStage((Stage) buttonUpdateInfo.getScene().getWindow(), creationPageControllerInsuranceSurveyor, "InsuranceSurveyorCreationAndUpdatePage.fxml", "Insurance Surveyor Update");

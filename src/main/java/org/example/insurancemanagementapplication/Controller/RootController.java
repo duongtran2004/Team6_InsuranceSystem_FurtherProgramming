@@ -7,6 +7,8 @@ import javafx.stage.Stage;
 import org.example.insurancemanagementapplication.Controller.DashBoardController.*;
 import org.example.insurancemanagementapplication.Utility.StageBuilder;
 
+import java.util.Iterator;
+
 /**
  * @author Luong Thanh Trung
  * @version ${}
@@ -36,6 +38,10 @@ public class RootController {
 
         } else if (user instanceof PolicyHolder) {
             PolicyHolder policyHolder = entityManager.find(PolicyHolder.class, user.getId());
+            Iterator<Claim> claimIterator = policyHolder.getListOfClaims().iterator();
+            while (claimIterator.hasNext()){
+                System.out.println(claimIterator.next().getClaimId());
+            }
             PolicyHolderDashBoardController dashBoardControllerPolicyHolder = new PolicyHolderDashBoardController(policyHolder, entityManager);
             StageBuilder.showStage((Stage) returnButton.getScene().getWindow(), dashBoardControllerPolicyHolder, "PolicyHolderDashBoard.fxml", "Dashboard");
 

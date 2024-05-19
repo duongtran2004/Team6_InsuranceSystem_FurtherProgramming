@@ -19,11 +19,12 @@ class ClaimCreateRemoveTest {
 
     @Test
     void createClaim() throws IOException {
+
         Date today = new Date();
         java.sql.Date sqlToday = new java.sql.Date(today.getTime());
         Dependant dependant = entityManager.find(Dependant.class, "DE4123996892");
         InsuranceManager insuranceManager = EmployeeRead.findRandomInsuranceManager(entityManager);
-        File file = new File("src/main/resources/org/example/insurancemanagementapplication/SampleImage/shrek.jpg");
+        File file = new File("src/org.example.insurancemanagementapplication.main/resources/org/example/insurancemanagementapplication/SampleImage/shrek.jpg");
 
        ClaimCreateRemove.createClaim(entityManager, "F44453446", sqlToday, dependant, dependant.getPolicyOwner(), dependant.getInsuranceCard(), insuranceManager, "ggd", "gegds", "3344", Files.readAllBytes(Path.of(file.getPath())));
 

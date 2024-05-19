@@ -114,7 +114,7 @@ v  ~StubRoutines::call_stub 0x0000013f190d100d
 Compiled method (n/a) 1041 1181     n 0       java.lang.ClassLoader::defineClass1 (native)
  total in heap  [0x0000013f1987f010,0x0000013f1987f650] = 1600
  relocation     [0x0000013f1987f168,0x0000013f1987f1a0] = 56
- main code      [0x0000013f1987f1a0,0x0000013f1987f64f] = 1199
+ org.example.insurancemanagementapplication.main code      [0x0000013f1987f1a0,0x0000013f1987f64f] = 1199
  stub code      [0x0000013f1987f64f,0x0000013f1987f650] = 1
 
 [Constant Pool (empty)]
@@ -215,7 +215,7 @@ Compiled method (n/a) 1041 1181     n 0       java.lang.ClassLoader::defineClass
 Compiled method (c1) 1049 1180       3       java.lang.ClassLoader::defineClass (43 bytes)
  total in heap  [0x0000013f11e60f90,0x0000013f11e618e8] = 2392
  relocation     [0x0000013f11e610e8,0x0000013f11e61188] = 160
- main code      [0x0000013f11e611a0,0x0000013f11e61640] = 1184
+ org.example.insurancemanagementapplication.main code      [0x0000013f11e611a0,0x0000013f11e61640] = 1184
  stub code      [0x0000013f11e61640,0x0000013f11e616b8] = 120
  metadata       [0x0000013f11e616b8,0x0000013f11e616e8] = 48
  scopes data    [0x0000013f11e616e8,0x0000013f11e617d8] = 240
@@ -506,7 +506,7 @@ Compiled method (c1) 1049 1180       3       java.lang.ClassLoader::defineClass 
 Compiled method (c1) 1058 1458       3       java.security.SecureClassLoader::defineClass (16 bytes)
  total in heap  [0x0000013f11ef5410,0x0000013f11ef5810] = 1024
  relocation     [0x0000013f11ef5568,0x0000013f11ef55b8] = 80
- main code      [0x0000013f11ef55c0,0x0000013f11ef5718] = 344
+ org.example.insurancemanagementapplication.main code      [0x0000013f11ef55c0,0x0000013f11ef5718] = 344
  stub code      [0x0000013f11ef5718,0x0000013f11ef5768] = 80
  metadata       [0x0000013f11ef5768,0x0000013f11ef5770] = 8
  scopes data    [0x0000013f11ef5770,0x0000013f11ef57b8] = 72
@@ -633,7 +633,7 @@ _java_thread_list=0x0000013f7226fdb0, length=21, elements={
 }
 
 Java Threads: ( => current thread )
-  0x0000013f07730f50 JavaThread "main"                              [_thread_blocked, id=28300, stack(0x0000003e3eb00000,0x0000003e3ec00000) (1024K)]
+  0x0000013f07730f50 JavaThread "org.example.insurancemanagementapplication.main"                              [_thread_blocked, id=28300, stack(0x0000003e3eb00000,0x0000003e3ec00000) (1024K)]
   0x0000013f2c1b1cc0 JavaThread "Reference Handler"          daemon [_thread_blocked, id=14012, stack(0x0000003e3f300000,0x0000003e3f400000) (1024K)]
   0x0000013f2c1b2ef0 JavaThread "Finalizer"                  daemon [_thread_blocked, id=27108, stack(0x0000003e3f400000,0x0000003e3f500000) (1024K)]
   0x0000013f2c1b56f0 JavaThread "Signal Dispatcher"          daemon [_thread_blocked, id=25632, stack(0x0000003e3f500000,0x0000003e3f600000) (1024K)]

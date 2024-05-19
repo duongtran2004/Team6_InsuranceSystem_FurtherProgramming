@@ -139,7 +139,6 @@ public class InsuranceManagerTableFilling extends InsuranceSurveyorTableFilling 
         while (listIteratorInsuranceManager.hasNext()) {
             InsuranceManager insuranceManager = listIteratorInsuranceManager.next();
             //reassign from database object
-            insuranceManager = entityManager.find(InsuranceManager.class, insuranceManager.getId());
             //set total resolved claims
             insuranceManager.setTotalResolvedClaims(ClaimRead.countTotalResolvedClaimOfAnInsuranceManager(insuranceManager));
             Button buttonUpdateInfo = new Button("Update Info");
@@ -147,7 +146,7 @@ public class InsuranceManagerTableFilling extends InsuranceSurveyorTableFilling 
             insuranceManager.setUpdateInfoButton(buttonUpdateInfo);
             //The update info button on each row will create a CreationPage Controller in update mode for the corresponding insurance manager by passing in the insurance manager object
             //It will then open the Insurance Manager Creation Form
-            InsuranceManager finalInsuranceManager = insuranceManager;
+            InsuranceManager finalInsuranceManager = entityManager.find(InsuranceManager.class, insuranceManager.getId());
             buttonUpdateInfo.setOnAction(event -> {
                 CreationAndUpdatePageControllerInsuranceManager insuranceManagerCreationPageController = new CreationAndUpdatePageControllerInsuranceManager(entityManager, user, finalInsuranceManager);
                 StageBuilder.showStage((Stage) buttonUpdateInfo.getScene().getWindow(), insuranceManagerCreationPageController, "InsuranceManagerCreationAndUpdatePage.fxml", "Insurance Manager Update");

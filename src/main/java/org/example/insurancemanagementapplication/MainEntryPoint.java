@@ -1,6 +1,5 @@
 package org.example.insurancemanagementapplication;
 
-import Entity.PolicyHolder;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -8,7 +7,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.example.insurancemanagementapplication.Controller.DashBoardController.PolicyHolderDashBoardController;
+import org.example.insurancemanagementapplication.Controller.LogInPageController;
 
 import java.io.IOException;
 
@@ -17,28 +16,11 @@ public class MainEntryPoint extends Application {
     public void start(Stage stage) throws IOException {
 
         //run different fxml files for testing
+        FXMLLoader fxmlLoader = new FXMLLoader(MainEntryPoint.class.getResource("LogInPage.fxml"));
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        //System.out.println(insuranceSurveyor);
-
-
-
-//        //Load System Admin DashBoard
-        FXMLLoader fxmlLoader = new FXMLLoader(MainEntryPoint.class.getResource("PolicyHolderDashBoard.fxml"));
-        PolicyHolder policyHolder = entityManager.find(PolicyHolder.class, "PH5264972101");
-        PolicyHolderDashBoardController policyHolderDashBoardController = new PolicyHolderDashBoardController(policyHolder, entityManager);
-        fxmlLoader.setController(policyHolderDashBoardController);
-
-////
-//        //Load login page
-////        System.out.println("Hello After Entity Manager");
-        //FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("LogInPage.fxml"));
-        //LogInPageController logInPageController = new LogInPageController(entityManager);;
-        //fxmlLoader.setController(logInPageController);
-
-
-
-
+        LogInPageController logInPageController = new LogInPageController(entityManager);
+        fxmlLoader.setController(logInPageController);
 
 
 
@@ -97,8 +79,9 @@ public class MainEntryPoint extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) {
+    public static void launchApp(){
         launch();
-
     }
+
+
 }

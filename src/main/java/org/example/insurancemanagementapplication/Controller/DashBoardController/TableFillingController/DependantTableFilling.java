@@ -180,7 +180,7 @@ public class DependantTableFilling extends ClaimTableFilling {
         while (dependantListIterator.hasNext()) {
             Dependant dependant = dependantListIterator.next();
             //reassign from database object
-            dependant = entityManager.find(Dependant.class, dependant.getId());
+
             //setter
             dependant.setTotalSuccessfulClaimAmount(ClaimRead.getTotalSuccessfulClaimAmountMadeByABeneficiary((Beneficiaries) dependant));
 
@@ -199,7 +199,7 @@ public class DependantTableFilling extends ClaimTableFilling {
                 buttonUpdateInfo.setText("Update Info");
                 //Create a CreationAndUpdatePageController for the Dependant in Update mode by passing in the dependant object to the constructor
                 //Open a new scene on the existing stage by calling the showStage static method from the Repeated Code Class
-                Dependant finalDependant = dependant;
+                Dependant finalDependant = entityManager.find(Dependant.class, dependant.getId());;
                 buttonUpdateInfo.setOnAction(event -> {
                     CreationAndUpdatePageControllerDependant creationPageControllerDependant = new CreationAndUpdatePageControllerDependant(entityManager, user, finalDependant);
                     StageBuilder.showStage((Stage) buttonUpdateInfo.getScene().getWindow(), creationPageControllerDependant, "DependantCreationAndUpdatePage.fxml", "Dependant Update");

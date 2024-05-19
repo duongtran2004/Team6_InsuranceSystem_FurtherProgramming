@@ -14,7 +14,7 @@ public interface ActionHistoryRead {
     static List<ActionHistory> readFromActionHistoryFile(String userId, ObservableList<ActionHistory> actionHistories) throws IOException {
         String fileName = userId + "_action_history.txt";
 
-        String filePath = "src/main/resources/org/example/insurancemanagementapplication/ActionHistoryFiles" + "/" + fileName;
+        String filePath = "src/org.example.insurancemanagementapplication.main/resources/org/example/insurancemanagementapplication/ActionHistoryFiles" + "/" + fileName;
         List<ActionHistory> actionHistoryList = new ArrayList<>();
 
         try (FileInputStream fileInputStream = new FileInputStream(filePath);

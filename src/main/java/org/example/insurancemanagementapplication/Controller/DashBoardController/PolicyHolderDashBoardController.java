@@ -2,7 +2,6 @@ package org.example.insurancemanagementapplication.Controller.DashBoardControlle
 
 import Entity.ActionHistory;
 import Entity.Beneficiaries;
-import Entity.Claim;
 import Entity.PolicyHolder;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -23,7 +22,6 @@ import org.example.insurancemanagementapplication.Utility.StageBuilder;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -137,7 +135,7 @@ public class PolicyHolderDashBoardController extends DependantTableFilling imple
         //FILLING TABLE USING THREADS
 
         PolicyHolder policyHolder = (PolicyHolder) user;
-        ClaimTableFillingThread claimTableFillingThread = new ClaimTableFillingThread((List<Claim>) policyHolder.getListOfClaims(), this);
+        ClaimTableFillingThread claimTableFillingThread = new ClaimTableFillingThread(ClaimRead.getAllClaimsFromABeneficiary(entityManager, user.getId()), this);
         claimTableFillingThread.start();
 
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");

@@ -78,7 +78,7 @@ _java_thread_list=0x000002a1680a6620, length=25, elements={
 }
 
 Java Threads: ( => current thread )
-  0x000002a1785f1050 JavaThread "main"                              [_thread_in_native, id=3164, stack(0x000000b788200000,0x000000b788300000) (1024K)]
+  0x000002a1785f1050 JavaThread "org.example.insurancemanagementapplication.main"                              [_thread_in_native, id=3164, stack(0x000000b788200000,0x000000b788300000) (1024K)]
   0x000002a17fa5d390 JavaThread "Reference Handler"          daemon [_thread_blocked, id=16916, stack(0x000000b788a00000,0x000000b788b00000) (1024K)]
   0x000002a17fa5e2b0 JavaThread "Finalizer"                  daemon [_thread_blocked, id=23380, stack(0x000000b788b00000,0x000000b788c00000) (1024K)]
   0x000002a17fa602e0 JavaThread "Signal Dispatcher"          daemon [_thread_blocked, id=8760, stack(0x000000b788c00000,0x000000b788d00000) (1024K)]

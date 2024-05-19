@@ -102,7 +102,7 @@ public class InsuranceCardTableFilling extends DependantTableFilling {
             if (user instanceof SystemAdmin || user instanceof PolicyOwner) {
                 Button buttonRemove = new Button("Remove");
                 buttonList.add(buttonRemove);
-                InsuranceCard finalInsuranceCard = insuranceCard;
+                InsuranceCard finalInsuranceCard = insuranceCard = entityManager.find(InsuranceCard.class, insuranceCard.getCardNumber());
                 buttonRemove.setOnAction(event -> {
                     InsuranceCard newInsuranceCard = new InsuranceCard();
                     newInsuranceCard.setPolicyOwner(finalInsuranceCard.getPolicyOwner());

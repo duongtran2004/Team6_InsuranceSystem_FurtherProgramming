@@ -155,7 +155,6 @@ public class PolicyHolderTableFilling extends InsuranceCardTableFilling {
         //Add policy holders to the observable list
         while (policyHolderListIterator.hasNext()) {
             PolicyHolder policyHolder = policyHolderListIterator.next();
-            policyHolder = entityManager.find(PolicyHolder.class, policyHolder.getId());
             //setter
             policyHolder.setTotalSuccessfulClaimAmount(ClaimRead.getTotalSuccessfulClaimAmountMadeByABeneficiary((Beneficiaries) policyHolder));
             Button buttonUpdateInfo = new Button("Update Info");
@@ -171,7 +170,7 @@ public class PolicyHolderTableFilling extends InsuranceCardTableFilling {
             if (user instanceof SystemAdmin || user instanceof Customer) {
                 //The Update Info Button will create a CreationPage Controller for the policy holder in update mode by passing in the policy holder object
                 //It will then open the Policy Holder Creation Page
-                PolicyHolder finalPolicyHolder = policyHolder;
+                PolicyHolder finalPolicyHolder = entityManager.find(PolicyHolder.class, policyHolder.getId());
                 buttonUpdateInfo.setOnAction(event -> {
                     CreationAndUpdatePageControllerPolicyHolder creationPageControllerPolicyHolder = new CreationAndUpdatePageControllerPolicyHolder(entityManager, user, finalPolicyHolder);
                     StageBuilder.showStage((Stage) buttonUpdateInfo.getScene().getWindow(), creationPageControllerPolicyHolder, "PolicyHolderCreationAndUpdatePage.fxml", "Policy Holder Update");

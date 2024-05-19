@@ -92,6 +92,7 @@ public interface ClaimUpdate {
             transaction.begin();
 //            entityManager.persist(claim);
             claim.setClaimAmount(claimAmount);
+            claim.setSettlementDate(settlementDate);
             claim.setStatus(status);
             transaction.commit();
         } finally {

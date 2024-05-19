@@ -171,12 +171,11 @@ public class PolicyOwnerTableFilling extends PolicyHolderTableFilling {
 
             PolicyOwner policyOwner = policyOwnerListIterator.next();
 
-            //reassign object from database
-            policyOwner = entityManager.find(PolicyOwner.class, policyOwner.getId());
+
             //call interface method to get all claims of a policy owner
             List<Claim> policyOwnerClaimList = ClaimRead.getAllClaimsFromBeneficiariesOfAPolicyOwner(entityManager, policyOwner.getId());
 
-            PolicyOwner finalPolicyOwner = policyOwner;
+            PolicyOwner finalPolicyOwner = entityManager.find(PolicyOwner.class, policyOwner.getId());;
             policyOwner.setTotalSuccessfulClaimAmount(ClaimRead.getTotalSuccessfulClaimAmountMadeByAPolicyOwner(policyOwnerClaimList));
             Button buttonUpdateInfo = new Button("Update Info");
             Button buttonAddPolicy = new Button("Add Policy");

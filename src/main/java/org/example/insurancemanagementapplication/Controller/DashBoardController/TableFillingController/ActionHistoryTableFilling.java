@@ -42,7 +42,7 @@ public class ActionHistoryTableFilling extends RootController {
     }
 
 
-    //main method to fill the actionHistoryTable
+    //org.example.insurancemanagementapplication.main method to fill the actionHistoryTable
 
     public void fillingActionHistoryTable(User user) {
         //try to fill table

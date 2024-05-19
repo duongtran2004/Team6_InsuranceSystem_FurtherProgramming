@@ -15,13 +15,13 @@ import org.example.insurancemanagementapplication.Utility.IDGenerator;
 import org.example.insurancemanagementapplication.Utility.InputValidator;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
 
@@ -101,6 +101,27 @@ public class CreationAndUpdatePageControllerClaim extends CreationAndUpdatePageC
 
     }
 
+    private void openFileChooser() {
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                javax.swing.JFileChooser jFileChooser= new JFileChooser();
+                int response =  jFileChooser.showOpenDialog(null);
+                if (response == JFileChooser.APPROVE_OPTION) {
+                    File uploadedfile = new File(jFileChooser.getSelectedFile().getAbsolutePath());
+                    filePathLabel.setText(uploadedfile.getAbsolutePath());
+                    try {
+                        file = Files.readAllBytes(Path.of(uploadedfile.getPath()));
+
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                }
+            }
+        });
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -122,20 +143,8 @@ public class CreationAndUpdatePageControllerClaim extends CreationAndUpdatePageC
             }
         });
         uploadDocumentButton.setOnAction(event -> {
-            JFileChooser jFileChooser = new JFileChooser();
-            int response = jFileChooser.showOpenDialog(null);
-
-            if (response == JFileChooser.APPROVE_OPTION) {
-                File uploadedfile = new File(jFileChooser.getSelectedFile().getAbsolutePath());
-                filePathLabel.setText(uploadedfile.getAbsolutePath());
-                try {
-                    file = Files.readAllBytes(Path.of(uploadedfile.getPath()));
-
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-
-            }
+            System.out.println("Hello");
+            openFileChooser();
 
         });
         setActionReturnButton();
@@ -254,17 +263,18 @@ public class CreationAndUpdatePageControllerClaim extends CreationAndUpdatePageC
             String[] status = {"NEW"};
             statusChoiceBox.getItems().addAll(status);
             String insuranceSurveyorID = insuranceSurveyorIDField.getText();
+            System.out.println(insuranceSurveyorID);
+            InsuranceSurveyor insuranceSurveyor = entityManager.find(InsuranceSurveyor.class, insuranceSurveyorID);
+            System.out.println(insuranceSurveyor);
             //Define handler for the submit button in case the claim's status is "NEW". The manager could only update the claim's Insurance Surveyor in this case
             submitButton.setOnAction(event -> {
-                ArrayList<InsuranceSurveyor> insuranceSurveyors = (ArrayList<InsuranceSurveyor>) ((InsuranceManager) user).getListOfSurveyors();
-                for (int i = 0; i < insuranceSurveyors.size(); i++) {
-                    if (insuranceSurveyors.get(i).getId().equals(insuranceSurveyorID)) {
-                        ClaimUpdate.updateClaim(entityManager, claim, insuranceSurveyors.get(i).getId());
-                        break;
-                    } else {
-                        errorContainer.setText("Insurance Surveyor either does not exist or not belong to you");
-                    }
+                try{
+                    ClaimUpdate.updateClaim(entityManager, claim, entityManager.find(InsuranceSurveyor.class, insuranceSurveyor));
+                } catch (Exception e){
+                    errorContainer.setText("Insurance Surveyor either does not exist or not belong to you");
+                    throw(e);
                 }
+
 
             });
         }

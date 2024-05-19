@@ -159,7 +159,7 @@ public class InsuranceManagerDashBoardController extends InsuranceSurveyorTableF
         entityManagerInsuranceCard.close();
 
         EntityManager entityManagerInsuranceSurveyor = entityManagerFactory.createEntityManager();
-        InsuranceSurveyorTableFillingThread insuranceSurveyorTableFillingThread = new InsuranceSurveyorTableFillingThread(EmployeeRead.getAllInsuranceSurveyorOfAnInsuranceManager(entityManager, user.getId()), this);
+        InsuranceSurveyorTableFillingThread insuranceSurveyorTableFillingThread = new InsuranceSurveyorTableFillingThread(EmployeeRead.getAllInsuranceSurveyorOfAnInsuranceManager(entityManagerInsuranceSurveyor, user.getId()), this);
         insuranceSurveyorTableFillingThread.start();
         entityManagerInsuranceSurveyor.close();
 

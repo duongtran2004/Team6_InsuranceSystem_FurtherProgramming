@@ -12,7 +12,7 @@ class CreationAndUpdatePageControllerClaimTest {
     @Test
     void createMode() throws IOException {
         //check upload file
-        File shrekFile = new File("src/main/resources/org/example/insurancemanagementapplication/SampleImage/shrek.jpg");
+        File shrekFile = new File("src/org.example.insurancemanagementapplication.main/resources/org/example/insurancemanagementapplication/SampleImage/shrek.jpg");
 
         Files.readAllBytes(Path.of(shrekFile.getPath()));
     }
