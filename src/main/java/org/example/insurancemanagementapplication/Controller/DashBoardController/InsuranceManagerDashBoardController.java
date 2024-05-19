@@ -1,5 +1,6 @@
 package org.example.insurancemanagementapplication.Controller.DashBoardController;
 
+import Entity.ActionHistory;
 import Entity.Claim;
 import Entity.InsuranceManager;
 import jakarta.persistence.EntityManager;
@@ -109,9 +110,11 @@ public class InsuranceManagerDashBoardController extends InsuranceSurveyorTableF
         });
         updateInfoButton.setOnAction(event -> {
             String message = InputValidator.validatingUser(emailField.getText(), passwordField.getText(), phoneNumberField.getText(), addressField.getText(), passwordValidationField.getText());
+            errorContainer.setText(message);
             if (message.equals("Success")) {
-                EmployeeUpdate.updateInsuranceManager
-                        (entityManager, (InsuranceManager) user, addressField.getText(), phoneNumberField.getText(), addressField.getText(), passwordField.getText());
+                EmployeeUpdate.updateInsuranceManager(entityManager, (InsuranceManager) user, addressField.getText(), phoneNumberField.getText(), addressField.getText(), passwordField.getText());
+                ActionHistory actionHistory = ActionHistoryCreate.createActionHistoryObject("UPDATE", "Insurance Manager", user.getId());
+                ActionHistoryCreate.writeToActionHistoryObjectToFile(user.getId(), actionHistory);
             } else {
                 errorContainer.setText(message);
             }

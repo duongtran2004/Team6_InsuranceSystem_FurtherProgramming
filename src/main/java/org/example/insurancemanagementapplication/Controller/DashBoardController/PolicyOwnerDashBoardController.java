@@ -114,6 +114,7 @@ public class PolicyOwnerDashBoardController extends PolicyHolderTableFilling imp
         });
         updateInfoButton.setOnAction(event -> {
             String message = InputValidator.validatingUser(emailField.getText(), passwordField.getText(), phoneNumberField.getText(), addressField.getText(), passwordValidationField.getText());
+            errorContainer.setText(message);
             if (message.equals("Success")) {
                 CustomerUpdate.updatePolicyOwner
                         (entityManager, (PolicyOwner) user, addressField.getText(), phoneNumberField.getText(), addressField.getText(), passwordField.getText());
