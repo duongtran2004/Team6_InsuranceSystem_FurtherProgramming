@@ -208,7 +208,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                org.example.insurancemanagementapplication.MainEntryPoint
+                                org.example.insurancemanagementapplication.main
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
